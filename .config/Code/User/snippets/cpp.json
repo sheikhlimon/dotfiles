@@ -1,0 +1,29 @@
+{
+	"cppboilerplate": {
+		"prefix": "cpp",
+		"body": [
+			"#include <bits/stdc++.h>",
+			"using namespace std;",
+			"\nint main()",
+			"{",
+			"\t$0",
+			"\n\treturn 0;",
+			"}",
+		],
+		"description": "main cpp boilerplate"
+	},
+	"fastread": {
+		"prefix": "ocpp",
+		"body": [
+			"#include <bits/stdc++.h>",
+			"using namespace std;",
+			"\nint main()",
+			"{",
+			"\tios::sync_with_stdio(0), cin.tie(0);",
+			"\n\t$0",
+			"\n\treturn 0;",
+			"}",
+		],
+		"description": "main cpp boilerplate with fastread enabled"
+	}
+}

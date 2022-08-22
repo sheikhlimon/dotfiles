@@ -1,0 +1,159 @@
+{
+    //vim keybindings
+    "vim.easymotion": true,
+    "vim.hlsearch": true,
+    "vim.useCtrlKeys": false,
+    // "vim.foldfix": true,
+    // "vim.useSystemClipboard": true,
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-y>": true,
+        "<C-e>": true,
+        "<C-f>": true,
+        "<C-b>": true,
+        "<C-r>": true,
+        "<C-v>": true,
+        "<C-h>": true
+    },
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<esc>"
+            ]
+        },
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            //search items refreshed
+            "before": [
+                "<leader>",
+                "r",
+                "f"
+            ],
+            "commands": [
+                ":nohl"
+            ]
+        },
+        {
+            //set number
+            "before": [
+                "<leader>",
+                "l",
+                "n"
+            ],
+            "commands": [
+                ":set nu"
+            ]
+        },
+        {
+            //set relativenumber
+            "before": [
+                "<leader>",
+                "r",
+                "n"
+            ],
+            "commands": [
+                ":set rnu"
+            ]
+        },
+        {
+            // Save file
+            "before": [
+                "<leader>",
+                "s"
+            ],
+            "commands": [
+                ":w"
+            ]
+        },
+        {
+            // focus explorer
+            "before": [
+                "<leader>",
+                "e"
+            ],
+            "commands": [
+                "workbench.view.explorer"
+            ]
+        },
+        {
+            //move a line down
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "lineBreakInsert"
+            ],
+            "silent": true
+        },
+        {
+            // Move lines down by 2 instead of 1
+            "before": [
+                "<C-e>"
+            ],
+            "after": [
+                "2",
+                "<C-e>"
+            ]
+        },
+        {
+            // Move lines up by 2 instead of 1
+            "before": [
+                "<C-y>"
+            ],
+            "after": [
+                "2",
+                "<C-y>"
+            ]
+        }
+    ],
+    //editor
+    "window.zoomLevel": 1.5,
+    "files.autoSave": "onFocusChange",
+    "editor.lineNumbers": "on",
+    "workbench.startupEditor": "none",
+    "editor.renderWhitespace": "none",
+    "editor.fontSize": 18,
+    "editor.fontFamily": "Hack Nerd Font",
+    "editor.fontLigatures": true,
+    "editor.renderLineHighlight": "all",
+    "explorer.compactFolders": false,
+    "editor.wordWrap": "on",
+    "editor.minimap.enabled": false,
+    "editor.bracketPairColorization.enabled": true,
+    "window.menuBarVisibility": "toggle",
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.confirmDelete": false,
+    //format on save and formatter
+    "editor.formatOnSave": true,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    //c/c++ intellisence
+    "C_Cpp.autocomplete": "Disabled",
+    //theme
+    "workbench.iconTheme": "vs-nomo-dark",
+    "workbench.colorTheme": "Default Dark+",
+    //cursor
+    "workbench.colorCustomizations": {
+        "editorCursor.foreground": "#bbbaba",
+        "terminalCursor.foreground": "#bbbaba"
+    },
+    //terminal
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.persistentSessionReviveProcess": "never",
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.rightClickBehavior": "copyPaste",
+    "terminal.integrated.shellIntegration.enabled": false,
+    "breadcrumbs.enabled": false,
+    "workbench.activityBar.visible": false,
+}
