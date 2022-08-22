@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# rofi theme
+theme="$HOME/.config/rofi/main_without_icons.rasi"
+
+get_options() {
+  echo " Poweroff"
+  echo " Reboot"
+  echo " Hibernate"
+}
+
+main() {
+
+  # get choice from rofi
+  choice=$( (get_options) | rofi -dmenu -i -fuzzy -p "" -theme "$theme")
+
+  # run the selected command
+  case $choice in
+  ' Poweroff')
+    systemctl poweroff
+    ;;
+  ' Reboot')
+    systemctl reboot
+    ;;
+  ' Suspend')
+    systemctl suspend
+    ;;
+  esac
+
+  # done
+  set -e
+}
+
+main &
+
+exit 0
