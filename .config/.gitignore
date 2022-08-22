@@ -1,0 +1,19 @@
+dconf/
+Code/
+discord/
+gh/
+geany/
+google-chrome/
+notion-app-enhanced/
+nvim/
+viewnior/
+nemo/
+xfce4/xfconf/
+xfce4/helpers.rc
+Unknown Organization/
+
+mimeapps.list
+pavucontrol.ini
+user-dirs.dirs
+user-dirs.locale
+zoomus.conf
