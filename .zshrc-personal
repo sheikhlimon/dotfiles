@@ -28,7 +28,6 @@ alias parsyu='paru -Syu --noconfirm'
 alias updatefonts='sudo fc-cache -fv'
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' #Cleanup orphaned packages
 alias wget="wget -c" # continue the download
-alias zathura='devour zathura'
 
 # compile and run cpp
 #co() { g++ -std=c++17 -o "./a.out" $1 -Wall; }
