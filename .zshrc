@@ -9,7 +9,7 @@ fi
 
 #exports
 #ZSH_THEME="simple"
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/.srcs/.oh-my-zsh"
 export EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -73,7 +73,7 @@ _comp_options+=(globdots) # lets you tab complete hidden files by default
 
 
 # Load ; should be last
-source $ZSH/oh-my-zsh.sh
+source "$ZSH"/oh-my-zsh.sh
 
 [[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
 

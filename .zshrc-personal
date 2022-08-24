@@ -18,7 +18,6 @@ alias lst='exa -lahFT --color=always --icons --sort=size --group-directories-fir
 alias less='bat'
 alias matrix='unimatrix -f -l ocCgGkS -s 96'
 alias mem="ps axch -o cmd:15,%mem --sort=-%mem | head"
-alias merge="xrdb -merge ~/.Xresources"
 alias mirror="sudo reflector -f 10 -l 10 --number 10 --verbose --save /etc/pacman.d/mirrorlist" # update your mirrors
 alias mpv='devour mpv'
 alias mv='mv -i'
@@ -28,6 +27,7 @@ alias parsyu='paru -Syu --noconfirm'
 alias updatefonts='sudo fc-cache -fv'
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' #Cleanup orphaned packages
 alias wget="wget -c" # continue the download
+alias help="cat ~/.zshrc-personal | less"
 
 # compile and run cpp
 #co() { g++ -std=c++17 -o "./a.out" $1 -Wall; }
