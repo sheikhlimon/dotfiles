@@ -82,7 +82,7 @@ Arch Linux & bspwm dotfiles
 
 8. set nvim
   ```sh
-  Make sure to delete this folder ~/.local/share/nvim
+    Make sure to delete this folder ~/.local/share/nvim
   git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
-  ln -s ./.config/nvchad/custom ./.config/nvim/lua/custom
+    ln -s ./.config/nvchad/custom ./.config/nvim/lua/custom
   ```
