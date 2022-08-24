@@ -1,7 +1,7 @@
 # sheikhlimon Dotfiles
 **Arch Linux** & **bspwm** dotfiles!
 
-![](https://ibb.co/6PdCdsp?raw=true)
+![](https://ibb.co/6PdCdsp)
 
 [Information](#information) ·
 [Installation](#installation) ·
