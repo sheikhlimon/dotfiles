@@ -48,7 +48,7 @@ Detailed information and dependencies
     git clone https://www.github.com/sheikhlimon/dotfiles.git
     ```
 
-2. Install an AUR helper (for example, `yay` in `"$HOME"/.srcs`).
+2. Install an AUR helper (for example, `paru` in `"$HOME"/.srcs`).
     ```sh
     git clone https://aur.archlinux.org/paru.git "$HOME/.scrs/paru"
 	cd "$HOME"/.srcs/paru/ && makepkg -si
