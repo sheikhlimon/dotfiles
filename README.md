@@ -57,12 +57,12 @@ Arch Linux & bspwm dotfiles
 
 5. Copy configs, scripts, fonts, set gtk theme, vsc configs, zsh config.
     ```sh
-    cp -r ./config/* "$HOME"/.config
-    sudo cp -r ./scripts/* /usr/local/bin
-    sudo cp -r ./fonts/* /usr/share/fonts
-    cp ./.zshrc "$HOME"
-    cp ./.zhsrc-personal "$HOME"
-    cp ./.gitconfig "$HOME"
+    cp -r ./dotfiles/.config/* "$HOME"/.config
+    sudo cp -r ./dotfiles/scripts/* /usr/local/bin
+    sudo cp -r ./dotfiles/fonts/* /usr/share/fonts
+    cp -r ./dotfiles/.zshrc "$HOME"
+    cp -r ./dotfiles/.zshrc-personal "$HOME"
+    cp -r ./dotfiles/.gitconfig "$HOME"
     ```
 
 6. set zsh as default shell, refresh font cache.
@@ -81,8 +81,9 @@ Arch Linux & bspwm dotfiles
     ```
 
 8. set nvim
-  ```sh
+    ```sh
     Make sure to delete this folder ~/.local/share/nvim
-  git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
+    git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
     ln -s ./.config/nvchad/custom ./.config/nvim/lua/custom
-  ```
+    ```
+
