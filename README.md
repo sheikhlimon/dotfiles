@@ -1,11 +1,9 @@
 # sheikhlimon Dotfiles
 **Arch Linux** & **bspwm** dotfiles!
 
-![](https://ibb.co/6PdCdsp)
+![1](https://user-images.githubusercontent.com/76746201/186396011-acc6a278-6323-48b6-a3ed-459165bd2673.png)
 
-[Information](#information) ·
-[Installation](#installation) ·
-[Contact](#note) .
+
 
 <details>
 <summary><b>
