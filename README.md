@@ -25,7 +25,7 @@ Arch Linux & bspwm dotfiles
 
 **Base:** alsa-utils base-devel git pulseaudio pulseaudio-alsa xorg 
 
-**Required:**lightdm bspwm xfce4-terminal alacritty htop visual-studio-code dunst feh firefox libnotify mpv nemo neofetch neovim papirus-icon-theme picom polybar ranger rofi maim scrot slop xclip zathura zsh viewnior lxapperance pavucontrol discord geany zoom xdotool xdg-user-dirs sxhkd gpick 
+**Required:** lightdm bspwm xfce4-terminal alacritty htop visual-studio-code dunst feh firefox libnotify mpv nemo neofetch neovim papirus-icon-theme picom polybar ranger rofi maim scrot slop xclip zathura zsh viewnior lxapperance pavucontrol discord geany zoom xdotool xdg-user-dirs sxhkd gpick 
 
 **Emoji:** fonts: noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nerd-fonts-jetbrains-mono nerd-fonts-hack adobe-source-code-pro-fonts
 
@@ -87,3 +87,4 @@ Arch Linux & bspwm dotfiles
     ln -s ./.config/nvchad/custom ./.config/nvim/lua/custom
     ```
 
+**Not as beautiful as your mom but it's good enough**
