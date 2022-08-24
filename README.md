@@ -1,12 +1,23 @@
-Arch Linux & bspwm dotfiles
+# sheikhlimon Dotfiles
+**Arch Linux** & **bspwm** dotfiles!
 
+![](https://ibb.co/6PdCdsp?raw=true)
+
+[Information](#information) ·
+[Installation](#installation) ·
+[Contact](#note) .
+
+<details>
+<summary><b>
+Detailed information and dependencies
+</b></summary>
 
 ## Information
 
 - **Guide** [Installing Arch] (https://itsfoss.com/install-arch-linux)
 - **OS:** [Arch Linux](https://archlinux.org)
 - **WM:** [bspwm](https://github.com/baskerville/bspwm)
-- **Terminal:** [alacritty](https://github.com/alacritty/alacritty)
+- **Terminal:** [xfce4-terminal](https://github.com/xfce-mirror/xfce4-terminal)
 - **Bar:** [polybar](https://github.com/polybar/polybar)
 - **Shell:** [zsh](https://www.zsh.org/)
 - **Compositor:** [picom](https://github.com/yshui/picom)
@@ -29,6 +40,8 @@ Arch Linux & bspwm dotfiles
 
 **Emoji:** fonts: noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nerd-fonts-jetbrains-mono nerd-fonts-hack adobe-source-code-pro-fonts
 
+</details>
+
 
 ### Manual Installation
 
@@ -45,7 +58,7 @@ Arch Linux & bspwm dotfiles
 
 3. Install dependencies.
     ```sh
-    paru -S --needed xfce4-terminal alacritty htop visual-studio-code dunst feh firefox libnotify mpv nemo neofetch neovim papirus-icon-theme picom polybar ranger rofi maim scrot slop xclip zathura zsh viewnior lxapperance pavucontrol discord geany zoom xdotool xdg-user-dirs sxhkd gpick nordic-darker-theme 
+    paru -S --needed xfce4-terminal alacritty htop visual-studio-code dunst feh firefox libnotify mpv nemo neofetch neovim papirus-icon-theme picom polybar ranger rofi maim scrot slop xclip zathura zsh viewnior lxapperance pavucontrol discord geany zoom xdotool xdg-user-dirs sxhkd gpick nordic-darker-theme bat unimatrix
     ```
 
 4. Create default directories.
@@ -87,4 +100,11 @@ Arch Linux & bspwm dotfiles
     ln -s ./.config/nvchad/custom ./.config/nvim/lua/custom
     ```
 
+
+## SIDE NOTE
+
 **Not as beautiful as your mom but it's good enough**
+
+But still, if you need any help, you can contact me on **[discord](https://discord.gg/nArdjdyH)**.
+
+
