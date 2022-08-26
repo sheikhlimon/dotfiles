@@ -108,10 +108,9 @@ Detailed information and dependencies
 | `Super + X`                | Launch Powermenu                         |
 | `Super + Enter`            | Launch Terminal (xfce4-terminal)         |
 | `Super + C`                | Close/Kill Window                        |
-| `Super + R`                | Launch rofi
-            |
+| `Super + R`                | Launch rofi                              |
 | `Super + Shft + W`         | Launch Firefox                           |
-| `Super + Shft + F`         | Launch Nemo                            |
+| `Super + Shft + F`         | Launch Nemo                              |
 | `Super + Shft + R`         | Ranger Quick Launch                      |
 | `PrtSc`                    | Screenshot                               |
 | `Ctrl + PtrSc`             | Screenshot Active Window                 |
