@@ -93,16 +93,35 @@ Detailed information and dependencies
 
 8. set nvim
     ```sh
-    Make sure to delete this folder ~/.local/share/nvim
+    rm -rf ~/.local/share/nvim
     git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
     ln -s ./.config/nvchad/custom ./.config/nvim/lua/custom
     ```
 
+## Keybindings
+|        Keybind             |                 Function                 |
+| -------------------------- | ---------------------------------------- |
+| `Ctrl + Shft + Q`          | Log Out Session                          |
+| `Ctrl + Shft + R`          | Reload Current Session                   |
+| `Super + [1..4]`           | Switches to Workspace 1 to 4             |
+| `Super + Shft + [1..4]`    | Move Apps/Windows to Workspace 1 to 4    |
+| `Super + X`                | Launch Powermenu                         |
+| `Super + Enter`            | Launch Terminal (xfce4-terminal)         |
+| `Super + C`                | Close/Kill Window                        |
+| `Super + R`                | Launch rofi
+            |
+| `Super + Shft + W`         | Launch Firefox                           |
+| `Super + Shft + F`         | Launch Nemo                            |
+| `Super + Shft + R`         | Ranger Quick Launch                      |
+| `PrtSc`                    | Screenshot                               |
+| `Ctrl + PtrSc`             | Screenshot Active Window                 |
+| `Ctrl + Alt + PrtSc`       | Screenshot Selected Area                 |
 
-## SIDE NOTE
 
-**Not as beautiful as your mom but it's good enough**
+## Contributions
 
-But still, if you need any help, you can contact me on **[discord](https://discord.gg/nArdjdyH)**.
+Feel free to create issue or pull request.    
+If you need any help, you can contact me on **[discord](https://discord.gg/nArdjdyH)**.
 
-
+Distributed under the **[GPLv3+](https://www.gnu.org/licenses/gpl-3.0.html) License**.    
+Copyright (C) 2022 sheikhlimon.
