@@ -1,14 +1,14 @@
 # sheikhlimon Dotfiles
 **Arch Linux** & **bspwm** dotfiles!
 
+[Information](#information) ·
+[Installation](#manual-installation) ·
+[Keybindings](#keybindings) ·
+[SideNote](#sidenote)
+
 ![1](https://user-images.githubusercontent.com/76746201/186396011-acc6a278-6323-48b6-a3ed-459165bd2673.png)
 
 ![2](https://user-images.githubusercontent.com/76746201/186396310-5c805cec-dae1-48c4-8efa-be413487b0f6.png)
-
-<details>
-<summary><b>
-Detailed information and dependencies
-</b></summary>
 
 ## Information
 
@@ -22,6 +22,10 @@ Detailed information and dependencies
 - **Application Launcher:** [rofi](https://github.com/davatorium/rofi)
 - **Notification Deamon:** [dunst](https://github.com/dunst-project/dunst)
 
+<details>
+<summary><b>
+Detailed information and dependencies
+</b></summary>
 
 ### Fonts
 	
@@ -117,7 +121,7 @@ Detailed information and dependencies
 | `Ctrl + Alt + PrtSc`       | Screenshot Selected Area                 |
 
 
-## Contributions
+## SideNote
 
 Feel free to create issue or pull request.    
 If you need any help, you can contact me on **[discord](https://discord.gg/nArdjdyH)**.
