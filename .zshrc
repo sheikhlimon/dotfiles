@@ -1,3 +1,7 @@
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #PATH
 if [ -d "$HOME/.bin" ] ;
   then PATH="$HOME/.bin:$PATH"
@@ -8,7 +12,7 @@ if [ -d "$HOME/.local/bin" ] ;
 fi
 
 #exports
-#ZSH_THEME="simple"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 export ZSH="$HOME/.srcs/.oh-my-zsh"
 export EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
@@ -18,33 +22,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 autoload -U promptinit; promptinit
 autoload -U colors && colors
 
-# Load Version control information
-autoload -Uz vcs_info
-precmd() { vcs_info }
-
-# Format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:git:*' formats "%b"
-
-#git prompt 
-ZSH_THEME_GIT_PROMPT_PREFIX=""
-ZSH_THEME_GIT_PROMPT_SUFFIX=""
-ZSH_THEME_GIT_PROMPT_DIRTY=" ✘"
-ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
-ZSH_THEME_GIT_PROMPT_ADDED=" ✚"
-ZSH_THEME_GIT_PROMPT_MODIFIED=" ✹"
-ZSH_THEME_GIT_PROMPT_DELETED=" ✖"
-ZSH_THEME_GIT_PROMPT_RENAMED=" ➜"
-ZSH_THEME_GIT_PROMPT_UNMERGED=" ═"
-ZSH_THEME_GIT_PROMPT_UNTRACKED=" ✭"
-
-#change prompt
-#precmd() {print ""}  #newline for prompt
-
-setopt prompt_subst
-PROMPT="%F{011}%~ %F{010}"$'\n'" ❯ %f"
-RPROMPT='%F{060}${vcs_info_msg_0_}`git_prompt_status`'
 setopt autocd  #Automatically cd into typed directory
-local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
 #for not showing % at the end of cpp run files
 PROMPT_EOL_MARK=''
@@ -62,7 +40,7 @@ plugins=(
 	vi-mode
 	zsh-autosuggestions
 	zsh-syntax-highlighting
-    z
+  z
 )
 
 #basic auto/tab complete
@@ -78,5 +56,6 @@ source "$ZSH"/oh-my-zsh.sh
 [[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60' #auto suggest highlight
-#colorscript -r
-#neofetch
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
