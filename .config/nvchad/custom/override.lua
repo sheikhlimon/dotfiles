@@ -13,6 +13,8 @@ M.treesitter = {
       "markdown",
       "bash",
       "lua",
+      "c",
+      "cpp"
    },
 }
 
