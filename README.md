@@ -1,3 +1,5 @@
+<h2 align="center"> ━━━━━━  ❖  ━━━━━━ </h2>
+
 # sheikhlimon Dotfiles
 **Arch Linux** & **bspwm** dotfiles!
 
