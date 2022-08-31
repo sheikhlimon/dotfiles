@@ -123,8 +123,16 @@ Detailed information and dependencies
 
 ## SideNote
 
+Mostly riced for Desktop.
 Feel free to create issue or pull request.    
 If you need any help, you can contact me on **[discord](https://discord.gg/nArdjdyH)**.
 
 Distributed under the **[GPLv3+](https://www.gnu.org/licenses/gpl-3.0.html) License**.    
 Copyright (C) 2022 sheikhlimon.
+
+## Credits
+
+Keyitdev[github](https://github.com/Keyitdev/dotfiles/tree/v3 took some stuffs from this guy
+siduck[github](https://https://github.com/NvChad/NvChad) the awesome neovim
+r/unixporn[reddit](https://www.reddit.com/r/unixporn/) where I found them and others for inspirations
+
