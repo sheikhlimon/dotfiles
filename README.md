@@ -134,9 +134,9 @@ Copyright (C) 2022 sheikhlimon.
 
 ## Credits
 
-Keyitdev[github](https://github.com/Keyitdev/dotfiles/tree/v3) took some stuffs from this guy
+[Keyitdev](https://github.com/Keyitdev/dotfiles/tree/v3) took some stuffs from this guy
 </br>
-siduck [github](https://https://github.com/NvChad/NvChad) the awesome nvchad
+[siduck](https://https://github.com/NvChad/NvChad) the awesome nvchad
 </br>
-r/unixporn [reddit](https://www.reddit.com/r/unixporn/) where I found them and others for inspirations
+[r/unixporn](https://www.reddit.com/r/unixporn/) where I found them and many more for inspirations
 
