@@ -7,7 +7,7 @@
 
 
 configuration {
-	font:							"Roboto mono 11";
+	font:							"Roboto mono 12";
     show-icons:                     false;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
@@ -26,8 +26,8 @@ window {
 	border:							2px;
 	border-color:					@br;
     border-radius:                  20px;
-	height:						    28%;
-	width:							25%;
+	height:						    18%;
+	width:							20%;
     location:                       center;
     x-offset:                       0;
     y-offset:                       0;
