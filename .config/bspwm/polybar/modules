@@ -210,18 +210,18 @@ accumulate-stats = true
 unknown-as-up = true
 
 format-connected = <label-connected>
-format-connected-prefix = " ﴿  "
+format-connected-prefix = " "
 format-connected-foreground = ${color.background}
 format-connected-background = ${color.green}
 
 format-disconnected = <label-disconnected>
-format-disconnected-prefix = " 睊 "
+format-disconnected-prefix = " "
 format-disconnected-prefix-font = 2
 format-disconnected-foreground = ${color.background}
 format-disconnected-background = ${color.green}
 
 label-connected = %downspeed% | %upspeed% 
-label-disconnected = Disconnected 
+label-disconnected = Disconnected
 
 label-connected-foreground = ${color.background}
 label-disconnected-foreground = ${color.background}

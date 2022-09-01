@@ -53,7 +53,7 @@ font-3 = "Iosevka Nerd Font:size=18;4"
 font-4 = "Source Code Pro Bold:size=13;3"
 
 # Default
-modules-left = spacing BLD launcher BRD sep bspwm sep GLD network GRD spacing
+modules-left = spacing BLD launcher BRD sep bspwm sep MLD mod GMPL network GRD 
 modules-center = BLD time BRD
 modules-right = MLD volume MRD sep GLD cpu YPL memory CPL filesystem CRD spacing
 spacing = 0

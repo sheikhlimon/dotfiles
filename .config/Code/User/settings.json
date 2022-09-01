@@ -118,7 +118,7 @@
     "workbench.startupEditor": "none",
     "editor.renderWhitespace": "none",
     "editor.fontSize": 18,
-    "editor.fontFamily": "Hack Nerd Font",
+    "editor.fontFamily": "JetBrainsMono Nerd Font",
     "editor.fontLigatures": true,
     "editor.renderLineHighlight": "all",
     "explorer.compactFolders": false,
