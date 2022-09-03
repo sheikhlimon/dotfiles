@@ -30,11 +30,6 @@
     "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
   {
-    "key": "ctrl+alt+b",
-    "command": "workbench.action.toggleSidebarVisibility"
-  },
-  //Ensure that tab button works in vim.
-  {
     "key": "tab",
     "command": "tab",
     "when": "editorTextFocus && !editorTabMovesFocus"
@@ -44,4 +39,19 @@
     "command": "outdent",
     "when": "editorTextFocus && !editorTabMovesFocus"
   },
+  //display second side bar
+  {
+    "key": "alt+s",
+    "command": "workbench.action.toggleAuxiliaryBar"
+  },
+  //toggle explorer
+  {
+    "key": "alt+n",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  //toggle activity bar visibility
+  {
+    "key": "alt+a",
+    "command": "workbench.action.toggleActivityBarVisibility"
+  }
 ]

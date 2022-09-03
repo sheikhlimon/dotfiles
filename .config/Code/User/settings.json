@@ -30,9 +30,7 @@
         {
             //search items refreshed
             "before": [
-                "<leader>",
-                "r",
-                "f"
+                "esc",
             ],
             "commands": [
                 ":nohl"
@@ -119,7 +117,7 @@
     "editor.renderWhitespace": "none",
     "editor.fontSize": 18,
     "editor.fontFamily": "JetBrainsMono Nerd Font",
-    "editor.fontLigatures": true,
+    "editor.fontLigatures": false,
     "editor.renderLineHighlight": "all",
     "explorer.compactFolders": false,
     "editor.wordWrap": "on",
@@ -153,7 +151,7 @@
     "terminal.integrated.persistentSessionReviveProcess": "never",
     "terminal.integrated.enablePersistentSessions": false,
     "terminal.integrated.rightClickBehavior": "copyPaste",
-    "terminal.integrated.shellIntegration.enabled": false,
     "breadcrumbs.enabled": false,
+    "terminal.integrated.defaultProfile.linux": "zsh",
     "workbench.activityBar.visible": false,
 }
