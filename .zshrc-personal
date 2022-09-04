@@ -31,8 +31,9 @@ alias help="bat ~/.zshrc-personal"
 
 # compile and run cpp
 #co() { g++ -std=c++17 -o "./a.out" $1 -Wall; }
-run() { g++ $1 && ./a.out &fg; }
+run() { g++ $1 && ./a.out & fg; rm -rf a.out; }
 
+#for compiling and running cpp
 # function run {
 #   if [ -z "$1" ]; then 
 #     echo "No filename provided."
