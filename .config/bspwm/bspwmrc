@@ -1,19 +1,12 @@
 #! /bin/sh
 
 # Restore wallpaper
-bash $HOME/.config/bspwm/.fehbg
+bash "$HOME/.config/bspwm/.fehbg" 
 
 pgrep -x sxhkd > /dev/null || sxhkd &
-$HOME/.config/bspwm/polybar/launch.sh
+"$HOME/.config/bspwm/polybar/launch.sh" &
 
-workspaces() {
-	name=1
-	for monitor in `bspc query -M`; do
-		bspc monitor ${monitor} -n "$name" -d '' '' '' ''
-		let name++
-	done
-}
-workspaces
+bspc monitor HDMI2 -d 1 2 3 4
 
 bspc config border_width         3
 bspc config window_gap           10
@@ -32,79 +25,31 @@ bspc config focus_follows_pointer true
 # fix pointer
 xsetroot -cursor_name left_ptr
 
-# workspace 1 (Terminals)
-#declare -a terminal=(Alacritty Xfce4-terminal)
-#for i in ${terminal[@]}; do
-#    bspc rule -a $i desktop='^1' follow=on focus=on; done
-
-# workspace 1 (Internet Browser)
-declare -a web=(firefox Xfce4-terminal)
-for i in ${web[@]}; do
-    bspc rule -a $i desktop='^1' follow=on focus=on; done
-
-# workspace 2 (Text Editor)
-declare -a office=(discord)
-for i in ${office[@]}; do
-    bspc rule -a $i desktop='^2' follow=on focus=on; done
-
-# workspace 3 (Files)
-declare -a filem=(Thunar nemo qBittorrent)
-for i in ${filem[@]}; do
-    bspc rule -a $i desktop='^3' follow=on focus=on; done
-
-# workspace 4 (Media)
-declare -a media=(vlc obs mpv mplayer lxmusic Gimp Gimp-2.10 \
-"VirtualBox Manager")
-for i in ${media[@]}; do
-    bspc rule -a $i desktop='^4' follow=on focus=on; done
-
-# workspace 7 (Settings)
-#declare -a settings=(GParted Lxappearance Lxtask Lxrandr Arandr \
-#Pavucontrol Xfce4-settings-manager)
-#for i in ${settings[@]}; do
-#    bspc rule -a $i desktop='^6' follow=on focus=on; done
-
-# floating windows
-#declare -a floats=(Pavucontrol Lxappearance Arandr \
-#Viewnior Pcmanfm feh Nm-connection-editor Matplotlib Yad
-#for i in ${floats[@]}; do
-#  bspc rule -a $i state=floating follow=on focus=on; done
-
-## Autostart
-
 # Kill if already running
 killall -9 picom sxhkd dunst
 
-# Launch Conkeww
-#sed -i "s/colors\/color-.*/colors\/color-tokyo.yuck\")/g" $HOME/.config/conkeww/eww.yuck
-#eww --config $HOME/.config/conkeww/ open conkeww-main
-
 # Launch notification daemon
-dunst -config $HOME/.config/bspwm/dunstrc &
-
-# Enable Super Keys For Menu
-#ksuperkey -e 'Super_L=Alt_L|F1' &
-#ksuperkey -e 'Super_R=Alt_L|F1' &
-
-# polkit agent
-if [[ ! `pidof xfce-polkit` ]]; then
-    /usr/lib/xfce-polkit/xfce-polkit &
-fi
+dunst -config "$HOME/.config/bspwm/dunstrc" &
 
 # Launch keybindings daemon
 sxhkd &
 
-# Enable power management
-#xfce4-power-manager &
-
 # start compositor
-while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
-picom --config $HOME/.config/bspwm/picom.conf &
+picom --config "$HOME/.config/bspwm/picom.conf" &
 
 # change xfce4-terminal colorscheme
 XFCE_TERM_PATH="$HOME/.config/xfce4/terminal"
 cp "$XFCE_TERM_PATH"/colorschemes/one-dark "$XFCE_TERM_PATH"/terminalrc
 
-# change cava colorscheme
-#CAVA_PATH="$HOME/.config/cava"
-#cp "$CAVA_PATH"/colorschemes/tokyo-night "$CAVA_PATH"/config
+
+# workspace 1 (Internet Browser)
+bspc rule -a firefox desktop='^1' follow=on focus=on
+
+# workspace 2 (Text Editor)
+bspc rule -a discord desktop='^2' follow=on focus=on
+
+# workspace 3 (Files)
+bspc rule -a nemo desktop='^3' follow=on focus=on 
+
+# workspace 4 (Media)
+bspc rule -a mpv desktop='^4' follow=on focus=on
