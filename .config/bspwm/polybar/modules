@@ -41,7 +41,7 @@ ws-icon-0 = term;
 ws-icon-1 = 1;
 ws-icon-2 = 2;
 ws-icon-3 = 3;
-ws-icon-4 = 4;
+ws-icon-4 = 4;
 ws-icon-default = 
 
 format = <label-state>

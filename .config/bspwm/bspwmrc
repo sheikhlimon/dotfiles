@@ -46,7 +46,7 @@ cp "$XFCE_TERM_PATH"/colorschemes/one-dark "$XFCE_TERM_PATH"/terminalrc
 bspc rule -a firefox desktop='^1' follow=on focus=on
 
 # workspace 2 (Text Editor)
-bspc rule -a discord desktop='^2' follow=on focus=on
+bspc rule -a discord telegram desktop='^2' follow=on focus=on
 
 # workspace 3 (Files)
 bspc rule -a nemo qBittorrent desktop='^3' follow=on focus=on 
