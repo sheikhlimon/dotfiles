@@ -39,15 +39,15 @@
     "command": "outdent",
     "when": "editorTextFocus && !editorTabMovesFocus"
   },
+  //toggle explorer
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
   //display second side bar
   {
     "key": "alt+s",
     "command": "workbench.action.toggleAuxiliaryBar"
-  },
-  //toggle explorer
-  {
-    "key": "alt+n",
-    "command": "workbench.action.toggleSidebarVisibility"
   },
   //toggle activity bar visibility
   {

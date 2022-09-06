@@ -2,18 +2,13 @@
     //vim keybindings
     "vim.easymotion": true,
     "vim.hlsearch": true,
-    "vim.useCtrlKeys": false,
+    "vim.useCtrlKeys": true,
     // "vim.foldfix": true,
     // "vim.useSystemClipboard": true,
     "vim.leader": "<space>",
     "vim.handleKeys": {
-        "<C-y>": true,
-        "<C-e>": true,
-        "<C-f>": true,
-        "<C-b>": true,
-        "<C-r>": true,
-        "<C-v>": true,
-        "<C-h>": true
+        "<C-c>": false,
+        "<C-v>": false,
     },
     "vim.insertModeKeyBindings": [
         {
@@ -28,9 +23,18 @@
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
+            //yank the whole buffer
+            "before": [
+                "<C-a>"
+            ],
+            "commands": [
+                ":%y+"
+            ]
+        },
+        {
             //search items refreshed
             "before": [
-                "esc",
+                "esc"
             ],
             "commands": [
                 ":nohl"
@@ -153,5 +157,4 @@
     "terminal.integrated.rightClickBehavior": "copyPaste",
     "breadcrumbs.enabled": false,
     "terminal.integrated.defaultProfile.linux": "zsh",
-    "workbench.activityBar.visible": false,
-}
+} // 
