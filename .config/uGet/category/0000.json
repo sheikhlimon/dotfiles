@@ -1,0 +1,104 @@
+{
+	"info": {
+		"relation": {
+			"group": 0,
+			"priority": 1
+		},
+		"common": {
+			"name": "New 0",
+			"folder": "\/home\/limon",
+			"connect-timeout": 15,
+			"transmit-timeout": 30,
+			"retry-delay": 6,
+			"retry-limit": 99,
+			"retry-count": 0,
+			"max-connections": 1,
+			"max-upload-speed": 0,
+			"max-download-speed": 0,
+			"timestamp": 1
+		},
+		"category": {
+			"hosts": [
+				".edu",
+				".idv"
+			],
+			"schemes": [
+				"ftps",
+				"magnet"
+			],
+			"file-exts": [
+				"torrent",
+				"metalink"
+			],
+			"active-limit": 3,
+			"finished-limit": 300,
+			"recycled-limit": 300
+		}
+	},
+	"children": [
+		{
+			"info": {
+				"relation": {
+					"group": 4,
+					"priority": 1
+				},
+				"progress": {
+					"complete": 1607969561,
+					"total": 3058237440,
+					"elapsed": 900,
+					"uploaded": 0,
+					"percent": 52
+				},
+				"http": {
+					"redirection-limit": 30
+				},
+				"proxy": {
+					"port": 80,
+					"type": 0
+				},
+				"log": {
+					"added-time": 1663197090,
+					"completed-time": 0,
+					"messages": [
+					]
+				},
+				"common": {
+					"name": "Zorin-OS-16.1-Core-64-bit.iso",
+					"uri": "https:\/\/mirror.freedif.org\/zorin\/16\/Zorin-OS-16.1-Core-64-bit.iso",
+					"file": "Zorin-OS-16.1-Core-64-bit.iso",
+					"folder": "\/home\/limon",
+					"connect-timeout": 15,
+					"transmit-timeout": 30,
+					"retry-delay": 6,
+					"retry-limit": 99,
+					"retry-count": 0,
+					"max-connections": 1,
+					"max-upload-speed": 0,
+					"max-download-speed": 0,
+					"timestamp": 1
+				},
+				"files": {
+					"list": [
+						{
+							"path": "\/home\/limon\/Zorin-OS-16.1-Core-64-bit.iso",
+							"type": 0,
+							"state": 0,
+							"total": 0,
+							"complete": 0
+						},
+						{
+							"path": "\/home\/limon\/Zorin-OS-16.1-Core-64-bit.iso.aria2",
+							"type": 3,
+							"state": 0,
+							"total": 0,
+							"complete": 0
+						}
+					]
+				}
+			},
+			"children": [
+			]
+		}
+	]
+}
+

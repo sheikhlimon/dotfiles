@@ -2,12 +2,12 @@
 [
   // Move to the previous/next editor.
   {
-    "key": "ctrl+k",
-    "command": "workbench.action.nextEditor"
-  },
-  {
     "key": "ctrl+j",
     "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.nextEditor"
   },
   // VSCode terminal commands.
   {

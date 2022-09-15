@@ -9,6 +9,7 @@
     "vim.handleKeys": {
         "<C-c>": false,
         "<C-v>": false,
+        "<C-w>": false,
     },
     "vim.insertModeKeyBindings": [
         {
@@ -22,6 +23,16 @@
         },
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "f",
+                "m"
+            ],
+            "commands": [
+                "editor.action.formatDocument"
+            ]
+        },
         {
             //yank the whole buffer
             "before": [
@@ -131,7 +142,7 @@
     "security.workspace.trust.untrustedFiles": "open",
     "explorer.confirmDelete": false,
     //format on save and formatter
-    "editor.formatOnSave": true,
+    // "editor.formatOnSave": true,
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
@@ -139,7 +150,6 @@
     "C_Cpp.autocomplete": "Disabled",
     //theme
     "workbench.iconTheme": "vs-nomo-dark",
-    "workbench.colorTheme": "Default Dark+",
     //cursor
     "workbench.colorCustomizations": {
         "editorCursor.foreground": "#bbbaba",
@@ -157,4 +167,5 @@
     "terminal.integrated.rightClickBehavior": "copyPaste",
     "breadcrumbs.enabled": false,
     "terminal.integrated.defaultProfile.linux": "zsh",
+    "workbench.activityBar.visible": false,
 } // 
