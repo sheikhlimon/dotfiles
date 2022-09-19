@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 # Restore wallpaper
 bash "$HOME/.config/bspwm/.fehbg" 
@@ -32,6 +32,12 @@ killall -9 picom sxhkd dunst
 # Launch notification daemon
 dunst -config "$HOME/.config/bspwm/dunstrc" &
 
+# Polkit agent
+# polkit agent
+if [[ ! $(pidof xfce-polkit) ]]; then
+	/usr/lib/xfce-polkit/xfce-polkit &
+fi
+
 # Launch keybindings daemon
 sxhkd &
 
@@ -46,9 +52,10 @@ cp "$XFCE_TERM_PATH"/colorschemes/one-dark "$XFCE_TERM_PATH"/terminalrc
 bspc rule -a firefox desktop='^1' follow=on focus=on
 
 # workspace 2 (Text Editor)
-bspc rule -a discord telegram desktop='^2' follow=on focus=on
+bspc rule -a discord desktop='^2' follow=on focus=on
 
 # workspace 3 (Files)
-bspc rule -a nemo qBittorrent desktop='^3' follow=on focus=on 
+bspc rule -a Nemo desktop='^3' follow=on focus=on 
+
 # workspace 4 (Media)
 bspc rule -a mpv desktop='^4' follow=on focus=on

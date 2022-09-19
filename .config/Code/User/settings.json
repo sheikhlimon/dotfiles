@@ -167,5 +167,11 @@
     "terminal.integrated.rightClickBehavior": "copyPaste",
     "breadcrumbs.enabled": false,
     "terminal.integrated.defaultProfile.linux": "zsh",
-    "workbench.activityBar.visible": false,
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.executorMap": {
+        "c": "clear && cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt && rm -f $fileNameWithoutExt",
+    },
+    "workbench.activityBar.visible": false
 } // 
