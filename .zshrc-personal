@@ -30,20 +30,24 @@ alias wget="wget -c" # continue the download
 alias help="bat ~/.zshrc-personal"
 
 # compile and run cpp
-#co() { g++ -std=c++17 -o "./a.out" $1 -Wall; }
-run() { g++ $1 && ./a.out & fg; rm -rf a.out; }
-
-#for compiling and running cpp
-# function run {
-#   if [ -z "$1" ]; then 
-#     echo "No filename provided."
-#   else
-#     file=$1; base=${file%.*}
-	 
-#     # Compile and run
-#     make $base && ./$base & fg
-#   fi
-# }
+function cppcompile()
+{
+  filename=$1
+  re="^\#include \""
+  while read line
+  do
+    if [[ $line =~ $re ]]; then
+      temp=${line:9}
+      temp1=${temp#\"}
+      temp2=${temp1%\.*\"}
+      g++ -std=c++17 -c $temp2.cpp
+    fi
+  done < $filename.cpp
+  g++ -std=c++17 -c $filename.cpp
+  g++ -o $filename *.o
+  ./$filename
+  rm -f *.o
+}
 
 # required functions
 ex ()
