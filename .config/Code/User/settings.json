@@ -169,11 +169,10 @@
     "terminal.integrated.defaultProfile.linux": "zsh",
     //code runner
     "code-runner.runInTerminal": true,
-    "code-runner.terminalRoot": "/",
     "code-runner.saveFileBeforeRun": true,
     "code-runner.executorMap": {
         "c": "clear && cd $dir && gcc $fileName -o $fileNameWithoutExt && cd $dir$fileNameWithoutExt",
-        "cpp": "cd $dir && g++ -std=c++17 $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt && rm -f $fileNameWithoutExt",
+        "cpp": "cd $dir && cppcompile $fileNameWithoutExt && rm -f $fileNameWithoutExt",
     },
     "workbench.activityBar.visible": false
 }
