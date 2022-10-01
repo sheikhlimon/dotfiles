@@ -74,12 +74,12 @@ Detailed information and dependencies
 
 5. Copy configs, scripts, fonts, set gtk theme, vsc configs, zsh config.
     ```sh
-    cp -r ./dotfiles/.config/* "$HOME"/.config
-    sudo cp -r ./dotfiles/scripts/* /usr/local/bin
-    sudo cp -r ./dotfiles/fonts/* /usr/share/fonts
-    cp -r ./dotfiles/.zshrc "$HOME"
-    cp -r ./dotfiles/.zshrc-personal "$HOME"
-    cp -r ./dotfiles/.gitconfig "$HOME"
+    cp -r ~/dotfiles/.config/* "$HOME"/.config
+    sudo cp -r ~/dotfiles/scripts/* /usr/local/bin
+    sudo cp -r ~/dotfiles/fonts/* /usr/share/fonts
+    cp -r ~/dotfiles/.zshrc "$HOME"
+    cp -r ~/dotfiles/.zshrc-personal "$HOME"
+    cp -r ~/dotfiles/.gitconfig "$HOME"
     ```
 
 6. set zsh as default shell, refresh font cache.
