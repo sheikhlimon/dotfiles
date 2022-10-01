@@ -127,7 +127,7 @@
     //editor
     "window.zoomLevel": 1.5,
     "files.autoSave": "onFocusChange",
-    "editor.lineNumbers": "relative",
+    "editor.lineNumbers": "on",
     "workbench.startupEditor": "none",
     "editor.renderWhitespace": "none",
     "editor.fontSize": 18,
