@@ -74,12 +74,12 @@ Detailed information and dependencies
 
 5. Copy configs, scripts, fonts, set gtk theme, vsc configs, zsh config.
     ```sh
-    cp -r ./dotfiles/.config/* "$HOME"/.config
-    sudo cp -r ./dotfiles/scripts/* /usr/local/bin
-    sudo cp -r ./dotfiles/fonts/* /usr/share/fonts
-    cp -r ./dotfiles/.zshrc "$HOME"
-    cp -r ./dotfiles/.zshrc-personal "$HOME"
-    cp -r ./dotfiles/.gitconfig "$HOME"
+    cp -r ~/dotfiles/.config/* "$HOME"/.config
+    sudo cp -r ~/dotfiles/scripts/* /usr/local/bin
+    sudo cp -r ~/dotfiles/fonts/* /usr/share/fonts
+    cp -r ~/dotfiles/.zshrc "$HOME"
+    cp -r ~/dotfiles/.zshrc-personal "$HOME"
+    cp -r ~/dotfiles/.gitconfig "$HOME"
     ```
 
 6. set zsh as default shell, refresh font cache.
@@ -101,7 +101,7 @@ Detailed information and dependencies
     ```sh
     rm -rf ~/.local/share/nvim
     git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
-    ln -s ./.config/nvchad/custom ./.config/nvim/lua/custom
+    ln -s ~/.config/nvchad/custom ~/.config/nvim/lua/custom
     ```
 
 ## Keybindings
