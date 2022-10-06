@@ -72,7 +72,7 @@ Detailed information and dependencies
     mkdir -p  /usr/share/themes
     ```
 
-5. Copy configs, scripts, fonts, set gtk theme, vsc configs, zsh config.
+5. Copy configs, scripts, fonts, set gtk theme, zsh config.
     ```sh
     cp -r ~/dotfiles/.config/* "$HOME"/.config
     sudo cp -r ~/dotfiles/scripts/* /usr/local/bin
