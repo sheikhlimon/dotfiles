@@ -148,6 +148,8 @@
     },
     //c/c++ intellisence
     "C_Cpp.autocomplete": "Disabled",
+    //python
+    "python.analysis.inlayHints.variableTypes": true,
     //theme
     "workbench.iconTheme": "vs-nomo-dark",
     //cursor
@@ -164,8 +166,8 @@
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.persistentSessionReviveProcess": "never",
     "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.showExitAlert": false,
     "terminal.integrated.rightClickBehavior": "copyPaste",
-    "breadcrumbs.enabled": false,
     "terminal.integrated.defaultProfile.linux": "zsh",
     //code runner
     "code-runner.runInTerminal": true,
@@ -174,5 +176,6 @@
         "c": "clear && cd $dir && gcc $fileName -o $fileNameWithoutExt && cd $dir$fileNameWithoutExt",
         "cpp": "cd $dir && cppcompile $fileNameWithoutExt && rm -f $fileNameWithoutExt",
     },
+    "breadcrumbs.enabled": false,
     "workbench.activityBar.visible": false
 }

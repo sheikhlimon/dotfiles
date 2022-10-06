@@ -74,5 +74,10 @@
   {
     "key": "alt+a",
     "command": "workbench.action.toggleActivityBarVisibility"
-  }
+  },
+  {
+    "key": "ctrl+space",
+    "command": "cursorEnd",
+    "when": "textInputFocus"
+  },
 ]
