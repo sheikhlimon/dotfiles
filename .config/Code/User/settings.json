@@ -149,7 +149,7 @@
     //c/c++ intellisence
     "C_Cpp.autocomplete": "Disabled",
     //python
-    "python.analysis.inlayHints.variableTypes": true,
+    // "python.analysis.inlayHints.variableTypes": true,
     //theme
     "workbench.iconTheme": "vs-nomo-dark",
     //cursor
@@ -176,6 +176,5 @@
         "c": "clear && cd $dir && gcc $fileName -o $fileNameWithoutExt && cd $dir$fileNameWithoutExt",
         "cpp": "cd $dir && cppcompile $fileNameWithoutExt && rm -f $fileNameWithoutExt",
     },
-    "breadcrumbs.enabled": false,
-    "workbench.activityBar.visible": false
+    "breadcrumbs.enabled": false
 }
