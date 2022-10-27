@@ -80,4 +80,9 @@
     "command": "cursorEnd",
     "when": "textInputFocus"
   },
+  {
+    "key": "shift+escape",
+    "command": "removeSecondaryCursors",
+    "when": "editorHasMultipleSelections && textInputFocus"
+  },
 ]
