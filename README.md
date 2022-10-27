@@ -101,7 +101,7 @@ Detailed information and dependencies
     ```sh
     rm -rf ~/.local/share/nvim
     git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
-    ln -s ~/.config/nvchad/custom ~/.config/nvim/lua/custom
+    ln -s ~/.config/nvchad/custom ~/.config/nvim/lua/
     ```
 
 ## Keybindings
@@ -127,7 +127,7 @@ Detailed information and dependencies
 
 Mostly riced for Desktop.
 Feel free to create issue or pull request.    
-If you need any help, you can contact me on **[discord](https://discord.gg/nArdjdyH)**.
+If you need any help, you can contact me.
 
 Distributed under the **[GPLv3+](https://www.gnu.org/licenses/gpl-3.0.html) License**.    
 Copyright (C) 2022 sheikhlimon.
