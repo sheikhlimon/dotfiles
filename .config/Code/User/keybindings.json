@@ -75,11 +75,7 @@
     "key": "alt+a",
     "command": "workbench.action.toggleActivityBarVisibility"
   },
-  {
-    "key": "ctrl+space",
-    "command": "cursorEnd",
-    "when": "textInputFocus"
-  },
+  // disable multiple selections
   {
     "key": "shift+escape",
     "command": "removeSecondaryCursors",
@@ -106,11 +102,5 @@
     "key": "shift+k",
     "command": "editor.action.showHover",
     "when": "editorTextFocus"
-  },
-  //select word under cursor
-  {
-    "key": "ctrl+n",
-    "command": "editor.action.addSelectionToNextFindMatch",
-    "when": "editorFocus"
   },
 ]
