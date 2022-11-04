@@ -85,4 +85,32 @@
     "command": "removeSecondaryCursors",
     "when": "editorHasMultipleSelections && textInputFocus"
   },
+  //turn vim on and off
+  {
+    "key": "ctrl+alt+v",
+    "command": "toggleVim"
+  },
+  //move selected line down
+  {
+    "key": "shift+alt+j",
+    "command": "editor.action.moveLinesDownAction"
+  },
+  //move selected lines up
+  {
+    "key": "shift+alt+k",
+    "command": "editor.action.moveLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  //hover word under cursor
+  {
+    "key": "shift+k",
+    "command": "editor.action.showHover",
+    "when": "editorTextFocus"
+  },
+  //select word under cursor
+  {
+    "key": "ctrl+n",
+    "command": "editor.action.addSelectionToNextFindMatch",
+    "when": "editorFocus"
+  },
 ]
