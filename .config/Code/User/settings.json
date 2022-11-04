@@ -52,6 +52,7 @@
         {
             "before": [
                 "<leader>",
+                "f"
                 "m"
             ],
             "commands": [
@@ -108,21 +109,11 @@
                 ":w"
             ]
         },
-        // toggle explorer
-        {
-            "before": [
-                "<leader>",
-                "e"
-            ],
-            "commands": [
-                "workbench.action.toggleSidebarVisibility"
-            ]
-        },
         //foucs on explorer
         {
             "before": [
                 "<leader>",
-                "f"
+                "e"
             ],
             "commands": [
                 "revealInExplorer"
