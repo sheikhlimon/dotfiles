@@ -3,6 +3,8 @@
     "vim.easymotion": true,
     "vim.hlsearch": true,
     "vim.useCtrlKeys": true,
+    "vim.incsearch": true,
+    "vim.timeout": 350
     // "vim.foldfix": true,
     // "vim.useSystemClipboard": true,
     "vim.leader": "<space>",
@@ -22,11 +24,34 @@
             ]
         },
     ],
+    "vim.visualModeKeyBindings": [
+        //indent to right side multiple times
+        {
+            "before": [
+                ">"
+            ],
+            "after": [
+                ">",
+                "g",
+                "v"
+            ]
+        },
+        //outdent to left side multiple times
+        {
+            "before": [
+                "<"
+            ],
+            "after": [
+                "<",
+                "g",
+                "v"
+            ]
+        },
+    ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": [
                 "<leader>",
-                "f",
                 "m"
             ],
             "commands": [
@@ -83,14 +108,44 @@
                 ":w"
             ]
         },
+        // toggle explorer
         {
-            // focus explorer
             "before": [
                 "<leader>",
                 "e"
             ],
             "commands": [
-                "workbench.view.explorer"
+                "workbench.action.toggleSidebarVisibility"
+            ]
+        },
+        //foucs on explorer
+        {
+            "before": [
+                "<leader>",
+                "f"
+            ],
+            "commands": [
+                "revealInExplorer"
+            ]
+        },
+        //go to beginning of the line
+        {
+            "before": [
+                "<leader>",
+                "h"
+            ],
+            "after": [
+                "_"
+            ]
+        },
+        //go to end of the line
+        {
+            "before": [
+                "<leader>",
+                "l"
+            ],
+            "after": [
+                "$"
             ]
         },
         {
@@ -125,14 +180,16 @@
         }
     ],
     //editor
-    "window.zoomLevel": 1.5,
+    "window.zoomLevel": 1.5, //0.3
     "files.autoSave": "onFocusChange",
     "editor.lineNumbers": "on",
     "workbench.startupEditor": "none",
     "editor.renderWhitespace": "none",
-    "editor.fontSize": 18,
+    "editor.fontSize": 18, //19
     "editor.fontFamily": "JetBrainsMono Nerd Font",
     "editor.fontLigatures": false,
+    "editor.letterSpacing": 0.2,
+    "editor.smoothScrolling": true
     "editor.renderLineHighlight": "all",
     "explorer.compactFolders": false,
     "editor.wordWrap": "on",
@@ -154,13 +211,19 @@
     "workbench.iconTheme": "vs-nomo-dark",
     //cursor
     "workbench.colorCustomizations": {
+        //for white theme
+        // "editorCursor.foreground": "#023020",
+        // "terminalCursor.foreground": "#023020",
+        // "editor.background": "#EEEEEC",
+        // "editor.foreground": "#2E3436"
+        //for black theme
         "editorCursor.foreground": "#bbbaba",
-        "terminalCursor.foreground": "#bbbaba"
+        "terminalCursor.foreground": "#bbbaba",
     },
     //terminal
     "terminal.integrated.enableMultiLinePasteWarning": false,
     "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
-    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.fontSize": 16, //17
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
@@ -175,7 +238,9 @@
     "code-runner.executorMap": {
         "c": "clear && cd $dir && gcc $fileName -o $fileNameWithoutExt && cd $dir$fileNameWithoutExt",
         "cpp": "cd $dir && cppcompile $fileNameWithoutExt && rm -f $fileNameWithoutExt",
+        "python": "python3
     },
     "breadcrumbs.enabled": false,
+    "files.saveConflictResolution": "overwriteFileOnDisk",
     "workbench.activityBar.visible": false
 }
