@@ -75,14 +75,26 @@
     "key": "alt+a",
     "command": "workbench.action.toggleActivityBarVisibility"
   },
-  {
-    "key": "ctrl+space",
-    "command": "cursorEnd",
-    "when": "textInputFocus"
-  },
+  // disable multiple selections
   {
     "key": "shift+escape",
     "command": "removeSecondaryCursors",
     "when": "editorHasMultipleSelections && textInputFocus"
+  },
+  //turn vim on and off
+  {
+    "key": "ctrl+alt+v",
+    "command": "toggleVim"
+  },
+  //move selected line down
+  {
+    "key": "shift+alt+j",
+    "command": "editor.action.moveLinesDownAction"
+  },
+  //move selected lines up
+  {
+    "key": "shift+alt+k",
+    "command": "editor.action.moveLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly"
   },
 ]
