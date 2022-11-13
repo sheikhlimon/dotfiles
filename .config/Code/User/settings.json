@@ -4,7 +4,7 @@
     "vim.hlsearch": true,
     "vim.useCtrlKeys": true,
     "vim.incsearch": true,
-    "vim.timeout": 350
+    "vim.timeout": 350,
     // "vim.foldfix": true,
     // "vim.useSystemClipboard": true,
     "vim.leader": "<space>",
@@ -52,7 +52,7 @@
         {
             "before": [
                 "<leader>",
-                "f"
+                "f",
                 "m"
             ],
             "commands": [
@@ -180,7 +180,7 @@
     "editor.fontFamily": "JetBrainsMono Nerd Font",
     "editor.fontLigatures": false,
     "editor.letterSpacing": 0.2,
-    "editor.smoothScrolling": true
+    "editor.smoothScrolling": true,
     "editor.renderLineHighlight": "all",
     "explorer.compactFolders": false,
     "editor.wordWrap": "on",
@@ -229,7 +229,7 @@
     "code-runner.executorMap": {
         "c": "clear && cd $dir && gcc $fileName -o $fileNameWithoutExt && cd $dir$fileNameWithoutExt",
         "cpp": "cd $dir && cppcompile $fileNameWithoutExt && rm -f $fileNameWithoutExt",
-        "python": "python3
+        "python": "python3"
     },
     "breadcrumbs.enabled": false,
     "files.saveConflictResolution": "overwriteFileOnDisk",
