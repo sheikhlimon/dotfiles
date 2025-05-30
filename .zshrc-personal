@@ -2,6 +2,10 @@
 #git
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
+#aliases
+#git dotfiles
+#alias config='/usr/bin/git --git-dir=/home/limon/.cfg/ --work-tree=/home/limon' #for wsl config dotfiles in gitlab
+
 alias py='python'
 alias vim='nvim'
 alias cat='bat'
@@ -13,9 +17,12 @@ alias grep='grep --color=auto'
 alias jctl="journalctl -p 3 -xb" #get the error messages from journalctl
 alias killp='killprocess'
 alias kp='killprocess'
-alias l='exa -lahF --color=always --icons --sort=name --group-directories-first'
-alias ls='exa -lhF --color=always --icons --sort=name --group-directories-first'
-alias lst='exa -lahFT --color=always --icons --sort=size --group-directories-first'
+alias c='clear'                                                        # clear terminal
+alias l='eza -lh --icons=auto'                                         # long list
+alias ls='eza -1 --icons=auto'                                         # short list
+alias ll='eza -lha --icons=auto --sort=name --group-directories-first' # long list all
+alias ld='eza -lhD --icons=auto'                                       # long list dirs
+alias lt='eza --icons=auto --tree'                                     # list folder as tree
 alias less='bat'
 alias matrix='unimatrix -f -l ocCgGkS -s 96'
 alias mem="ps axch -o cmd:15,%mem --sort=-%mem | head"
@@ -30,7 +37,7 @@ alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' #Cleanup orphaned packages
 alias wget="wget -c" # continue the download
 alias help="bat ~/.zshrc-personal"
 
-# compile and run cpp
+# compile and run cpp 
 function cppcompile()
 {
   filename=$1
@@ -47,7 +54,7 @@ function cppcompile()
   g++ -std=c++17 -c $filename.cpp
   g++ -o $filename *.o
   ./$filename
-  rm -f *.o
+  rm -f *.o    					#this removes recedue files
 }
 
 # required functions
@@ -111,6 +118,25 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
+# Initialize a variable to track the last j keypress time
+typeset -g jj_last_time=0
+
+function jj-escape() {
+  local current_time=$(date +%s%3N) # current time in milliseconds
+  local time_diff=$((current_time - jj_last_time))
+
+  if [[ $LBUFFER == *j && $time_diff -lt 500 ]]; then
+    LBUFFER=${LBUFFER%j}
+    zle vi-cmd-mode
+    jj_last_time=0
+  else
+    LBUFFER+=$KEYS
+    jj_last_time=$current_time
+  fi
+}
+zle -N jj-escape
+
+
 # ci"
 autoload -U select-quoted
 zle -N select-quoted
@@ -134,5 +160,7 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M viins 'j' jj-escape
 bindkey '^R' history-incremental-search-backward
 bindkey -v 
+
