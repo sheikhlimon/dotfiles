@@ -1,237 +1,351 @@
 {
-    //vim keybindings
-    "vim.easymotion": true,
-    "vim.hlsearch": true,
-    "vim.useCtrlKeys": true,
-    "vim.incsearch": true,
-    "vim.timeout": 350,
-    // "vim.foldfix": true,
-    // "vim.useSystemClipboard": true,
-    "vim.leader": "<space>",
-    "vim.handleKeys": {
-        "<C-c>": false,
-        "<C-v>": false,
-        "<C-w>": false,
+  // ──────────────────────────────
+  // Vim Plugin Configuration
+  // ──────────────────────────────
+  "vim.easymotion": true,
+  "vim.hlsearch": true,
+  "vim.incsearch": true,
+  "vim.useCtrlKeys": true,
+  "vim.timeout": 350,
+  // "vim.foldfix": true,
+  // "vim.useSystemClipboard": true,
+  "vim.leader": "<space>",
+
+  // Let VSCode handle these keys (disable Vim interception)
+  "vim.handleKeys": {
+    "<C-f>": false,
+    "<C-c>": false,
+    "<C-v>": false,
+    "<C-w>": false
+  },
+
+  // Experimental affinity for Vim extension
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+
+  // Insert mode remapping (jj → ESC)
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<esc>"]
+    }
+  ],
+
+  // Normal mode keybindings (non-recursive)
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // ─── File Operations ─────────────────────────────
+    {
+      "before": ["<leader>", "w"],
+      "commands": ["workbench.action.files.save"]
     },
-    "vim.insertModeKeyBindings": [
+    {
+      "before": ["<leader>", "x"],
+      "commands": ["workbench.action.closeActiveEditor"]
+    },
+    {
+      "before": ["<leader>", "b"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+
+    // ─── Navigation & UI ─────────────────────────────
+    {
+      "before": ["<leader>", "f", "f"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["<leader>", "h"],
+      "commands": ["workbench.view.explorer"]
+    },
+
+    // ─── Text Editing ────────────────────────────────
+    {
+      "before": ["<leader>", "f", "m"],
+      "commands": ["editor.action.formatDocument"]
+    },
+    {
+      "before": ["<C-a>"],
+      "commands": [":%y+"]
+    },
+    {
+      "before": ["<leader>", "p"],
+      "after": ["\"", "0", "p"] //paste without yank
+    },
+
+    // ─── Highlighting & Registers ────────────────────
+    {
+      "before": ["<leader>", "s"],
+      "commands": [":nohl"] // refresh searchs
+    },
+    {
+      "before": ["<leader>", "r"],
+      "commands": [":reg"]
+    },
+
+    // ─── Line Numbers ────────────────────────────────
+    {
+      "before": ["<leader>", "l", "n"],
+      "commands": [":set nu"]
+    },
+    {
+      "before": ["<leader>", "r", "n"],
+      "commands": [":set rnu"]
+    },
+
+    // ─── Scrolling Enhancements ──────────────────────
+    {
+      "before": ["<C-d>"],
+      "after": ["<C-d>", "z", "z"]
+    },
+    {
+      "before": ["<C-u>"],
+      "after": ["<C-u>", "z", "z"]
+    },
+    {
+      "before": ["<C-e>"],
+      "after": ["2", "<C-e>"]
+    },
+    {
+      "before": ["<C-y>"],
+      "after": ["2", "<C-y>"]
+    },
+
+    // ─── Custom Command ──────────────────────────────
+    {
+      "before": ["K"],
+      "commands": ["lineBreakInsert"], // shift one line down
+      "silent": true
+    }
+  ],
+
+  // Visual mode keybindings (non-recursive)
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["p"],
+      "after": ["p", "g", "v", "y"]
+    }
+  ],
+
+  // Operator pending mode remappings
+  "vim.operatorPendingModeKeyBindings": [
+    {
+      "before": ["L"],
+      "after": ["$"]
+    },
+    {
+      "before": ["H"],
+      "after": ["^"]
+    }
+  ],
+
+  // Visual mode keybindings (recursive allowed)
+  "vim.visualModeKeyBindings": [
+    // Indent and outdent using native VSCode commands
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+
+  // ──────────────────────────────
+  // VSCode General Settings
+  // ──────────────────────────────
+
+  // Window settings
+  "window.commandCenter": false,
+  "window.zoomLevel": -0.25,
+  "window.menuBarVisibility": "toggle",
+
+  // Files
+  "files.autoSave": "onFocusChange",
+  "files.saveConflictResolution": "overwriteFileOnDisk",
+
+  // Editor settings
+  "editor.lineNumbers": "relative",
+  "editor.fontSize": 18,
+  "editor.fontFamily": "JetBrainsMono Nerd Font",
+  "editor.fontLigatures": false,
+  "editor.letterSpacing": 0.2,
+  "editor.smoothScrolling": true,
+  "editor.renderLineHighlight": "all",
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": false,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.linkedEditing": true,
+  "editor.tabCompletion": "on",
+  "editor.quickSuggestions": { "strings": true },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.renderWhitespace": "none",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.cursorBlinking": "solid",
+  "editor.cursorSmoothCaretAnimation": "on",
+
+  // Explorer
+  "explorer.compactFolders": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+
+  //search
+  // "search.useIgnoreFiles": false,
+  "search.exclude": {
+    // Hide everything in /vendor, except the "laravel" and "livewire" folder.
+    "**/vendor/{[^l],?[^ai]}*": true,
+    // Hide everything in /public, except "index.php"
+    "**/public/{[^i],?[^n]}*": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/_ide_helper.php": true,
+    "**/composer.lock": true,
+    "**/package-lock.json": true,
+    "storage": true,
+    ".phpunit.result.cache": true
+  },
+
+  // c/c++ intellisence
+  // "C_Cpp.autocomplete": "disabled",
+
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.cursorBlinking": false,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.persistentSessionReviveProcess": "never",
+  "terminal.integrated.enablePersistentSessions": false,
+  "terminal.integrated.showExitAlert": false,
+  "terminal.integrated.rightClickBehavior": "copyPaste",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.shellIntegration.enabled": true,
+  // "terminal.integrated.enableMultiLinePasteWarning": false,
+
+  //code runner
+  // "code-runner.runInTerminal": true,
+  // "code-runner.saveFileBeforeRun": true,
+  // "code-runner.executorMap": {
+  // "c": "clear && cd $dir && gcc $fileName -o $fileNameWithoutExt && cd $dir$fileNameWithoutExt",
+  // "cpp": "cd $dir && cppcompile $fileNameWithoutExt && rm -f $fileNameWithoutExt",
+  // "python": "python3",
+  // "javascript": "node"
+  // },
+
+  // Workbench
+  "security.workspace.trust.untrustedFiles": "open",
+  "workbench.startupEditor": "none",
+  // "workbench.colorCustomizations": {
+  //for white theme
+  // "editorCursor.foreground": "#023020",
+  // "terminalCursor.foreground": "#023020",
+  // "editor.background": "#EEEEEC",
+  // "editor.foreground": "#2E3436"
+  //for black theme
+  // "editorCursor.foreground": "#32CD32",
+  // "terminalCursor.foreground": "#bbbaba"
+  // },
+  "emmet.excludeLanguages": ["markdown", "php"],
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.CustomBrowser": "chrome",
+  "emmet.triggerExpansionOnTab": true,
+
+  // Workbench UI tweaks
+  "workbench.navigationControl.enabled": false,
+  "workbench.layoutControl.enabled": false,
+  "workbench.activityBar.location": "top",
+
+  // JS/TS settings
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // Database client
+  "database-client.autoSync": true,
+
+  // Breadcrumbs UI
+  "breadcrumbs.enabled": false,
+
+  // ──────────────────────────────
+  // Theme and Colors
+  // ──────────────────────────────
+  "workbench.colorTheme": "Tokyo Night",
+  "workbench.iconTheme": "symbols",
+  "editor.tokenColorCustomizations": {
+    "[Tokyo Night]": {
+      //to turn of italic
+      "textMateRules": [
         {
-            "before": [
-                "j",
-                "j"
-            ],
-            "after": [
-                "<esc>"
-            ]
+          "scope": [
+            // "comment",
+            "meta.var.expr storage.type",
+            "keyword.control.flow",
+            "keyword.control.return",
+            "meta.directive.vue punctuation.separator.key-value.html",
+            "meta.directive.vue entity.other.attribute-name.html",
+            "tag.decorator.js entity.name.tag.js",
+            "tag.decorator.js punctuation.definition.tag.js",
+            "storage.modifier"
+          ],
+          "settings": {
+            "fontStyle": ""
+          }
         },
-    ],
-    "vim.visualModeKeyBindings": [
-        //indent to right side multiple times
         {
-            "before": [
-                ">"
-            ],
-            "after": [
-                ">",
-                "g",
-                "v"
-            ]
-        },
-        //outdent to left side multiple times
-        {
-            "before": [
-                "<"
-            ],
-            "after": [
-                "<",
-                "g",
-                "v"
-            ]
-        },
-    ],
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": [
-                "<leader>",
-                "f",
-                "m"
-            ],
-            "commands": [
-                "editor.action.formatDocument"
-            ]
+          "scope": [
+            "comment keyword.codetag.notation",
+            "comment.block.documentation keyword",
+            "comment.block.documentation storage.type.class"
+          ],
+          "settings": {
+            "foreground": "#bb9af7"
+          }
         },
         {
-            //yank the whole buffer
-            "before": [
-                "<C-a>"
-            ],
-            "commands": [
-                ":%y+"
-            ]
+          "scope": ["comment.block.documentation entity.name.type.instance"],
+          "settings": {
+            "foreground": "#73daca",
+            "fontStyle": "italic"
+          }
         },
         {
-            //search items refreshed
-            "before": [
-                "esc"
-            ],
-            "commands": [
-                ":nohl"
-            ]
+          "scope": [
+            "comment.block.documentation entity.name.type punctuation.definition.bracket"
+          ],
+          "settings": {
+            "foreground": "#bb9af7"
+          }
         },
         {
-            //set number
-            "before": [
-                "<leader>",
-                "l",
-                "n"
-            ],
-            "commands": [
-                ":set nu"
-            ]
-        },
-        {
-            //set relativenumber
-            "before": [
-                "<leader>",
-                "r",
-                "n"
-            ],
-            "commands": [
-                ":set rnu"
-            ]
-        },
-        {
-            // Save file
-            "before": [
-                "<leader>",
-                "s"
-            ],
-            "commands": [
-                ":w"
-            ]
-        },
-        //foucs on explorer
-        {
-            "before": [
-                "<leader>",
-                "e"
-            ],
-            "commands": [
-                "revealInExplorer"
-            ]
-        },
-        //go to beginning of the line
-        {
-            "before": [
-                "<leader>",
-                "h"
-            ],
-            "after": [
-                "_"
-            ]
-        },
-        //go to end of the line
-        {
-            "before": [
-                "<leader>",
-                "l"
-            ],
-            "after": [
-                "$"
-            ]
-        },
-        {
-            //move a line down
-            "before": [
-                "K"
-            ],
-            "commands": [
-                "lineBreakInsert"
-            ],
-            "silent": true
-        },
-        {
-            // Move lines down by 2 instead of 1
-            "before": [
-                "<C-e>"
-            ],
-            "after": [
-                "2",
-                "<C-e>"
-            ]
-        },
-        {
-            // Move lines up by 2 instead of 1
-            "before": [
-                "<C-y>"
-            ],
-            "after": [
-                "2",
-                "<C-y>"
-            ]
+          "scope": ["comment.block.documentation variable"],
+          "settings": {
+            "foreground": "#e0af68",
+            "fontStyle": "italic"
+          }
         }
-    ],
-    //editor
-    "window.zoomLevel": 1.5, //0.3
-    "files.autoSave": "onFocusChange",
-    "editor.lineNumbers": "on",
-    "workbench.startupEditor": "none",
-    "editor.renderWhitespace": "none",
-    "editor.fontSize": 18, //19
-    "editor.fontFamily": "JetBrainsMono Nerd Font",
-    "editor.fontLigatures": false,
-    "editor.letterSpacing": 0.2,
-    "editor.smoothScrolling": true,
-    "editor.renderLineHighlight": "all",
-    "explorer.compactFolders": false,
-    "editor.wordWrap": "on",
-    "editor.minimap.enabled": false,
-    "editor.bracketPairColorization.enabled": true,
-    "window.menuBarVisibility": "toggle",
-    "security.workspace.trust.untrustedFiles": "open",
-    "explorer.confirmDelete": false,
-    //format on save and formatter
-    // "editor.formatOnSave": true,
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    //c/c++ intellisence
-    "C_Cpp.autocomplete": "Disabled",
-    //python
-    // "python.analysis.inlayHints.variableTypes": true,
-    //theme
-    "workbench.iconTheme": "vs-nomo-dark",
-    //cursor
-    "workbench.colorCustomizations": {
-        //for white theme
-        // "editorCursor.foreground": "#023020",
-        // "terminalCursor.foreground": "#023020",
-        // "editor.background": "#EEEEEC",
-        // "editor.foreground": "#2E3436"
-        //for black theme
-        "editorCursor.foreground": "#bbbaba",
-        "terminalCursor.foreground": "#bbbaba",
-    },
-    //terminal
-    "terminal.integrated.enableMultiLinePasteWarning": false,
-    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
-    "terminal.integrated.fontSize": 16, //17
-    "terminal.integrated.copyOnSelection": true,
-    "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.cursorStyle": "line",
-    "terminal.integrated.persistentSessionReviveProcess": "never",
-    "terminal.integrated.enablePersistentSessions": false,
-    "terminal.integrated.showExitAlert": false,
-    "terminal.integrated.rightClickBehavior": "copyPaste",
-    "terminal.integrated.defaultProfile.linux": "zsh",
-    //code runner
-    "code-runner.runInTerminal": true,
-    "code-runner.saveFileBeforeRun": true,
-    "code-runner.executorMap": {
-        "c": "clear && cd $dir && gcc $fileName -o $fileNameWithoutExt && cd $dir$fileNameWithoutExt",
-        "cpp": "cd $dir && cppcompile $fileNameWithoutExt && rm -f $fileNameWithoutExt",
-        "python": "python3"
-    },
-    "breadcrumbs.enabled": false,
-    "files.saveConflictResolution": "overwriteFileOnDisk",
-    "workbench.activityBar.visible": false
+      ]
+    }
+  },
+
+  // Remote SSH
+  "remote.SSH.defaultExtensions": ["gitpod.gitpod-remote-ssh"],
+  "remote.SSH.remotePlatform": {
+    "freecodecam-learnsqlbyb-pzwuxagzx4n.vss.gitpod.io": "linux",
+    "*.gitpod.io": "linux",
+    "freecodecam-learnbashby-zp75vvgnqnu.vss.gitpod.io": "linux",
+    "freecodecam-learnrelati-do4xb37hew0.vss.gitpod.io": "linux",
+    "freecodecam-learnsqlbyb-qoobect7yxk.vss.gitpod.io": "linux"
+  },
+
+  // Security and GitHub Copilot
+  "security.allowedUNCHosts": ["wsl.localhost"],
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  }
 }
