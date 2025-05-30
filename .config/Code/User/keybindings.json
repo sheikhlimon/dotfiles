@@ -37,7 +37,7 @@
   },
   {
     "key": "ctrl+shift+enter",
-    "command": "workbench.action.toggleMaximizedPanel"
+    "command": "workbench.action.terminal.new"
   },
   //intellisence traverse with vim ctrl j ctrl k
   {
@@ -50,36 +50,26 @@
     "command": "selectPrevSuggestion",
     "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
-  {
-    "key": "tab",
-    "command": "tab",
-    "when": "editorTextFocus && !editorTabMovesFocus"
-  },
-  {
-    "key": "shift+tab",
-    "command": "outdent",
-    "when": "editorTextFocus && !editorTabMovesFocus"
-  },
-  //toggle explorer
-  {
-    "key": "ctrl+n",
-    "command": "workbench.action.toggleSidebarVisibility"
-  },
-  //display second side bar
-  {
-    "key": "alt+s",
-    "command": "workbench.action.toggleAuxiliaryBar"
-  },
-  //toggle activity bar visibility
-  {
-    "key": "alt+a",
-    "command": "workbench.action.toggleActivityBarVisibility"
-  },
+  // {
+  //   "key": "tab",
+  //   "command": "tab",
+  //   "when": "editorTextFocus && !editorTabMovesFocus"
+  // },
+  // {
+  //   "key": "shift+tab",
+  //   "command": "outdent",
+  //   "when": "editorTextFocus && !editorTabMovesFocus"
+  // },
   // disable multiple selections
   {
     "key": "shift+escape",
     "command": "removeSecondaryCursors",
     "when": "editorHasMultipleSelections && textInputFocus"
+  },
+  //toggle explorer
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.toggleSidebarVisibility"
   },
   //turn vim on and off
   {
@@ -97,4 +87,10 @@
     "command": "editor.action.moveLinesUpAction",
     "when": "editorTextFocus && !editorReadonly"
   },
+  //emmet wrap
+  {
+    "key": "alt+w",
+    "command": "editor.emmet.action.wrapWithAbbreviation",
+    "when": "editorHasSelection && editorTextFocus"
+  }
 ]
