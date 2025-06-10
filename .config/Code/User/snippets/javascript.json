@@ -1,0 +1,22 @@
+{
+  "Function Component": {
+    "prefix": "_component",
+    "body": [
+      "$BLOCK_COMMENT_START \n💥 Title : ${TM_FILENAME/.js//}",
+      "📃 Description : ${1}",
+      "✍️ Author : Sheikh Limon",
+      "🕖 Date : ${CURRENT_DATE}-${CURRENT_MONTH_NAME}-${CURRENT_YEAR} \n$BLOCK_COMMENT_END",
+      "\n\n$BLOCK_COMMENT_START 🔥 React Dependencies 🔥 $BLOCK_COMMENT_END",
+      "\n\n const ${TM_FILENAME/.js//} = () => {",
+      "\treturn (",
+      "\t\t<>",
+      "\t\t\t${2}",
+      "\t\t</>",
+      "\t);",
+      "};",
+      "",
+      "export default ${TM_FILENAME/.js//}"
+    ],
+    "description": "Boilerplate for React Functional Component"
+  }
+}

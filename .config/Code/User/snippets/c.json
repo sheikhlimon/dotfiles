@@ -1,0 +1,19 @@
+{
+  "I/O header file": {
+    "prefix": "_c",
+    "body": [
+      // "/**",
+      // "*\tauthor: sheikhlimon",
+      // "*\tcreated: ${CURRENT_DATE}.$CURRENT_MONTH.$CURRENT_YEAR",
+      // "*/\n",
+      "#include <stdio.h>",
+      "#include <string.h>\n",
+      "int main()",
+      "{",
+      "\t$0\n",
+      "\treturn 0;",
+      "}"
+    ],
+    "description": "This is a boilerplate for c i/o header file"
+  }
+}
