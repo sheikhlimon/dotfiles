@@ -1,111 +1,111 @@
 // Place your key bindings in this file to override the defaults
 [
-  // for vim word wrap on
-  {
-    "key": "up",
-    "command": "cursorUp",
-    "when": "editorTextFocus && vim.active && !inDebugRepl && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
-  },
-  {
-    "key": "down",
-    "command": "cursorDown",
-    "when": "editorTextFocus && vim.active && !inDebugRepl && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
-  },
-  {
-    "key": "k",
-    "command": "cursorUp",
-    "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal' && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
-  },
-  {
-    "key": "j",
-    "command": "cursorDown",
-    "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal' && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
-  },
-  // Move to the previous/next editor.
-  {
-    "key": "ctrl+j",
-    "command": "workbench.action.previousEditor"
-  },
-  {
-    "key": "ctrl+k",
-    "command": "workbench.action.nextEditor"
-  },
-  // VSCode terminal commands.
-  {
-    "key": "ctrl+enter",
-    "command": "workbench.action.terminal.toggleTerminal"
-  },
-  {
-    "key": "ctrl+shift+enter",
-    "command": "workbench.action.terminal.new"
-  },
-  //intellisence traverse with vim ctrl j ctrl k
-  {
-    "key": "ctrl+j",
-    "command": "selectNextSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-  },
-  {
-    "key": "ctrl+k",
-    "command": "selectPrevSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-  },
-  {
-    "key": "tab",
-    "command": "tab",
-    "when": "editorTextFocus && !editorTabMovesFocus"
-  },
-  {
-    "key": "shift+tab",
-    "command": "outdent",
-    "when": "editorTextFocus && !editorTabMovesFocus"
-  },
-  // disable multiple selections
-  {
-    "key": "shift+escape",
-    "command": "removeSecondaryCursors",
-    "when": "editorHasMultipleSelections && textInputFocus"
-  },
-  //display second side bar
-  {
-    "key": "alt+s",
-    "command": "workbench.action.toggleAuxiliaryBar"
-  },
-  //toggle activity bar visibility
-  {
-    "key": "alt+a",
-    "command": "workbench.action.toggleActivityBarVisibility"
-  },
-  //toggle explorer
-  {
-    "key": "ctrl+n",
-    "command": "workbench.action.toggleSidebarVisibility"
-  },
-  //turn vim on and off
-  {
-    "key": "ctrl+alt+v",
-    "command": "toggleVim"
-  },
-  //move selected line down
-  {
-    "key": "shift+alt+j",
-    "command": "editor.action.moveLinesDownAction"
-  },
-  //move selected lines up
-  {
-    "key": "shift+alt+k",
-    "command": "editor.action.moveLinesUpAction",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  //show hover
-  {
-    "key": "ctrl+h",
-    "command": "editor.action.showHover"
-  },
-  //emmet wrap
-  {
-    "key": "alt+w",
-    "command": "editor.emmet.action.wrapWithAbbreviation",
-    "when": "editorHasSelection && editorTextFocus"
-  }
+    // for vim word wrap on
+    {
+        "key": "up",
+        "command": "cursorUp",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
+    },
+    {
+        "key": "down",
+        "command": "cursorDown",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
+    },
+    {
+        "key": "k",
+        "command": "cursorUp",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal' && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
+    },
+    {
+        "key": "j",
+        "command": "cursorDown",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal' && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
+    },
+    // Move to the previous/next editor.
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.nextEditor"
+    },
+    // VSCode terminal commands.
+    {
+        "key": "ctrl+enter",
+        "command": "workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "ctrl+shift+enter",
+        "command": "workbench.action.terminal.new"
+    },
+    //intellisence traverse with vim ctrl j ctrl k
+    {
+        "key": "ctrl+j",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "tab",
+        "command": "tab",
+        "when": "editorTextFocus && !editorTabMovesFocus"
+    },
+    {
+        "key": "shift+tab",
+        "command": "outdent",
+        "when": "editorTextFocus && !editorTabMovesFocus"
+    },
+    // disable multiple selections
+    {
+        "key": "shift+escape",
+        "command": "removeSecondaryCursors",
+        "when": "editorHasMultipleSelections && textInputFocus"
+    },
+    //display second side bar
+    {
+        "key": "alt+s",
+        "command": "workbench.action.toggleAuxiliaryBar"
+    },
+    //toggle activity bar visibility
+    {
+        "key": "alt+a",
+        "command": "workbench.action.toggleActivityBarVisibility"
+    },
+    //toggle explorer
+    {
+        "key": "ctrl+n",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    //turn vim on and off
+    {
+        "key": "ctrl+alt+v",
+        "command": "toggleVim"
+    },
+    //move selected line down
+    {
+        "key": "shift+alt+j",
+        "command": "editor.action.moveLinesDownAction"
+    },
+    //move selected lines up
+    {
+        "key": "shift+alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    //show hover
+    {
+        "key": "ctrl+h",
+        "command": "editor.action.showHover"
+    },
+    //emmet wrap
+    {
+        "key": "alt+w",
+        "command": "editor.emmet.action.wrapWithAbbreviation",
+        "when": "editorHasSelection && editorTextFocus"
+    }
 ]

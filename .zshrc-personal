@@ -5,6 +5,9 @@
 #git dotfiles-v2
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
+# Tell zsh to use git's completion for the 'dotfiles' alias
+#compdef dotfiles =git
+
 alias vim='nvim'
 alias py='python'
 alias cat='bat'

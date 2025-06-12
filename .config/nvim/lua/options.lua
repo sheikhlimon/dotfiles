@@ -9,5 +9,5 @@ o.shiftwidth = 4 -- Number of spaces to use for auto-indentation (<<, >>, ==, au
 o.expandtab = true -- Use spaces instead of TABs (highly recommended for consistency)
 o.autoindent = true -- Copy indent from previous line
 o.smartindent = true -- Smarter auto-indent for C-like languages
-o.wrap = true -- Don't wrap lines
+o.wrap = true -- Wrap lines
 -- o.cursorlineopt ='both' -- to enable cursorline!

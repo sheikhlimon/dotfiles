@@ -16,224 +16,105 @@
     },
     "vim.insertModeKeyBindings": [
         {
-            "before": [
-                "j",
-                "j"
-            ],
-            "after": [
-                "<esc>"
-            ]
+            "before": ["j", "j"],
+            "after": ["<esc>"]
         }
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before": [
-                "<leader>",
-                "w"
-            ],
-            "commands": [
-                "workbench.action.files.save"
-            ]
+            "before": ["<leader>", "w"],
+            "commands": ["workbench.action.files.save"]
         },
         {
-            "before": [
-                "<leader>",
-                "x"
-            ],
-            "commands": [
-                "workbench.action.closeActiveEditor"
-            ]
+            "before": ["<leader>", "x"],
+            "commands": ["workbench.action.closeActiveEditor"]
         },
         {
-            "before": [
-                "<leader>",
-                "b"
-            ],
-            "commands": [
-                "workbench.action.quickOpen"
-            ]
+            "before": ["<leader>", "b"],
+            "commands": ["workbench.action.quickOpen"]
         },
         {
-            "before": [
-                "<leader>",
-                "f",
-                "f"
-            ],
-            "commands": [
-                "workbench.action.quickOpen"
-            ]
+            "before": ["<leader>", "f", "f"],
+            "commands": ["workbench.action.quickOpen"]
         },
         {
-            "before": [
-                "<leader>",
-                "e"
-            ],
-            "commands": [
-                "workbench.view.explorer"
-            ]
+            "before": ["<leader>", "e"],
+            "commands": ["workbench.view.explorer"]
         },
         {
-            "before": [
-                "<leader>",
-                "f",
-                "m"
-            ],
-            "commands": [
-                "editor.action.formatDocument"
-            ]
+            "before": ["<leader>", "f", "m"],
+            "commands": ["editor.action.formatDocument"]
         },
         {
-            "before": [
-                "<C-a>"
-            ],
-            "commands": [
-                ":%y+"
-            ]
+            "before": ["<C-a>"],
+            "commands": [":%y+"]
         },
         {
-            "before": [
-                "<leader>",
-                "p"
-            ],
-            "after": [
-                "\"",
-                "0",
-                "p"
-            ]
+            "before": ["<leader>", "p"],
+            "after": ["\"", "0", "p"]
         },
         {
-            "before": [
-                "<leader>",
-                "c"
-            ],
-            "commands": [
-                ":nohl"
-            ]
+            "before": ["<leader>", "c"],
+            "commands": [":nohl"]
         },
         {
-            "before": [
-                "<leader>",
-                "r"
-            ],
-            "commands": [
-                ":reg"
-            ]
+            "before": ["<leader>", "r"],
+            "commands": [":reg"]
         },
         {
-            "before": [
-                "<leader>",
-                "l",
-                "n"
-            ],
-            "commands": [
-                ":set nu"
-            ]
+            "before": ["<leader>", "l", "n"],
+            "commands": [":set nu"]
         },
         {
-            "before": [
-                "<leader>",
-                "r",
-                "n"
-            ],
-            "commands": [
-                ":set rnu"
-            ]
+            "before": ["<leader>", "r", "n"],
+            "commands": [":set rnu"]
         },
         {
-            "before": [
-                "<C-d>"
-            ],
-            "after": [
-                "<C-d>",
-                "z",
-                "z"
-            ]
+            "before": ["<C-d>"],
+            "after": ["<C-d>", "z", "z"]
         },
         {
-            "before": [
-                "<C-u>"
-            ],
-            "after": [
-                "<C-u>",
-                "z",
-                "z"
-            ]
+            "before": ["<C-u>"],
+            "after": ["<C-u>", "z", "z"]
         },
         {
-            "before": [
-                "<C-e>"
-            ],
-            "after": [
-                "2",
-                "<C-e>"
-            ]
+            "before": ["<C-e>"],
+            "after": ["2", "<C-e>"]
         },
         {
-            "before": [
-                "<C-y>"
-            ],
-            "after": [
-                "2",
-                "<C-y>"
-            ]
+            "before": ["<C-y>"],
+            "after": ["2", "<C-y>"]
         },
         {
-            "before": [
-                "K"
-            ],
-            "commands": [
-                "lineBreakInsert"
-            ],
+            "before": ["K"],
+            "commands": ["lineBreakInsert"],
             "silent": true
         }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {
-            "before": [
-                "p"
-            ],
-            "after": [
-                "p",
-                "g",
-                "v",
-                "y"
-            ]
+            "before": ["p"],
+            "after": ["p", "g", "v", "y"]
         }
     ],
     "vim.operatorPendingModeKeyBindings": [
         {
-            "before": [
-                "L"
-            ],
-            "after": [
-                "$"
-            ]
+            "before": ["L"],
+            "after": ["$"]
         },
         {
-            "before": [
-                "H"
-            ],
-            "after": [
-                "^"
-            ]
+            "before": ["H"],
+            "after": ["^"]
         }
     ],
     "vim.visualModeKeyBindings": [
         {
-            "before": [
-                ">"
-            ],
-            "commands": [
-                "editor.action.indentLines"
-            ]
+            "before": [">"],
+            "commands": ["editor.action.indentLines"]
         },
         {
-            "before": [
-                "<"
-            ],
-            "commands": [
-                "editor.action.outdentLines"
-            ]
+            "before": ["<"],
+            "commands": ["editor.action.outdentLines"]
         }
     ],
     "window.commandCenter": true,
@@ -303,12 +184,13 @@
             "editor.foreground": "#A0A8CD",
             "editorLineNumber.foreground": "#4A5057",
             "editorBracketMatch.background": "#1c1f59"
-        }
+        },
+        "errorLens.errorForeground": "#9C6CBA"
     },
-    "emmet.excludeLanguages": [
-        "markdown",
-        "php"
-    ],
+    "errorLens.messageBackgroundMode": "none",
+    "errorLens.delay": 1500,
+    "errorLens.delayMode": "old",
+    "emmet.excludeLanguages": ["markdown", "php"],
     "liveServer.settings.donotShowInfoMsg": true,
     "liveServer.settings.CustomBrowser": "chrome",
     "emmet.triggerExpansionOnTab": true,
@@ -365,9 +247,7 @@
                     }
                 },
                 {
-                    "scope": [
-                        "comment.block.documentation variable"
-                    ],
+                    "scope": ["comment.block.documentation variable"],
                     "settings": {
                         "foreground": "#e0af68",
                         "fontStyle": "italic"
@@ -376,9 +256,7 @@
             ]
         }
     },
-    "remote.SSH.defaultExtensions": [
-        "gitpod.gitpod-remote-ssh"
-    ],
+    "remote.SSH.defaultExtensions": ["gitpod.gitpod-remote-ssh"],
     "remote.SSH.remotePlatform": {
         "freecodecam-learnsqlbyb-pzwuxagzx4n.vss.gitpod.io": "linux",
         "*.gitpod.io": "linux",
@@ -386,18 +264,13 @@
         "freecodecam-learnrelati-do4xb37hew0.vss.gitpod.io": "linux",
         "freecodecam-learnsqlbyb-qoobect7yxk.vss.gitpod.io": "linux"
     },
-    "security.allowedUNCHosts": [
-        "wsl.localhost"
-    ],
+    "security.allowedUNCHosts": ["wsl.localhost"],
     "github.copilot.enable": {
         "*": false,
         "plaintext": false,
         "markdown": false,
         "scminput": false
     },
-    "workbench.colorTheme": "Tokyo Night",
-    "biome.suggestInstallingGlobally": false,
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    }
+    "workbench.colorTheme": "Tokyo Night"
+    // "biome.suggestInstallingGlobally": true,
 }
