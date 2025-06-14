@@ -9,6 +9,8 @@ map("i", "jj", "<ESC>")
 
 map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 
+map("n", "<leader>s", "<cmd>w<CR>", { desc = "Save file" })
+
 map("n", "<leader>ih", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
 end)

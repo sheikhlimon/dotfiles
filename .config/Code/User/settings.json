@@ -22,16 +22,8 @@
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before": ["<leader>", "w"],
-            "commands": ["workbench.action.files.save"]
-        },
-        {
             "before": ["<leader>", "x"],
             "commands": ["workbench.action.closeActiveEditor"]
-        },
-        {
-            "before": ["<leader>", "b"],
-            "commands": ["workbench.action.quickOpen"]
         },
         {
             "before": ["<leader>", "f", "f"],
@@ -54,8 +46,16 @@
             "after": ["\"", "0", "p"]
         },
         {
-            "before": ["<leader>", "c"],
+            "before": ["<Esc>"],
+            "commands": ["workbench.action.toggleLineNumbers"]
+        },
+        {
+            "before": ["<leader>", "h"],
             "commands": [":nohl"]
+        },
+        {
+            "before": ["<leader>", "s"],
+            "commands": ["workbench.action.files.save"]
         },
         {
             "before": ["<leader>", "r"],
@@ -183,7 +183,10 @@
             "editor.lineHighlightBackground": "#11121D",
             "editor.foreground": "#A0A8CD",
             "editorLineNumber.foreground": "#4A5057",
-            "editorBracketMatch.background": "#1c1f59"
+            "editor.findMatchBackground": "#95650D",
+            "editor.findMatchHighlightBackground": "#3c435daa",
+            "editor.findMatchBorder": "#fff0",
+            "editor.selectionHighlightBorder": "#fff0"
         },
         "errorLens.errorForeground": "#9C6CBA"
     },
@@ -265,12 +268,12 @@
         "freecodecam-learnsqlbyb-qoobect7yxk.vss.gitpod.io": "linux"
     },
     "security.allowedUNCHosts": ["wsl.localhost"],
+    "workbench.colorTheme": "Tokyo Night",
     "github.copilot.enable": {
         "*": false,
         "plaintext": false,
         "markdown": false,
         "scminput": false
-    },
-    "workbench.colorTheme": "Tokyo Night"
+    }
     // "biome.suggestInstallingGlobally": true,
 }

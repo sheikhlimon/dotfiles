@@ -50,16 +50,6 @@
         "command": "selectPrevSuggestion",
         "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
     },
-    {
-        "key": "tab",
-        "command": "tab",
-        "when": "editorTextFocus && !editorTabMovesFocus"
-    },
-    {
-        "key": "shift+tab",
-        "command": "outdent",
-        "when": "editorTextFocus && !editorTabMovesFocus"
-    },
     // disable multiple selections
     {
         "key": "shift+escape",
@@ -70,11 +60,6 @@
     {
         "key": "alt+s",
         "command": "workbench.action.toggleAuxiliaryBar"
-    },
-    //toggle activity bar visibility
-    {
-        "key": "alt+a",
-        "command": "workbench.action.toggleActivityBarVisibility"
     },
     //toggle explorer
     {
