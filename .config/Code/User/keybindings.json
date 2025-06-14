@@ -32,11 +32,11 @@
     },
     // VSCode terminal commands.
     {
-        "key": "ctrl+enter",
+        "key": "alt+h",
         "command": "workbench.action.terminal.toggleTerminal"
     },
     {
-        "key": "ctrl+shift+enter",
+        "key": "ctrl+enter",
         "command": "workbench.action.terminal.new"
     },
     //intellisence traverse with vim ctrl j ctrl k

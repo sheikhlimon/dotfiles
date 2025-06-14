@@ -30,30 +30,6 @@ return {
   },
 
   {
-    "nvzone/typr",
-    cmd = { "Typr", "TyprStats" },
-    opts = {
-      wpm_goal = 120,
-      stats_filepath = vim.fn.stdpath "data" .. "/config",
-    },
-  },
-
-  { "nvzone/minty", opts = {} },
-  { "nvzone/showkeys", cmd = "ShowkeysToggle" },
-  {
-    "nvzone/timerly",
-    opts = {
-      on_start = function()
-        vim.notify "Timerly started"
-      end,
-      on_finish = function()
-        vim.cmd "silent !doas rtcwake -s 300 -m mem"
-      end,
-    },
-    cmd = "TimerlyToggle",
-  },
-
-  {
     "hrsh7th/nvim-cmp",
     dependencies = {
       {
@@ -177,10 +153,6 @@ return {
       { "2kabhishek/nerdy.nvim" },
     },
   },
-
-  { "jbyuki/venn.nvim", cmd = "VBox" },
-
-  { import = "nvchad.blink.lazyspec" },
 
   {
     "OXY2DEV/markview.nvim",
