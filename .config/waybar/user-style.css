@@ -4,5 +4,6 @@ window {
 
 #waybar {
 	background: rgba(20, 20, 20, 0.95);
-	color: #f5a97f;
+	/* color: #bf97d2; */
+	color: #fab387;
 }
