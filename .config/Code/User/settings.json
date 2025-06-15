@@ -22,6 +22,22 @@
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
+            "before": ["<leader>", "b"],
+            "commands": ["workbench.action.files.newUntitledFile"]
+        },
+        {
+            "before": ["<leader>", "x"],
+            "commands": ["workbench.action.closeActiveEditor"]
+        },
+        {
+            "before": ["<leader>", "x"],
+            "commands": ["workbench.action.closeActiveEditor"]
+        },
+        {
+            "before": ["<leader>", "x"],
+            "commands": ["workbench.action.closeActiveEditor"]
+        },
+        {
             "before": ["<leader>", "x"],
             "commands": ["workbench.action.closeActiveEditor"]
         },
