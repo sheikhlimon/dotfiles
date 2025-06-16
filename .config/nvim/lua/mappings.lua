@@ -11,6 +11,9 @@ map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 
 map("n", "<leader>s", "<cmd>w<CR>", { desc = "Save file" })
 
+-- trouble diagnostic
+map("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { desc = "Toggle Trouble" })
+
 -- Up, Down
 map("n", "j", "gj", { desc = "Up", noremap = true })
 map("n", "k", "gk", { desc = "Down", noremap = true })

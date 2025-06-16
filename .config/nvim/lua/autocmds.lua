@@ -2,8 +2,8 @@ require "nvchad.autocmds"
 
 local autocmd = vim.api.nvim_create_autocmd
 
--- Filetype-specific settings for Lua files
-vim.api.nvim_create_autocmd("FileType", {
+--Filetype-specific settings for Lua files
+autocmd("FileType", {
   pattern = "lua", -- Apply these settings when the filetype is 'lua'
   callback = function()
     vim.opt_local.tabstop = 2 -- Lua: A TAB character occupies 2 spaces

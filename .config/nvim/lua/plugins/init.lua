@@ -32,10 +32,10 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      {
-        "supermaven-inc/supermaven-nvim",
-        opts = {},
-      },
+      -- {
+      --   "supermaven-inc/supermaven-nvim", --disabled for now
+      --   opts = {},
+      -- },
       {
         -- snippet plugin
         "L3MON4D3/LuaSnip",
@@ -73,8 +73,10 @@ return {
     },
 
     opts = function(_, opts)
-      opts.sources[1].trigger_characters = { "-" }
-      table.insert(opts.sources, 1, { name = "supermaven" })
+      opts.sources[1].trigger_characters = { ".", "-" }
+
+      -- Leave supermaven out (commented)
+      -- table.insert(opts.sources, 1, { name = "supermaven" })
     end,
   },
 
@@ -104,6 +106,7 @@ return {
         "json",
         "toml",
         "markdown",
+        "markdown_inline",
         "c",
         "bash",
         "lua",
@@ -132,8 +135,11 @@ return {
     end,
   },
 
-  { "folke/trouble.nvim", cmd = "Trouble", opts = {} },
-  { "elkowar/yuck.vim", ft = "yuck", dependencies = "gpanders/nvim-parinfer" },
+  {
+    "folke/trouble.nvim",
+    cmd = "Trouble",
+    opts = {},
+  },
 
   {
     "nvim-telescope/telescope.nvim",
@@ -159,7 +165,7 @@ return {
     ft = { "markdown", "codecompanion" },
     opts = {
       preview = {
-        filetypes = { "md", "markdown", "codecompanion" },
+        filetypes = { "markdown", "codecompanion" },
       },
     },
   },

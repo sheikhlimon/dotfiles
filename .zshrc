@@ -41,3 +41,6 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="/home/limon/.local/share/fnm:$PATH"
   eval "`fnm env`"
 fi
+
+#luacheck neovim
+eval $(luarocks path)
