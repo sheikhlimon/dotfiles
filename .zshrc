@@ -43,4 +43,4 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 #luacheck neovim
-eval $(luarocks path)
+
