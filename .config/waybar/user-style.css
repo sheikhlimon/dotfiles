@@ -1,9 +1,0 @@
-window {
-	background: transparent;
-}
-
-#waybar {
-	background: rgba(20, 20, 20, 0.95);
-	/* color: #bf97d2; */
-	color: #fab387;
-}

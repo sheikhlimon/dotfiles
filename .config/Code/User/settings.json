@@ -270,8 +270,13 @@
 	"terminal.integrated.enablePersistentSessions": false,
 	"terminal.integrated.showExitAlert": false,
 	"terminal.integrated.rightClickBehavior": "copyPaste",
-	"terminal.external.linuxExec": "kitty",
-	"terminal.explorerKind": "both",
+	// "terminal.external.linuxExec": "kitty",
+	"terminal.integrated.defaultProfile.linux": "fish",
+	"terminal.integrated.profiles.linux": {
+		"fish": {
+			"path": "/usr/bin/fish"
+		}
+	},
 
 	//errorlens
 	"errorLens.messageBackgroundMode": "none",

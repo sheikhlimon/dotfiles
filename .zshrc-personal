@@ -3,7 +3,7 @@
 #alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
 #git dotfiles-v2
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Tell zsh to use git's completion for the 'dotfiles' alias
 #compdef dotfiles =git
