@@ -142,7 +142,7 @@ function hb {
 install_zshrc_support() {
     if [[ -f /etc/arch-release ]]; then
         echo "Detected Arch Linux"
-        sudo paru multitail eza bat zoxide trash-cli fzf
+        sudo paru multitail eza bat yazi zoxide trash-cli fzf
     else
         echo "This function currently only supports Arch Linux."
     fi

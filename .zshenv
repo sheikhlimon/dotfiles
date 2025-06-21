@@ -1,19 +1,6 @@
 #!/usr/bin/env zsh
-#!          ░▒▓
-#!        ░▒▒░▓▓
-#!      ░▒▒▒░░░▓▓           ___________
-#!    ░░▒▒▒░░░░░▓▓        //___________/
-#!   ░░▒▒▒░░░░░▓▓     _   _ _    _ _____
-#!   ░░▒▒░░░░░▓▓▓▓▓ | | | | |  | |  __/
-#!    ░▒▒░░░░▓▓   ▓▓ | |_| | |_/ /| |___
-#!     ░▒▒░░▓▓   ▓▓   \__  |____/ |____/    ▀█ █▀ █░█
-#!       ░▒▓▓   ▓▓  //____/                █▄ ▄█ █▀█
-
-# I NEED IT SO IM USING IT
-# HyDE's ZSH env configuration
 # This file is sourced by ZSH on startup
 # And ensures that we have an obstruction-free ~/.zshrc file
-# This also ensures that the proper HyDE $ENVs are loaded
 
 function command_not_found_handler {
     local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
@@ -364,7 +351,6 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 HISTFILE=${HISTFILE:-$HOME/.zsh_history}
 HISTSIZE=10000
 SAVEHIST=10000
-
 setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format
 setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits
 setopt SHARE_HISTORY          # Share history between all sessions
