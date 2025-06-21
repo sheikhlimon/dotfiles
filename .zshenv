@@ -282,13 +282,6 @@ function _load_if_terminal {
         # ===== END Initialize Powerlevel10k theme =====
         fi
 
-        # Optionally load user configuration // useful for customizing the shell without modifying the main file
-        if [[ -f $HOME/.hyde.zshrc ]]; then
-            source $HOME/.hyde.zshrc # for backward compatibility
-        elif [[ -f $HOME/.user.zsh ]]; then
-            source $HOME/.user.zsh # renamed to .user.zsh for intuitiveness that it is a user config
-        fi
-
         # Load plugins
         _load_zsh_plugins
 
@@ -371,6 +364,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 HISTFILE=${HISTFILE:-$HOME/.zsh_history}
 HISTSIZE=10000
 SAVEHIST=10000
+
 setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format
 setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits
 setopt SHARE_HISTORY          # Share history between all sessions

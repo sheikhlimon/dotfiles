@@ -2,18 +2,15 @@
 #git
 #alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
-#git dotfiles-v2
+#git dotfiles-new
 alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-# Tell zsh to use git's completion for the 'dotfiles' alias
-#compdef dotfiles =git
-
+#alias
 alias vim='nvim'
 alias py='python'
 alias cat='bat'
 alias cd..='cd ..'
 alias cpu="ps axch -o cmd:15,%cpu --sort=-%cpu | head"
-alias df='df -h'
 alias q='exit'
 alias grep='grep --color=auto'
 alias jctl="journalctl -p 3 -xb" #get the error messages from journalctl
@@ -31,13 +28,49 @@ alias mem="ps axch -o cmd:15,%mem --sort=-%mem | head"
 alias mirror="sudo reflector -f 10 -l 10 --number 10 --verbose --save /etc/pacman.d/mirrorlist" # update your mirrors
 alias mpv='devour mpv'
 alias mv='mv -i'
-alias rm='rm -i'
+alias rm='trash -v'
 alias update='sudo pacman -Syyu'
 alias parsyu='paru -Syu --noconfirm'
 alias updatefonts='sudo fc-cache -fv'
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' #Cleanup orphaned packages
 alias wget="wget -c" # continue the download
+alias bookmark='zoxide add .' #zoxide
+alias multitail='multitail --no-repeat -c' 
 alias help="bat ~/.zshrc-personal"
+
+# Remove a directory and all files
+alias rmd='/bin/rm  --recursive --force --verbose '
+
+# Search running processes
+alias p="ps aux | grep "
+alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
+
+# Search files in the current folder
+alias f="find . | grep "
+
+# Allow ctrl-S for history navigation (with ctrl-R)
+if [[ -t 0 && $- == *i* ]]; then
+    stty -ixon
+fi
+
+# Count all files (recursively) in the current folder
+alias countfiles="for t in files links directories; do echo \`find . -type \${t:0:1} | wc -l\` \$t; done 2> /dev/null"
+
+# Search command line history
+alias h="history | grep "
+
+# Alias's to show disk space and space used in a folder
+alias diskspace="du -S | sort -n -r |more"
+alias folders='du -h --max-depth=1'
+
+#yazi
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
 
 # compile and run cpp 
 function cppcompile()
@@ -59,8 +92,8 @@ function cppcompile()
   rm -f *.o    					#this removes recedue files
 }
 
-# required functions
-ex ()
+# # Extracts any archive(s) (if unp isn't installed)
+extract ()
 {
   if [ -f $1 ] ; then
     case $1 in
@@ -84,3 +117,147 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
+
+#hb does lets something like paste bin creates a link to a text file i want
+function hb {
+    if [ $# -eq 0 ]; then
+        echo "No file path specified."
+        return
+    elif [ ! -f "$1" ]; then
+        echo "File path does not exist."
+        return
+    fi
+
+    uri="http://bin.christitus.com/documents"
+    response=$(curl -s -X POST -d @"$1" "$uri")
+    if [ $? -eq 0 ]; then
+        hasteKey=$(echo $response | jq -r '.key')
+        echo "http://bin.christitus.com/$hasteKey"
+    else
+        echo "Failed to upload the document."
+    fi
+}
+
+#automatically install the needed support files for this .zshrc file
+install_zshrc_support() {
+    if [[ -f /etc/arch-release ]]; then
+        echo "Detected Arch Linux"
+        sudo paru multitail eza bat zoxide trash-cli fzf
+    else
+        echo "This function currently only supports Arch Linux."
+    fi
+}
+
+
+# IP address lookup
+alias whatismyip="whatsmyip"
+function whatsmyip () {
+    # Internal IP Lookup.
+    if command -v ip &> /dev/null; then
+        echo -n "Internal IP: "
+        ip addr show wlan0 | grep "inet " | awk '{print $2}' | cut -d/ -f1
+    else
+        echo -n "Internal IP: "
+        ifconfig wlan0 | grep "inet " | awk '{print $2}'
+    fi
+
+    # External IP Lookup
+    echo -n "External IP: "
+    curl -4 ifconfig.me
+}
+
+# Returns the last 2 fields of the working directory
+pwdtail() {
+	pwd | awk -F/ '{nlast = NF -1;print $nlast"/"$NF}'
+}
+
+# Copy and go to the directory
+cpg() {
+	if [ -d "$2" ]; then
+		cp "$1" "$2" && cd "$2"
+	else
+		cp "$1" "$2"
+	fi
+}
+
+# Move and go to the directory
+mvg() {
+	if [ -d "$2" ]; then
+		mv "$1" "$2" && cd "$2"
+	else
+		mv "$1" "$2"
+	fi
+}
+
+# Create and go to the directory
+mkdirg() {
+	mkdir -p "$1"
+	cd "$1"
+}
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+	 [[ $1 = 'block' ]]; then
+	echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+	   [[ ${KEYMAP} == viins ]] ||
+	   [[ ${KEYMAP} = '' ]] ||
+	   [[ $1 = 'beam' ]]; then
+	echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+zle-line-init() {
+	zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+	echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+# Initialize a variable to track the last j keypress time
+typeset -g jj_last_time=0
+
+function jj-escape() {
+  local current_time=$(date +%s%3N) # current time in milliseconds
+  local time_diff=$((current_time - jj_last_time))
+
+  if [[ $LBUFFER == *j && $time_diff -lt 500 ]]; then
+    LBUFFER=${LBUFFER%j}
+    zle vi-cmd-mode
+    jj_last_time=0
+  else
+    LBUFFER+=$KEYS
+    jj_last_time=$current_time
+  fi
+}
+zle -N jj-escape
+
+
+# ci"
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+  for c in {a,i}{\',\",\`}; do
+	bindkey -M $m $c select-quoted
+  done
+done
+
+# ci{, ci(, di{ etc..
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+  for c in {a,i}${(s..)^:-'()[]{}<>bB\'}; do
+	bindkey -M $m $c select-bracketed
+  done
+done
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M viins 'j' jj-escape
+bindkey '^R' history-incremental-search-backward
+bindkey -v 
