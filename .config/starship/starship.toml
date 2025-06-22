@@ -98,4 +98,4 @@ format = '[](bold fg:#cba6f7)[󰉋 $path]($style)[](bold fg:#cba6f7)'
 
 [cmd_duration]
 min_time = 0
-format = '[](bold fg:#e5c890)[󰪢 $duration](bold bg:#e5c890 fg:black)[](bold fg:#e5c890)'
+format = '[](bold fg:yellow)[󰪢 $duration](bold bg:yellow fg:black)[](bold fg:yellow)'

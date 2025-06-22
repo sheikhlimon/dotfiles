@@ -7,6 +7,7 @@
 	"vim.timeout": 350,
 	"vim.leader": "<space>",
 	"vim.handleKeys": {
+		"<C-p>": false,
 		"<C-f>": false,
 		"<C-c>": false,
 		"<C-v>": false,
@@ -270,13 +271,7 @@
 	"terminal.integrated.enablePersistentSessions": false,
 	"terminal.integrated.showExitAlert": false,
 	"terminal.integrated.rightClickBehavior": "copyPaste",
-	// "terminal.external.linuxExec": "kitty",
-	"terminal.integrated.defaultProfile.linux": "fish",
-	"terminal.integrated.profiles.linux": {
-		"fish": {
-			"path": "/usr/bin/fish"
-		}
-	},
+	"terminal.integrated.defaultProfile.linux": "zsh",
 
 	//errorlens
 	"errorLens.messageBackgroundMode": "none",

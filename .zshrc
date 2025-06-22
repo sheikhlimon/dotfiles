@@ -30,7 +30,7 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
-eval "$(zoxide init bash)"
+eval "$(zoxide init zsh)"
 
 
 #luacheck neovim

@@ -34,7 +34,6 @@ alias parsyu='paru -Syu --noconfirm'
 alias updatefonts='sudo fc-cache -fv'
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' #Cleanup orphaned packages
 alias wget="wget -c" # continue the download
-alias bookmark='zoxide add .' #zoxide
 alias multitail='multitail --no-repeat -c' 
 alias help="bat ~/.zshrc-personal"
 
