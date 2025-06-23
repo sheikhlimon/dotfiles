@@ -17,7 +17,7 @@ $character
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
-success_symbol = "[   ](bold fg:blue)"
+success_symbol = "[   ](bold fg:green)"
 error_symbol = "[   ](bold fg:red)"
 
 # Disable the package module, hiding it from the prompt completely
@@ -29,27 +29,21 @@ style = "bg: cyan"
 symbol = "󰘬"
 truncation_length = 12
 truncation_symbol = ""
-format = "󰜥 [](bold fg:cyan)[$symbol $branch(:$remote_branch)](fg:black bg:cyan)[](bold fg:cyan)"
+format = "󰜥 [](fg:yellow)[$symbol $branch(:$remote_branch)](fg:black bg:yellow)[](fg:yellow)"
 
 [git_commit]
 commit_hash_length = 4
 tag_symbol = " "
 
 [git_state]
-format = '[\($state( $progress_current of $progress_total)\)]($style) '
+style = "bold red"
 cherry_pick = "[🍒 PICKING](bold red)"
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
 
 [git_status]
-conflicted = " 🏳 "
-ahead = " 🏎💨 "
-behind = " 😰 "
-diverged = " 😵 "
-untracked = " 🤷 ‍"
-stashed = " 📦 "
-modified = " 📝 "
-staged = '[++\($count\)](green)'
-renamed = " ✍️ "
-deleted = " 🗑 "
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
 
 [hostname]
 ssh_only = false
@@ -98,12 +92,8 @@ format = '[](bold fg:#cba6f7)[󰉋 $path]($style)[](bold fg:#cba6f7)'
 
 [cmd_duration]
 min_time = 0
-format = '[](bold fg:yellow)[󰪢 $duration](bold bg:yellow fg:black)[](bold fg:yellow)'
+format = '[](bold fg:blue)[󰪢 $duration](bold bg:blue fg:black)[](bold fg:blue)'
 
 [nodejs]
 # format = '󰜥 [](bold fg:green)[ $version](bold bg:green fg:black)[](bold fg:green)'
-# format = '[](bold fg:green)[ 󰎙 $version](bold bg:green fg:black)[](bold fg:green)'
-format = '󰜥 [](bold fg:green)[ $version](bold bg:green fg:black)[](bold fg:green)'
-
-
-
+format = ' [](fg:#6B8B8C)[ $version](bg:#6B8B8C fg:black)[](fg:#6B8B8C)'
