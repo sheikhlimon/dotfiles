@@ -2,14 +2,43 @@ require "nvchad.options"
 
 -- add yours here!
 
-local o = vim.o
-o.title = true
-o.tabstop = 4 -- A TAB character occupies 2 spaces
-o.shiftwidth = 4 -- Number of spaces to use for auto-indentation (<<, >>, ==, autoindent)
-o.expandtab = true -- Use spaces instead of TABs (highly recommended for consistency)
-o.autoindent = true -- Copy indent from previous line
-o.smartindent = true -- Smarter auto-indent for C-like languages
-o.wrap = true -- Wrap lines
-o.swapfile = false
+local opt = vim.opt
 
--- o.cursorlineopt ='both' -- to enable cursorline!
+-- line numbers
+opt.relativenumber = true
+opt.number = true
+
+opt.title = true
+
+-- tabs & indentation
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.expandtab = true
+opt.autoindent = true
+opt.smartindent = true
+
+opt.wrap = true -- Wrap lines
+opt.swapfile = false
+
+-- search settings
+opt.ignorecase = true
+opt.smartcase = true
+
+opt.cursorline = false
+
+opt.termguicolors = true
+opt.background = "dark"
+opt.signcolumn = "yes"
+
+-- splitting windows
+opt.splitright = true
+opt.splitbelow = true
+
+opt.clipboard:append "unnamedplus"
+
+opt.backspace = "indent,eol,start"
+
+-- hide ~ on empty line
+opt.fillchars = { eob = " " }
+
+-- opt.cursorlineopt ='both' -- to enable cursorline!
