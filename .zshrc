@@ -32,6 +32,3 @@ fi
 
 eval "$(zoxide init zsh)"
 
-
-#luacheck neovim
-
