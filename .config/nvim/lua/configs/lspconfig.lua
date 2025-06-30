@@ -3,6 +3,7 @@ require("nvchad.configs.lspconfig").defaults()
 
 local servers = {
   "vtsls",
+  -- "ts_ls",
   "html",
   "cssls",
   "tailwindcss",
@@ -11,6 +12,7 @@ local servers = {
   "graphql",
   "emmet_ls",
   "prismals",
+  "yamlls",
   "pyright",
   "clangd",
   "prettier",

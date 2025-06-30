@@ -17,6 +17,8 @@ map("n", "<leader>nh", ":nohl<CR>", { desc = "clear search highlights" })
 map("n", "j", "gj", { desc = "Up", noremap = true })
 map("n", "k", "gk", { desc = "Down", noremap = true })
 
+vim.keymap.set({ "n", "t" }, "<A-i>", "<Cmd>FloatermToggle<CR>", { desc = "Toggle floating terminal" })
+
 map("n", "<leader>ih", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
 end)

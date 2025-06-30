@@ -6,11 +6,13 @@
 alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 #alias
+alias editrc='nvim ~/.zshrc'
+alias editenv='nvim ~/.zshenv'
+alias editper='nvim ~/.zshrc-personal'
 alias vim='nvim'
 alias py='python'
 alias cat='bat'
 alias cd..='cd ..'
-alias cpu="ps axch -o cmd:15,%cpu --sort=-%cpu | head"
 alias q='exit'
 alias grep='grep --color=auto'
 alias jctl="journalctl -p 3 -xb" #get the error messages from journalctl
@@ -18,19 +20,16 @@ alias killp='killprocess'
 alias kp='killprocess'
 alias c='clear'                                                        # clear terminal
 alias l='eza -lh --icons=auto'                                         # long list
-alias ls='eza -1 --icons=auto'                                         # short list
 alias ll='eza -lha --icons=auto --sort=name --group-directories-first' # long list all
-alias ld='eza -lhD --icons=auto'                                       # long list dirs
+alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first' # long list all grid
 alias lt='eza --icons=auto --tree'                                     # list folder as tree
 alias less='bat'
-alias matrix='unimatrix -f -l ocCgGkS -s 96'
 alias mem="ps axch -o cmd:15,%mem --sort=-%mem | head"
 alias mirror="sudo reflector -f 10 -l 10 --number 10 --verbose --save /etc/pacman.d/mirrorlist" # update your mirrors
 alias mpv='devour mpv'
 alias mv='mv -i'
 alias rm='trash -v'
 alias update='sudo pacman -Syyu'
-alias parsyu='paru -Syu --noconfirm'
 alias updatefonts='sudo fc-cache -fv'
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' #Cleanup orphaned packages
 alias wget="wget -c" # continue the download
@@ -141,7 +140,7 @@ function hb {
 install_zshrc_support() {
     if [[ -f /etc/arch-release ]]; then
         echo "Detected Arch Linux"
-        sudo paru multitail eza bat yazi zoxide trash-cli fzf
+        sudo paru multitail eza bat peco yazi zoxide trash-cli fzf
     else
         echo "This function currently only supports Arch Linux."
     fi

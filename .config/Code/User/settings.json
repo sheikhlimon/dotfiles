@@ -285,10 +285,5 @@
     "plaintext": false,
     "markdown": false,
     "scminput": false
-  },
-
-  "discord.enabled": true,
-  "discord.idleTimeout": 300,
-  "discord.detailsEditing": "Editing",
-  "discord.lowerDetailsIdling": "Idling"
+  }
 }
