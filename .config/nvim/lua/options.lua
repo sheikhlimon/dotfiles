@@ -12,8 +12,6 @@ opt.title = true
 
 -- tabs & indentation
 opt.tabstop = 2
-opt.shiftwidth = 2
-opt.expandtab = true
 opt.autoindent = true
 opt.smartindent = true
 
@@ -21,18 +19,10 @@ opt.wrap = true -- Wrap lines
 opt.swapfile = false
 
 -- search settings
-opt.ignorecase = true
-opt.smartcase = true
+opt.ignorecase = true -- case insensitive on search..
+opt.smartcase = true -- ..unless there's a capital
 
 opt.cursorline = false
-
-opt.termguicolors = true
-opt.background = "dark"
-opt.signcolumn = "yes"
-
--- splitting windows
-opt.splitright = true
-opt.splitbelow = true
 
 opt.clipboard:append "unnamedplus"
 

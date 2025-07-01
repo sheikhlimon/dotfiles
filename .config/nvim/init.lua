@@ -1,3 +1,33 @@
+-- VSCode detection
+if vim.g.vscode then
+  -- VSCode-specific config
+  local map = vim.keymap.set
+
+  vim.g.mapleader = " "
+  vim.g.maplocalleader = " "
+  local opts = { noremap = true, silent = true }
+
+  map("n", "<leader>b", "<cmd>call VSCodeNotify('workbench.action.files.newUntitledFile')<CR>", opts)
+  map("n", "<leader>x", "<cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<CR>", opts)
+  map("n", "<leader>ff", "<cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>", opts)
+  map("n", "<leader>e", "<cmd>call VSCodeNotify('workbench.view.explorer')<CR>", opts)
+  map("n", "<leader>fm", "<cmd>call VSCodeNotify('editor.action.formatDocument')<CR>", opts)
+
+  -- Copy entire file to system clipboard
+  map("n", "<C-a>", ":%y+<CR>", opts)
+
+  -- Optional: some keymaps just for VSCode
+  map("n", "U", "<C-r>") -- Redo
+  --save
+  map("n", "<leader>s", "<cmd>w<CR>", { desc = "Save file" })
+
+  --copy to system clipboard and paste
+  map({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+  map("n", "<leader>p", '"+p', { desc = "Paste from system clipboard" })
+
+  return -- Don't load NvChad
+end
+
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
 

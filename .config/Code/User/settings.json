@@ -1,135 +1,29 @@
 {
-  "vim.easymotion": true,
-  "vim.hlsearch": true,
-  "vim.incsearch": true,
-  "vim.useCtrlKeys": true,
-  "vim.timeout": 350,
-  "vim.leader": "<space>",
-  "vim.handleKeys": {
-    "<C-p>": false,
-    "<C-f>": false,
-    "<C-c>": false,
-    "<C-v>": false,
-    "<C-w>": false
-  },
   "extensions.experimental.affinity": {
-    "vscodevim.vim": 1
+    "asvetliakov.vscode-neovim": 1
   },
-  "vim.insertModeKeyBindings": [
-    {
-      "before": ["j", "j"],
-      "after": ["<esc>"]
+  "vscode-neovim.compositeKeys": {
+    "jj": {
+      "command": "vscode-neovim.escape"
+    },
+    "jk": {
+      // Use lua to execute any logic
+      "command": "vscode-neovim.lua",
+      "args": [
+        [
+          "local code = require('vscode')",
+          "code.action('vscode-neovim.escape')",
+          "code.action('workbench.action.files.save')"
+        ]
+      ]
     }
-  ],
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<leader>", "b"],
-      "commands": ["workbench.action.files.newUntitledFile"]
-    },
-    {
-      "before": ["<leader>", "x"],
-      "commands": ["workbench.action.closeActiveEditor"]
-    },
-    {
-      "before": ["<leader>", "f", "f"],
-      "commands": ["workbench.action.quickOpen"]
-    },
-    {
-      "before": ["<leader>", "e"],
-      "commands": ["workbench.view.explorer"]
-    },
-    {
-      "before": ["<leader>", "f", "m"],
-      "commands": ["editor.action.formatDocument"]
-    },
-    {
-      "before": ["<C-a>"],
-      "commands": [":%y+"]
-    },
-    {
-      "before": ["<leader>", "p"],
-      "after": ["\"", "0", "p"]
-    },
-    {
-      "before": ["<Esc>"],
-      "commands": ["workbench.action.toggleLineNumbers"]
-    },
-    {
-      "before": ["<leader>", "n", "h"],
-      "commands": [":nohl"]
-    },
-    {
-      "before": ["<leader>", "s"],
-      "commands": ["workbench.action.files.save"]
-    },
-    {
-      "before": ["<leader>", "r"],
-      "commands": [":reg"]
-    },
-    {
-      "before": ["<leader>", "l", "n"],
-      "commands": [":set nu"]
-    },
-    {
-      "before": ["<leader>", "r", "n"],
-      "commands": [":set rnu"]
-    },
-    {
-      "before": ["<C-d>"],
-      "after": ["<C-d>", "z", "z"]
-    },
-    {
-      "before": ["<C-u>"],
-      "after": ["<C-u>", "z", "z"]
-    },
-    {
-      "before": ["<C-e>"],
-      "after": ["2", "<C-e>"]
-    },
-    {
-      "before": ["<C-y>"],
-      "after": ["2", "<C-y>"]
-    },
-    {
-      "before": ["K"],
-      "commands": ["lineBreakInsert"],
-      "silent": true
-    }
-  ],
-  "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "before": ["p"],
-      "after": ["p", "g", "v", "y"]
-    }
-  ],
-  "vim.operatorPendingModeKeyBindings": [
-    {
-      "before": ["L"],
-      "after": ["$"]
-    },
-    {
-      "before": ["H"],
-      "after": ["^"]
-    }
-  ],
-  "vim.visualModeKeyBindings": [
-    {
-      "before": [">"],
-      "commands": ["editor.action.indentLines"]
-    },
-    {
-      "before": ["<"],
-      "commands": ["editor.action.outdentLines"]
-    }
-  ],
-
+  },
   "window.commandCenter": true,
   "window.customTitleBarVisibility": "auto",
   "window.menuBarVisibility": "toggle",
   "window.titleBarStyle": "native",
   "files.autoSave": "off",
   "files.saveConflictResolution": "overwriteFileOnDisk",
-
   "editor.lineNumbers": "relative",
   "editor.fontSize": 17,
   "editor.fontFamily": "JetBrainsMono Nerd Font",
@@ -144,7 +38,6 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-
   "eslint.enable": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.renderWhitespace": "none",
@@ -155,7 +48,6 @@
   "explorer.compactFolders": false,
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false,
-
   "search.exclude": {
     "**/vendor/{[^l],?[^ai]}*": true,
     "**/public/{[^i],?[^n]}*": true,
@@ -167,7 +59,6 @@
     "storage": true,
     ".phpunit.result.cache": true
   },
-
   "security.workspace.trust.startupPrompt": "never",
   "security.workspace.trust.enabled": false,
   "workbench.activityBar.location": "top",
@@ -221,7 +112,9 @@
           }
         },
         {
-          "scope": ["comment.block.documentation entity.name.type.instance"],
+          "scope": [
+            "comment.block.documentation entity.name.type.instance"
+          ],
           "settings": {
             "foreground": "#73daca",
             "fontStyle": "italic"
@@ -236,7 +129,9 @@
           }
         },
         {
-          "scope": ["comment.block.documentation variable"],
+          "scope": [
+            "comment.block.documentation variable"
+          ],
           "settings": {
             "foreground": "#e0af68",
             "fontStyle": "italic"
@@ -245,7 +140,6 @@
       ]
     }
   },
-
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontSize": 15,
   "terminal.integrated.copyOnSelection": true,
@@ -255,12 +149,13 @@
   "terminal.integrated.showExitAlert": false,
   "terminal.integrated.rightClickBehavior": "copyPaste",
   "terminal.integrated.defaultProfile.linux": "zsh",
-
   "errorLens.messageBackgroundMode": "none",
   "errorLens.delay": 1500,
   "errorLens.delayMode": "old",
-
-  "emmet.excludeLanguages": ["markdown", "php"],
+  "emmet.excludeLanguages": [
+    "markdown",
+    "php"
+  ],
   "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.CustomBrowser": "chrome",
   "emmet.triggerExpansionOnTab": true,
@@ -268,8 +163,9 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "database-client.autoSync": true,
   "breadcrumbs.enabled": false,
-
-  "remote.SSH.defaultExtensions": ["gitpod.gitpod-remote-ssh"],
+  "remote.SSH.defaultExtensions": [
+    "gitpod.gitpod-remote-ssh"
+  ],
   "remote.SSH.remotePlatform": {
     "freecodecam-learnsqlbyb-pzwuxagzx4n.vss.gitpod.io": "linux",
     "*.gitpod.io": "linux",
@@ -277,13 +173,16 @@
     "freecodecam-learnrelati-do4xb37hew0.vss.gitpod.io": "linux",
     "freecodecam-learnsqlbyb-qoobect7yxk.vss.gitpod.io": "linux"
   },
-
-  "security.allowedUNCHosts": ["wsl.localhost"],
-
+  "security.allowedUNCHosts": [
+    "wsl.localhost"
+  ],
   "github.copilot.enable": {
     "*": false,
     "plaintext": false,
     "markdown": false,
     "scminput": false
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
   }
 }
