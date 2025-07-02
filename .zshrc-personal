@@ -6,9 +6,6 @@
 alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 #alias
-alias editrc='nvim ~/.zshrc'
-alias editenv='nvim ~/.zshenv'
-alias editper='nvim ~/.zshrc-personal'
 alias vim='nvim'
 alias py='python'
 alias cat='bat'
@@ -24,27 +21,16 @@ alias ll='eza -lha --icons=auto --sort=name --group-directories-first' # long li
 alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first' # long list all grid
 alias lt='eza --icons=auto --tree'                                     # list folder as tree
 alias less='bat'
-alias mem="ps axch -o cmd:15,%mem --sort=-%mem | head"
-alias mirror="sudo reflector -f 10 -l 10 --number 10 --verbose --save /etc/pacman.d/mirrorlist" # update your mirrors
-alias mpv='devour mpv'
 alias mv='mv -i'
 alias rm='trash -v'
-alias update='sudo pacman -Syyu'
 alias updatefonts='sudo fc-cache -fv'
-alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' #Cleanup orphaned packages
 alias wget="wget -c" # continue the download
 alias multitail='multitail --no-repeat -c' 
 alias help="bat ~/.zshrc-personal"
 
-# Remove a directory and all files
-alias rmd='/bin/rm  --recursive --force --verbose '
-
 # Search running processes
 alias p="ps aux | grep "
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
-
-# Search files in the current folder
-alias f="find . | grep "
 
 # Allow ctrl-S for history navigation (with ctrl-R)
 if [[ -t 0 && $- == *i* ]]; then
@@ -90,32 +76,6 @@ function cppcompile()
   rm -f *.o    					#this removes recedue files
 }
 
-# # Extracts any archive(s) (if unp isn't installed)
-extract ()
-{
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1   ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *.deb)       ar x $1      ;;
-      *.tar.xz)    tar xf $1    ;;
-      *.tar.zst)   tar xf $1    ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
-}
-
 #hb does lets something like paste bin creates a link to a text file i want
 function hb {
     if [ $# -eq 0 ]; then
@@ -144,29 +104,6 @@ install_zshrc_support() {
     else
         echo "This function currently only supports Arch Linux."
     fi
-}
-
-
-# IP address lookup
-alias whatismyip="whatsmyip"
-function whatsmyip () {
-    # Internal IP Lookup.
-    if command -v ip &> /dev/null; then
-        echo -n "Internal IP: "
-        ip addr show wlan0 | grep "inet " | awk '{print $2}' | cut -d/ -f1
-    else
-        echo -n "Internal IP: "
-        ifconfig wlan0 | grep "inet " | awk '{print $2}'
-    fi
-
-    # External IP Lookup
-    echo -n "External IP: "
-    curl -4 ifconfig.me
-}
-
-# Returns the last 2 fields of the working directory
-pwdtail() {
-	pwd | awk -F/ '{nlast = NF -1;print $nlast"/"$NF}'
 }
 
 # Copy and go to the directory

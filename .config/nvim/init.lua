@@ -1,10 +1,10 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 -- VSCode detection
 if vim.g.vscode then
   -- VSCode-specific config
   local map = vim.keymap.set
 
-  vim.g.mapleader = " "
-  vim.g.maplocalleader = " "
   local opts = { noremap = true, silent = true }
 
   map("n", "<leader>b", "<cmd>call VSCodeNotify('workbench.action.files.newUntitledFile')<CR>", opts)
@@ -29,7 +29,6 @@ if vim.g.vscode then
 end
 
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
-vim.g.mapleader = " "
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
