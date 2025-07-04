@@ -1,54 +1,30 @@
-// Place your key bindings in this file to override the defaults
 [
-  // for vim word wrap on
+  //toggle terminal
   {
-    "key": "up",
-    "command": "cursorUp",
-    "when": "editorTextFocus && vim.active && !inDebugRepl && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
-  },
-  {
-    "key": "down",
-    "command": "cursorDown",
-    "when": "editorTextFocus && vim.active && !inDebugRepl && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
-  },
-  {
-    "key": "k",
-    "command": "cursorUp",
-    "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal' && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
-  },
-  {
-    "key": "j",
-    "command": "cursorDown",
-    "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal' && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
-  },
-  // Move to the previous/next editor.
-  {
-    "key": "shift+tab",
-    "command": "workbench.action.previousEditor"
-  },
-  {
-    "key": "tab",
-    "command": "workbench.action.nextEditor"
-  },
-  // VSCode terminal commands.
-  {
-    "key": "ctrl+enter",
+    "key": "alt+i",
     "command": "workbench.action.terminal.toggleTerminal"
   },
+  // Neovim normal mode — switch editor tab
   {
-    "key": "ctrl+shift+enter",
-    "command": "workbench.action.terminal.new"
+    "key": "ctrl+j",
+    "command": "workbench.action.nextEditorInGroup",
+    "when": "neovim.mode == 'normal'"
   },
-  //intellisence traverse
   {
-    "key": "tab",
+    "key": "ctrl+k",
+    "command": "workbench.action.previousEditorInGroup",
+    "when": "neovim.mode == 'normal'"
+  },
+  // intellisense
+  {
+    "key": "ctrl+j",
     "command": "selectNextSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    "when": "suggestWidgetVisible"
   },
   {
-    "key": "shift+tab",
+    "key": "ctrl+k",
     "command": "selectPrevSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    "when": "suggestWidgetVisible"
   },
   // disable multiple selections
   {
@@ -65,32 +41,5 @@
   {
     "key": "ctrl+n",
     "command": "workbench.action.toggleSidebarVisibility"
-  },
-  //turn vim on and off
-  {
-    "key": "ctrl+alt+v",
-    "command": "toggleVim"
-  },
-  //move selected line down
-  {
-    "command": "editor.action.moveLinesDownAction",
-    "key": "shift+j"
-  },
-  //move selected lines up
-  {
-    "key": "shift+k",
-    "command": "editor.action.moveLinesUpAction",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  //show hover
-  {
-    "key": "alt+k",
-    "command": "editor.action.showHover"
-  },
-  //emmet wrap
-  {
-    "key": "alt+w",
-    "command": "editor.emmet.action.wrapWithAbbreviation",
-    "when": "editorHasSelection && editorTextFocus"
   }
 ]

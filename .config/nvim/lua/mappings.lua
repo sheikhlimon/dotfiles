@@ -13,20 +13,21 @@ map("n", "<leader>s", "<cmd>w<CR>", { desc = "Save file" })
 
 map("n", "<leader>nh", ":nohl<CR>", { desc = "clear search highlights" })
 
--- Up, Down
+map("n", "<C-a>", [[:%y+<CR>]], { desc = "yank everything" })
+
+-- wrap mode up and down between same line
 map("n", "j", "gj", { desc = "Up", noremap = true })
 map("n", "k", "gk", { desc = "Down", noremap = true })
 
-vim.keymap.set({ "n", "t" }, "<A-i>", "<Cmd>FloatermToggle<CR>", { desc = "Toggle floating terminal" })
+map({ "n", "t" }, "<A-i>", "<Cmd>FloatermToggle<CR>", { desc = "Toggle floating terminal" })
 
 map("n", "<leader>ih", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
 end)
 
--- J to move the current line down
-map("n", "J", ":m .+1<CR>==", { desc = "move line down", noremap = true, silent = true })
--- K to move the current line up (use g? to show docs for something)
-map("n", "K", ":m .-2<CR>==", { desc = "move line up", noremap = true, silent = true })
+-- visual mode line up and down
+map("v", "<C-j>", ":m '>+1<CR>gv=gv")
+map("v", "<C-k>", ":m '<-2<CR>gv=gv")
 
 -- increment or decrement numbers
 map("n", "<leader>+", "<C-a>", { desc = "increment number" })

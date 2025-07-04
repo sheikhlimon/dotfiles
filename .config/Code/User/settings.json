@@ -24,15 +24,20 @@
   "window.titleBarStyle": "native",
   "files.autoSave": "off",
   "files.saveConflictResolution": "overwriteFileOnDisk",
+  // "editor.inlineSuggest.enabled": true,
+  // "editor.codeLens": true,
+  // "editor.glyphMargin": true,
   "editor.lineNumbers": "relative",
   "editor.fontSize": 17,
   "editor.fontFamily": "JetBrainsMono Nerd Font",
   "editor.fontLigatures": false,
+  "editor.occurrencesHighlight": "off",
+
   "editor.smoothScrolling": true,
-  "editor.renderLineHighlight": "all",
+  // "editor.renderLineHighlight": "all",
   "editor.wordWrap": "on",
   "editor.minimap.enabled": false,
-  "editor.bracketPairColorization.enabled": true,
+  // "editor.bracketPairColorization.enabled": true,
   "editor.linkedEditing": true,
   "editor.tabCompletion": "on",
   "editor.quickSuggestions": {
@@ -65,7 +70,6 @@
   "workbench.navigationControl.enabled": false,
   "workbench.startupEditor": "none",
   "workbench.iconTheme": "symbols",
-  "workbench.colorTheme": "Tokyo Night",
   "workbench.colorCustomizations": {
     "[Tokyo Night]": {
       "editor.background": "#11121D",
@@ -81,7 +85,12 @@
       "editor.findMatchBorder": "#fff0",
       "editor.selectionHighlightBorder": "#fff0"
     },
-    "errorLens.errorForeground": "#9C6CBA"
+    "[Rosé Pine (no italics)]": {
+      "editor.lineHighlightBackground": "#fff0",
+      "editor.selectionHighlightBorder": "#fff0",
+      "editorLineNumber.foreground": "#4A5057",
+      "editor.findMatchBackground": "#f6c17788"
+    }
   },
   "editor.tokenColorCustomizations": {
     "[Tokyo Night]": {
@@ -112,9 +121,7 @@
           }
         },
         {
-          "scope": [
-            "comment.block.documentation entity.name.type.instance"
-          ],
+          "scope": ["comment.block.documentation entity.name.type.instance"],
           "settings": {
             "foreground": "#73daca",
             "fontStyle": "italic"
@@ -129,9 +136,7 @@
           }
         },
         {
-          "scope": [
-            "comment.block.documentation variable"
-          ],
+          "scope": ["comment.block.documentation variable"],
           "settings": {
             "foreground": "#e0af68",
             "fontStyle": "italic"
@@ -152,10 +157,7 @@
   "errorLens.messageBackgroundMode": "none",
   "errorLens.delay": 1500,
   "errorLens.delayMode": "old",
-  "emmet.excludeLanguages": [
-    "markdown",
-    "php"
-  ],
+  "emmet.excludeLanguages": ["markdown", "php"],
   "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.CustomBrowser": "chrome",
   "emmet.triggerExpansionOnTab": true,
@@ -163,9 +165,7 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "database-client.autoSync": true,
   "breadcrumbs.enabled": false,
-  "remote.SSH.defaultExtensions": [
-    "gitpod.gitpod-remote-ssh"
-  ],
+  "remote.SSH.defaultExtensions": ["gitpod.gitpod-remote-ssh"],
   "remote.SSH.remotePlatform": {
     "freecodecam-learnsqlbyb-pzwuxagzx4n.vss.gitpod.io": "linux",
     "*.gitpod.io": "linux",
@@ -173,16 +173,14 @@
     "freecodecam-learnrelati-do4xb37hew0.vss.gitpod.io": "linux",
     "freecodecam-learnsqlbyb-qoobect7yxk.vss.gitpod.io": "linux"
   },
-  "security.allowedUNCHosts": [
-    "wsl.localhost"
-  ],
+  "security.allowedUNCHosts": ["wsl.localhost"],
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "tabnine.experimentalAutoImports": true,
   "github.copilot.enable": {
     "*": false,
     "plaintext": false,
     "markdown": false,
     "scminput": false
   },
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  }
+  "workbench.colorTheme": "Rosé Pine (no italics)"
 }

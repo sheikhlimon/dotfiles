@@ -28,3 +28,4 @@ opt.wildignore:append { "*/node_modules/*" }
 opt.splitbelow = true
 opt.splitright = true
 opt.splitkeep = "cursor"
+opt.termguicolors = true
