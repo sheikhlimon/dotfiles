@@ -18,26 +18,23 @@
       ]
     }
   },
+
   "window.commandCenter": true,
   "window.customTitleBarVisibility": "auto",
   "window.menuBarVisibility": "toggle",
   "window.titleBarStyle": "native",
   "files.autoSave": "off",
   "files.saveConflictResolution": "overwriteFileOnDisk",
-  // "editor.inlineSuggest.enabled": true,
-  // "editor.codeLens": true,
-  // "editor.glyphMargin": true,
   "editor.lineNumbers": "relative",
   "editor.fontSize": 17,
   "editor.fontFamily": "JetBrainsMono Nerd Font",
+  "editor.letterSpacing": 0.2,
   "editor.fontLigatures": false,
   "editor.occurrencesHighlight": "off",
 
   "editor.smoothScrolling": true,
-  // "editor.renderLineHighlight": "all",
   "editor.wordWrap": "on",
   "editor.minimap.enabled": false,
-  // "editor.bracketPairColorization.enabled": true,
   "editor.linkedEditing": true,
   "editor.tabCompletion": "on",
   "editor.quickSuggestions": {
@@ -69,8 +66,37 @@
   "workbench.activityBar.location": "top",
   "workbench.navigationControl.enabled": false,
   "workbench.startupEditor": "none",
-  "workbench.iconTheme": "symbols",
+  "gruvboxMaterial.darkContrast": "hard",
+  "gruvboxMaterial.darkPalette": "original",
+  "gruvboxMaterial.darkWorkbench": "high-contrast",
   "workbench.colorCustomizations": {
+    "[Gruvbox Material Dark]": {
+      // Editor
+      "editor.background": "#1d2021",
+      "editor.selectionBackground": "#504945cc",
+      "editor.lineHighlightBackground": "#fff0",
+      "editor.selectionHighlightBorder": "#fff0",
+      "editor.findMatchBackground": "#d7992177",
+
+      // Activity Bar
+      "activityBar.background": "#282828",
+      "activityBarBadge.background": "#d79921",
+
+      // Title Bar
+      "titleBar.activeBackground": "#1d2021",
+      "titleBar.border": "#1d2021",
+
+      // Status bar
+      "statusBar.background": "#1d2021",
+      "statusBar.border": "#282828",
+      "statusBar.noFolderBackground": "#1d2021",
+      "statusBar.debuggingBackground": "#cc241d",
+
+      // Scrollbar
+      "scrollbarSlider.background": "#665c54aa",
+      "scrollbarSlider.hoverBackground": "#928374aa",
+      "scrollbarSlider.activeBackground": "#a89984aa"
+    },
     "[Tokyo Night]": {
       "editor.background": "#11121D",
       "sideBar.background": "#0d0e17",
@@ -146,6 +172,7 @@
     }
   },
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+  // "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontSize": 15,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.cursorBlinking": true,
@@ -154,9 +181,6 @@
   "terminal.integrated.showExitAlert": false,
   "terminal.integrated.rightClickBehavior": "copyPaste",
   "terminal.integrated.defaultProfile.linux": "zsh",
-  "errorLens.messageBackgroundMode": "none",
-  "errorLens.delay": 1500,
-  "errorLens.delayMode": "old",
   "emmet.excludeLanguages": ["markdown", "php"],
   "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.CustomBrowser": "chrome",
@@ -182,5 +206,6 @@
     "markdown": false,
     "scminput": false
   },
-  "workbench.colorTheme": "Rosé Pine (no italics)"
+  "workbench.iconTheme": "symbols",
+  "workbench.colorTheme": "Gruvbox Material Dark"
 }
