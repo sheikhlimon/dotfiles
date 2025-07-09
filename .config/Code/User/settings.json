@@ -25,10 +25,10 @@
   "files.saveConflictResolution": "overwriteFileOnDisk",
   "editor.lineNumbers": "relative",
   "editor.fontSize": 17,
-  "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
-  "editor.lineHeight": 22,
-  "editor.letterSpacing": 0.2,
-  "editor.fontLigatures": false,
+  // "editor.fontFamily": "JetBrainsMono Nerd Font",
+  "editor.fontFamily": "Input Mono",
+  "editor.fontLigatures": "'ss01','ss05','dlig'",
+  "explorer.decorations.badges": false,
   "editor.occurrencesHighlight": "off",
 
   "editor.smoothScrolling": true,
@@ -49,48 +49,26 @@
   "explorer.compactFolders": false,
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false,
-  "search.exclude": {
-    "**/vendor/{[^l],?[^ai]}*": true,
-    "**/public/{[^i],?[^n]}*": true,
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/_ide_helper.php": true,
-    "**/composer.lock": true,
-    "**/package-lock.json": true,
-    "storage": true,
-    ".phpunit.result.cache": true
-  },
   "security.workspace.trust.startupPrompt": "never",
   "security.workspace.trust.enabled": false,
   "workbench.activityBar.location": "top",
   "workbench.startupEditor": "none",
-  "workbench.iconTheme": "symbols",
+  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.productIconTheme": "icons-carbon",
   "workbench.layoutControl.enabled": true,
   "workbench.sideBar.location": "left",
   "workbench.navigationControl.enabled": false,
   "window.commandCenter": false,
-  "workbench.colorTheme": "Gruvbox Material Dark",
-  "gruvboxMaterial.darkContrast": "hard",
-  "gruvboxMaterial.darkPalette": "original",
-  "gruvboxMaterial.darkWorkbench": "high-contrast",
+  "window.autoDetectColorScheme": true,
+  "workbench.preferredDarkColorTheme": "Vitesse Dark",
   "workbench.colorCustomizations": {
-    "[Gruvbox Material Dark]": {
-      "editor.background": "#1d2021",
-      "editor.selectionBackground": "#504945cc",
+    "[Material Theme Ocean]": {
       "editor.lineHighlightBackground": "#fff0",
+      "editor.lineHighlightBorder": "#fff0",
+      "editor.findMatchBorder": "#fff0",
       "editor.selectionHighlightBorder": "#fff0",
-      "editor.findMatchBackground": "#d7992177",
-      "activityBar.background": "#282828",
-      "activityBarBadge.background": "#d79921",
-      "titleBar.activeBackground": "#1d2021",
-      "titleBar.border": "#1d2021",
-      "statusBar.background": "#1d2021",
-      "statusBar.border": "#282828",
-      "statusBar.noFolderBackground": "#1d2021",
-      "statusBar.debuggingBackground": "#cc241d",
-      "scrollbarSlider.background": "#665c54aa",
-      "scrollbarSlider.hoverBackground": "#928374aa",
-      "scrollbarSlider.activeBackground": "#a89984aa"
+      "editor.findMatchBackground": "#95650D",
+      "editor.findMatchHighlightBackground": "#546E7A60"
     },
     "[Tokyo Night]": {
       "editor.background": "#11121D",
@@ -107,7 +85,14 @@
       "editor.selectionHighlightBorder": "#fff0"
     }
   },
-  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "editor.tokenColorCustomizations": {
+    "[Material Theme Ocean]": {
+      "comments": {
+        "foreground": "#546E7A"
+      }
+    }
+  },
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontSize": 15,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.cursorBlinking": true,
@@ -140,5 +125,16 @@
     "plaintext": false,
     "markdown": false,
     "scminput": false
+  },
+  "search.exclude": {
+    "**/vendor/{[^l],?[^ai]}*": true,
+    "**/public/{[^i],?[^n]}*": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/_ide_helper.php": true,
+    "**/composer.lock": true,
+    "**/package-lock.json": true,
+    "storage": true,
+    ".phpunit.result.cache": true
   }
 }

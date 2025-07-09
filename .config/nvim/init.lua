@@ -51,7 +51,7 @@ if vim.g.vscode then
   -- Optional: some keymaps just for VSCode
 
   map("n", "U", "<C-r>") -- Redo
-  map("n", "<leader>nh", ":nohl<CR>", { desc = "clear search highlights" })
+  map("n", "<Esc>", ":nohl<CR>", { desc = "clear search highlights" })
   map("n", "<leader>s", "<cmd>w<CR>", { desc = "Save file" })
   -- Visual mode: yank selection to system clipboard
   map("v", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
