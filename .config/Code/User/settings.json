@@ -18,6 +18,7 @@
       ]
     }
   },
+  "window.zoomLevel": 0.1,
   "window.customTitleBarVisibility": "auto",
   "window.menuBarVisibility": "toggle",
   "window.titleBarStyle": "native",
@@ -30,7 +31,7 @@
   "editor.fontLigatures": "'ss01','ss05','dlig'",
   "explorer.decorations.badges": false,
   "editor.occurrencesHighlight": "off",
-
+  "editor.bracketPairColorization.enabled": false,
   "editor.smoothScrolling": true,
   "editor.wordWrap": "on",
   "editor.minimap.enabled": false,
@@ -62,6 +63,14 @@
   "window.autoDetectColorScheme": true,
   "workbench.preferredDarkColorTheme": "Vitesse Dark",
   "workbench.colorCustomizations": {
+    "[Vitesse Dark]": {
+      "editor.lineHighlightBackground": "#fff0",
+      "editor.lineHighlightBorder": "#fff0",
+      "editor.findMatchBorder": "#fff0",
+      "editor.selectionHighlightBorder": "#fff0",
+      "editor.findMatchBackground": "#95650D",
+      "editor.findMatchHighlightBackground": "#546E7A60"
+    },
     "[Material Theme Ocean]": {
       "editor.lineHighlightBackground": "#fff0",
       "editor.lineHighlightBorder": "#fff0",
