@@ -26,8 +26,9 @@
   "files.saveConflictResolution": "overwriteFileOnDisk",
   "editor.lineNumbers": "relative",
   "editor.fontSize": 17,
-  // "editor.fontFamily": "JetBrainsMono Nerd Font",
-  "editor.fontFamily": "Input Mono",
+  "editor.letterSpacing": 0.2,
+  // "editor.lineHeight": 24,
+  "editor.fontFamily": "JetBrainsMono Nerd Font",
   "editor.fontLigatures": "'ss01','ss05','dlig'",
   "explorer.decorations.badges": false,
   "editor.occurrencesHighlight": "off",
@@ -56,12 +57,12 @@
   "workbench.startupEditor": "none",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.productIconTheme": "icons-carbon",
+  "workbench.preferredDarkColorTheme": "Rosé Pine Moon (no italics)",
   "workbench.layoutControl.enabled": true,
   "workbench.sideBar.location": "left",
   "workbench.navigationControl.enabled": false,
   "window.commandCenter": false,
   "window.autoDetectColorScheme": true,
-  "workbench.preferredDarkColorTheme": "Vitesse Dark",
   "workbench.colorCustomizations": {
     "[Vitesse Dark]": {
       "editor.lineHighlightBackground": "#fff0",
@@ -71,34 +72,20 @@
       "editor.findMatchBackground": "#95650D",
       "editor.findMatchHighlightBackground": "#546E7A60"
     },
-    "[Material Theme Ocean]": {
+    "[Rosé Pine Moon (no italics)]": {
       "editor.lineHighlightBackground": "#fff0",
       "editor.lineHighlightBorder": "#fff0",
       "editor.findMatchBorder": "#fff0",
       "editor.selectionHighlightBorder": "#fff0",
       "editor.findMatchBackground": "#95650D",
-      "editor.findMatchHighlightBackground": "#546E7A60"
-    },
-    "[Tokyo Night]": {
-      "editor.background": "#11121D",
-      "sideBar.background": "#0d0e17",
-      "activityBar.background": "#0d0e17",
-      "panel.background": "#0d0e17",
-      "terminal.background": "#11121D",
-      "editor.lineHighlightBackground": "#11121D",
-      "editor.foreground": "#A0A8CD",
-      "editorLineNumber.foreground": "#4A5057",
-      "editor.findMatchBackground": "#95650D",
-      "editor.findMatchHighlightBackground": "#3c435daa",
-      "editor.findMatchBorder": "#fff0",
-      "editor.selectionHighlightBorder": "#fff0"
-    }
-  },
-  "editor.tokenColorCustomizations": {
-    "[Material Theme Ocean]": {
-      "comments": {
-        "foreground": "#546E7A"
-      }
+      "editor.findMatchHighlightBackground": "#546E7A60",
+      "editor.selectionBackground": "#546E7A60",
+      "editor.background": "#191724",
+      "sideBar.background": "#191724",
+      "activityBar.background": "#191724",
+      "panel.background": "#191724",
+      "terminal.background": "#191724",
+      "editorGutter.background": "#191724"
     }
   },
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",

@@ -12,9 +12,6 @@ if vim.g.vscode then
   -- search settings
   opt.ignorecase = true -- case insensitive on search..
   opt.smartcase = true -- ..unless there's a capital
-  opt.clipboard:append "unnamedplus"
-  -- hide ~ on empty line
-  opt.fillchars = { eob = " " }
 
   map("n", "<leader>b", "<cmd>call VSCodeNotify('workbench.action.files.newUntitledFile')<CR>", opts)
   map("n", "<leader>x", "<cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<CR>", opts)

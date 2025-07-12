@@ -17,6 +17,7 @@ plugins=(
 
 # Add your configurations here
 export EDITOR=nvim
+export TERM=kitty
 
 #unset -f command_not_found_handler # Uncomment to prevent searching for commands not found in package manager
 
