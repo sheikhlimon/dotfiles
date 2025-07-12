@@ -88,6 +88,30 @@
       "editorGutter.background": "#191724"
     }
   },
+
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "punctuation.definition.parameters.begin",
+          "punctuation.definition.parameters.end",
+          "punctuation.definition.arguments.begin",
+          "punctuation.definition.arguments.end",
+          "punctuation.section.group.begin",
+          "punctuation.section.group.end",
+          // "meta.brace.round",
+          "meta.brace.curly",
+          "meta.brace.square",
+          "punctuation.definition.block",
+          "punctuation.section.block.begin",
+          "punctuation.section.block.end"
+        ],
+        "settings": {
+          "foreground": "#9ccfd8"
+        }
+      }
+    ]
+  },
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontSize": 15,
   "terminal.integrated.copyOnSelection": true,
