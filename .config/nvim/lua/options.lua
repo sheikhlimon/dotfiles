@@ -18,7 +18,6 @@ opt.swapfile = false
 opt.ignorecase = true -- case insensitive on search..
 opt.smartcase = true -- ..unless there's a capital
 opt.cursorline = false
-opt.clipboard:append "unnamedplus"
 opt.backspace = "indent,eol,start"
 -- hide ~ on empty line
 opt.fillchars = { eob = " " }

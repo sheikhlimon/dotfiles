@@ -1,13 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-# we added 2 files to the project structure:
-# 2. ~/.zshenv - for updating the zsh environment variables handled by HyDE // this will be modified across updates
-
 #  Plugins 
 plugins=(
     vi-mode
@@ -19,7 +9,11 @@ plugins=(
 export EDITOR=nvim
 export TERM=kitty
 
-#unset -f command_not_found_handler # Uncomment to prevent searching for commands not found in package manager
+#vi-mode
+export KEYTIMEOUT=1
+
+#for not showing % at the end of cpp run files
+PROMPT_EOL_MARK=''
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -32,4 +26,3 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 eval "$(zoxide init zsh)"
-
