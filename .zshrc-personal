@@ -128,30 +128,6 @@ mkdirg() {
 	cd "$1"
 }
 
-# Extracts any archive(s) (if unp isn't installed)
-extract() {
-	for archive in "$@"; do
-		if [ -f "$archive" ]; then
-			case $archive in
-			*.tar.bz2) tar xvjf $archive ;;
-			*.tar.gz) tar xvzf $archive ;;
-			*.bz2) bunzip2 $archive ;;
-			*.rar) rar x $archive ;;
-			*.gz) gunzip $archive ;;
-			*.tar) tar xvf $archive ;;
-			*.tbz2) tar xvjf $archive ;;
-			*.tgz) tar xvzf $archive ;;
-			*.zip) unzip $archive ;;
-			*.Z) uncompress $archive ;;
-			*.7z) 7z x $archive ;;
-			*) echo "don't know how to extract '$archive'..." ;;
-			esac
-		else
-			echo "'$archive' is not a valid file!"
-		fi
-	done
-}
-
 # best fzf aliases ever
 _fuzzy_change_directory() {
     local initial_query="$1"
@@ -226,9 +202,7 @@ _df() {
     fi
 }
 
-
-
-#Change cursor shape for different vi modes.
+# Change cursor shape for different vi modes.
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||
 	 [[ $1 = 'block' ]]; then
@@ -267,7 +241,6 @@ function jj-escape() {
 }
 zle -N jj-escape
 
-
 # ci"
 autoload -U select-quoted
 zle -N select-quoted
@@ -287,10 +260,11 @@ for m in visual viopp; do
 done
 
 # Use vim keys in tab complete menu:
+zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M viins 'j' jj-escape
 bindkey '^R' history-incremental-search-backward
-bindkey -v 
+bindkey -v

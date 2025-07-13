@@ -5,20 +5,26 @@
 export EDITOR=nvim
 export TERM=kitty
 
-#vi-mode
+# For better vi mode integration
 export KEYTIMEOUT=1
+export VI_MODE_SET_CURSOR=true
+
+# XDG compliance for tools
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 
 #for not showing % at the end of cpp run files
 PROMPT_EOL_MARK=''
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+_comp_options+=(globdots) # lets you tab complete hidden files by default
 
 # fnm
-FNM_PATH="/home/limon/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/limon/.local/share/fnm:$PATH"
-  eval "`fnm env`"
+if [[ -d "$HOME/.local/share/fnm" ]]; then
+    export PATH="$HOME/.local/share/fnm:$PATH"
+    eval "$(fnm env)"
 fi
 
-eval "$(zoxide init zsh)"
+# zoxide
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init zsh)"
+fi
