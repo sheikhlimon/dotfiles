@@ -1,7 +1,3 @@
-#  Plugins 
-plugins=(
-    vi-mode
-)
 #  Aliases 
 [[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
 

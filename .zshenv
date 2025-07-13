@@ -1,31 +1,31 @@
 #!/usr/bin/env zsh
-# This file is sourced by ZSH on startup
-# And ensures that we have an obstruction-free ~/.zshrc file
 
 function _load_zsh_plugins {
     unset -f _load_zsh_plugins
-    # Oh-my-zsh installation path
-    zsh_paths=(
+
+    # Locate oh-my-zsh
+    local zsh_paths=(
         "$HOME/.oh-my-zsh"
         "/usr/local/share/oh-my-zsh"
         "/usr/share/oh-my-zsh"
     )
-    for zsh_path in "${zsh_paths[@]}"; do [[ -d $zsh_path ]] && export ZSH=$zsh_path && break; done
-    # Load Plugins
-    hyde_plugins=(git zsh-256color zsh-autosuggestions zsh-syntax-highlighting)
-    plugins+=("${plugins[@]}" "${hyde_plugins[@]}")
-    # Deduplicate plugins
-    plugins=("${plugins[@]}")
-    plugins=($(printf "%s\n" "${plugins[@]}" | sort -u))
-    # Defer oh-my-zsh loading until after prompt appears
-    typeset -g DEFER_OMZ_LOAD=1
-}
 
-# Function to handle initialization errors
-function handle_init_error {
-    if [[ $? -ne 0 ]]; then
-        echo "Error during initialization. Please check your configuration."
-    fi
+    for zsh_path in "${zsh_paths[@]}"; do
+        if [[ -d $zsh_path ]]; then
+            export ZSH=$zsh_path
+            break
+        fi
+    done
+
+    # Set up plugins array
+    typeset -ga plugins
+    plugins+=(git zsh-256color zsh-autosuggestions zsh-syntax-highlighting)
+
+    # Deduplicate plugins
+    plugins=($(printf "%s\n" "${plugins[@]}" | sort -u))
+
+    # Defer loading until interactive shell prompt
+    typeset -g DEFER_OMZ_LOAD=1
 }
 
 function no_such_file_or_directory_handler {
