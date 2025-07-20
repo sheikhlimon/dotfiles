@@ -1,4 +1,5 @@
-vim.g.mapleader = " " -- space as leader
+vim.g.mapleader = " "
+
 -- VSCode detection
 if vim.g.vscode then
   local map = vim.keymap.set
@@ -13,11 +14,19 @@ if vim.g.vscode then
   opt.ignorecase = true -- case insensitive on search..
   opt.smartcase = true -- ..unless there's a capital
 
+  -- Use leader + / for comment
+  map("n", "<leader>/", "<cmd>call VSCodeNotify('editor.action.commentLine')<CR>", opts)
+  map("v", "<leader>/", "<cmd>call VSCodeNotify('editor.action.commentLine')<CR>", opts)
+
   map("n", "<leader>b", "<cmd>call VSCodeNotify('workbench.action.files.newUntitledFile')<CR>", opts)
   map("n", "<leader>x", "<cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<CR>", opts)
   map("n", "<leader>ff", "<cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>", opts)
   map("n", "<leader>e", "<cmd>call VSCodeNotify('workbench.view.explorer')<CR>", opts)
   map("n", "<leader>fm", "<cmd>call VSCodeNotify('editor.action.formatDocument')<CR>", opts)
+  map("n", "<leader>ca", "<cmd>call VSCodeNotify('editor.action.quickFix')<CR>", opts)
+  map("n", "gd", "<cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>", opts)
+  map("n", "gr", "<cmd>call VSCodeNotify('editor.action.goToReferences')<CR>", opts)
+  map("n", "<leader>rn", "<cmd>call VSCodeNotify('editor.action.rename')<CR>", opts)
 
   map("n", "zc", function()
     vim.fn.VSCodeNotify "editor.fold"
@@ -47,7 +56,7 @@ if vim.g.vscode then
 
   -- Optional: some keymaps just for VSCode
 
-  map("n", "U", "<C-r>") -- Redo
+  map("n", "U", "<C-r>", { desc = "redo" })
   map("n", "<Esc>", ":nohl<CR>", { desc = "clear search highlights" })
   map("n", "<leader>s", "<cmd>w<CR>", { desc = "Save file" })
   -- Visual mode: yank selection to system clipboard
@@ -58,7 +67,6 @@ if vim.g.vscode then
 end
 
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
-vim.g.mapleader = " "
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"

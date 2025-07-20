@@ -27,7 +27,6 @@
   "editor.lineNumbers": "relative",
   "editor.fontSize": 17,
   "editor.letterSpacing": 0.2,
-  // "editor.lineHeight": 24,
   "editor.fontFamily": "JetBrainsMono Nerd Font",
   "editor.fontLigatures": "'ss01','ss05','dlig'",
   "explorer.decorations.badges": false,
@@ -41,7 +40,6 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "eslint.enable": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.renderWhitespace": "none",
   "editor.formatOnSave": true,
@@ -55,23 +53,15 @@
   "security.workspace.trust.enabled": false,
   "workbench.activityBar.location": "top",
   "workbench.startupEditor": "none",
+  "workbench.preferredDarkColorTheme": "Rosé Pine Moon (no italics)",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.productIconTheme": "icons-carbon",
-  "workbench.preferredDarkColorTheme": "Rosé Pine Moon (no italics)",
   "workbench.layoutControl.enabled": true,
   "workbench.sideBar.location": "left",
   "workbench.navigationControl.enabled": false,
   "window.commandCenter": false,
   "window.autoDetectColorScheme": true,
   "workbench.colorCustomizations": {
-    "[Vitesse Dark]": {
-      "editor.lineHighlightBackground": "#fff0",
-      "editor.lineHighlightBorder": "#fff0",
-      "editor.findMatchBorder": "#fff0",
-      "editor.selectionHighlightBorder": "#fff0",
-      "editor.findMatchBackground": "#95650D",
-      "editor.findMatchHighlightBackground": "#546E7A60"
-    },
     "[Rosé Pine Moon (no italics)]": {
       "editor.lineHighlightBackground": "#fff0",
       "editor.lineHighlightBorder": "#fff0",
@@ -88,7 +78,6 @@
       "editorGutter.background": "#191724"
     }
   },
-
   "editor.tokenColorCustomizations": {
     "textMateRules": [
       {
@@ -129,17 +118,7 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "database-client.autoSync": true,
   "breadcrumbs.enabled": false,
-  "remote.SSH.defaultExtensions": ["gitpod.gitpod-remote-ssh"],
-  "remote.SSH.remotePlatform": {
-    "freecodecam-learnsqlbyb-pzwuxagzx4n.vss.gitpod.io": "linux",
-    "*.gitpod.io": "linux",
-    "freecodecam-learnbashby-zp75vvgnqnu.vss.gitpod.io": "linux",
-    "freecodecam-learnrelati-do4xb37hew0.vss.gitpod.io": "linux",
-    "freecodecam-learnsqlbyb-qoobect7yxk.vss.gitpod.io": "linux"
-  },
-  "security.allowedUNCHosts": ["wsl.localhost"],
   "github.copilot.nextEditSuggestions.enabled": true,
-  "tabnine.experimentalAutoImports": true,
   "github.copilot.enable": {
     "*": false,
     "plaintext": false,
