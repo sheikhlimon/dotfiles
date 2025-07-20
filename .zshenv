@@ -171,7 +171,6 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 HISTFILE=${HISTFILE:-$HOME/.zsh_history}
 HISTSIZE=50000
 SAVEHIST=50000
-HIST_STAMPS="dd/mm/yyyy"
 setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format
 setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits
 setopt SHARE_HISTORY          # Share history between all sessions
