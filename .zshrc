@@ -16,7 +16,8 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 #for not showing % at the end of cpp run files
 PROMPT_EOL_MARK=''
 
-_comp_options+=(globdots) # lets you tab complete hidden files by default
+# lets you tab complete hidden files by default
+# _comp_options+=(globdots) 
 
 # fnm
 if [[ -d "$HOME/.local/share/fnm" ]]; then
