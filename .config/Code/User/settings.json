@@ -37,6 +37,7 @@
   "editor.minimap.enabled": false,
   "editor.linkedEditing": true,
   "editor.tabCompletion": "on",
+  "prettier.tabWidth": 2,
   "editor.quickSuggestions": {
     "strings": true
   },
@@ -51,6 +52,8 @@
   "explorer.confirmDelete": false,
   "security.workspace.trust.startupPrompt": "never",
   "security.workspace.trust.enabled": false,
+  "files.eol": "\n",
+  "workbench.tree.indent": 10,
   "workbench.activityBar.location": "top",
   "workbench.startupEditor": "none",
   "workbench.preferredDarkColorTheme": "Rosé Pine Moon (no italics)",
@@ -135,5 +138,8 @@
     "**/package-lock.json": true,
     "storage": true,
     ".phpunit.result.cache": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
   }
 }

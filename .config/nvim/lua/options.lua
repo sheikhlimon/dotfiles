@@ -1,7 +1,3 @@
-require "nvchad.options"
-
--- add yours here!
-
 local opt = vim.opt
 
 -- line numbers
@@ -22,9 +18,8 @@ opt.backspace = "indent,eol,start"
 -- hide ~ on empty line
 opt.fillchars = { eob = " " }
 opt.backspace = { "start", "eol", "indent" }
-opt.path:append { "**" }
-opt.wildignore:append { "*/node_modules/*" }
+opt.path:append({ "**" })
+opt.wildignore:append({ "*/node_modules/*" })
 opt.splitbelow = true
 opt.splitright = true
 opt.splitkeep = "cursor"
-opt.termguicolors = true

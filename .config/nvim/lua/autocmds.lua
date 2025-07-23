@@ -1,5 +1,3 @@
-require "nvchad.autocmds"
-
 local autocmd = vim.api.nvim_create_autocmd
 
 --Filetype-specific settings for Lua files
@@ -15,3 +13,4 @@ autocmd("FileType", {
   end,
   desc = "Set 2-space indentation for Lua files",
 })
+
