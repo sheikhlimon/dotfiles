@@ -5,6 +5,8 @@ opt.relativenumber = true
 opt.number = true
 opt.title = true
 -- tabs & indentation
+opt.expandtab = true -- use spaces instead of tabs
+opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
 opt.tabstop = 2
 opt.autoindent = true
 opt.smartindent = true
