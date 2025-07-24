@@ -6,13 +6,23 @@ if vim.g.vscode then
 	local opt = vim.opt
 	local opts = { noremap = true, silent = true }
 
+	-- UI
+	opt.scrolloff = 5
+
 	-- tabs & indentation
+	opt.expandtab = true -- use spaces instead of tabs
+	opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
+	opt.tabstop = 2
+	opt.softtabstop = 2
 	opt.autoindent = true
-	opt.incsearch = true
 	opt.smartindent = true
+
+	opt.undofile = true --keep undo changes
+
 	-- search settings
 	opt.ignorecase = true -- case insensitive on search..
 	opt.smartcase = true -- ..unless there's a capital
+	opt.backspace = "indent,eol,start"
 
 	-- Use leader + / for comment
 	map("n", "<leader>/", "<cmd>call VSCodeNotify('editor.action.commentLine')<CR>", opts)
@@ -58,7 +68,7 @@ if vim.g.vscode then
 
 	map("n", "U", "<C-r>", { desc = "redo" })
 	map("n", "<Esc>", ":nohl<CR>", { desc = "clear search highlights" })
-	map("n", "<leader>s", "<cmd>w<CR>", { desc = "Save file" })
+	map("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
 	-- Visual mode: yank selection to system clipboard
 	map("v", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 	map("n", "<leader>p", '"+p', { desc = "Paste from system clipboard" })

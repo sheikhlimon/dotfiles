@@ -5,7 +5,7 @@ map("i", "jj", "<ESC>")
 
 map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 
-map("n", "<leader>s", "<cmd>w<CR>", { desc = "Save file" })
+map("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
 
 map("n", "<ESC>", ":nohl<CR>", { desc = "clear search highlights" })
 

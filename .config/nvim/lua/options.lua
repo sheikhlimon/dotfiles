@@ -3,7 +3,7 @@ local opt = vim.opt
 -- UI
 opt.relativenumber = true
 opt.number = true
-opt.cmdheight = 0
+-- opt.cmdheight = 0
 opt.termguicolors = true
 opt.scrolloff = 5
 opt.title = true
@@ -28,7 +28,6 @@ opt.backspace = "indent,eol,start"
 
 -- hide ~ on empty line
 opt.fillchars = { eob = " " }
-opt.backspace = { "start", "eol", "indent" }
 opt.path:append({ "**" })
 opt.wildignore:append({ "*/node_modules/*" })
 opt.splitbelow = true
