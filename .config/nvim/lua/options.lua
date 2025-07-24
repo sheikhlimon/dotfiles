@@ -1,8 +1,11 @@
 local opt = vim.opt
 
--- line numbers
+-- UI
 opt.relativenumber = true
 opt.number = true
+opt.cmdheight = 0
+opt.termguicolors = true
+opt.scrolloff = 5
 opt.title = true
 opt.cursorline = false
 

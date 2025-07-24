@@ -2,10 +2,15 @@ return {
 	"saghen/blink.cmp",
 	event = { "InsertEnter", "CmdlineEnter" },
 	dependencies = "rafamadriz/friendly-snippets",
-	version = "v1.2.0",
+	version = "1.*",
 	config = function()
 		require("blink-cmp").setup({
-			keymap = { preset = "enter" },
+			keymap = {
+				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+				["<CR>"] = { "accept", "fallback" },
+				["<C-e>"] = { "hide", "fallback" },
+			},
 			cmdline = {
 				keymap = { preset = "super-tab" },
 				completion = { menu = { auto_show = true } },

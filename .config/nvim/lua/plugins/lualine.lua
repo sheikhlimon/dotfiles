@@ -35,9 +35,9 @@ return {
       For a full list of built-in components, see :help lualine-components
       --]]
 			lualine_a = { "mode" },
-			lualine_b = { "branch", "diff", "diagnostics" },
+			lualine_b = { "branch", "diff" },
 			lualine_c = {
-				{ "filename", path = 1 }, -- path = 1 shows filename relative to CWD
+				{ "diagnostics", "filename", path = 1 }, -- path = 1 shows filename relative to CWD
 				-- You could also add things like:
 				-- 'filesize',
 				-- {

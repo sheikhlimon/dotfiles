@@ -92,7 +92,6 @@ end)
 -- Load plugins via lazy.nvim
 require("lazy").setup({
 	spec = {
-		{ import = "plugins" }, -- load your lua/plugins/*.lua here
+		{ import = "plugins" }, -- load lua/plugins/*.lua here
 	},
-	checker = { enabled = true }, -- automatically check for plugin updates
 })

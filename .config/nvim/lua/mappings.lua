@@ -7,9 +7,12 @@ map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 
 map("n", "<leader>s", "<cmd>w<CR>", { desc = "Save file" })
 
-map("n", "<leader>nh", ":nohl<CR>", { desc = "clear search highlights" })
+map("n", "<ESC>", ":nohl<CR>", { desc = "clear search highlights" })
 
 map("n", "<C-a>", [[:%y+<CR>]], { desc = "yank everything" })
+
+-- Copy selection to system clipboard
+map("v", "<leader>y", '"+y', { desc = "Copy selection to clipboard" })
 
 -- wrap mode up and down between same line
 map("n", "j", "gj", { desc = "Up", noremap = true })
@@ -18,7 +21,7 @@ map("n", "k", "gk", { desc = "Down", noremap = true })
 map({ "n", "t" }, "<A-i>", "<Cmd>FloatermToggle<CR>", { desc = "Toggle floating terminal" })
 
 map("n", "<leader>ih", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
 end)
 
 -- visual mode line up and down
@@ -48,4 +51,3 @@ map("n", "<leader>d", vim.diagnostic.open_float, { desc = "show line diagnostics
 -- keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "go to next diagnostic" }) -- jump to next diagnostic in buffer
 map("n", "g?", vim.lsp.buf.hover, { desc = "show documentation for what is under cursor" }) -- show documentation for what is under cursor
 -- keymap.set("n", "<leader>rs", ":LspRestart<CR>", { desc = "restart LSP" }) -- mapping to restart lsp if necessary
-
