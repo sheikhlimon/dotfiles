@@ -12,6 +12,10 @@ alias grep='grep --color=auto'
 alias jctl="journalctl -p 3 -xb" #get the error messages from journalctl
 alias killp='killprocess'
 alias kp='killprocess'
+alias l='eza -lh --icons=auto'
+alias ll='eza -lha --icons=auto --sort=name --group-directories-first'
+alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
+alias lt='eza --icons=auto --tree'
 alias c='clear'
 alias mkdir='mkdir -p'
 alias ffec='_fuzzy_edit_search_file_content' 
@@ -266,7 +270,6 @@ for m in visual viopp; do
 done
 
 # Use vim keys in tab complete menu:
-zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
