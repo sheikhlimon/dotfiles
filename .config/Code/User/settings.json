@@ -37,7 +37,9 @@
   "editor.minimap.enabled": false,
   "editor.linkedEditing": true,
   "editor.tabCompletion": "on",
-  "prettier.tabWidth": 2,
+  "editor.stickyScroll.enabled": false,
+  "editor.tabSize": 2,
+  "editor.useTabStops": true,
   "editor.quickSuggestions": {
     "strings": true
   },
@@ -71,7 +73,7 @@
       "editor.findMatchBorder": "#fff0",
       "editor.selectionHighlightBorder": "#fff0",
       "editor.findMatchBackground": "#95650D",
-      "editor.findMatchHighlightBackground": "#546E7A60",
+      "editor.findMatchHighlightBackground": "#546E7A63",
       "editor.selectionBackground": "#546E7A60",
       "editor.background": "#191724",
       "sideBar.background": "#191724",

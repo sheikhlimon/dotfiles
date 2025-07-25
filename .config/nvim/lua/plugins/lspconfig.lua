@@ -48,12 +48,17 @@ return {
 			capabilities = capabilities,
 			settings = {
 				Lua = {
-					diagnostics = { globals = { "vim" } },
-					workspace = {
-						library = vim.api.nvim_get_runtime_file("", true),
-						checkThirdParty = false,
+					diagnostics = {
+						globals = { "vim" }, -- Recognize 'vim' as a global variable
 					},
-					telemetry = { enable = false },
+					workspace = {
+						library = {
+							vim.api.nvim_get_runtime_file("", true),
+						}, -- Include Neovim runtime files
+					},
+					telemetry = {
+						enable = false,
+					},
 				},
 			},
 		})
