@@ -1,34 +1,40 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		"mason-org/mason.nvim",
-		"mason-org/mason-lspconfig.nvim",
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		"folke/lazydev.nvim",
 	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
-		vim.lsp.config("*", { capabilities = vim.lsp.protocol.make_client_capabilities() })
+		-- Setup Mason
 		require("mason").setup()
-		require("mason-lspconfig").setup({ ---@diagnostic disable-line
-			ensure_installed = {
-				"vtsls",
-				"html",
-				"cssls",
-				"tailwindcss",
-				"svelte",
-				"lua_ls",
-				"graphql",
-				"emmet_ls",
-				"prismals",
-				"yamlls",
-				"pyright",
-				"clangd",
-			},
+
+		-- Define servers to install and configure
+		local servers = {
+			"vtsls",
+			"html",
+			"cssls",
+			"tailwindcss",
+			"svelte",
+			"lua_ls",
+			"graphql",
+			"emmet_ls",
+			"prismals",
+			"yamlls",
+			"pyright",
+			"clangd",
+		}
+
+		-- Install LSP servers
+		require("mason-lspconfig").setup({
+			ensure_installed = servers,
+			automatic_installation = true,
 		})
+
+		-- Install formatters and linters
 		require("mason-tool-installer").setup({
 			ensure_installed = {
-				-- formatter & linter binaries (NOT lspconfig names)
 				"prettier",
 				"biome",
 				"stylua",
@@ -38,13 +44,29 @@ return {
 				"pylint",
 				"eslint_d",
 			},
-			run_on_start = true,
 		})
-		require("lazydev").setup({ ---@diagnostic disable-line
-			library = {
-				"nvim-dap-ui",
-				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-			},
-		})
+
+		-- Setup LSP servers
+		local lspconfig = require("lspconfig")
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+		for _, server in ipairs(servers) do
+			if server == "lua_ls" then
+				lspconfig.lua_ls.setup({
+					capabilities = capabilities,
+					settings = {
+						Lua = {
+							diagnostics = { globals = { "vim", "require" } },
+							workspace = { checkThirdParty = false },
+							telemetry = { enable = false },
+						},
+					},
+				})
+			else
+				lspconfig[server].setup({
+					capabilities = capabilities,
+				})
+			end
+		end
 	end,
 }

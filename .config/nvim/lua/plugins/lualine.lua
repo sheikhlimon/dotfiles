@@ -8,7 +8,7 @@ return {
       For a full list of options, see :help lualine-options
       --]]
 			icons_enabled = true, -- Do you want to use icons?
-			theme = "rose-pine", -- Or a specific theme like 'tokyonight', 'onedark', 'gruvbox', 'catppuccin', etc.
+			theme = "auto", -- Or a specific theme like 'tokyonight', 'onedark', 'gruvbox', 'catppuccin', etc.
 			-- 'auto' will try to match your colorscheme
 			component_separators = { left = "", right = "" }, -- Separators between components
 			section_separators = { left = "", right = "" }, -- Separators between sections (A,B,C and X,Y,Z)
@@ -71,7 +71,7 @@ return {
 			--[[
       Lualine can also act as a tabline.
       --]]
-			-- lualine_a = {'tabs'},
+			-- lualine_a = { "tabs" },
 			-- lualine_b = {},
 			-- lualine_c = {},
 			-- lualine_x = {},

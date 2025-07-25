@@ -76,32 +76,7 @@ if vim.g.vscode then
 	return
 end
 
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local uv = vim.uv or vim.loop
-if not uv.fs_stat(lazypath) then
-	local repo = "https://github.com/folke/lazy.nvim.git"
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"--branch=stable",
-		repo,
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
-
-require("options")
-require("autocmds")
-
-vim.schedule(function()
-	require("mappings")
-end)
-
--- Load plugins via lazy.nvim
-require("lazy").setup({
-	spec = {
-		{ import = "plugins" }, -- load lua/plugins/*.lua here
-	},
-})
+require("core.options")
+require("core.mappings")
+require("core.lazy")
+require("core.autocmds")
