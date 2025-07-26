@@ -38,19 +38,6 @@ function no_such_file_or_directory_handler {
     return 127
 }
 
-function _load_persistent_aliases {
-    # Persistent aliases are loaded after the plugin is loaded
-    # This way omz will not override them
-    unset -f _load_persistent_aliases
-
-    if command -v eza &>/dev/null; then
-        alias l='eza -lh --icons=auto' \
-            ll='eza -lha --icons=auto --sort=name --group-directories-first' \
-            ls='eza -a --grid --icons=auto --sort=name --group-directories-first' \
-            lt='eza --icons=auto --tree'
-    fi
-}
-
 function _load_omz_on_init() {
     # Load oh-my-zsh when line editor initializes // before user input
     if [[ -n $DEFER_OMZ_LOAD ]]; then
@@ -71,7 +58,6 @@ function _load_omz_on_init() {
 
 function _load_post_init() {
     #! Never load time consuming functions here
-    _load_persistent_aliases
     autoload -U compinit && compinit
     
     # Load complist module for menuselect keymap
