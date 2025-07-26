@@ -9,7 +9,7 @@ return {
     mappings = {
       term = function(buf)
         vim.keymap.set({ "n", "t" }, "<C-p>", function()
-          require("floaterm.api").cycle_term_bufs "prev"
+          require("floaterm.api").cycle_term_bufs("prev")
         end, { buffer = buf, desc = "Cycle terminal: prev" })
       end,
     },

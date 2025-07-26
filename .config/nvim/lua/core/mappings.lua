@@ -15,10 +15,10 @@ map({ "n", "t" }, "<A-i>", "<Cmd>FloatermToggle<CR>", { desc = "Toggle floating 
 map("n", "<leader>+", "<C-a>", { desc = "increment number" })
 map("n", "<leader>-", "<C-a>", { desc = "decrement number" })
 map("n", "<leader>ih", function()
-	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
 end)
 map("n", "<leader>fm", function()
-	require("conform").format({ async = true })
+  require("conform").format({ async = true })
 end, { desc = "Format buffer", noremap = true, silent = true })
 
 -- spliting windows
@@ -34,10 +34,10 @@ map("n", "<C-j>", "<C-w>j", { desc = "Navigate down window" })
 map("n", "<C-k>", "<C-w>k", { desc = "Navigate up window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Navigate right window" })
 map(
-	"n",
-	"<C-f>",
-	":silent !tmux neww tmux-sessionizer<CR>",
-	{ desc = "Start a new tmux session in a different terminal tab" }
+  "n",
+  "<C-f>",
+  ":silent !tmux neww tmux-sessionizer<CR>",
+  { desc = "Start a new tmux session in a different terminal tab" }
 ) --
 map("n", "<leader>s", ":vsplit<CR>", { desc = "Start a new tmux session in a different terminal tab" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "goto a definition" })
