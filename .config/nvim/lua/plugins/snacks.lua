@@ -4,12 +4,25 @@ return {
   priority = 1000,
 
   config = function()
-    local snacks = require("snacks")
-    snacks.setup({
+    local snacks = require "snacks"
+    snacks.setup {
       lazygit = {},
       bigfile = { size = 1024 * 1024 },
       word = { enabled = true },
+
       scroll = { enabled = true },
+      notifier = {
+        enabled = true,
+        timeout = 3000,
+      },
+      blame_line = {
+        width = 0.6,
+        height = 0.6,
+        border = "rounded",
+        title = " Git Blame ",
+        title_pos = "center",
+        ft = "git",
+      },
       indent = {
         indent = { enabled = false },
         animate = {
@@ -53,7 +66,7 @@ return {
           },
         },
       },
-    })
+    }
 
     local map = function(mode, lhs, rhs, desc)
       vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
@@ -77,18 +90,20 @@ return {
     end, "Previous Reference")
 
     -- === Git === --
+    map("n", "<leader>n", snacks.picker.notifications, "Notification History")
+    map("n", "<leader>fd", snacks.picker.diagnostics, "Buffer Diagnostics")
     map("n", "<leader>gf", snacks.picker.git_diff, "Git Status")
     map("n", "<leader>gg", snacks.lazygit.open, "Lazy Git")
 
-    -- === LSP === --
-    map("n", "gd", snacks.picker.lsp_definitions, "Goto Definition")
-    map("n", "gr", snacks.picker.lsp_references, "Goto References")
-    map("n", "gI", snacks.picker.lsp_implementations, "Goto Implementations")
-    map("n", "<leader>fd", snacks.picker.diagnostics, "Workspace Diagnostics")
+    map("n", "<leader>gl", snacks.picker.git_log, "Git Log")
+
+    map("n", "<leader>gb", function()
+      require("snacks.git").blame_line()
+    end, "Git Blame Line")
 
     map("n", "<leader>pp", ":lua Snacks.picker() <cr>", "opens a list of of pickers to choose from")
     map("n", "<leader>to", function()
-      snacks.picker("todo_comments")
+      snacks.picker "todo_comments"
     end, "Find Todo comments")
   end,
 }

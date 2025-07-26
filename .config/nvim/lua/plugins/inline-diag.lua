@@ -8,7 +8,7 @@ return {
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function()
         -- Disable virtual text once LSP attaches
-        vim.diagnostic.config({ virtual_text = false })
+        vim.diagnostic.config { virtual_text = false }
       end,
     })
   end,

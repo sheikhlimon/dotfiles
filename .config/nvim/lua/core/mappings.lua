@@ -14,11 +14,8 @@ map("n", "dae", "ggdG", { desc = "delete all content", silent = true })
 map({ "n", "t" }, "<A-i>", "<Cmd>FloatermToggle<CR>", { desc = "Toggle floating terminal" })
 map("n", "<leader>+", "<C-a>", { desc = "increment number" })
 map("n", "<leader>-", "<C-a>", { desc = "decrement number" })
-map("n", "<leader>ih", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
-end)
 map("n", "<leader>fm", function()
-  require("conform").format({ async = true })
+  require("conform").format { async = true }
 end, { desc = "Format buffer", noremap = true, silent = true })
 
 -- spliting windows
@@ -26,8 +23,6 @@ map("n", "<leader>ss", ":vsplit<CR>", { desc = "split window vertically" })
 map("n", "<leader>sh", ":split<CR>", { desc = "split window horizontally" })
 map("n", "<leader>sv", "<C-w>=", { desc = "make windows equal size" })
 map("n", "<leader>sl", "<cmd>close<CR>", { desc = "close current split" })
-map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "see available code actions" }) -- see available code actions, in visual mode will apply to selection
-map("n", "<leader>srn", vim.lsp.buf.rename, { desc = "smart rename" })
 
 map("n", "<C-h>", "<C-w>h", { desc = "Navigate left window" })
 map("n", "<C-j>", "<C-w>j", { desc = "Navigate down window" })
@@ -40,8 +35,6 @@ map(
   { desc = "Start a new tmux session in a different terminal tab" }
 ) --
 map("n", "<leader>s", ":vsplit<CR>", { desc = "Start a new tmux session in a different terminal tab" })
-map("n", "gd", vim.lsp.buf.definition, { desc = "goto a definition" })
-map("n", "<leader>d", vim.diagnostic.open_float, { desc = "display diagnostic information" })
 
 -- Visual mode
 map("v", "<C-c>", '"+y', { desc = "Simulates ctrl+c in windows" })

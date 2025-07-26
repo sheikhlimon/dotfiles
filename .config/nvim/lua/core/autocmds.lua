@@ -13,3 +13,15 @@ autocmd("FileType", {
   end,
   desc = "Set 2-space indentation for Lua files",
 })
+
+autocmd(
+  { "BufRead", "BufNewFile" },
+  -- { pattern = { "*.txt", "*.md", "*.tex" }, command = [[setlocal spell<cr> setlocal spelllang=en,de<cr>]] }
+  {
+    pattern = { "*.txt", "*.md", "*.tex" },
+    callback = function()
+      vim.opt.spell = true
+      vim.opt.spelllang = "en"
+    end,
+  }
+)
