@@ -6,10 +6,7 @@ return {
   config = function()
     local snacks = require "snacks"
     snacks.setup {
-      lazygit = {},
       bigfile = { size = 1024 * 1024 },
-      word = { enabled = true },
-
       scroll = { enabled = true },
       notifier = {
         enabled = true,

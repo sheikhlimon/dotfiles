@@ -5,7 +5,6 @@ return {
   opts = {},
   dependencies = {
     "MunifTanjim/nui.nvim",
-    -- "rcarriga/nvim-notify",
   },
   config = function()
     require("noice").setup {
@@ -16,7 +15,42 @@ return {
           ["cmp.entry.get_documentation"] = true,
         },
         hover = {
+          enabled = true,
           silent = true,
+          view = nil, -- when nil, use defaults from documentation
+          opts = {
+            -- Configure hover window size here
+            border = {
+              style = "rounded",
+            },
+            -- position = {
+            --   row = 2,
+            --   col = 2,
+            -- },
+            size = {
+              max_width = 50, -- This controls the width!
+              max_height = 10, -- This controls the height!
+            },
+            win_options = {
+              wrap = true,
+            },
+          },
+        },
+        signature = {
+          enabled = true,
+          auto_open = {
+            enabled = true,
+            trigger = true,
+            luasnip = true,
+            throttle = 50,
+          },
+          view = nil, -- when nil, use defaults from documentation
+          opts = {
+            size = {
+              max_width = 50,
+              max_height = 10,
+            },
+          },
         },
       },
       presets = {

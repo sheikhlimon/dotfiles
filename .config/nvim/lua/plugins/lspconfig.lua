@@ -39,6 +39,19 @@ return {
       },
     }
 
+    -- Enable inlay hints by default
+    if vim.lsp.inlay_hint then
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("lsp-inlay-hints", { clear = true }),
+        callback = function(event)
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+          end
+        end,
+      })
+    end
+
     -- This function gets run when an LSP attaches to a particular buffer
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -53,7 +66,7 @@ return {
         map("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
         map("gT", vim.lsp.buf.type_definition, "Type [D]efinition")
-        map("K", vim.lsp.buf.hover, "Hover Documentation")
+        -- map("K", vim.lsp.buf.hover, "Hover Documentation")
         map("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")
         map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
@@ -117,15 +130,84 @@ return {
         server_capabilities = {
           documentFormattingProvider = false,
         },
+        settings = {
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+          javascript = {},
+        },
       },
       html = {},
-      cssls = {},
-      tailwindcss = {},
+      cssls = {
+        settings = {
+          css = { validate = true },
+          scss = { validate = true },
+          less = { validate = true },
+        },
+      },
+      tailwindcss = {
+        settings = {
+          tailwindCSS = {
+            emmetCompletions = true,
+            validate = true,
+            lint = {
+              cssConflict = "warning",
+              invalidApply = "error",
+              invalidScreen = "error",
+              invalidVariant = "error",
+              invalidConfigPath = "error",
+              invalidTailwindDirective = "error",
+              recommendedVariantOrder = "warning",
+            },
+            -- Tailwind class attributes configuration
+            classAttributes = { "class", "className", "classList", "ngClass", ":class" },
+
+            -- Experimental regex patterns to detect Tailwind classes in various syntaxes
+            experimental = {
+              classRegex = {
+                -- tw`...` or tw("...")
+                "tw`([^`]*)`",
+                "tw\\(([^)]*)\\)",
+
+                -- @apply directive inside SCSS / CSS
+                "@apply\\s+([^;]*)",
+
+                -- class and className attributes (HTML, JSX, Vue, Blade with :class)
+                'class="([^"]*)"',
+                'className="([^"]*)"',
+                ':class="([^"]*)"',
+
+                -- Laravel @class directive e.g. @class([ ... ])
+                "@class\\(([^)]*)\\)",
+              },
+            },
+          },
+        },
+      },
       graphql = {},
       emmet_ls = {},
       prismals = {},
       yamlls = {},
-      pyright = {},
+      pyright = {
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              diagnosticMode = "workspace",
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
+      },
       clangd = {},
     }
 
@@ -156,44 +238,3 @@ return {
     }
   end,
 }
-
--- might need later
---       tsserver = {
---         settings = {
---           typescript = {
---             inlayHints = {
---               includeInlayParameterNameHints = "all",
---               includeInlayParameterNameHintsWhenArgumentMatchesName = false,
---               includeInlayFunctionParameterTypeHints = true,
---               includeInlayVariableTypeHints = true,
---               includeInlayPropertyDeclarationTypeHints = true,
---               includeInlayFunctionLikeReturnTypeHints = true,
---               includeInlayEnumMemberValueHints = true,
---             },
---           },
---           javascript = {
---             inlayHints = {
---               includeInlayParameterNameHints = "all",
---               includeInlayParameterNameHintsWhenArgumentMatchesName = false,
---               includeInlayFunctionParameterTypeHints = true,
---               includeInlayVariableTypeHints = true,
---               includeInlayPropertyDeclarationTypeHints = true,
---               includeInlayFunctionLikeReturnTypeHints = true,
---               includeInlayEnumMemberValueHints = true,
---             },
---           },
---         },
---       },
---
---       pyright = {
---         settings = {
---           python = {
---             analysis = {
---               autoSearchPaths = true,
---               diagnosticMode = "workspace",
---               useLibraryCodeForTypes = true,
---             },
---           },
---         },
---       },
---     }

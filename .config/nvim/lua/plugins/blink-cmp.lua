@@ -4,7 +4,7 @@ return {
   dependencies = "rafamadriz/friendly-snippets",
   version = "1.*",
   config = function()
-    require("blink-cmp").setup({
+    require("blink-cmp").setup {
       keymap = {
         ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
         ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
@@ -57,6 +57,6 @@ return {
           },
         },
       },
-    })
+    }
   end,
 }
