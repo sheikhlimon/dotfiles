@@ -24,7 +24,17 @@ return {
   config = function()
     -- Setup diagnostics
     vim.diagnostic.config {
+      virtual_text = false,
+      update_in_insert = false,
       underline = false,
+      severity_sort = true,
+      float = {
+        focusable = true,
+        style = "minimal",
+        border = "rounded",
+        header = "",
+        prefix = "",
+      },
       signs = {
         text = {
           [vim.diagnostic.severity.ERROR] = "󰅚",
@@ -119,7 +129,7 @@ return {
       },
     }
 
-    -- Get capabilities from blink.cmp instead of nvim-cmp
+    -- Get capabilities from blink.cmp
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
@@ -127,23 +137,44 @@ return {
     local servers = {
       lua_ls = {},
       vtsls = {
-        server_capabilities = {
-          documentFormattingProvider = false,
+        filetypes = {
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
         },
         settings = {
-          typescript = {
-            inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
+          complete_function_calls = true,
+          vtsls = {
+            enableMoveToFileCodeAction = true,
+            autoUseWorkspaceTsdk = true,
+            experimental = {
+              maxInlayHintLength = 30,
+              completion = {
+                enableServerSideFuzzyMatch = true,
+              },
             },
           },
-          javascript = {},
+          typescript = {
+            format = { enable = false },
+            updateImportsOnFileMove = { enabled = "always" },
+            suggest = {
+              completeFunctionCalls = true,
+            },
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              -- 	functionLikeReturnTypes = { enabled = true },
+              -- 	parameterNames = { enabled = "literals" },
+              -- 	parameterTypes = { enabled = true },
+              -- 	propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = true },
+            },
+          },
+          javascript = {
+            format = { enable = false },
+          },
         },
       },
       html = {},

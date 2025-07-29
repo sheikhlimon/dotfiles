@@ -12,14 +12,6 @@ return {
         enabled = true,
         timeout = 3000,
       },
-      blame_line = {
-        width = 0.6,
-        height = 0.6,
-        border = "rounded",
-        title = " Git Blame ",
-        title_pos = "center",
-        ft = "git",
-      },
       indent = {
         indent = { enabled = false },
         animate = {
@@ -40,7 +32,7 @@ return {
       input = {
         icon = "::",
         win = {
-          width = 35,
+          width = 30,
           relative = "cursor",
           row = -3, -- puts prompt on top of cursor
           col = 0,
@@ -69,7 +61,6 @@ return {
       vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
     end
 
-    -- === Pickers === --
     map("n", "<leader>fg", snacks.picker.grep, "Live Grep")
     map("n", "<leader>ff", snacks.picker.files, "Find Files")
     map("n", "<leader>fr", snacks.picker.recent, "Recent Files")
@@ -77,7 +68,6 @@ return {
     map("n", "<leader>r", snacks.picker.registers, "Registers")
     map("n", "<leader>th", snacks.picker.colorschemes, "Theme Picker")
 
-    -- === Reference Navigation === --
     map({ "n", "t" }, "]]", function()
       snacks.words.jump(vim.v.count1)
     end, "Next Reference")
@@ -86,19 +76,20 @@ return {
       snacks.words.jump(-vim.v.count1)
     end, "Previous Reference")
 
-    -- === Git === --
-    map("n", "<leader>n", snacks.picker.notifications, "Notification History")
+    map("n", "<leader>fn", snacks.picker.notifications, "Notification History")
     map("n", "<leader>fd", snacks.picker.diagnostics, "Buffer Diagnostics")
     map("n", "<leader>gf", snacks.picker.git_diff, "Git Status")
     map("n", "<leader>gg", snacks.lazygit.open, "Lazy Git")
-
     map("n", "<leader>gl", snacks.picker.git_log, "Git Log")
 
     map("n", "<leader>gb", function()
       require("snacks.git").blame_line()
     end, "Git Blame Line")
 
-    map("n", "<leader>pp", ":lua Snacks.picker() <cr>", "opens a list of of pickers to choose from")
+    map("n", "<leader>pp", function()
+      snacks.picker()
+    end, "Pick a snacks source")
+
     map("n", "<leader>to", function()
       snacks.picker "todo_comments"
     end, "Find Todo comments")

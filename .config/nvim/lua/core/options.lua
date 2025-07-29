@@ -28,8 +28,8 @@ opt.backspace = "indent,eol,start"
 
 -- hide ~ on empty line
 opt.fillchars = { eob = " " }
-opt.path:append({ "**" })
-opt.wildignore:append({ "*/node_modules/*" })
+opt.path:append { "**" }
+opt.wildignore:append { "*/node_modules/*" }
 opt.splitbelow = true
 opt.splitright = true
 opt.splitkeep = "cursor"
