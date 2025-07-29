@@ -1,10 +1,6 @@
 #git dotfiles-new
 alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-function weather {
-  echo "It's sunny!"
-}
-
 #alias
 alias vim='nvim'
 alias py='python'
