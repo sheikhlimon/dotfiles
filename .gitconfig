@@ -1,7 +1,7 @@
 [core]
-	excludesfile = ~/.gitignore
-	editor = nvim
-	ignorecase = false
+  excludesfile = ~/.gitignore
+  editor = nvim
+  ignorecase = false
 [push]
   default = simple
 [color]
@@ -28,28 +28,28 @@
 [hub]
   protocol = https
 [github]
-	user = sheikhlimon
+  user = sheikhlimon
 [diff]
   tool = nvimdiff
 [difftool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
-	path = 
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+  path = 
 [mergetool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
-	process = git-lfs filter-process
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+  process = git-lfs filter-process
 [user]
-	email = sheikhlimon404@gmail.com
-	name = sheikhlimon
+  email = sheikhlimon404@gmail.com
+  name = sheikhlimon
 [credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+  helper = 
+  helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+  helper = 
+  helper = !/usr/bin/gh auth git-credential
 [init]
-	defaultBranch = main
+  defaultBranch = main
