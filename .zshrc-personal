@@ -102,6 +102,28 @@ function hb {
     fi
 }
 
+# Function to install missing zsh plugins (call manually: install_zsh_plugins)
+install_zsh_plugins() {
+    local plugins_to_install=(
+        "zsh-autosuggestions|https://github.com/zsh-users/zsh-autosuggestions"
+        "zsh-syntax-highlighting|https://github.com/zsh-users/zsh-syntax-highlighting"
+    )
+    
+    for plugin_info in "${plugins_to_install[@]}"; do
+        local plugin_name="${plugin_info%|*}"
+        local plugin_url="${plugin_info#*|}"
+        local plugin_path="$ZSH/custom/plugins/$plugin_name"
+        
+        if [[ ! -d "$plugin_path" ]]; then
+            echo "Installing $plugin_name..."
+            git clone "$plugin_url" "$plugin_path"
+        else
+            echo "$plugin_name already installed"
+        fi
+    done
+    echo "Plugin installation complete! Restart your shell or run 'source ~/.zshrc'"
+}
+
 #automatically install the needed support files for this .zshrc file
 install_zshrc_support() {
     if [[ -f /etc/arch-release ]]; then
