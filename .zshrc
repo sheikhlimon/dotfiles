@@ -5,10 +5,6 @@
 export EDITOR=nvim
 export TERM=kitty
 
-# For better vi mode integration
-export KEYTIMEOUT=1
-export VI_MODE_SET_CURSOR=true
-
 # XDG compliance for tools
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"

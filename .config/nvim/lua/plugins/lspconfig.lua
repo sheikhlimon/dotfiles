@@ -10,7 +10,7 @@ return {
         library = {
           -- Load luvit types when the `vim.uv` word is found
           { path = "luvit-meta/library", words = { "vim%.uv" } },
-          { path = "/usr/share/awesome/lib/", words = { "awesome" } },
+          { path = "snacks.nvim", words = { "snacks" } },
         },
       },
     },
@@ -71,17 +71,19 @@ return {
           vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
 
-        -- LSP Keymaps
-        map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-        map("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
+        -- Using your map() helper for clarity & descriptions
+        -- map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+        -- map("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
         map("gT", vim.lsp.buf.type_definition, "Type [D]efinition")
-        -- map("K", vim.lsp.buf.hover, "Hover Documentation")
+        map("K", vim.lsp.buf.hover, "Hover Documentation")
         map("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")
         map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
         -- Diagnostic keymaps
-        map("<leader>q", vim.diagnostic.setloclist, "Open diagnostic [Q]uickfix list")
+        map("<leader>lq", vim.diagnostic.setloclist, "Open diagnostic [Q]uickfix list")
+        map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+        map("<leader>ls", vim.lsp.buf.signature_help, "Signature Help")
 
         -- Document highlighting - highlights references of word under cursor
         local client = vim.lsp.get_client_by_id(event.data.client_id)

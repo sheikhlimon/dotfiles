@@ -23,7 +23,7 @@ function _load_zsh_plugins {
 
     # Set up plugins array
     typeset -ga plugins
-    plugins+=(git zsh-256color zsh-autosuggestions zsh-syntax-highlighting)
+    plugins+=(git zsh-autosuggestions zsh-syntax-highlighting)
 
     # Deduplicate plugins
     plugins=($(printf "%s\n" "${plugins[@]}" | sort -u))
