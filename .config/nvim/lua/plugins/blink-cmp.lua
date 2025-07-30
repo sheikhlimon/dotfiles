@@ -4,6 +4,13 @@ return {
   dependencies = "rafamadriz/friendly-snippets",
   version = "1.*",
   config = function()
+    -- Remove conflicting default mappings FIRST
+    pcall(vim.keymap.del, "i", "<Tab>")
+    pcall(vim.keymap.del, "s", "<Tab>")
+    pcall(vim.keymap.del, "i", "<S-Tab>")
+    pcall(vim.keymap.del, "s", "<S-Tab>")
+
+    -- THEN setup blink.cmp with simple enhancements
     require("blink-cmp").setup {
       keymap = {
         ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
@@ -15,7 +22,6 @@ return {
         keymap = { preset = "super-tab" },
         completion = { menu = { auto_show = true } },
       },
-      -- completion menu behavior
       completion = {
         list = { selection = { auto_insert = true } }, -- inserts potential selection when scrolling through list
         documentation = {
@@ -26,35 +32,16 @@ return {
         },
         menu = {
           border = "rounded",
-          -- how the items are drawn (shown) in the menu, example below
-          -- [LSP]  ctx.source_name  kind_icon  kind
           draw = {
             gap = 2,
-            components = {
-              source_name = {
-                text = function(ctx)
-                  if ctx.source_name == "LSP" then
-                    return "[LSP]"
-                  end
-                  if ctx.source_name == "Snippets" then
-                    return "[SNIP]"
-                  end
-                  if ctx.source_name == "Buffer" then
-                    return "[BUF]"
-                  end
-                  if ctx.source_name == "Path" then
-                    return "[PATH]"
-                  end
-                end,
-              },
-            },
-            -- add padding between various completion elements (purely cosmetic)
             columns = {
-              { "source_name", gap = 1 },
               { "label", "label_description", gap = 1 },
               { "kind_icon", "kind", gap = 2 },
             },
           },
+        },
+        ghost_text = {
+          enabled = true,
         },
       },
     }

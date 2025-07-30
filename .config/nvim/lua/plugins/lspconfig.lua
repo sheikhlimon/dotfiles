@@ -76,14 +76,13 @@ return {
         -- map("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
         map("gT", vim.lsp.buf.type_definition, "Type [D]efinition")
+        map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
         map("K", vim.lsp.buf.hover, "Hover Documentation")
         map("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")
         map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
         -- Diagnostic keymaps
         map("<leader>lq", vim.diagnostic.setloclist, "Open diagnostic [Q]uickfix list")
-        map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-        map("<leader>ls", vim.lsp.buf.signature_help, "Signature Help")
 
         -- Document highlighting - highlights references of word under cursor
         local client = vim.lsp.get_client_by_id(event.data.client_id)

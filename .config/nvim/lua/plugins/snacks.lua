@@ -52,7 +52,7 @@ return {
   },
   keys = {
     {
-      "<leader>s",
+      "<leader>ls",
       function()
         Snacks.picker.lsp_symbols()
       end,

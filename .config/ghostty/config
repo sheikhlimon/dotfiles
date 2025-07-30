@@ -1,5 +1,4 @@
 font-family = JetBrainsMono Nerd Font
-#font-family = CaskaydiaMono Nerd Font Mono
 font-size = 14
 
 background = #191724
@@ -7,6 +6,8 @@ background = #191724
 background-opacity = 1
 background-blur = false
 confirm-close-surface=false
+
+window-padding-x = 0
 
 shell-integration-features = no-cursor,no-sudo,no-title
 gtk-titlebar = false

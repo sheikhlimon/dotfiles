@@ -10,11 +10,10 @@ opt.title = true
 opt.cursorline = false
 
 -- tabs & indentation
-opt.expandtab = true -- use spaces instead of tabs
 opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
 opt.tabstop = 2
 opt.softtabstop = 2
-opt.autoindent = true
+opt.expandtab = true -- use spaces instead of tabs
 opt.smartindent = true
 
 opt.wrap = true -- Wrap lines
@@ -24,12 +23,11 @@ opt.undofile = true --keep undo changes
 -- search settings
 opt.ignorecase = true -- case insensitive on search..
 opt.smartcase = true -- ..unless there's a capital
-opt.backspace = "indent,eol,start"
+-- opt.backspace = "indent,eol,start"
 
 -- hide ~ on empty line
 opt.fillchars = { eob = " " }
 opt.path:append { "**" }
 opt.wildignore:append { "*/node_modules/*" }
-opt.splitbelow = true
 opt.splitright = true
 opt.splitkeep = "cursor"

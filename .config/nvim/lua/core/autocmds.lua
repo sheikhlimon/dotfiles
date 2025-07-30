@@ -1,27 +1,36 @@
 local autocmd = vim.api.nvim_create_autocmd
 
---Filetype-specific settings for Lua files
+-- Lua indentation settings
 autocmd("FileType", {
-  pattern = "lua", -- Apply these settings when the filetype is 'lua'
+  pattern = "lua",
   callback = function()
-    vim.opt_local.tabstop = 2 -- Lua: A TAB character occupies 2 spaces
-    vim.opt_local.shiftwidth = 2 -- Lua: Auto-indent to 2 spaces
-    vim.opt_local.expandtab = true -- Lua: Use spaces instead of TABs
-    -- autoindent and smartindent are typically fine globally, but you could set them here too if needed
-    -- vim.opt_local.autoindent = true
-    -- vim.opt_local.smartindent = true
+    local opt = vim.opt_local
+    opt.tabstop = 2
+    opt.shiftwidth = 2
+    opt.expandtab = true
+    -- Optionally add these if you want to be explicit:
+    -- opt.autoindent = true
+    -- opt.smartindent = true
   end,
   desc = "Set 2-space indentation for Lua files",
 })
 
-autocmd(
-  { "BufRead", "BufNewFile" },
-  -- { pattern = { "*.txt", "*.md", "*.tex" }, command = [[setlocal spell<cr> setlocal spelllang=en,de<cr>]] }
-  {
-    pattern = { "*.txt", "*.md", "*.tex" },
-    callback = function()
-      vim.opt.spell = true
-      vim.opt.spelllang = "en"
-    end,
-  }
-)
+-- Spell checking for text-based files
+autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.txt", "*.md", "*.tex" },
+  callback = function()
+    local opt = vim.opt_local
+    opt.spell = true
+    opt.spelllang = "en"
+  end,
+  desc = "Enable spell checking for text files",
+})
+
+-- Conform autoformat on save
+autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    require("conform").format { async = false }
+  end,
+  desc = "Autoformat buffer with Conform on save",
+})
