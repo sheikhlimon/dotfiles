@@ -1,7 +1,5 @@
-local autocmd = vim.api.nvim_create_autocmd
-
 -- Lua indentation settings
-autocmd("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
   pattern = "lua",
   callback = function()
     local opt = vim.opt_local
@@ -16,7 +14,7 @@ autocmd("FileType", {
 })
 
 -- Spell checking for text-based files
-autocmd({ "BufRead", "BufNewFile" }, {
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.txt", "*.md", "*.tex" },
   callback = function()
     local opt = vim.opt_local
@@ -27,7 +25,7 @@ autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 -- Conform autoformat on save
-autocmd("BufWritePre", {
+vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
     require("conform").format { async = false }

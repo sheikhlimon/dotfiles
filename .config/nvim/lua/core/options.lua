@@ -23,7 +23,7 @@ opt.undofile = true --keep undo changes
 -- search settings
 opt.ignorecase = true -- case insensitive on search..
 opt.smartcase = true -- ..unless there's a capital
--- opt.backspace = "indent,eol,start"
+opt.backspace = "indent,eol,start"
 
 -- hide ~ on empty line
 opt.fillchars = { eob = " " }

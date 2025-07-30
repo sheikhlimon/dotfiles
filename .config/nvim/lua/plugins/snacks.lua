@@ -38,6 +38,7 @@ return {
     },
     picker = {
       prompt = " :: ",
+      layout = { preset = "default" },
       sources = {
         files = {
           exclude = { ".node_modules*", ".DS_Store" },
@@ -110,39 +111,7 @@ return {
     {
       "<leader>fn",
       function()
-        Snacks.picker.notifications {
-          win = {
-            preview = {
-              wo = { number = false, relativenumber = false, signcolumn = "no" },
-              bo = { filetype = "text" },
-            },
-          },
-
-          ---@param picker snacks.Picker
-          ---@param item snacks.picker.Item
-          confirm = function(picker, item)
-            picker:close()
-            if item and item.preview then
-              Snacks.win {
-                ft = "text",
-                text = item.preview.text,
-                wo = {
-                  number = false,
-                  relativenumber = false,
-                  signcolumn = "no",
-                },
-                border = "rounded",
-                height = 0.6,
-                width = 0.7,
-                bo = {
-                  syntax = "markdown",
-                },
-                title = "  Notification Preview ",
-                title_pos = "center",
-              }
-            end
-          end,
-        }
+        Snacks.picker.notifications()
       end,
       desc = "Notification History",
     },
