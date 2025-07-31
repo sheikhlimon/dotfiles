@@ -19,6 +19,25 @@ export TERM=kitty
 # Don't show % at the end of cpp run files
 PROMPT_EOL_MARK=''
 
+# fzf variables
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+export FZF_DEFAULT_OPTS="\
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--preview 'bat --style=full --color=always {}'"
+
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+
+export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'tree -C {}'"
+
 # Find and set oh-my-zsh installation path
 if [[ -d "$HOME/.oh-my-zsh" ]]; then
     export ZSH="$HOME/.oh-my-zsh"
@@ -42,14 +61,17 @@ plugins=(
 # Load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-# Initialize completion system
-autoload -U compinit && compinit
+# Initialize completion system with caching
+autoload -Uz compinit && compinit -C
 
-# Load complist module for menu selection
+# auto-refresh completions when new tools are installed
+zstyle ':completion:*' rehash true
+
+# Load complist module for menu selection (for nicer tab completion UI)
 zmodload zsh/complist
 
-# Autosuggestion strategy (history + completion)
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+# Set autosuggestion strategy: history first, then completion
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # Prompt setup - Starship first, then Powerlevel10k fallback
 if command -v starship &>/dev/null; then
@@ -81,7 +103,6 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 
 # Tool initializations
-# fnm (Node.js version manager)
 if [[ -d "$HOME/.local/share/fnm" ]]; then
     export PATH="$HOME/.local/share/fnm:$PATH"
     eval "$(fnm env)"
@@ -92,5 +113,5 @@ if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"
 fi
 
-# Load personal configurations if they exist
+# Load personal configurations
 [[ -f ~/.zshrc-personal ]] && source ~/.zshrc-personal

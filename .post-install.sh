@@ -1,119 +1,36 @@
-#git dotfiles-new
-alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+# source first then run install functions
+# source ~/.post-install.sh 
 
-#alias
-alias vim='nvim'
-alias py='python'
-alias cat='bat'
-alias cd='z'
-alias ..='cd ..' 
-alias q='exit'
-alias grep='grep --color=auto'
-alias killp='killprocess'
-alias l='eza -lh --icons=auto --git'
-alias ll='eza -lha --icons=auto --sort=name --group-directories-first --git'
-alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
-alias lt='eza --icons=auto --tree'
-alias c='clear'
-alias mkdir='mkdir -p'
-alias df='_df'
-alias less='bat'
-alias mv='mv -i'
-alias rm='trash -v'
-alias updatefonts='sudo fc-cache -fv'
-alias wget="wget -c" # continue the download
-alias multitail='multitail --no-repeat -c' 
-alias help="bat ~/.zshrc-personal"
-
-
-# Search files in the current folder
-alias f="find . | grep "
-
-# Search running processes
-alias p="ps aux | grep "
-alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
-
-# Allow ctrl-S for history navigation (with ctrl-R)
-if [[ -t 0 && $- == *i* ]]; then
-    stty -ixon
-fi
-
-# Count all files (recursively) in the current folder
-alias countfiles="find . -type f | wc -l && echo 'files'; find . -type l | wc -l && echo 'links'; find . -type d | wc -l && echo 'directories'"
-
-# # ripgrep->fzf->vim [QUERY]
-ffs() (
-  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
-  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
-            vim {1} +{2}     # No selection. Open the current line in Vim.
-          else
-            vim +cw -q {+f}  # Build quickfix list for the selected items.
-          fi'
-  fzf --disabled --ansi --multi \
-      --bind "start:$RELOAD" --bind "change:$RELOAD" \
-      --bind "enter:become:$OPENER" \
-      --bind "ctrl-o:execute:$OPENER" \
-      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
-      --delimiter : \
-      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
-      --preview-window '~4,+{2}+4/3,<80(up)' \
-      --query "$*"
-)
-
-# Search command line history
-alias h="history | grep "
-
-# Alias's to show disk space and space used in a folder
-alias diskspace="du -S | sort -n -r |more"
-alias folders='du -h --max-depth=1'
-
-#yazi
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	IFS= read -r -d '' cwd < "$tmp"
-	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-	rm -f -- "$tmp"
-}
-
-# compile and run cpp 
-function cppcompile()
-{
-  filename=$1
-  re="^\#include \""
-  while read line
-  do
-    if [[ $line =~ $re ]]; then
-      temp=${line:9}
-      temp1=${temp#\"}
-      temp2=${temp1%\.*\"}
-      g++ -std=c++17 -c $temp2.cpp
-    fi
-  done < $filename.cpp
-  g++ -std=c++17 -c $filename.cpp
-  g++ -o $filename *.o
-  ./$filename
-  rm -f *.o    					#this removes recedue files
-}
-
-#hb does lets something like paste bin creates a link to a text file i want
-function hb {
-    if [ $# -eq 0 ]; then
-        echo "No file path specified."
-        return
-    elif [ ! -f "$1" ]; then
-        echo "File path does not exist."
+install_paru() {
+    if [[ ! -f /etc/arch-release ]]; then
+        echo "Not Arch Linux. Skipping paru install."
         return
     fi
 
-    uri="http://bin.christitus.com/documents"
-    response=$(curl -s -X POST -d @"$1" "$uri")
-    if [ $? -eq 0 ]; then
-        hasteKey=$(echo $response | jq -r '.key')
-        echo "http://bin.christitus.com/$hasteKey"
-    else
-        echo "Failed to upload the document."
+    if command -v paru &>/dev/null; then
+        echo "paru is already installed."
+        return
     fi
+
+    echo "Installing paru (AUR helper)..."
+
+    # Install base-devel and git if missing (needed to build paru)
+    sudo pacman -S --needed --noconfirm base-devel git
+
+    # Clone paru repo to a temp dir
+    tmp_dir=$(mktemp -d)
+    git clone https://aur.archlinux.org/paru.git "$tmp_dir/paru"
+    
+    # Build and install paru
+    (
+        cd "$tmp_dir/paru"
+        makepkg -si --noconfirm
+    )
+    
+    # Cleanup
+    rm -rf "$tmp_dir"
+
+    echo "paru installed!"
 }
 
 # Function to install missing zsh plugins (call manually: install_zsh_plugins)
@@ -413,104 +330,3 @@ setup_databases() {
 
     echo "Database setup complete."
 }
-
-
-# Copy and go to the directory
-cpg() {
-	if [ -d "$2" ]; then
-		cp "$1" "$2" && cd "$2"
-	else
-		cp "$1" "$2"
-	fi
-}
-
-# Move and go to the directory
-mvg() {
-	if [ -d "$2" ]; then
-		mv "$1" "$2" && cd "$2"
-	else
-		mv "$1" "$2"
-	fi
-}
-
-# Create and go to the directory
-mkdirg() {
-	mkdir -p "$1"
-	cd "$1"
-}
-
-_df() {
-    if [[ $# -ge 1 && -e "${@: -1}" ]]; then
-        duf "${@: -1}"
-    else
-        duf
-    fi
-}
-
-# Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-	 [[ $1 = 'block' ]]; then
-	echo -ne '\e[1 q'
-  elif [[ ${KEYMAP} == main ]] ||
-	   [[ ${KEYMAP} == viins ]] ||
-	   [[ ${KEYMAP} = '' ]] ||
-	   [[ $1 = 'beam' ]]; then
-	echo -ne '\e[5 q'
-  fi
-}
-
-zle -N zle-keymap-select
-zle-line-init() {
-	zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-	echo -ne "\e[5 q"
-}
-
-zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
-
-# Initialize a variable to track the last j keypress time
-typeset -g jj_last_time=0
-
-function jj-escape() {
-  local current_time=$(date +%s%3N) # current time in milliseconds
-  local time_diff=$((current_time - jj_last_time))
-
-  if [[ $LBUFFER == *j && $time_diff -lt 500 ]]; then
-    LBUFFER=${LBUFFER%j}
-    zle vi-cmd-mode
-    jj_last_time=0
-  else
-    LBUFFER+=$KEYS
-    jj_last_time=$current_time
-  fi
-}
-zle -N jj-escape
-
-# ci"
-autoload -U select-quoted
-zle -N select-quoted
-for m in visual viopp; do
-  for c in {a,i}{\',\",\`}; do
-	bindkey -M $m $c select-quoted
-  done
-done
-
-# ci{, ci(, di{ etc..
-autoload -U select-bracketed
-zle -N select-bracketed
-for m in visual viopp; do
-  for c in {a,i}${(s..)^:-'()[]{}<>bB\'}; do
-	bindkey -M $m $c select-bracketed
-  done
-done
-
-# Use vim keys in tab complete menu:
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M viins 'j' jj-escape
-bindkey '^R' history-incremental-search-backward
-bindkey -v

@@ -1,7 +1,7 @@
 add_newline = false
 
 [directory]
-format = '[ $path]($style)'
+format = '[ $path]($style) '
 style = "blue"
 
 [aws]
