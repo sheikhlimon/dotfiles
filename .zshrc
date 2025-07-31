@@ -19,43 +19,43 @@ export TERM=kitty
 # Don't show % at the end of cpp run files
 PROMPT_EOL_MARK=''
 
-# fzf variables
+# fzf environment variables
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export FZF_DEFAULT_OPTS="\
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
 --preview 'bat --style=full --color=always {}'"
 
 export FZF_CTRL_T_OPTS="
-  --walker-skip .git,node_modules,target
-  --preview 'bat -n --color=always {}'
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+--walker-skip .git,node_modules,target
+--preview 'bat -n --color=always {}'
+--bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
 export FZF_ALT_C_OPTS="
-  --walker-skip .git,node_modules,target
-  --preview 'tree -C {}'"
+--walker-skip .git,node_modules,target
+--preview 'tree -C {}'"
 
 # Find and set oh-my-zsh installation path
 if [[ -d "$HOME/.oh-my-zsh" ]]; then
-    export ZSH="$HOME/.oh-my-zsh"
+  export ZSH="$HOME/.oh-my-zsh"
 elif [[ -d "/usr/local/share/oh-my-zsh" ]]; then
-    export ZSH="/usr/local/share/oh-my-zsh"
+  export ZSH="/usr/local/share/oh-my-zsh"
 elif [[ -d "/usr/share/oh-my-zsh" ]]; then
-    export ZSH="/usr/share/oh-my-zsh"
+  export ZSH="/usr/share/oh-my-zsh"
 else
-    echo "Warning: oh-my-zsh not found"
-    return 1
+  echo "Warning: oh-my-zsh not found"
+  return 1
 fi
 
 # oh-my-zsh plugins
 plugins=(
-    git
-    zsh-256color
-    zsh-autosuggestions
-    zsh-syntax-highlighting
+  git
+  zsh-256color
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 # Load oh-my-zsh
@@ -75,20 +75,20 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # Prompt setup - Starship first, then Powerlevel10k fallback
 if command -v starship &>/dev/null; then
-    eval "$(starship init zsh)"
-    export STARSHIP_CACHE="$XDG_CACHE_HOME/starship"
-    export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
+  eval "$(starship init zsh)"
+  export STARSHIP_CACHE="$XDG_CACHE_HOME/starship"
+  export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 elif [[ -r "$HOME/.p10k.zsh" ]]; then
-    # Try common Powerlevel10k locations
-    for theme_path in "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme" \
-                     "$HOME/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme" \
-                     "$ZSH/themes/powerlevel10k.zsh-theme"; do
-        if [[ -r "$theme_path" ]]; then
-            source "$theme_path"
-            [[ -f "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
-            break
-        fi
-    done
+  # Try common Powerlevel10k locations
+  for theme_path in "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme" \
+    "$HOME/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme" \
+    "$ZSH/themes/powerlevel10k.zsh-theme"; do
+    if [[ -r "$theme_path" ]]; then
+      source "$theme_path"
+      [[ -f "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
+      break
+    fi
+  done
 fi
 
 # History configuration
@@ -104,14 +104,18 @@ setopt HIST_IGNORE_ALL_DUPS
 
 # Tool initializations
 if [[ -d "$HOME/.local/share/fnm" ]]; then
-    export PATH="$HOME/.local/share/fnm:$PATH"
-    eval "$(fnm env)"
+  export PATH="$HOME/.local/share/fnm:$PATH"
+  eval "$(fnm env)"
 fi
 
 # zoxide (better cd command)
-if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init zsh)"
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
 fi
 
 # Load personal configurations
 [[ -f ~/.zshrc-personal ]] && source ~/.zshrc-personal
+
+# Source fzf keybindings and completion
+[[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
+[[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh

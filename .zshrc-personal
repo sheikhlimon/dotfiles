@@ -4,7 +4,7 @@ alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 #alias
 alias vim='nvim'
 alias py='python'
-alias cat='bat'
+alias cat='bat --paging=never'
 alias cd='z'
 alias ..='cd ..' 
 alias q='exit'
@@ -41,7 +41,7 @@ fi
 # Count all files (recursively) in the current folder
 alias countfiles="find . -type f | wc -l && echo 'files'; find . -type l | wc -l && echo 'links'; find . -type d | wc -l && echo 'directories'"
 
-# # ripgrep->fzf->vim [QUERY]
+# ripgrep->fzf->vim [QUERY]
 ffs() (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
@@ -94,26 +94,6 @@ function cppcompile()
   g++ -o $filename *.o
   ./$filename
   rm -f *.o    					#this removes recedue files
-}
-
-#hb does lets something like paste bin creates a link to a text file i want
-function hb {
-    if [ $# -eq 0 ]; then
-        echo "No file path specified."
-        return
-    elif [ ! -f "$1" ]; then
-        echo "File path does not exist."
-        return
-    fi
-
-    uri="http://bin.christitus.com/documents"
-    response=$(curl -s -X POST -d @"$1" "$uri")
-    if [ $? -eq 0 ]; then
-        hasteKey=$(echo $response | jq -r '.key')
-        echo "http://bin.christitus.com/$hasteKey"
-    else
-        echo "Failed to upload the document."
-    fi
 }
 
 # Copy and go to the directory
