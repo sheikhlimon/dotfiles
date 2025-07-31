@@ -266,6 +266,7 @@ return {
         "clang-format",
         "pylint",
         "eslint_d",
+        "shfmt",
       },
     }
   end,
