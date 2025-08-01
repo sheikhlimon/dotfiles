@@ -34,21 +34,22 @@ alias p="ps aux | grep "
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 
 # Allow ctrl-S for history navigation (with ctrl-R)
-if [[ -t 0 && $- == *i* ]]; then
-    stty -ixon
-fi
+# if [[ -t 0 && $- == *i* ]]; then
+#     stty -ixon
+# fi
 
 # Count all files (recursively) in the current folder
 alias countfiles="find . -type f | wc -l && echo 'files'; find . -type l | wc -l && echo 'links'; find . -type d | wc -l && echo 'directories'"
 
 # ripgrep->fzf->vim [QUERY]
-ffs() (
+frg() (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
-            vim {1} +{2}     # No selection. Open the current line in Vim.
+            nvim {1} +{2}
           else
-            vim +cw -q {+f}  # Build quickfix list for the selected items.
+            nvim +cw -q {+f}
           fi'
+
   fzf --disabled --ansi --multi \
       --bind "start:$RELOAD" --bind "change:$RELOAD" \
       --bind "enter:become:$OPENER" \
