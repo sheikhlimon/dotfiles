@@ -25,7 +25,7 @@
   "files.autoSave": "off",
   "files.saveConflictResolution": "overwriteFileOnDisk",
   "editor.lineNumbers": "relative",
-  "editor.fontSize": 17,
+  "editor.fontSize": 18,
   "editor.letterSpacing": 0.2,
   "editor.fontFamily": "JetBrainsMono Nerd Font",
   "editor.fontLigatures": "'ss01','ss05','dlig'",
