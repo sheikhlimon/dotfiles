@@ -78,6 +78,8 @@
       "editor.findMatchHighlightBackground": "#546E7A63",
       "editor.selectionBackground": "#546E7A60",
       "editor.background": "#191724",
+      "editorCursor.foreground": "#FFF",
+      "editorCursor.background": "#0D1116",
       "sideBar.background": "#191724",
       "activityBar.background": "#191724",
       "panel.background": "#191724",

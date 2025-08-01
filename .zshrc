@@ -91,6 +91,11 @@ elif [[ -r "$HOME/.p10k.zsh" ]]; then
   done
 fi
 
+# attach tmux or create a new one at startup
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  tmux attach-session -t main 2>/dev/null || tmux new-session -s main
+fi
+
 # History configuration
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000

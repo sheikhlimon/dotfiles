@@ -24,8 +24,8 @@ return {
   config = function()
     -- Setup diagnostics
     vim.diagnostic.config {
-      virtual_text = false,
-      update_in_insert = false,
+      virtual_text = true,
+      update_in_insert = true,
       underline = false,
       severity_sort = true,
       float = {

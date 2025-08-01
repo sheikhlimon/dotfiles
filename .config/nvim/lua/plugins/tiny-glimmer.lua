@@ -1,23 +1,47 @@
 return {
   "rachartier/tiny-glimmer.nvim",
-  keys = { "u", "<c-r>" },
+  event = "VeryLazy",
   opts = {
-    overwrite = {
-      redo = {
-        enabled = true,
-        default_animation = {
-          settings = {
-            from_color = "DiffAdd",
-          },
-        },
-      },
+    -- Basic settings
+    enabled = true,
+    disable_warnings = true,
+    refresh_interval_ms = 8,
 
+    overwrite = {
       undo = {
         enabled = true,
-        default_animation = {
-          settings = {
-            from_color = "DiffDelete",
-          },
+        keymaps = { "u" },
+        animation_type = "highlight",
+        animation_settings = {
+          from_color = "DiffDelete",
+          duration = 200,
+        },
+      },
+      redo = {
+        enabled = true,
+        keymaps = { "<C-r>" },
+        animation_type = "highlight",
+        animation_settings = {
+          from_color = "DiffAdd",
+          duration = 200,
+        },
+      },
+      yank = {
+        enabled = true,
+        keymaps = { "y", "Y" },
+        animation_type = "highlight",
+        animation_settings = {
+          from_color = "Visual",
+          duration = 300,
+        },
+      },
+      paste = {
+        enabled = true,
+        keymaps = { "p", "P" },
+        animation_type = "highlight",
+        animation_settings = {
+          from_color = "IncSearch",
+          duration = 150,
         },
       },
     },
