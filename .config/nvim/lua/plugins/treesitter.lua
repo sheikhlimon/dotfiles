@@ -3,6 +3,29 @@ return {
   build = ":TSUpdate",
   main = "nvim-treesitter.configs",
   event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    {
+      "windwp/nvim-ts-autotag",
+      config = function()
+        require("nvim-ts-autotag").setup {
+          autotag = {
+            enable = true,
+            enable_rename = true,
+            enable_close = true,
+            enable_close_on_slash = true,
+            filetypes = {
+              "html",
+              "typescript",
+              "typescriptreact",
+              "vue",
+              "svelte",
+            },
+          },
+        }
+      end,
+      event = "InsertEnter",
+    },
+  },
   opts = {
     ensure_installed = {
       "json",
