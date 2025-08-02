@@ -69,6 +69,20 @@ return {
       desc = "Smart Find Files",
     },
     {
+      "<leader>fj",
+      function()
+        Snacks.picker.jumps()
+      end,
+      desc = "Find Jumps",
+    },
+    {
+      "<leader>fb",
+      function()
+        Snacks.picker.buffers()
+      end,
+      desc = "Find Buffers",
+    },
+    {
       "<leader>/",
       function()
         Snacks.picker.grep()

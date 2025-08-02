@@ -28,13 +28,13 @@ return {
       update_in_insert = true,
       underline = false,
       severity_sort = true,
-      float = {
-        focusable = true,
-        style = "minimal",
-        border = "rounded",
-        header = "",
-        prefix = "",
-      },
+      -- float = {
+      --   focusable = true,
+      --   style = "minimal",
+      --   border = "rounded",
+      --   header = "",
+      --   prefix = "",
+      -- },
       signs = {
         text = {
           [vim.diagnostic.severity.ERROR] = "󰅚",
@@ -83,38 +83,6 @@ return {
 
         -- Diagnostic keymaps
         map("<leader>lq", vim.diagnostic.setloclist, "Open diagnostic [Q]uickfix list")
-
-        -- Document highlighting - highlights references of word under cursor
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client.server_capabilities.documentHighlightProvider then
-          local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
-          vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            buffer = event.buf,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.document_highlight,
-          })
-
-          vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-            buffer = event.buf,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.clear_references,
-          })
-
-          vim.api.nvim_create_autocmd("LspDetach", {
-            group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
-            callback = function(event2)
-              vim.lsp.buf.clear_references()
-              vim.api.nvim_clear_autocmds { group = "lsp-highlight", buffer = event2.buf }
-            end,
-          })
-        end
-
-        -- Inlay hints toggle (if supported)
-        if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-          map("<leader>ih", function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-          end, "[T]oogle Inlay [H]ints")
-        end
       end,
     })
 

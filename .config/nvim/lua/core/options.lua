@@ -12,10 +12,7 @@ opt.cursorline = false
 -- tabs & indentation
 opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
 opt.tabstop = 2
-opt.softtabstop = 2
 opt.expandtab = true -- use spaces instead of tabs
-opt.smartindent = true
-opt.autoindent = true
 
 opt.wrap = true -- Wrap lines
 opt.swapfile = false --swap

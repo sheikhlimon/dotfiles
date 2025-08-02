@@ -1,3 +1,11 @@
+local function recording_indicator()
+  local reg = vim.fn.reg_recording()
+  if reg == "" then
+    return ""
+  end
+  return "Recording @" .. reg
+end
+
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" }, -- Optional, but recommended for icons
@@ -38,6 +46,7 @@ return {
       lualine_b = { "branch", "diff", "diagnostics" },
       lualine_c = {
         { "filename", path = 1 }, -- path = 1 shows filename relative to CWD
+        { recording_indicator, color = { fg = "#a6e3a1", gui = "bold" } },
         -- You could also add things like:
         -- 'filesize',
         -- {
@@ -82,7 +91,7 @@ return {
       --[[
       Lualine can also act as a winbar (a bar at the top of each window).
       --]]
-      -- lualine_a = {},
+      lualine_a = {},
       -- lualine_b = {},
       -- lualine_c = {{'filename', path = 1}},
       -- lualine_x = {},
@@ -97,7 +106,7 @@ return {
       Lualine has extensions for integration with other plugins.
       --]]
       -- 'nvim-tree',
-      -- 'toggleterm',
+      -- "toggleterm",
       -- 'quickfix',
       -- 'mason',
       -- 'fugitive', -- Example for git blame

@@ -18,7 +18,7 @@
       ]
     }
   },
-  "window.zoomLevel": 0.1,
+  // "window.zoomLevel": 0.1,
   "window.customTitleBarVisibility": "auto",
   "window.menuBarVisibility": "toggle",
   "window.titleBarStyle": "native",
@@ -27,7 +27,7 @@
   "editor.lineNumbers": "relative",
   "editor.fontSize": 18,
   "editor.letterSpacing": 0.2,
-  "editor.fontFamily": "JetBrainsMono Nerd Font",
+  "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
   "editor.fontLigatures": "'ss01','ss05','dlig'",
   "explorer.decorations.badges": false,
   "editor.occurrencesHighlight": "off",
@@ -66,7 +66,6 @@
   "workbench.layoutControl.enabled": true,
   "workbench.sideBar.location": "left",
   "workbench.navigationControl.enabled": false,
-  "window.commandCenter": false,
   "window.autoDetectColorScheme": true,
   "workbench.colorCustomizations": {
     "[Rosé Pine Moon (no italics)]": {
