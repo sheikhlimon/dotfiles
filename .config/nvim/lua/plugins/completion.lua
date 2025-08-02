@@ -1,11 +1,10 @@
 return {
+  -- LuaSnip with friendly-snippets and custom snippets
   {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
     build = "make install_jsregexp",
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-    },
+    dependencies = { "rafamadriz/friendly-snippets" },
     config = function()
       local luasnip = require "luasnip"
 
@@ -15,16 +14,15 @@ return {
         delete_check_events = "TextChanged",
       }
 
-      -- Load friendly-snippets
+      -- Load friendly and custom snippets
       require("luasnip.loaders.from_vscode").lazy_load()
-
-      -- Load custom snippets
       require("luasnip.loaders.from_vscode").lazy_load {
         paths = { vim.fn.stdpath "config" .. "/snippets" },
       }
     end,
   },
 
+  -- Blink.cmp for next-gen completion
   {
     "saghen/blink.cmp",
     version = "*",
@@ -43,12 +41,10 @@ return {
         ["<C-k>"] = { "select_prev", "fallback" },
         ["<C-j>"] = { "select_next", "fallback" },
       },
-
       appearance = {
         use_nvim_cmp_as_default = false,
         nerd_font_variant = "mono",
       },
-
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
         providers = {
@@ -58,12 +54,10 @@ return {
           },
         },
       },
-
       cmdline = {
         keymap = { preset = "super-tab" },
         completion = { menu = { auto_show = true } },
       },
-
       completion = {
         list = { selection = { auto_insert = true } },
         documentation = {
@@ -85,14 +79,12 @@ return {
     },
   },
 
-  -- noice for handling documentation and signature UI
+  -- Noice: enhanced LSP and UI
   {
     "folke/noice.nvim",
     event = "VeryLazy",
     enabled = true,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
+    dependencies = { "MunifTanjim/nui.nvim" },
     config = function()
       local width = math.floor(vim.o.columns * 0.5)
       local height = math.floor(vim.o.lines * 0.3)
@@ -138,26 +130,12 @@ return {
             },
           },
         },
-        -- messages = {
-        --   enabled = true,
-        --   view = "mini",
-        --   view_error = "mini",
-        --   view_warn = "mini",
-        -- },
-        -- views = {
-        --   mini = {
-        --     win_options = {
-        --       winblend = 10,
-        --       winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
-        --     },
-        --   },
-        -- },
         presets = {
-          bottom_search = true, -- classic bottom search bar
-          command_palette = true, -- position cmdline + popup together
-          long_message_to_split = true, -- split view for long messages
-          inc_rename = false, -- enable input dialog for inc-rename.nvim
-          lsp_doc_border = true, -- borders on hover/signature
+          bottom_search = true,
+          command_palette = true,
+          long_message_to_split = true,
+          inc_rename = false,
+          lsp_doc_border = true,
         },
       }
     end,
