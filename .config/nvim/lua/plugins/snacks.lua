@@ -6,6 +6,8 @@ return {
   opts = {
     bigfile = { size = 1024 * 1024 },
     scroll = { enabled = true },
+    statuscolumn = { enabled = false },
+    dashboard = { enabled = false },
     notifier = {
       enabled = true,
       timeout = 3000,
