@@ -22,7 +22,7 @@ return {
     end,
   },
 
-  -- Blink.cmp for next-gen completion
+  -- Blink.cmp
   {
     "saghen/blink.cmp",
     version = "*",
@@ -79,7 +79,7 @@ return {
     },
   },
 
-  -- Noice: enhanced LSP and UI
+  -- Noice: search and cmd positioning, documentation and signature UI
   {
     "folke/noice.nvim",
     event = "VeryLazy",
