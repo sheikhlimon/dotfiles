@@ -87,9 +87,10 @@ elif [[ -r "$HOME/.p10k.zsh" ]]; then
   done
 fi
 
-# attach tmux or create a new one at startup
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  tmux attach-session -t main 2>/dev/null || tmux new-session -s main
+# Auto-start or attach to tmux unless already inside one
+if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ]; then
+  tmux attach -t main 2>/dev/null || tmux new -s main
+  exit
 fi
 
 # History configuration
