@@ -13,6 +13,11 @@ opt.cursorline = false
 opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
 opt.tabstop = 2
 opt.expandtab = true -- use spaces instead of tabs
+vim.o.smartindent = true
+vim.o.breakindent = true -- Enable break indent
+
+vim.o.updatetime = 250 -- Decrease update time
+vim.o.timeoutlen = 300 -- time to wait for a mapped sequence to complete (in milliseconds)
 
 opt.wrap = true -- Wrap lines
 opt.swapfile = false --swap

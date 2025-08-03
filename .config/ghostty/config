@@ -2,6 +2,7 @@
 font-family = JetBrainsMono Nerd Font
 font-size = 14
 background = #191724
+#background = #232136
 background-opacity = 1
 window-padding-x = 0
 window-padding-y = 0
@@ -11,4 +12,3 @@ confirm-close-surface=false
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
 keybind = ctrl+enter=unbind
-
