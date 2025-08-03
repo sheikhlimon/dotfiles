@@ -2,7 +2,9 @@ return {
   "stevearc/conform.nvim",
   event = { "BufReadPre", "BufNewFile" },
   config = function()
-    require("conform").setup {
+    local conform = require "conform"
+
+    conform.setup {
       formatters_by_ft = {
         lua = { "stylua" },
         javascript = { "prettier" },
@@ -16,17 +18,28 @@ return {
         yaml = { "prettier" },
         markdown = { "prettier" },
         graphql = { "prettier" },
-        liquid = { "prettier" },
         python = { "isort", "black" },
         bash = { "shfmt" },
         sh = { "shfmt" },
       },
-
       format_on_save = {
-        -- These options will be passed to conform.format()
         timeout_ms = 1000,
         lsp_format = "fallback",
       },
     }
+
+    -- Format on save
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = "*",
+      callback = function()
+        conform.format { async = false }
+      end,
+      desc = "Autoformat buffer with Conform on save",
+    })
+
+    -- Manual format keymap: <leader>fm
+    vim.keymap.set("n", "<leader>fm", function()
+      conform.format { async = true }
+    end, { desc = "Format buffer", noremap = true, silent = true })
   end,
 }

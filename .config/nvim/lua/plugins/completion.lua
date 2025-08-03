@@ -88,7 +88,7 @@ return {
     config = function()
       local width = math.floor(vim.o.columns * 0.5)
       local height = math.floor(vim.o.lines * 0.3)
-      local sig_height = math.floor(vim.o.lines * 0.2)
+      local sig_height = math.floor(vim.o.lines * 0.25)
 
       require("noice").setup {
         lsp = {
@@ -109,6 +109,7 @@ return {
               win_options = {
                 wrap = true,
                 linebreak = true,
+                winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder", -- Match blink colors
               },
             },
           },
@@ -126,13 +127,17 @@ return {
               size = {
                 max_width = width,
                 max_height = sig_height,
+                winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder", -- Match blink colors
               },
             },
           },
         },
+        cmdline = {
+          view = "cmdline",
+        },
         presets = {
           bottom_search = true,
-          command_palette = true,
+          command_palette = false,
           long_message_to_split = true,
           inc_rename = false,
           lsp_doc_border = true,

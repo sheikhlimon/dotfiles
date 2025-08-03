@@ -8,6 +8,14 @@ return {
     scroll = { enabled = true },
     statuscolumn = { enabled = false },
     dashboard = { enabled = false },
+    lazygit = {
+      configure = false,
+      win = {
+        position = "float",
+        width = 0.99,
+        height = 0.99,
+      },
+    },
     notifier = {
       enabled = true,
       timeout = 3000,
@@ -39,7 +47,7 @@ return {
       },
     },
     picker = {
-      prompt = " :: ",
+      prompt = "   ",
       layout = { preset = "default" },
       sources = {
         files = {

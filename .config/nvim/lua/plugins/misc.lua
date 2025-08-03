@@ -23,14 +23,24 @@ return {
     opts = { signs = false },
   },
   {
-    "norcalli/nvim-colorizer.lua",
+    "brenoprata10/nvim-highlight-colors",
+    event = "BufReadPre",
     config = function()
-      require("colorizer").setup {
-        "*",
-        css = { rgb_fn = true },
+      require("nvim-highlight-colors").setup {
+        render = "virtual",
+        virtual_symbol = "󰻂",
       }
     end,
   },
+  -- {
+  --   "norcalli/nvim-colorizer.lua",
+  --   config = function()
+  --     require("colorizer").setup {
+  --       "*",
+  --       css = { rgb_fn = true },
+  --     }
+  --   end,
+  -- },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",

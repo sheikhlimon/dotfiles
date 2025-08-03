@@ -2,13 +2,10 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     {
-      -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-      -- used for completion, annotations and signatures of Neovim apis
       "folke/lazydev.nvim",
       ft = "lua",
       opts = {
         library = {
-          -- Load luvit types when the `vim.uv` word is found
           { path = "luvit-meta/library", words = { "vim%.uv" } },
           { path = "snacks.nvim", words = { "snacks" } },
         },
@@ -22,19 +19,12 @@ return {
   },
   event = { "BufReadPre", "BufNewFile" },
   config = function()
-    -- Setup diagnostics
+    -- Diagnostics setup
     vim.diagnostic.config {
       virtual_text = true,
       update_in_insert = true,
       underline = false,
       severity_sort = true,
-      -- float = {
-      --   focusable = true,
-      --   style = "minimal",
-      --   border = "rounded",
-      --   header = "",
-      --   prefix = "",
-      -- },
       signs = {
         text = {
           [vim.diagnostic.severity.ERROR] = "󰅚",
@@ -42,69 +32,41 @@ return {
           [vim.diagnostic.severity.INFO] = "󰋽",
           [vim.diagnostic.severity.HINT] = "󰌶",
         },
-        numhl = {
-          [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-          [vim.diagnostic.severity.WARN] = "WarningMsg",
-        },
       },
     }
 
-    -- Enable inlay hints by default
-    if vim.lsp.inlay_hint then
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("lsp-inlay-hints", { clear = true }),
-        callback = function(event)
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
-          end
-        end,
-      })
+    -- on_attach function: keymaps + inlay hints
+    local function on_attach(client, bufnr)
+      local function map(keys, func, desc)
+        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
+      end
+
+      map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+      map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+      -- map("K", vim.lsp.buf.hover, "Hover Documentation")
+      map("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")
+      map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+
+      -- Enable inlay hints if supported and API available
+      if
+        client.server_capabilities.inlayHintProvider
+        and vim.lsp.inlay_hint
+        and type(vim.lsp.inlay_hint.enable) == "function"
+      then
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end
     end
 
-    -- This function gets run when an LSP attaches to a particular buffer
-    vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
-      callback = function(event)
-        -- Helper function for easier keymap creation
-        local map = function(keys, func, desc)
-          vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-        end
-
-        -- Using your map() helper for clarity & descriptions
-        -- map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-        -- map("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
-        map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-        map("gT", vim.lsp.buf.type_definition, "Type [D]efinition")
-        map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-        map("K", vim.lsp.buf.hover, "Hover Documentation")
-        map("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")
-        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-        -- Diagnostic keymaps
-        map("<leader>lq", vim.diagnostic.setloclist, "Open diagnostic [Q]uickfix list")
-      end,
-    })
-
-    -- Mason setup
-    require("mason").setup {
-      ui = {
-        border = "rounded",
-        icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
-        },
-      },
-    }
-
-    -- Get capabilities from blink.cmp
+    -- Setup capabilities merging blink.cmp
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+    capabilities.textDocument.foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true,
+    }
 
-    -- Server configurations
+    -- Servers and their configs
     local servers = {
-      lua_ls = {},
       vtsls = {
         filetypes = {
           "javascript",
@@ -121,121 +83,122 @@ return {
             autoUseWorkspaceTsdk = true,
             experimental = {
               maxInlayHintLength = 30,
-              completion = {
-                enableServerSideFuzzyMatch = true,
-              },
+              completion = { enableServerSideFuzzyMatch = true },
             },
           },
           typescript = {
             format = { enable = false },
             updateImportsOnFileMove = { enabled = "always" },
-            suggest = {
-              completeFunctionCalls = true,
-            },
+            suggest = { completeFunctionCalls = true },
             inlayHints = {
               enumMemberValues = { enabled = true },
-              -- 	functionLikeReturnTypes = { enabled = true },
-              -- 	parameterNames = { enabled = "literals" },
-              -- 	parameterTypes = { enabled = true },
-              -- 	propertyDeclarationTypes = { enabled = true },
-              variableTypes = { enabled = true },
+              functionLikeReturnTypes = {
+                enabled = true,
+                suppressWhenAnnotationIsPresent = true,
+              },
+              parameterNames = {
+                enabled = "literals",
+                suppressWhenArgumentMatchesName = true,
+              },
+              variableTypes = { enabled = false },
             },
           },
           javascript = {
             format = { enable = false },
-          },
-        },
-      },
-      html = {},
-      cssls = {
-        settings = {
-          css = { validate = true },
-          scss = { validate = true },
-          less = { validate = true },
-        },
-      },
-      tailwindcss = {
-        settings = {
-          tailwindCSS = {
-            emmetCompletions = true,
-            validate = true,
-            lint = {
-              cssConflict = "warning",
-              invalidApply = "error",
-              invalidScreen = "error",
-              invalidVariant = "error",
-              invalidConfigPath = "error",
-              invalidTailwindDirective = "error",
-              recommendedVariantOrder = "warning",
-            },
-            -- Tailwind class attributes configuration
-            classAttributes = { "class", "className", "classList", "ngClass", ":class" },
-
-            -- Experimental regex patterns to detect Tailwind classes in various syntaxes
-            experimental = {
-              classRegex = {
-                -- tw`...` or tw("...")
-                "tw`([^`]*)`",
-                "tw\\(([^)]*)\\)",
-
-                -- @apply directive inside SCSS / CSS
-                "@apply\\s+([^;]*)",
-
-                -- class and className attributes (HTML, JSX, Vue, Blade with :class)
-                'class="([^"]*)"',
-                'className="([^"]*)"',
-                ':class="([^"]*)"',
-
-                -- Laravel @class directive e.g. @class([ ... ])
-                "@class\\(([^)]*)\\)",
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              parameterNames = {
+                enabled = "literals",
+                suppressWhenArgumentMatchesName = true,
               },
             },
           },
         },
       },
-      graphql = {},
-      emmet_ls = {},
-      prismals = {},
-      yamlls = {},
+      html = { filetypes = { "html", "templ" } },
+      cssls = {
+        settings = {
+          css = { validate = true, lint = { unknownAtRules = "ignore" } },
+          scss = { validate = true, lint = { unknownAtRules = "ignore" } },
+          less = { validate = true, lint = { unknownAtRules = "ignore" } },
+        },
+      },
+      tailwindcss = {
+        settings = {
+          tailwindCSS = {
+            experimental = {
+              classRegex = {
+                "tw`([^`]*)`",
+                "tw\\(([^)]*)\\)",
+                "class[:]?\\s*=\\s*[{]([^}]*)[}]",
+                'class[:]?\\s*=\\s*"([^"]*)"',
+              },
+            },
+            classAttributes = { "class", "className", "classList", "ngClass", ":class" },
+          },
+        },
+      },
       pyright = {
         settings = {
           python = {
             analysis = {
               autoSearchPaths = true,
-              diagnosticMode = "workspace",
+              diagnosticMode = "openFilesOnly",
               useLibraryCodeForTypes = true,
+              typeCheckingMode = "basic",
             },
           },
         },
       },
-      clangd = {},
+      graphql = {},
+      emmet_ls = { filetypes = { "html", "css", "javascriptreact", "typescriptreact" } },
+      prismals = {},
+      yamlls = { settings = { yaml = { keyOrdering = false } } },
+      clangd = { cmd = { "clangd", "--background-index", "--clang-tidy" } },
     }
 
-    -- Mason-lspconfig setup with handlers
+    -- Mason setup
+    require("mason").setup {
+      ui = {
+        border = "rounded",
+        width = 0.8,
+        height = 0.8,
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
+      },
+    }
+
+    -- Mason-lspconfig setup
     require("mason-lspconfig").setup {
       ensure_installed = vim.tbl_keys(servers),
       handlers = {
         function(server_name)
-          local server = servers[server_name] or {}
-          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-          require("lspconfig")[server_name].setup(server)
+          local opts = servers[server_name] or {}
+          opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})
+          opts.on_attach = on_attach
+          require("lspconfig")[server_name].setup(opts)
         end,
       },
     }
 
-    -- Mason tool installer
+    -- Mason-tool-installer setup
     require("mason-tool-installer").setup {
       ensure_installed = {
         "prettier",
         "biome",
         "stylua",
-        "isort",
         "black",
+        "isort",
         "clang-format",
-        "pylint",
-        "eslint_d",
         "shfmt",
+        "eslint_d",
+        "pylint",
       },
+      auto_update = false,
+      run_on_start = true,
     }
   end,
 }

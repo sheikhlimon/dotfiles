@@ -1,36 +1,34 @@
-local opt = vim.opt
-
 -- UI
-opt.relativenumber = true
-opt.number = true
-opt.cmdheight = 0
-opt.termguicolors = true
-opt.scrolloff = 8
-opt.title = true
-opt.cursorline = false
+vim.opt.relativenumber = true
+vim.opt.number = true
+vim.opt.cmdheight = 0
+vim.opt.termguicolors = true
+vim.opt.scrolloff = 8
+vim.opt.title = true
+vim.opt.cursorline = false
 
 -- tabs & indentation
-opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
-opt.tabstop = 2
-opt.expandtab = true -- use spaces instead of tabs
-vim.o.smartindent = true
-vim.o.breakindent = true -- Enable break indent
+vim.opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
+vim.opt.tabstop = 2
+vim.opt.expandtab = true -- use spaces instead of tabs
+vim.opt.autoindent = true
+vim.opt.breakindent = true -- Enable break indent
 
-vim.o.updatetime = 250 -- Decrease update time
-vim.o.timeoutlen = 300 -- time to wait for a mapped sequence to complete (in milliseconds)
+vim.opt.updatetime = 250 -- Decrease update time
+vim.opt.timeoutlen = 200 -- time to wait for a mapped sequence to complete (in milliseconds)
 
-opt.wrap = true -- Wrap lines
-opt.swapfile = false --swap
-opt.undofile = true --keep undo changes
+vim.opt.wrap = true -- Wrap lines
+vim.opt.swapfile = false --swap
+vim.opt.undofile = true --keep undo changes
 
 -- search settings
-opt.ignorecase = true -- case insensitive on search..
-opt.smartcase = true -- ..unless there's a capital
-opt.backspace = "indent,eol,start"
+vim.opt.ignorecase = true -- case insensitive on search..
+vim.opt.smartcase = true -- ..unless there's a capital
+vim.opt.backspace = "indent,eol,start"
 
 -- hide ~ on empty line
-opt.fillchars = { eob = " " }
-opt.path:append { "**" }
-opt.wildignore:append { "*/node_modules/*" }
-opt.splitright = true
-opt.splitkeep = "cursor"
+vim.opt.fillchars = { eob = " " }
+vim.opt.path:append { "**" }
+vim.opt.wildignore:append { "*/node_modules/*" }
+vim.opt.splitright = true
+vim.opt.splitkeep = "cursor"

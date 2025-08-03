@@ -23,12 +23,3 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
   desc = "Enable spell checking for text files",
 })
-
--- Conform autoformat on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function()
-    require("conform").format { async = false }
-  end,
-  desc = "Autoformat buffer with Conform on save",
-})
