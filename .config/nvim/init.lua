@@ -6,9 +6,7 @@ if vim.g.vscode then
   local opts = { noremap = true, silent = true }
   local opt = vim.opt
 
-  opt.scrolloff = 5
-  opt.autoindent = true
-  opt.smartindent = true
+  opt.scrolloff = 8
   opt.ignorecase = true -- case insensitive on search..
   opt.smartcase = true -- ..unless there's a capital
 
@@ -62,8 +60,6 @@ if vim.g.vscode then
 
   return
 end
-
-vim.cmd.colorscheme "rose-pine"
 
 require "core.options"
 require "core.mappings"

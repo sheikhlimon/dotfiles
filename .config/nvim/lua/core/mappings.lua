@@ -36,7 +36,7 @@ vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yankin
 vim.keymap.set("n", "<ESC>", ":nohl<CR>", { desc = "clear search highlights" })
 vim.keymap.set("n", "<C-a>", [[:%y+<CR>]], { desc = "yank everything", silent = true })
 vim.keymap.set("n", "dae", "ggdG", { desc = "delete all content", silent = true })
-vim.keymap.set("n", "<leader>j", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {
   desc = "Replace all occurrences of word under cursor",
 })
 

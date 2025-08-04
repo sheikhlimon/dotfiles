@@ -1,0 +1,221 @@
+return {
+  "rose-pine/neovim",
+  name = "rose-pine",
+  priority = 1000,
+  config = function()
+    require("rose-pine").setup {
+      variant = "moon",
+      dark_variant = "moon",
+      dim_inactive_windows = false,
+      extend_background_behind_borders = true,
+
+      enable = {
+        terminal = true,
+        legacy_highlights = true,
+        migrations = true,
+      },
+
+      styles = {
+        bold = false,
+        italic = false,
+        transparency = true,
+      },
+
+      groups = {
+        border = "muted",
+        link = "iris",
+        panel = "surface",
+
+        error = "love",
+        hint = "iris",
+        info = "foam",
+        note = "pine",
+        todo = "rose",
+        warn = "gold",
+
+        git_add = "foam",
+        git_change = "rose",
+        git_delete = "love",
+        git_dirty = "rose",
+        git_ignore = "muted",
+        git_merge = "iris",
+        git_rename = "pine",
+        git_stage = "iris",
+        git_text = "rose",
+        git_untracked = "subtle",
+      },
+
+      highlight_groups = {
+        -- Transparency overrides - BACK TO TRANSPARENT
+        Normal = { bg = "none" },
+        NormalFloat = { bg = "none" },
+        NormalNC = { bg = "none" },
+        CursorLine = { bg = "none" },
+        CursorColumn = { bg = "none" },
+        ColorColumn = { bg = "none" },
+        SignColumn = { bg = "none" },
+        Folded = { bg = "none" },
+        FoldColumn = { bg = "none" },
+        LineNr = { bg = "none" },
+        CursorLineNr = { bg = "none" },
+        EndOfBuffer = { bg = "none" },
+
+        -- Window separators
+        WinSeparator = { fg = "muted", bg = "none" },
+        VertSplit = { fg = "muted", bg = "none" },
+
+        -- Popup menus - FIXED: Proper dark backgrounds for suggestions
+        Pmenu = { fg = "subtle", bg = "overlay" }, -- Completion menu
+        PmenuSel = { fg = "text", bg = "muted" }, -- Selected item
+        PmenuSbar = { bg = "overlay" },
+        PmenuThumb = { bg = "muted" },
+
+        -- Command line and wildmenu - FIXED
+        WildMenu = { fg = "text", bg = "overlay" },
+        CmdlinePopup = { fg = "subtle", bg = "overlay" },
+
+        -- Blink.cmp specific overrides
+        BlinkCmpMenu = { fg = "subtle", bg = "overlay" },
+        BlinkCmpMenuBorder = { fg = "muted", bg = "overlay" },
+        BlinkCmpMenuSelection = { fg = "text", bg = "muted" },
+        BlinkCmpLabel = { fg = "text" },
+        BlinkCmpLabelDetail = { fg = "subtle" },
+        BlinkCmpKind = { fg = "rose" },
+
+        -- Telescope transparency
+        TelescopeNormal = { bg = "none" },
+        TelescopeBorder = { fg = "muted", bg = "none" },
+        TelescopePromptNormal = { bg = "surface" },
+        TelescopePromptBorder = { fg = "muted", bg = "surface" },
+        TelescopePromptTitle = { fg = "base", bg = "love" },
+        TelescopePreviewTitle = { fg = "base", bg = "iris" },
+        TelescopeResultsTitle = { fg = "base", bg = "pine" },
+
+        -- LSP and diagnostics (no bold/italic)
+        DiagnosticError = { fg = "love" },
+        DiagnosticWarn = { fg = "gold" },
+        DiagnosticInfo = { fg = "foam" },
+        DiagnosticHint = { fg = "iris" },
+        DiagnosticVirtualTextError = { fg = "love", bg = "none" },
+        DiagnosticVirtualTextWarn = { fg = "gold", bg = "none" },
+        DiagnosticVirtualTextInfo = { fg = "foam", bg = "none" },
+        DiagnosticVirtualTextHint = { fg = "iris", bg = "none" },
+
+        -- FIXED Tree-sitter overrides
+        ["@keyword"] = { fg = "pine" },
+        ["@keyword.function"] = { fg = "pine" },
+        ["@keyword.operator"] = { fg = "subtle" },
+        ["@keyword.return"] = { fg = "pine" },
+        ["@keyword.conditional"] = { fg = "pine" },
+
+        -- Functions
+        ["@function"] = { fg = "rose" },
+        ["@function.call"] = { fg = "rose" },
+        ["@function.builtin"] = { fg = "love" },
+        ["@method"] = { fg = "rose" },
+        ["@method.call"] = { fg = "rose" },
+
+        -- Variables - ULTRA FIXED: Force ALL variables including object properties to be white
+        ["@variable"] = { fg = "text" }, -- Basic variables: req, res, destination
+        ["@variable.member"] = { fg = "text" }, -- Object before dot: destination.continent, http.createServer
+        ["@variable.parameter"] = { fg = "text" }, -- Function parameters: req, res
+        ["@variable.builtin"] = { fg = "foam" }, -- console (keep cyan)
+        ["@parameter"] = { fg = "text" }, -- Alternative parameter highlight
+        ["@lsp.type.parameter"] = { fg = "text" }, -- LSP parameter override
+        ["@lsp.type.variable"] = { fg = "text" }, -- LSP variable override
+        ["@lsp.type.namespace"] = { fg = "text" }, -- LSP namespace - for http module
+        ["@module"] = { fg = "text" }, -- Module names like http
+
+        -- Constants - FIXED: Regular constants should be white, built-ins should be cyan
+        ["@constant"] = { fg = "text" }, -- PORT should be white, not cyan
+        ["@constant.builtin"] = { fg = "foam" }, -- JSON should be cyan (foam)
+
+        -- Types
+        ["@type"] = { fg = "foam" },
+        ["@type.builtin"] = { fg = "love" },
+
+        -- Literals
+        ["@string"] = { fg = "gold" },
+        ["@string.escape"] = { fg = "rose" },
+        ["@character"] = { fg = "gold" },
+        ["@number"] = { fg = "iris" }, -- Numbers should be iris (purple)
+        ["@boolean"] = { fg = "rose" },
+
+        -- Properties - FIXED
+        ["@property"] = { fg = "iris" }, -- req.method - method should be iris, req should be white
+        ["@field"] = { fg = "iris" },
+
+        -- Comments
+        ["@comment"] = { fg = "muted" },
+
+        -- Operators
+        ["@operator"] = { fg = "subtle" },
+
+        -- Punctuation - FIXED: Only {} cyan, others gray
+        ["@punctuation.delimiter"] = { fg = "subtle" }, -- , ;
+        ["@punctuation.bracket"] = { fg = "subtle" }, -- ( ) [ ] - keep gray
+        ["@punctuation.special"] = { fg = "rose" },
+
+        -- Specific brackets - {} FORCED cyan
+        ["@punctuation.bracket.curly"] = { fg = "foam" }, -- Only {} cyan
+        ["@punctuation.bracket.round"] = { fg = "subtle" }, -- () gray
+        ["@punctuation.bracket.square"] = { fg = "subtle" }, -- [] gray
+
+        -- Alternative bracket overrides to force {}
+        ["Delimiter"] = { fg = "subtle" },
+        ["@constructor"] = { fg = "foam" }, -- Sometimes {} are treated as constructors
+        ["@namespace"] = { fg = "pine" },
+
+        -- Markup
+        ["@markup.heading"] = { fg = "love" },
+        ["@markup.strong"] = { fg = "text" },
+        ["@markup.italic"] = { fg = "text" },
+
+        -- Statusline transparency
+        StatusLine = { bg = "none" },
+        StatusLineNC = { bg = "none" },
+
+        -- Tabline transparency
+        TabLine = { bg = "none" },
+        TabLineFill = { bg = "none" },
+        TabLineSel = { bg = "surface" },
+
+        -- Git signs
+        GitSignsAdd = { fg = "foam", bg = "none" },
+        GitSignsChange = { fg = "rose", bg = "none" },
+        GitSignsDelete = { fg = "love", bg = "none" },
+
+        -- Which-key transparency
+        WhichKey = { bg = "none" },
+        WhichKeyFloat = { bg = "overlay" },
+
+        -- Neo-tree transparency
+        NeoTreeNormal = { bg = "none" },
+        NeoTreeNormalNC = { bg = "none" },
+        NeoTreeEndOfBuffer = { bg = "none" },
+
+        -- Lazy.nvim transparency
+        LazyNormal = { bg = "overlay" },
+
+        -- Mason transparency
+        MasonNormal = { bg = "overlay" },
+      },
+    }
+
+    -- Set colorscheme
+    vim.cmd "colorscheme rose-pine-moon"
+
+    -- Force transparency after theme loads
+    vim.schedule(function()
+      vim.cmd "hi Normal guibg=NONE ctermbg=NONE"
+      vim.cmd "hi NormalNC guibg=NONE ctermbg=NONE"
+      vim.cmd "hi SignColumn guibg=NONE ctermbg=NONE"
+      vim.cmd "hi LineNr guibg=NONE ctermbg=NONE"
+      vim.cmd "hi Folded guibg=NONE ctermbg=NONE"
+      vim.cmd "hi NonText guibg=NONE ctermbg=NONE"
+      vim.cmd "hi SpecialKey guibg=NONE ctermbg=NONE"
+      vim.cmd "hi VertSplit guibg=NONE ctermbg=NONE"
+      vim.cmd "hi EndOfBuffer guibg=NONE ctermbg=NONE"
+    end)
+  end,
+}
