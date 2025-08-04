@@ -26,7 +26,6 @@
   "files.saveConflictResolution": "overwriteFileOnDisk",
   "editor.lineNumbers": "relative",
   "editor.fontSize": 18,
-  "editor.letterSpacing": 0.2,
   "editor.fontFamily": "JetBrainsMono Nerd Font",
   // "editor.fontLigatures": "'ss01','ss05','dlig'",
   "explorer.decorations.badges": false,
@@ -60,7 +59,6 @@
   "workbench.tree.indent": 10,
   "workbench.activityBar.location": "top",
   "workbench.startupEditor": "none",
-  "workbench.preferredDarkColorTheme": "Rosé Pine Moon (no italics)",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.productIconTheme": "icons-carbon",
   "workbench.layoutControl.enabled": true,
@@ -146,5 +144,6 @@
   },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
-  }
+  },
+  "workbench.preferredDarkColorTheme": "Noir Rosé Pine Grey"
 }
