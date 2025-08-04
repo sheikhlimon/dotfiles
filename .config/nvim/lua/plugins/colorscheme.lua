@@ -152,6 +152,8 @@ return {
 
         -- Force all brackets to be muted gray
         ["@punctuation.bracket.curly"] = { fg = "foam" }, -- {} cyan
+        ["@punctuation.bracket.round"] = { fg = "muted" }, -- () muted gray
+        ["@punctuation.bracket.square"] = { fg = "muted" }, -- [] muted gray
 
         -- Alternative bracket overrides
         ["Delimiter"] = { fg = "muted" },
