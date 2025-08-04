@@ -59,6 +59,7 @@
   "workbench.tree.indent": 10,
   "workbench.activityBar.location": "top",
   "workbench.startupEditor": "none",
+  "workbench.preferredDarkColorTheme": "Noir Rosé Pine Moon Grey",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.productIconTheme": "icons-carbon",
   "workbench.layoutControl.enabled": true,
@@ -144,6 +145,5 @@
   },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
-  },
-  "workbench.preferredDarkColorTheme": "Noir Rosé Pine Grey"
+  }
 }
