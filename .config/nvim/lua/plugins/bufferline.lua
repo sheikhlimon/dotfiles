@@ -49,7 +49,7 @@ return {
         sort_by = "insert_at_end",
       },
       highlights = {
-        fill = { bg = "NONE" },
+        fill = { bg = "#1b1a1e" },
         separator = {
           fg = "#434C5E",
         },
