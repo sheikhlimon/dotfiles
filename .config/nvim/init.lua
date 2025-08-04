@@ -27,19 +27,19 @@ if vim.g.vscode then
   map("n", "<leader>rn", "<cmd>call VSCodeNotify('editor.action.rename')<CR>", opts)
 
   map("n", "zc", function()
-    vim.fn.VSCodeNotify("editor.fold")
+    vim.fn.VSCodeNotify "editor.fold"
   end, opts)
 
   map("n", "zo", function()
-    vim.fn.VSCodeNotify("editor.unfold")
+    vim.fn.VSCodeNotify "editor.unfold"
   end, opts)
 
   map("n", "zM", function()
-    vim.fn.VSCodeNotify("editor.foldAll")
+    vim.fn.VSCodeNotify "editor.foldAll"
   end, opts)
 
   map("n", "zR", function()
-    vim.fn.VSCodeNotify("editor.unfoldAll")
+    vim.fn.VSCodeNotify "editor.unfoldAll"
   end, opts)
 
   -- Copy entire file to system clipboard
@@ -63,7 +63,9 @@ if vim.g.vscode then
   return
 end
 
-require("core.options")
-require("core.mappings")
-require("core.lazy")
-require("core.autocmds")
+vim.cmd.colorscheme "rose-pine"
+
+require "core.options"
+require "core.mappings"
+require "core.lazy"
+require "core.autocmds"
