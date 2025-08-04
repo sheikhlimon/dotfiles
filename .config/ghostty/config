@@ -1,8 +1,8 @@
 # Basic display settings
 font-family = JetBrainsMono Nerd Font
 font-size = 14
-background = #191724
-#background = #232136
+# background = #191724
+background = #1b1a1e
 background-opacity = 1
 window-padding-x = 0
 window-padding-y = 0
