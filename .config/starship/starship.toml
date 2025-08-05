@@ -2,7 +2,6 @@ add_newline = false
 
 [directory]
 format = '[ $path]($style) '
-style = "blue"
 
 [aws]
 format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
