@@ -95,6 +95,30 @@ return {
         DiagnosticVirtualTextInfo = { fg = "foam", bg = "none" },
         DiagnosticVirtualTextHint = { fg = "iris", bg = "none" },
 
+        -- Statusline transparency
+        StatusLine = { bg = "none" },
+        StatusLineNC = { bg = "none" },
+
+        -- Tabline transparency
+        TabLine = { bg = "none" },
+        TabLineFill = { bg = "none" },
+        TabLineSel = { bg = "#191724" },
+
+        -- Git signs
+        GitSignsAdd = { fg = "foam", bg = "none" },
+        GitSignsChange = { fg = "rose", bg = "none" },
+        GitSignsDelete = { fg = "love", bg = "none" },
+
+        -- Which-key transparency
+        WhichKey = { bg = "none" },
+        WhichKeyFloat = { bg = "#191724" },
+
+        -- Lazy.nvim - force black
+        LazyNormal = { bg = "#191724" },
+
+        -- Mason - force black
+        MasonNormal = { bg = "#191724" },
+
         -- FIXED Tree-sitter overrides
         ["@keyword"] = { fg = "pine" },
         ["@keyword.function"] = { fg = "pine" },
@@ -159,35 +183,6 @@ return {
         ["@markup.heading"] = { fg = "love" },
         ["@markup.strong"] = { fg = "text" },
         ["@markup.italic"] = { fg = "text" },
-
-        -- Statusline transparency
-        StatusLine = { bg = "none" },
-        StatusLineNC = { bg = "none" },
-
-        -- Tabline transparency
-        TabLine = { bg = "none" },
-        TabLineFill = { bg = "none" },
-        TabLineSel = { bg = "#191724" },
-
-        -- Git signs
-        GitSignsAdd = { fg = "foam", bg = "none" },
-        GitSignsChange = { fg = "rose", bg = "none" },
-        GitSignsDelete = { fg = "love", bg = "none" },
-
-        -- Which-key transparency
-        WhichKey = { bg = "none" },
-        WhichKeyFloat = { bg = "#191724" },
-
-        -- Neo-tree transparency
-        NeoTreeNormal = { bg = "none" },
-        NeoTreeNormalNC = { bg = "none" },
-        NeoTreeEndOfBuffer = { bg = "none" },
-
-        -- Lazy.nvim - force black
-        LazyNormal = { bg = "#191724" },
-
-        -- Mason - force black
-        MasonNormal = { bg = "#191724" },
       },
     }
 
