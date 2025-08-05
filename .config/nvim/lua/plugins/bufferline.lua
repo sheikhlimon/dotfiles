@@ -58,8 +58,8 @@ return {
           italic = false,
         },
         -- separator_selected = {},
-        -- tab_selected = {},
-        -- background = {},
+        -- tab_selected = { bg = "#1b1a1e" },
+        -- background = { bg = "#1b1a1e" },
         -- indicator_selected = {},
       },
     }
