@@ -32,17 +32,6 @@ return {
         note = "pine",
         todo = "rose",
         warn = "gold",
-
-        git_add = "foam",
-        git_change = "rose",
-        git_delete = "love",
-        git_dirty = "rose",
-        git_ignore = "muted",
-        git_merge = "iris",
-        git_rename = "pine",
-        git_stage = "iris",
-        git_text = "rose",
-        git_untracked = "subtle",
       },
 
       highlight_groups = {
@@ -84,40 +73,6 @@ return {
 
         -- Float borders - FORCE BLACK
         FloatBorder = { fg = "muted", bg = "#191724" },
-
-        -- LSP and diagnostics (no bold/italic)
-        DiagnosticError = { fg = "love" },
-        DiagnosticWarn = { fg = "gold" },
-        DiagnosticInfo = { fg = "foam" },
-        DiagnosticHint = { fg = "iris" },
-        DiagnosticVirtualTextError = { fg = "love", bg = "none" },
-        DiagnosticVirtualTextWarn = { fg = "gold", bg = "none" },
-        DiagnosticVirtualTextInfo = { fg = "foam", bg = "none" },
-        DiagnosticVirtualTextHint = { fg = "iris", bg = "none" },
-
-        -- Statusline transparency
-        StatusLine = { bg = "none" },
-        StatusLineNC = { bg = "none" },
-
-        -- Tabline transparency
-        TabLine = { bg = "none" },
-        TabLineFill = { bg = "none" },
-        TabLineSel = { bg = "#191724" },
-
-        -- Git signs
-        GitSignsAdd = { fg = "foam", bg = "none" },
-        GitSignsChange = { fg = "rose", bg = "none" },
-        GitSignsDelete = { fg = "love", bg = "none" },
-
-        -- Which-key transparency
-        WhichKey = { bg = "none" },
-        WhichKeyFloat = { bg = "#191724" },
-
-        -- Lazy.nvim - force black
-        LazyNormal = { bg = "#191724" },
-
-        -- Mason - force black
-        MasonNormal = { bg = "#191724" },
 
         -- FIXED Tree-sitter overrides
         ["@keyword"] = { fg = "pine" },
