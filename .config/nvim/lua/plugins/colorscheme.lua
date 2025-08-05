@@ -147,13 +147,8 @@ return {
 
         -- Punctuation
         ["@punctuation.delimiter"] = { fg = "subtle" },
-        ["@punctuation.bracket"] = { fg = "foam" }, -- Changed from subtle to foam - makes {} cyan
+        ["@punctuation.bracket"] = { fg = "subtle" }, -- Changed from subtle to foam - makes {} cyan
         ["@punctuation.special"] = { fg = "rose" },
-
-        -- Force all brackets to be muted gray
-        ["@punctuation.bracket.curly"] = { fg = "foam" }, -- {} cyan
-        ["@punctuation.bracket.round"] = { fg = "muted" }, -- () muted gray
-        ["@punctuation.bracket.square"] = { fg = "muted" }, -- [] muted gray
 
         -- Alternative bracket overrides
         ["Delimiter"] = { fg = "muted" },
