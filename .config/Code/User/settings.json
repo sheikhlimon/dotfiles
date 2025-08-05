@@ -25,8 +25,8 @@
   "files.autoSave": "off",
   "files.saveConflictResolution": "overwriteFileOnDisk",
   "editor.lineNumbers": "relative",
-  "editor.fontSize": 18,
-  "editor.fontFamily": "JetBrainsMono Nerd Font",
+  "editor.fontSize": 18.5,
+  "editor.fontFamily": "VictorMono Nerd Font",
   // "editor.fontLigatures": "'ss01','ss05','dlig'",
   "explorer.decorations.badges": false,
   "editor.occurrencesHighlight": "off",
@@ -59,7 +59,6 @@
   "workbench.tree.indent": 10,
   "workbench.activityBar.location": "top",
   "workbench.startupEditor": "none",
-  "workbench.preferredDarkColorTheme": "Noir Rosé Pine Moon Grey",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.productIconTheme": "icons-carbon",
   "workbench.layoutControl.enabled": true,
@@ -67,46 +66,11 @@
   "workbench.navigationControl.enabled": false,
   "window.autoDetectColorScheme": true,
   "workbench.colorCustomizations": {
-    "[Rosé Pine Moon (no italics)]": {
-      "editor.lineHighlightBackground": "#fff0",
-      "editor.lineHighlightBorder": "#fff0",
-      "editor.findMatchBorder": "#fff0",
-      "editor.selectionHighlightBorder": "#fff0",
-      "editor.findMatchBackground": "#95650D",
-      "editor.findMatchHighlightBackground": "#546E7A63",
-      "editor.selectionBackground": "#546E7A60",
-      "editor.background": "#191724",
-      "editorCursor.foreground": "#FFF",
-      "editorCursor.background": "#0D1116",
-      "sideBar.background": "#191724",
-      "activityBar.background": "#191724",
-      "panel.background": "#191724",
-      "terminal.background": "#191724",
-      "editorGutter.background": "#191724"
-    }
-  },
-  "editor.tokenColorCustomizations": {
-    "textMateRules": [
-      {
-        "scope": [
-          "punctuation.definition.parameters.begin",
-          "punctuation.definition.parameters.end",
-          "punctuation.definition.arguments.begin",
-          "punctuation.definition.arguments.end",
-          "punctuation.section.group.begin",
-          "punctuation.section.group.end",
-          // "meta.brace.round",
-          "meta.brace.curly",
-          "meta.brace.square",
-          "punctuation.definition.block",
-          "punctuation.section.block.begin",
-          "punctuation.section.block.end"
-        ],
-        "settings": {
-          "foreground": "#9ccfd8"
-        }
-      }
-    ]
+    // "[Kanagawa]": {
+    //     "editor.lineHighlightBackground": "#fff0",
+    //     "editor.lineHighlightBorder": "#fff0",
+    //     "editorCursor.background": "#0D1116"
+    //   }
   },
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontSize": 15,
@@ -145,5 +109,6 @@
   },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
-  }
+  },
+  "workbench.preferredDarkColorTheme": "Kanagawa"
 }
