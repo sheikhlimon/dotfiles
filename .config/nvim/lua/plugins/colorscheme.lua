@@ -1,170 +1,112 @@
 return {
-  "rose-pine/neovim",
-  name = "rose-pine",
-  priority = 1000,
-  config = function()
-    require("rose-pine").setup {
-      variant = "moon",
-      dark_variant = "moon",
-      dim_inactive_windows = false,
-      extend_background_behind_borders = true,
+  {
+    "savq/melange-nvim",
+    priority = 1000,
+    config = function()
+      -- Load melange colorscheme
+      vim.cmd "colorscheme melange"
 
-      enable = {
-        terminal = true,
-        legacy_highlights = true,
-        migrations = true,
-      },
+      -- Disable italics for main groups but keep their colors
+      local italic_off_groups = {
+        -- Standard syntax groups
+        "Comment",
+        "String",
+        "Keyword",
+        "Function",
+        "Type",
+        "Constant",
+        "Identifier",
 
-      styles = {
-        bold = false,
-        italic = false,
-        transparency = true,
-      },
+        -- Treesitter groups
+        "@comment",
+        "@string",
+        "@keyword",
+        "@function",
+        "@type",
+        "@constant",
+        "@identifier",
+        "@field",
+        "@property",
+        "@variable",
+        "@variable.builtin",
+        "@parameter",
+        "@attribute",
 
-      groups = {
-        border = "muted",
-        link = "iris",
-        panel = "surface",
+        -- LSP semantic tokens (some themes apply italics here)
+        "@lsp.typemod.variable.readonly",
+        "@lsp.typemod.variable.defaultLibrary",
+        "@lsp.typemod.variable.global",
+      }
 
-        error = "love",
-        hint = "iris",
-        info = "foam",
-        note = "pine",
-        todo = "rose",
-        warn = "gold",
-      },
+      for _, group in ipairs(italic_off_groups) do
+        local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
+        if ok and hl then
+          local opts = {}
+          if hl.fg then
+            opts.fg = hl.fg
+          end
+          if hl.bg then
+            opts.bg = hl.bg
+          end
+          opts.italic = false
+          vim.api.nvim_set_hl(0, group, opts)
+        end
+      end
 
-      highlight_groups = {
-        -- Transparency overrides - BACK TO TRANSPARENT
-        Normal = { bg = "none" },
-        NormalFloat = { bg = "#191724" }, -- FIXED: Force dark background for floats
-        NormalNC = { bg = "none" },
-        CursorLine = { bg = "none" },
-        CursorColumn = { bg = "none" },
-        ColorColumn = { bg = "none" },
-        SignColumn = { bg = "none" },
-        Folded = { bg = "none" },
-        FoldColumn = { bg = "none" },
-        LineNr = { bg = "none" },
-        CursorLineNr = { bg = "none" },
-        EndOfBuffer = { bg = "none" },
+      -- Set custom background color
+      vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1a1e" })
+      vim.api.nvim_set_hl(0, "NormalNC", { bg = "#1b1a1e" })
+    end,
+  },
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+    lazy = false,
+    config = function()
+      require("kanagawa").setup {
+        compile = false,
+        transparent = true,
+        dimInactive = true,
+        undercurl = true,
+        terminalColors = true,
+        commentStyle = { italic = false },
+        keywordStyle = { italic = false },
+        statementStyle = { bold = false },
+        typeStyle = {},
+        functionStyle = {},
+        variablebuiltinStyle = { italic = false },
+        colors = {
+          theme = {
+            all = {
+              ui = {
+                bg_gutter = "none",
+              },
+            },
+          },
+        },
+        overrides = function(colors)
+          local theme = colors.theme
+          local palette = colors.palette
+          return {
+            -- UI tweaks
+            IndentBlanklineChar = { fg = palette.waveBlue2 },
+            MiniIndentscopeSymbol = { fg = palette.waveBlue2 },
+            PmenuSel = { blend = 0 },
+            NormalFloat = { bg = "none" },
+            FloatBorder = { bg = "none" },
+            FloatTitle = { bg = "none" },
+            CursorLineNr = { bg = theme.ui.bg_p2 },
+            Visual = { bg = palette.waveBlue2 },
 
-        -- Window separators
-        WinSeparator = { fg = "muted", bg = "none" },
-        VertSplit = { fg = "muted", bg = "none" },
+            -- Darker float windows
+            NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+            LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
+          }
+        end,
+      }
 
-        -- Popup menus - FIXED: Force dark black backgrounds
-        Pmenu = { fg = "subtle", bg = "#191724" }, -- Completion menu - dark black
-        PmenuSel = { fg = "text", bg = "#26233a" }, -- Selected item - slightly lighter
-        PmenuSbar = { bg = "#191724" },
-        PmenuThumb = { bg = "#26233a" },
-
-        -- Command line and wildmenu - FIXED
-        WildMenu = { fg = "text", bg = "#191724" },
-        CmdlinePopup = { fg = "subtle", bg = "#191724" },
-
-        -- Blink.cmp specific overrides - FORCE BLACK
-        BlinkCmpMenu = { fg = "subtle", bg = "#191724" },
-        BlinkCmpMenuBorder = { fg = "muted", bg = "#191724" },
-        BlinkCmpMenuSelection = { fg = "text", bg = "#26233a" },
-        BlinkCmpLabel = { fg = "text" },
-        BlinkCmpLabelDetail = { fg = "subtle" },
-        BlinkCmpKind = { fg = "rose" },
-
-        -- Float borders - FORCE BLACK
-        FloatBorder = { fg = "muted", bg = "#191724" },
-
-        -- FIXED Tree-sitter overrides
-        ["@keyword"] = { fg = "pine" },
-        ["@keyword.function"] = { fg = "pine" },
-        ["@keyword.operator"] = { fg = "subtle" },
-        ["@keyword.return"] = { fg = "pine" },
-        ["@keyword.conditional"] = { fg = "pine" },
-
-        -- Functions
-        ["@function"] = { fg = "rose" },
-        ["@function.call"] = { fg = "rose" },
-        ["@function.builtin"] = { fg = "love" },
-        ["@method"] = { fg = "rose" },
-        ["@method.call"] = { fg = "rose" },
-
-        -- Variables - Variables should be white
-        ["@variable"] = { fg = "text" },
-        ["@variable.member"] = { fg = "text" },
-        ["@variable.parameter"] = { fg = "text" },
-        ["@variable.builtin"] = { fg = "foam" },
-        ["@parameter"] = { fg = "text" },
-        ["@lsp.type.parameter"] = { fg = "text" },
-        ["@lsp.type.variable"] = { fg = "text" },
-        ["@lsp.type.namespace"] = { fg = "text" },
-        ["@module"] = { fg = "text" },
-
-        -- Constants - Regular constants white, built-ins cyan
-        ["@constant"] = { fg = "text" },
-        ["@constant.builtin"] = { fg = "foam" },
-
-        -- Types
-        ["@type"] = { fg = "foam" },
-        ["@type.builtin"] = { fg = "love" },
-
-        -- Literals
-        ["@string"] = { fg = "gold" },
-        ["@string.escape"] = { fg = "rose" },
-        ["@character"] = { fg = "gold" },
-        ["@number"] = { fg = "iris" },
-        ["@boolean"] = { fg = "rose" },
-
-        -- Properties
-        ["@property"] = { fg = "iris" },
-        ["@field"] = { fg = "iris" },
-
-        -- Comments
-        ["@comment"] = { fg = "muted" },
-
-        -- Operators
-        ["@operator"] = { fg = "subtle" },
-
-        -- Punctuation
-        ["@punctuation.delimiter"] = { fg = "subtle" },
-        ["@punctuation.bracket"] = { fg = "subtle" }, -- Changed from subtle to foam - makes {} cyan
-        ["@punctuation.special"] = { fg = "rose" },
-
-        -- Alternative bracket overrides
-        ["Delimiter"] = { fg = "muted" },
-        ["@constructor"] = { fg = "muted" },
-        ["@namespace"] = { fg = "pine" },
-
-        -- Markup
-        ["@markup.heading"] = { fg = "love" },
-        ["@markup.strong"] = { fg = "text" },
-        ["@markup.italic"] = { fg = "text" },
-      },
-    }
-
-    -- Set colorscheme
-    vim.cmd "colorscheme rose-pine-moon"
-
-    -- Force transparency and black backgrounds after theme loads
-    vim.schedule(function()
-      -- Main editor transparency
-      vim.cmd "hi Normal guibg=NONE ctermbg=NONE"
-      vim.cmd "hi NormalNC guibg=NONE ctermbg=NONE"
-      vim.cmd "hi SignColumn guibg=NONE ctermbg=NONE"
-      vim.cmd "hi LineNr guibg=NONE ctermbg=NONE"
-      vim.cmd "hi Folded guibg=NONE ctermbg=NONE"
-      vim.cmd "hi NonText guibg=NONE ctermbg=NONE"
-      vim.cmd "hi SpecialKey guibg=NONE ctermbg=NONE"
-      vim.cmd "hi VertSplit guibg=NONE ctermbg=NONE"
-      vim.cmd "hi EndOfBuffer guibg=NONE ctermbg=NONE"
-
-      -- Force black backgrounds for UI elements
-      vim.cmd "hi NormalFloat guibg=#191724 ctermbg=NONE"
-      vim.cmd "hi FloatBorder guibg=#191724 ctermbg=NONE"
-      vim.cmd "hi Pmenu guibg=#191724 ctermbg=NONE"
-      vim.cmd "hi PmenuSel guibg=#26233a ctermbg=NONE"
-      vim.cmd "hi BlinkCmpMenu guibg=#191724 ctermbg=NONE"
-      vim.cmd "hi BlinkCmpMenuBorder guibg=#191724 ctermbg=NONE"
-      vim.cmd "hi BlinkCmpMenuSelection guibg=#26233a ctermbg=NONE"
-    end)
-  end,
+      -- Load the colorscheme
+      -- vim.cmd "colorscheme kanagawa"
+    end,
+  },
 }
