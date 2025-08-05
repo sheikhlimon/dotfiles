@@ -3,34 +3,22 @@ return {
   event = "VeryLazy",
   opts = {
     preset = "helix",
-    plugins = {
-      marks = false,
-      operators = false,
-      windows = false,
-      nav = false,
-    },
+    delay = 0,
     win = {
-      padding = { 0, 1 },
-      title = false,
-      border = "none",
+      height = {
+        max = math.huge,
+      },
+    },
+    plugins = {
+      spelling = {
+        enabled = false,
+      },
     },
     icons = {
-      breadcrumb = ">>=",
-      separator = ":: ",
-      group = " ++ ",
-      keys = {},
-    },
-  },
-  config = function(_, opts)
-    require("which-key").setup(opts)
-  end,
-  keys = {
-    {
-      "<leader>?",
-      function()
-        require("which-key").show { global = false }
-      end,
-      desc = "Buffer Local Keymaps (which-key)",
+      rules = false,
+      breadcrumb = " ", -- symbol used in the command line area that shows your active key combo
+      separator = "󱦰  ", -- symbol used between a key and it's label
+      group = "󰹍 ", -- symbol prepended to a group
     },
   },
 }
