@@ -61,7 +61,7 @@ return {
       completion = {
         list = { selection = { auto_insert = true } },
         documentation = {
-          auto_show = true,
+          auto_show = false,
           window = { border = "rounded" },
         },
         menu = {
