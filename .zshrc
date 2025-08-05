@@ -25,21 +25,6 @@ if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ]; then
   exit
 fi
 
-# fzf environment variables
-export FZF_DEFAULT_COMMAND='fd --type file'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-export FZF_CTRL_T_OPTS="
---walker-skip .git,node_modules,target
---preview 'bat -n --color=always {}'
---bind 'enter:execute(nvim {})+abort'
---bind 'ctrl-/:change-preview-window(down|hidden|)'
-"
-
-export FZF_ALT_C_OPTS="
---walker-skip .git,node_modules,target
---preview 'tree -C {}'"
-
 # Find and set oh-my-zsh installation path
 if [[ -d "$HOME/.oh-my-zsh" ]]; then
   export ZSH="$HOME/.oh-my-zsh"
@@ -117,7 +102,3 @@ fi
 
 # Load personal configurations
 [[ -f ~/.zshrc-personal ]] && source ~/.zshrc-personal
-
-# Source fzf keybindings and completion
-[[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
-[[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
