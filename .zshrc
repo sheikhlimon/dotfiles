@@ -19,6 +19,12 @@ export TERM=xterm-256color
 # Don't show % at the end of cpp run files
 PROMPT_EOL_MARK=''
 
+# Auto-start or attach to tmux unless already inside one
+if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ]; then
+  tmux attach -t main 2>/dev/null || tmux new -s main
+  exit
+fi
+
 # fzf environment variables
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -85,12 +91,6 @@ elif [[ -r "$HOME/.p10k.zsh" ]]; then
       break
     fi
   done
-fi
-
-# Auto-start or attach to tmux unless already inside one
-if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ]; then
-  tmux attach -t main 2>/dev/null || tmux new -s main
-  exit
 fi
 
 # History configuration
