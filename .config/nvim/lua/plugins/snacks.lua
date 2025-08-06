@@ -63,18 +63,18 @@ return {
   },
   keys = {
     {
-      "<leader>ls",
-      function()
-        Snacks.picker.lsp_symbols()
-      end,
-      desc = "LSP Symbols",
-    },
-    {
       "<leader><space>",
       function()
         Snacks.picker.smart()
       end,
       desc = "Smart Find Files",
+    },
+    {
+      "<leader>sb",
+      function()
+        Snacks.picker.lines()
+      end,
+      desc = "Buffer Lines",
     },
     {
       "<leader>fj",
@@ -186,11 +186,25 @@ return {
       desc = "Keymaps",
     },
     {
+      "<leader>fD",
+      function()
+        Snacks.picker.diagnostics()
+      end,
+      desc = "Diagnostics",
+    },
+    {
       "<leader>fd",
       function()
         Snacks.picker.diagnostics_buffer()
       end,
       desc = "Buffer Diagnostics",
+    },
+    {
+      "<leader>fg",
+      function()
+        Snacks.picker.git_files()
+      end,
+      desc = "Find Git Files",
     },
     -- LSP
     {
@@ -223,6 +237,13 @@ return {
       desc = "Goto T[y]pe Definition",
     },
     {
+      "<leader>sb",
+      function()
+        Snacks.picker.lines()
+      end,
+      desc = "Buffer Lines",
+    },
+    {
       "]]",
       function()
         Snacks.words.jump(vim.v.count1)
@@ -238,20 +259,13 @@ return {
       desc = "Previous Reference",
       mode = { "n", "t" },
     },
-    {
-      "<leader>gf",
-      function()
-        Snacks.picker.git_diff()
-      end,
-      desc = "Git Status",
-    },
     -- git
     {
-      "<leader>gg",
+      "<leader>gb",
       function()
-        Snacks.lazygit.open()
+        Snacks.picker.git_branches()
       end,
-      desc = "Lazy Git",
+      desc = "Git Branches",
     },
     {
       "<leader>gl",
@@ -260,6 +274,56 @@ return {
       end,
       desc = "Git Log",
     },
+    {
+      "<leader>gL",
+      function()
+        Snacks.picker.git_log_line()
+      end,
+      desc = "Git Log Line",
+    },
+    {
+      "<leader>gs",
+      function()
+        Snacks.picker.git_status()
+      end,
+      desc = "Git Status",
+    },
+    {
+      "<leader>gS",
+      function()
+        Snacks.picker.git_stash()
+      end,
+      desc = "Git Stash",
+    },
+    {
+      "<leader>gd",
+      function()
+        Snacks.picker.git_diff()
+      end,
+      desc = "Git Diff (Hunks)",
+    },
+    {
+      "<leader>gf",
+      function()
+        Snacks.picker.git_log_file()
+      end,
+      desc = "Git Log File",
+    },
+    {
+      "<leader>gf",
+      function()
+        Snacks.picker.git_diff()
+      end,
+      desc = "Git Status",
+    },
+    {
+      "<leader>gg",
+      function()
+        Snacks.lazygit.open()
+      end,
+      desc = "Lazy Git",
+    },
+
     {
       "<leader>pp",
       function()
@@ -281,6 +345,27 @@ return {
       end,
       desc = "Git Browse",
       mode = { "n", "v" },
+    },
+    {
+      "<leader>u",
+      function()
+        Snacks.picker.undo()
+      end,
+      desc = "Undo History",
+    },
+    {
+      "<leader>sq",
+      function()
+        Snacks.picker.qflist()
+      end,
+      desc = "Quickfix List",
+    },
+    {
+      "<leader>.",
+      function()
+        Snacks.scratch()
+      end,
+      desc = "Toggle Scratch Buffer",
     },
   },
 }
