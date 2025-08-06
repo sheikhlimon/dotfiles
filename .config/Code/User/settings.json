@@ -25,7 +25,7 @@
   "files.autoSave": "off",
   "files.saveConflictResolution": "overwriteFileOnDisk",
   "editor.lineNumbers": "relative",
-  "editor.fontSize": 18.5,
+  "editor.fontSize": 19,
   "editor.fontFamily": "VictorMono Nerd Font",
   // "editor.fontLigatures": "'ss01','ss05','dlig'",
   "explorer.decorations.badges": false,
@@ -66,11 +66,11 @@
   "workbench.navigationControl.enabled": false,
   "window.autoDetectColorScheme": true,
   "workbench.colorCustomizations": {
-    // "[Kanagawa]": {
-    //     "editor.lineHighlightBackground": "#fff0",
-    //     "editor.lineHighlightBorder": "#fff0",
-    //     "editorCursor.background": "#0D1116"
-    //   }
+    "[Kanagawa]": {
+      "editor.lineHighlightBackground": "#fff0",
+      "editor.lineHighlightBorder": "#fff0",
+      "editorCursor.background": "#0D1116"
+    }
   },
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontSize": 15,
