@@ -46,9 +46,6 @@ return {
       -- map("K", vim.lsp.buf.hover, "Hover Documentation")
       map("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")
       map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-      map("<leader>sd", function()
-        vim.diagnostic.setloclist()
-      end, "Open diagnostic [Q]uickfix list")
 
       -- Enable inlay hints if supported and API available
       if
