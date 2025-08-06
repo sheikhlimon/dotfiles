@@ -8,6 +8,8 @@ return {
     scroll = { enabled = false },
     statuscolumn = { enabled = false },
     dashboard = { enabled = false },
+    quickfile = { enable = true },
+    words = { enabled = false },
     lazygit = {
       configure = false,
       win = {
@@ -205,6 +207,14 @@ return {
         Snacks.picker.git_files()
       end,
       desc = "Find Git Files",
+    },
+    {
+      "<leader>sw",
+      function()
+        Snacks.picker.grep_word()
+      end,
+      desc = "Visual selection or word",
+      mode = { "n", "x" },
     },
     -- LSP
     {
