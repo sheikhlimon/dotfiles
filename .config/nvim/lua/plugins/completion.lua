@@ -32,7 +32,7 @@ return {
     },
     opts = {
       keymap = {
-        preset = "default",
+        preset = "super-tab",
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-e>"] = { "hide" },
         ["<CR>"] = { "accept", "fallback" },

@@ -8,11 +8,19 @@ vim.opt.title = true
 vim.opt.cursorline = false
 
 -- tabs & indentation
-vim.opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
-vim.opt.expandtab = true -- use spaces instead of tabs
-vim.opt.autoindent = true
-vim.opt.breakindent = true -- Enable break indent
+vim.opt.softtabstop = 2
+vim.opt.smartindent = true
+
+vim.opt.incsearch = true
+vim.opt.inccommand = "split"
+
+vim.opt.foldenable = true
+vim.opt.foldmethod = "manual"
+vim.opt.foldlevel = 99
+vim.opt.foldcolumn = "0"
 
 vim.opt.updatetime = 250 -- Decrease update time
 vim.opt.timeoutlen = 200 -- time to wait for a mapped sequence to complete (in milliseconds)
