@@ -2,8 +2,7 @@
 #font-family = JetBrainsMono Nerd Font
 font-family = VictorMono Nerd Font
 font-size = 14
-# background = #191724
-background = #1b1a1e
+background = #1F1F28
 background-opacity = 1
 window-padding-x = 0
 window-padding-y = 0
