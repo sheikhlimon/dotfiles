@@ -1,3 +1,7 @@
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -19,10 +23,12 @@ export TERM=xterm-256color
 # Don't show % at the end of cpp run files
 PROMPT_EOL_MARK=''
 
-# Auto-start or attach to tmux unless already inside one
-if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ]; then
-  tmux attach -t main 2>/dev/null || tmux new -s main
-  exit
+# Only auto-start tmux if NOT inside VS Code terminal
+if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID) != code* ]]; then
+  if command -v tmux >/dev/null 2>&1 && [[ -z $TMUX ]]; then
+    tmux attach -t main 2>/dev/null || tmux new -s main
+    exit
+  fi
 fi
 
 # Find and set oh-my-zsh installation path
@@ -60,24 +66,6 @@ zmodload zsh/complist
 # Set autosuggestion strategy: history first, then completion
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# Prompt setup - Starship first, then Powerlevel10k fallback
-if command -v starship &>/dev/null; then
-  eval "$(starship init zsh)"
-  export STARSHIP_CACHE="$XDG_CACHE_HOME/starship"
-  export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
-elif [[ -r "$HOME/.p10k.zsh" ]]; then
-  # Try common Powerlevel10k locations
-  for theme_path in "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme" \
-    "$HOME/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme" \
-    "$ZSH/themes/powerlevel10k.zsh-theme"; do
-    if [[ -r "$theme_path" ]]; then
-      source "$theme_path"
-      [[ -f "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
-      break
-    fi
-  done
-fi
-
 # History configuration
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
@@ -89,7 +77,7 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 
-# Tool initializations
+# fnm initializations
 if [[ -d "$HOME/.local/share/fnm" ]]; then
   export PATH="$HOME/.local/share/fnm:$PATH"
   eval "$(fnm env)"
@@ -102,3 +90,6 @@ fi
 
 # Load personal configurations
 [[ -f ~/.zshrc-personal ]] && source ~/.zshrc-personal
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
