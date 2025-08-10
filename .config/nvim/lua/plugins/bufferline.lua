@@ -49,26 +49,26 @@ return {
         sort_by = "insert_at_end",
       },
       highlights = {
-        fill = { bg = "#1b1a1e" }, -- Background of the whole bufferline bar
-        background = { bg = "#1b1a1e" }, -- Inactive buffers
-        -- buffer_visible = { bg = "#1b1a1e" },
+        fill = { bg = "#1F1F28" }, -- Background of the whole bufferline bar
+        background = { bg = "#1F1F28" }, -- Inactive buffers
+        -- buffer_visible = { bg = "#1F1F28" },
         separator = {
           fg = "#434C5E",
         },
 
         buffer_selected = {
-          bg = "#1b1a1e",
+          bg = "#1F1F28",
           -- fg = "#ffffff", -- or whatever color your theme uses for active text
           bold = true,
           italic = false,
         },
-        -- separator = { fg = "#1b1a1e", bg = "#1b1a1e" },
-        -- separator_selected = { fg = "#1b1a1e", bg = "#1b1a1e" },
-        -- separator_visible = { fg = "#1b1a1e", bg = "#1b1a1e" },
-        close_button = { bg = "#1b1a1e" },
-        close_button_selected = { bg = "#1b1a1e" },
-        tab_selected = { bg = "#1b1a1e" },
-        indicator_selected = { bg = "#1b1a1e" },
+        -- separator = { fg = "#1F1F28", bg = "#1F1F28" },
+        -- separator_selected = { fg = "#1F1F28", bg = "#1F1F28" },
+        -- separator_visible = { fg = "#1F1F28", bg = "#1F1F28" },
+        close_button = { bg = "#1F1F28" },
+        close_button_selected = { bg = "#1F1F28" },
+        tab_selected = { bg = "#1F1F28" },
+        indicator_selected = { bg = "#1F1F28" },
       },
     }
 
