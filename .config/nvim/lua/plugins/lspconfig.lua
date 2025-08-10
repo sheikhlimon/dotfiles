@@ -196,7 +196,7 @@ return {
         "eslint_d",
         "pylint",
       },
-      auto_update = false,
+      auto_update = true,
       run_on_start = true,
     }
   end,
