@@ -20,10 +20,9 @@ return {
       -- 'auto' will try to match your colorscheme
       component_separators = { left = "", right = "" }, -- Separators between components
       section_separators = { left = "", right = "" }, -- Separators between sections (A,B,C and X,Y,Z)
-      disabled_filetypes = { -- Filetypes for which lualine will be disabled
-        statusline = {},
-        winbar = {},
-      },
+      statusline = {},
+      winbar = {},
+      disabled_filetypes = { "NvimTree", "packer" }, -- disable lualine in NvimTree
       ignore_focus = {}, -- List of buffer types to ignore when checking focus
       always_divide_middle = true, -- If true, separates middle sections with section_separators
       globalstatus = false, -- If true, Components on statuslines of inactive windows are hidden

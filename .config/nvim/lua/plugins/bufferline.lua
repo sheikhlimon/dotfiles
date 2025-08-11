@@ -5,85 +5,81 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
-    -- vim.opt.linespace = 8
-
     require("bufferline").setup {
       options = {
-        mode = "buffers", -- set to "tabs" to only show tabpages instead
-        themable = true, -- allows highlight groups to be overriden i.e. sets highlights as default
-        numbers = "none", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
-        close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
-        right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
-        left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
-        middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
+        mode = "buffers",
+        themable = true,
+        numbers = "none",
+        close_command = "Bdelete! %d",
+        right_mouse_command = "Bdelete! %d",
+        left_mouse_command = "buffer %d",
         buffer_close_icon = "󰅖",
-        -- buffer_close_icon = "✗",
-        -- buffer_close_icon = '✕',
-        close_icon = "",
-        path_components = 1, -- Show only the file name without the directory
+        close_icon = "",
+        path_components = 1,
         modified_icon = "●",
-        left_trunc_marker = "",
-        right_trunc_marker = "",
+        left_trunc_marker = "",
+        right_trunc_marker = "",
         max_name_length = 30,
-        max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
         tab_size = 20,
         diagnostics = false,
-        diagnostics_update_in_insert = false,
         color_icons = true,
         show_buffer_icons = true,
         show_buffer_close_icons = true,
         show_close_icon = true,
-        persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-        separator_style = { "│", "│" }, -- | "thick" | "thin" | { 'any', 'any' },
+        separator_style = { "│", "│" },
         enforce_regular_tabs = true,
-        always_show_bufferline = true,
+        always_show_bufferline = false, -- Hide when only one buffer
         show_tab_indicators = false,
-        indicator = {
-          -- icon = '▎', -- this should be omitted if indicator style is not 'icon'
-          style = "none", -- Options: 'icon', 'underline', 'none'
-        },
-        icon_pinned = "󰐃",
+        indicator = { style = "none" },
         minimum_padding = 1,
         maximum_padding = 5,
-        maximum_length = 15,
         sort_by = "insert_at_end",
+        -- Offset for nvim-tree
+        offsets = {
+          {
+            filetype = "NvimTree",
+            text = "File Explorer",
+            text_align = "center",
+            separator = true,
+          },
+        },
+        -- Custom filter to hide bufferline when inappropriate
+        custom_filter = function(buf_number, buf_numbers)
+          -- Hide if no real files are open (only unnamed buffers)
+          local buf_name = vim.api.nvim_buf_get_name(buf_number)
+          if buf_name == "" then
+            return false
+          end
+
+          -- Count real file buffers (not unnamed, help, etc.)
+          local real_buffers = 0
+          for _, buf in ipairs(buf_numbers) do
+            local name = vim.api.nvim_buf_get_name(buf)
+            local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+            if name ~= "" and buftype == "" then
+              real_buffers = real_buffers + 1
+            end
+          end
+
+          -- Only show if we have more than one real buffer
+          return real_buffers > 1
+        end,
       },
       highlights = {
-        fill = { bg = "#1F1F28" }, -- Background of the whole bufferline bar
-        background = { bg = "#1F1F28" }, -- Inactive buffers
-        -- buffer_visible = { bg = "#1F1F28" },
-        separator = {
-          fg = "#434C5E",
-        },
-
+        fill = { bg = "#1F1F28" },
+        background = { bg = "#1F1F28" },
+        separator = { fg = "#434C5E", bg = "#1F1F28" },
         buffer_selected = {
           bg = "#1F1F28",
-          -- fg = "#ffffff", -- or whatever color your theme uses for active text
           bold = true,
           italic = false,
         },
-        -- separator = { fg = "#1F1F28", bg = "#1F1F28" },
-        -- separator_selected = { fg = "#1F1F28", bg = "#1F1F28" },
-        -- separator_visible = { fg = "#1F1F28", bg = "#1F1F28" },
         close_button = { bg = "#1F1F28" },
         close_button_selected = { bg = "#1F1F28" },
         tab_selected = { bg = "#1F1F28" },
         indicator_selected = { bg = "#1F1F28" },
+        offset_separator = { fg = "#434C5E", bg = "#1F1F28" },
       },
     }
-
-    -- Keymaps
-    local opts = { noremap = true, silent = true, desc = "Go to Buffer" }
-    -- vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", {})
-    -- vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", {})
-    -- vim.keymap.set('n', '<leader>1', "<cmd>lua require('bufferline').go_to_buffer(1)<CR>", opts)
-    -- vim.keymap.set('n', '<leader>2', "<cmd>lua require('bufferline').go_to_buffer(2)<CR>", opts)
-    -- vim.keymap.set('n', '<leader>3', "<cmd>lua require('bufferline').go_to_buffer(3)<CR>", opts)
-    -- vim.keymap.set('n', '<leader>4', "<cmd>lua require('bufferline').go_to_buffer(4)<CR>", opts)
-    -- vim.keymap.set('n', '<leader>5', "<cmd>lua require('bufferline').go_to_buffer(5)<CR>", opts)
-    -- vim.keymap.set('n', '<leader>6', "<cmd>lua require('bufferline').go_to_buffer(6)<CR>", opts)
-    -- vim.keymap.set('n', '<leader>7', "<cmd>lua require('bufferline').go_to_buffer(7)<CR>", opts)
-    -- vim.keymap.set('n', '<leader>8', "<cmd>lua require('bufferline').go_to_buffer(8)<CR>", opts)
-    -- vim.keymap.set('n', '<leader>9', "<cmd>lua require('bufferline').go_to_buffer(9)<CR>", opts)
   end,
 }
