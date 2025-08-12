@@ -152,6 +152,7 @@ return {
       },
       graphql = {},
       emmet_ls = { filetypes = { "html", "css", "javascriptreact", "typescriptreact" } },
+      lua_ls = {},
       prismals = {},
       yamlls = { settings = { yaml = { keyOrdering = false } } },
       clangd = { cmd = { "clangd", "--background-index", "--clang-tidy" } },

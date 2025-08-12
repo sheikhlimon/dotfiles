@@ -48,6 +48,7 @@ return {
       "query",
       "vimdoc",
       "c",
+      "regex",
     },
     auto_install = true,
     highlight = {

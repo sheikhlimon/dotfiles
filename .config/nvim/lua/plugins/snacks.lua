@@ -22,6 +22,9 @@ return {
       enabled = true,
       timeout = 3000,
     },
+    image = {
+      enabled = true,
+    },
     indent = {
       indent = { enabled = false },
       animate = {
