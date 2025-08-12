@@ -14,7 +14,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Personal configurations
 export EDITOR=nvim
-export TERM=xterm-256color
 
 # Don't show % at the end of cpp run files
 PROMPT_EOL_MARK=''
