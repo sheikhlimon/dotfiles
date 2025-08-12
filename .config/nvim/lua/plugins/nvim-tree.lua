@@ -41,8 +41,8 @@ return {
         },
         glyphs = {
           folder = {
-            arrow_closed = "▶",
-            arrow_open = "▼",
+            arrow_closed = "",
+            arrow_open = "",
             default = "",
             open = "",
           },
@@ -81,28 +81,31 @@ return {
 
     require("nvim-tree").setup(opts)
 
-    -- Custom highlights
+    -- Custom highlights for Kanagawa theme
     vim.api.nvim_create_autocmd("ColorScheme", {
       callback = function()
-        -- File/folder highlights
-        vim.api.nvim_set_hl(0, "NvimTreeFolderName", { fg = "#7aa2f7", bold = true })
-        vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderName", { fg = "#7aa2f7", bold = true })
-        vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderName", { fg = "#565f89" })
-        vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", { fg = "#7aa2f7" })
-        vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderIcon", { fg = "#7aa2f7" })
+        local colors = {
+          blue = "#7E9CD8",
+          orange = "#FFA066",
+          red = "#E82424",
+          green = "#98BB6C",
+          purple = "#957FB8",
+          gray = "#565f89",
+        }
 
-        -- Git highlights
-        vim.api.nvim_set_hl(0, "NvimTreeGitDirty", { fg = "#f7768e" })
-        vim.api.nvim_set_hl(0, "NvimTreeGitStaged", { fg = "#9ece6a" })
-        vim.api.nvim_set_hl(0, "NvimTreeGitNew", { fg = "#bb9af7" })
-        vim.api.nvim_set_hl(0, "NvimTreeGitDeleted", { fg = "#f7768e" })
+        vim.api.nvim_set_hl(0, "NvimTreeFolderName", { fg = colors.blue, bold = true })
+        vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderName", { fg = colors.blue, bold = true })
+        vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderName", { fg = colors.gray })
+        vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", { fg = colors.blue })
+        vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderIcon", { fg = colors.blue })
 
-        -- Special files
-        vim.api.nvim_set_hl(0, "NvimTreeSpecialFile", { fg = "#ff9e64", underline = true })
-        vim.api.nvim_set_hl(0, "NvimTreeExecFile", { fg = "#9ece6a" })
+        vim.api.nvim_set_hl(0, "NvimTreeGitDirty", { fg = colors.orange })
+        vim.api.nvim_set_hl(0, "NvimTreeGitStaged", { fg = colors.green })
+        vim.api.nvim_set_hl(0, "NvimTreeGitNew", { fg = colors.purple })
+        vim.api.nvim_set_hl(0, "NvimTreeGitDeleted", { fg = colors.red })
 
-        -- Root folder
-        vim.api.nvim_set_hl(0, "NvimTreeRootFolder", { fg = "#7aa2f7", bold = true })
+        vim.api.nvim_set_hl(0, "NvimTreeRootFolder", { fg = colors.orange, bold = true })
+        -- vim.api.nvim_set_hl(0, "NvimTreeIndentMarker", { fg = colors.gray })
       end,
     })
 
