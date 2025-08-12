@@ -3,9 +3,9 @@ vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.cmdheight = 0
 vim.opt.termguicolors = true
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 2
 vim.opt.title = true
-vim.opt.cursorline = false
+vim.opt.cursorline = true
 
 -- tabs & indentation
 vim.opt.expandtab = true

@@ -20,12 +20,12 @@ export TERM=xterm-256color
 PROMPT_EOL_MARK=''
 
 # Only auto-start tmux if NOT inside VS Code terminal
-# if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID) != code* ]]; then
-#   if command -v tmux >/dev/null 2>&1 && [[ -z $TMUX ]]; then
-#     tmux attach -t main 2>/dev/null || tmux new -s main
-#     exit
-#   fi
-# fi
+if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID) != code* ]]; then
+  if command -v tmux >/dev/null 2>&1 && [[ -z $TMUX ]]; then
+    tmux attach -t main 2>/dev/null || tmux new -s main
+    exit
+  fi
+fi
 
 # Find and set oh-my-zsh installation path
 if [[ -d "$HOME/.oh-my-zsh" ]]; then

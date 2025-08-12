@@ -56,10 +56,10 @@ return {
       -- Set custom background color
       vim.api.nvim_set_hl(0, "Normal", { bg = "#1F1F28" })
       vim.api.nvim_set_hl(0, "NormalNC", { bg = "#1F1F28" })
+      vim.api.nvim_set_hl(0, "CursorLine", { bg = "none" })
       vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#1F1F28", fg = "#444444" }) -- you can tweak fg
       vim.api.nvim_set_hl(0, "Pmenu", { bg = "#1F1F28" }) -- completion menu
       vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#2a2a2a" }) -- selected item
-      vim.api.nvim_set_hl(0, "CursorLine", { bg = "#222222" }) -- optional: line highlight
       vim.api.nvim_set_hl(0, "WinSeparator", { bg = "#1F1F28", fg = "#444444" }) -- window split line
     end,
   },
