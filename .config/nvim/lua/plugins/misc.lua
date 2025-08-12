@@ -16,6 +16,20 @@ return {
     end,
   },
   {
+    "echasnovski/mini.surround",
+    opts = {
+      mappings = {
+        add = "<leader>sa",
+        delete = "<leader>sd",
+        find = "gsf",
+        find_left = "gsF",
+        highlight = "gsh",
+        replace = "gsr",
+        update_n_lines = "gsn",
+      },
+    },
+  },
+  {
     -- Highlight todo, notes, etc in comments
     "folke/todo-comments.nvim",
     event = "VimEnter",
@@ -57,20 +71,6 @@ return {
     opts = {
       preview = {
         filetypes = { "md", "markdown", "codecompanion" },
-      },
-    },
-  },
-  {
-    "echasnovski/mini.surround",
-    opts = {
-      mappings = {
-        add = "<leader>sa",
-        delete = "<leader>sd",
-        find = "gsf",
-        find_left = "gsF",
-        highlight = "gsh",
-        replace = "gsr",
-        update_n_lines = "gsn",
       },
     },
   },

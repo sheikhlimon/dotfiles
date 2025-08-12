@@ -1,7 +1,5 @@
 local opts = { noremap = true, silent = true }
 
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-
 -- Insert mode
 vim.keymap.set("i", "jj", "<Esc>")
 vim.keymap.set("i", "jk", "<Esc>:w<CR>", { desc = "Save buffer and exit insert mode" })
