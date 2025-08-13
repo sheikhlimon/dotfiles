@@ -43,27 +43,6 @@ return {
             separator = true,
           },
         },
-        -- Custom filter to hide bufferline when inappropriate
-        custom_filter = function(buf_number, buf_numbers)
-          -- Hide if no real files are open (only unnamed buffers)
-          local buf_name = vim.api.nvim_buf_get_name(buf_number)
-          if buf_name == "" then
-            return false
-          end
-
-          -- Count real file buffers (not unnamed, help, etc.)
-          local real_buffers = 0
-          for _, buf in ipairs(buf_numbers) do
-            local name = vim.api.nvim_buf_get_name(buf)
-            local buftype = vim.bo[buf].buftype -- <-- changed here
-            if name ~= "" and buftype == "" then
-              real_buffers = real_buffers + 1
-            end
-          end
-
-          -- Only show if we have more than one real buffer
-          return real_buffers > 1
-        end,
       },
       highlights = {
         fill = { bg = "#1F1F28" },
