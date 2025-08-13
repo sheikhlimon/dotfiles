@@ -8,46 +8,32 @@ end
 
 return {
   "nvim-lualine/lualine.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" }, -- Optional, but recommended for icons
+  dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = {
     options = {
-      --[[
-      General options for lualine.
-      For a full list of options, see :help lualine-options
-      --]]
-      icons_enabled = true, -- Do you want to use icons?
-      theme = "auto", -- Or a specific theme like 'tokyonight', 'onedark', 'gruvbox', 'catppuccin', etc.
-      -- 'auto' will try to match your colorscheme
-      component_separators = { left = "", right = "" }, -- Separators between components
-      section_separators = { left = "", right = "" }, -- Separators between sections (A,B,C and X,Y,Z)
+      icons_enabled = true,
+      theme = "auto",
+      component_separators = { left = "", right = "" },
+      section_separators = { left = "", right = "" },
       statusline = {},
       winbar = {},
-      disabled_filetypes = { "NvimTree", "packer" }, -- disable lualine in NvimTree
-      ignore_focus = {}, -- List of buffer types to ignore when checking focus
-      always_divide_middle = true, -- If true, separates middle sections with section_separators
-      globalstatus = false, -- If true, Components on statuslines of inactive windows are hidden
+      disabled_filetypes = { "NvimTree", "packer" },
+      ignore_focus = {},
+      always_divide_middle = true,
+      globalstatus = false,
       -- and statusline for the last active window is used.
-      refresh = { -- How often to refresh the statusline and tabline
-        statusline = 1000, -- (in ms)
+      refresh = {
+        statusline = 1000,
         tabline = 1000,
         winbar = 1000,
       },
     },
     sections = {
-      --[[
-      These are the main sections, 'lualine_a' through 'lualine_c' on the left,
-      and 'lualine_x' through 'lualine_z' on the right.
-      Each section is a table of components.
-      A component can be a string (a built-in component name) or a table for more control.
-      For a full list of built-in components, see :help lualine-components
-      --]]
       lualine_a = { "mode" },
       lualine_b = { "branch", "diff", "diagnostics" },
       lualine_c = {
-        { "filename", path = 1 }, -- path = 1 shows filename relative to CWD
+        { "filename", path = 1 },
         { recording_indicator, color = { fg = "#a6e3a1", gui = "bold" } },
-        -- You could also add things like:
-        -- 'filesize',
         -- {
         --   'lsp_progress', -- Shows LSP progress messages
         --   display_components = {'lsp_client_name', 'progress'},
@@ -64,10 +50,6 @@ return {
       lualine_z = { "location" },
     },
     inactive_sections = {
-      --[[
-      Sections for inactive windows. Same structure as `sections`.
-      Often simplified.
-      --]]
       lualine_a = {},
       lualine_b = {},
       lualine_c = { { "filename", path = 1 } },
@@ -75,35 +57,7 @@ return {
       lualine_y = {},
       lualine_z = {},
     },
-    tabline = {
-      --[[
-      Lualine can also act as a tabline.
-      --]]
-      -- lualine_a = { "tabs" },
-      -- lualine_b = {},
-      -- lualine_c = {},
-      -- lualine_x = {},
-      -- lualine_y = {},
-      -- lualine_z = {},
-    },
-    winbar = {
-      --[[
-      Lualine can also act as a winbar (a bar at the top of each window).
-      --]]
-      lualine_a = {},
-      -- lualine_b = {},
-      -- lualine_c = {{'filename', path = 1}},
-      -- lualine_x = {},
-      -- lualine_y = {},
-      -- lualine_z = {}
-    },
-    inactive_winbar = {
-      -- lualine_c = {{'filename', path = 1}},
-    },
     extensions = {
-      --[[
-      Lualine has extensions for integration with other plugins.
-      --]]
       -- "nvim-tree",
       -- "toggleterm",
       "quickfix",
