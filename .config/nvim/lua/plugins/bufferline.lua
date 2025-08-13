@@ -55,7 +55,7 @@ return {
           local real_buffers = 0
           for _, buf in ipairs(buf_numbers) do
             local name = vim.api.nvim_buf_get_name(buf)
-            local buftype = vim.api.nvim_buf_get_option(buf, "buftype")
+            local buftype = vim.bo[buf].buftype -- <-- changed here
             if name ~= "" and buftype == "" then
               real_buffers = real_buffers + 1
             end

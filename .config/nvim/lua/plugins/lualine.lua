@@ -104,10 +104,10 @@ return {
       --[[
       Lualine has extensions for integration with other plugins.
       --]]
-      -- 'nvim-tree',
+      -- "nvim-tree",
       -- "toggleterm",
-      -- 'quickfix',
-      -- 'mason',
+      "quickfix",
+      -- "mason",
       -- 'fugitive', -- Example for git blame
       -- {
       --   'nvim-dap-ui',
