@@ -131,11 +131,7 @@ return {
       end,
     })
 
-    -- Keymaps
-    vim.keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { silent = true })
-    vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { silent = true })
-
-    -- Highlight groups Kanagawa style (optional, can remove)
+    -- Highlight groups Kanagawa style
     local function setup_highlights()
       local colors = {
         blue = "#7E9CD8",
