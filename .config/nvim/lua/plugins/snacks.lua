@@ -96,6 +96,15 @@ return {
       desc = "Find Buffers",
     },
     {
+      "<leader>fp",
+      function()
+        Snacks.picker.projects {
+          cwd = vim.fn.expand "~/project/..",
+        }
+      end,
+      desc = "Find Projects",
+    },
+    {
       "<leader>/",
       function()
         Snacks.picker.grep()
