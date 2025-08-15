@@ -1,13 +1,13 @@
 {
   "Basic Template": {
-    "prefix": "pytemplate",
+    "prefix": "pysolve",
     "body": [
       "def solve():",
-      "    ${1:pass}",
+      "\t$0",
       "",
       "",
       "if __name__ == '__main__':",
-      "    solve()"
+      "\tsolve()"
     ],
     "description": "Basic competitive programming template"
   },
@@ -20,11 +20,11 @@
       "",
       "",
       "def solve():",
-      "    ${1:pass}",
+      "\t$0",
       "",
       "",
       "if __name__ == '__main__':",
-      "    solve()"
+      "\tsolve()"
     ],
     "description": "Template with fast input/output"
   }
