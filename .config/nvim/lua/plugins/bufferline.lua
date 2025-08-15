@@ -58,6 +58,7 @@ return {
         tab_selected = { bg = "#1F1F28" },
         indicator_selected = { bg = "#1F1F28" },
         offset_separator = { fg = "#434C5E", bg = "#1F1F28" },
+        modified = { bg = "#1F1F28" },
       },
     }
   end,

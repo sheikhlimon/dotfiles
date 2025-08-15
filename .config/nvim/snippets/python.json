@@ -5,6 +5,7 @@
       "def solve():",
       "    ${1:pass}",
       "",
+      "",
       "if __name__ == '__main__':",
       "    solve()"
     ],
@@ -14,11 +15,13 @@
     "prefix": "pyfastio",
     "body": [
       "import sys",
+      "",
       "input = sys.stdin.readline",
       "",
+      "",
       "def solve():",
-      "    ${1:# Your solution here}",
-      "    pass",
+      "    ${1:pass}",
+      "",
       "",
       "if __name__ == '__main__':",
       "    solve()"
