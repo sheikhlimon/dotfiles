@@ -1,30 +1,4 @@
 {
-  "Python Max Finder": {
-    "prefix": "pymax",
-    "body": [
-      "def solve():",
-      "    n = int(input())",
-      "    arr = list(map(int, input().split()))",
-      "    print(max(arr))",
-      "",
-      "if __name__ == '__main__':",
-      "    solve()"
-    ],
-    "description": "Find max in a list from input"
-  },
-  "Python Min Finder": {
-    "prefix": "pymin",
-    "body": [
-      "def solve():",
-      "    n = int(input())",
-      "    arr = list(map(int, input().split()))",
-      "    print(min(arr))",
-      "",
-      "if __name__ == '__main__':",
-      "    solve()"
-    ],
-    "description": "Find min in a list from input"
-  },
   "Basic Template": {
     "prefix": "pytemplate",
     "body": [
@@ -36,20 +10,6 @@
       "    solve()"
     ],
     "description": "Basic competitive programming template"
-  },
-  "Multiple Test Cases": {
-    "prefix": "pytests",
-    "body": [
-      "def solve():",
-      "    ${1:# Your solution here}",
-      "    pass",
-      "",
-      "if __name__ == '__main__':",
-      "    t = int(input())",
-      "    for _ in range(t):",
-      "        solve()"
-    ],
-    "description": "Template for multiple test cases"
   },
   "Fast IO": {
     "prefix": "pyfastio",
