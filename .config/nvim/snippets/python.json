@@ -3,8 +3,7 @@
     "prefix": "pytemplate",
     "body": [
       "def solve():",
-      "    ${1:# Your solution here}",
-      "    pass",
+      "    ${1:pass}",
       "",
       "if __name__ == '__main__':",
       "    solve()"
