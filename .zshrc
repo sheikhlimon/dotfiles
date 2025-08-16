@@ -6,7 +6,6 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share:$XDG_DATA_HOME}"
 
 # XDG compliance for tools
-export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 
 # Oh My Zsh setup
@@ -16,9 +15,9 @@ export ZSH_CUSTOM="$ZSH/custom"
 # Path & personal configurationsj
 export PATH="$HOME/.local/bin:$PATH"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-export ZLE_RPROMPT_INDENT=0
+export ZLE_RPROMPT_INDENT=0 # fixes indentation of prompt
 export EDITOR=nvim
-PROMPT_EOL_MARK=''  # Don't show % at end of lines
+PROMPT_EOL_MARK=''  # removes % end of prompt
 
 # Oh My Zsh plugins (minimal set for speed)
 plugins=(
@@ -30,9 +29,8 @@ plugins=(
 # Load Oh My Zsh
 source "$ZSH/oh-my-zsh.sh"
 
-# Completion & autosuggestions (load before Oh My Zsh)
+# Completion & autosuggestions
 autoload -Uz compinit
-# Only rebuild completion cache once per day
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
   compinit
 else
@@ -40,7 +38,7 @@ else
 fi
 zstyle ':completion:*' rehash true
 zmodload zsh/complist
-# Configure autosuggestions (load after Oh My Zsh)
+# Configure autosuggestions
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
@@ -50,18 +48,18 @@ HISTSIZE=50000
 SAVEHIST=50000
 setopt EXTENDED_HISTORY INC_APPEND_HISTORY SHARE_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS
 
-# fnm (Node.js version manager)
+# fnm 
 if [[ -d "$HOME/.local/share/fnm" ]]; then
   export PATH="$HOME/.local/share/fnm:$PATH"
   eval "$(fnm env)"
 fi
 
-# zoxide (better cd command)
+# zoxide
 if command -v zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
-# Starship
+# starship
 eval "$(starship init zsh)"
 
 # Load personal configurations
