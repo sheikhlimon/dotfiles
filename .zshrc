@@ -29,23 +29,14 @@ plugins=(
 source "$ZSH/oh-my-zsh.sh"
 
 # Completion & autosuggestions
-autoload -Uz compinit add-zsh-hook
-
-# Defer compinit to improve shell startup speed
-precmd() {
-  if [[ -z "${zsh_comp_init_done}" ]]; then
-    compinit -i -C
-    zsh_comp_init_done=1
-  fi
-}
-
-# Auto-rehash completions when commands change
-zstyle ':completion:*' rehash true
-
-# Load menu completion for interactive selection
+autoload -Uz compinit
+compinit -i -C
 zmodload zsh/complist
-zstyle ':completion:*' menu select=2        # menu triggered when 2+ options
-zstyle ':completion:*' list-prompt '%S%M matches%s'
+
+# Automatic menu for ambiguous completions
+setopt AUTOMENU MENU_COMPLETE LIST_AMBIGUOUS
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' rehash true
 
 # Configure autosuggestions
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
