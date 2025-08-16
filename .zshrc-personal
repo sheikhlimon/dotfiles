@@ -16,7 +16,6 @@ alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
 alias lt='eza --icons=auto --tree'
 alias c='clear'
 alias mkdir='mkdir -p'
-alias df='_df'
 alias less='bat'
 alias mv='mv -i'
 alias rm='trash -v'
@@ -34,18 +33,6 @@ if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID) != code* ]]; then
       exit
     fi
   fi
-fi
-
-# Search files in the current folder
-alias f="find . | grep "
-
-# Search running processes
-alias p="ps aux | grep "
-alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
-
-# Allow ctrl-S for history navigation (with ctrl-R)
-if [[ -t 0 && $- == *i* ]]; then
-    stty -ixon
 fi
 
 # Count all files (recursively) in the current folder
@@ -88,7 +75,7 @@ function y() {
 }
 
 # compile and run cpp 
-function cppcompile()
+function cpp()
 {
   filename=$1
   re="^\#include \""
@@ -131,69 +118,64 @@ mkdirg() {
 	cd "$1"
 }
 
-_df() {
-    if [[ $# -ge 1 && -e "${@: -1}" ]]; then
-        duf "${@: -1}"
-    else
-        duf
-    fi
-}
+# Vi mode + cursor setup
+bindkey -v                       # enable vi mode
 
-# Change cursor shape for different vi modes.
+# Change cursor shape depending on mode
 function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-	 [[ $1 = 'block' ]]; then
-	echo -ne '\e[1 q'
-  elif [[ ${KEYMAP} == main ]] ||
-	   [[ ${KEYMAP} == viins ]] ||
-	   [[ ${KEYMAP} = '' ]] ||
-	   [[ $1 = 'beam' ]]; then
-	echo -ne '\e[5 q'
-  fi
+  case $KEYMAP in
+    vicmd) echo -ne '\e[1 q' ;;       # block cursor in normal mode
+    viins|main|'') echo -ne '\e[5 q' ;; # beam cursor in insert mode
+  esac
 }
-
 zle -N zle-keymap-select
-zle-line-init() {
-	zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-	echo -ne "\e[5 q"
+
+# Initialize line in insert mode with beam cursor
+function zle-line-init {
+  zle -K viins
+  echo -ne '\e[5 q'
 }
-
 zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# Initialize a variable to track the last j keypress time
-typeset -g jj_last_time=0
+preexec() { echo -ne '\e[5 q'; }
 
-function jj-escape() {
-  local current_time=$(date +%s%3N) # current time in milliseconds
-  local time_diff=$((current_time - jj_last_time))
+# jj escape
+typeset -g VI_JJ_TIMEOUT=${VI_JJ_TIMEOUT:-500}  # ms
+typeset -g vi_jj_last_time=0
 
-  if [[ $LBUFFER == *j && $time_diff -lt 500 ]]; then
+function vi-jj-escape() {
+  local current_time=$(date +%s%3N)
+  local time_diff=$((current_time - vi_jj_last_time))
+
+  if [[ $LBUFFER == *j && $time_diff -lt $VI_JJ_TIMEOUT ]]; then
     LBUFFER=${LBUFFER%j}
     zle vi-cmd-mode
-    jj_last_time=0
+    vi_jj_last_time=0
   else
     LBUFFER+=$KEYS
-    jj_last_time=$current_time
+    vi_jj_last_time=$current_time
   fi
 }
-zle -N jj-escape
+zle -N vi-jj-escape
+bindkey -M viins 'j' vi-jj-escape
 
-# ci"
+# Ctrl+R reverse-i-search in both vi modes
+for mode in viins vicmd; do
+  bindkey -M $mode '^R' history-incremental-search-backward
+done
+
+# Select quoted text objects
 autoload -U select-quoted
 zle -N select-quoted
+
 for m in visual viopp; do
-  for c in {a,i}{\',\",\`}; do
-	bindkey -M $m $c select-quoted
+  for c in a" i" a' i' a\` i\`; do
+    bindkey -M $m $c select-quoted
   done
 done
 
-# Use vim keys in tab complete menu:
+# Vim-style keys in tab completion menu
 bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M viins 'j' jj-escape
-bindkey '^R' history-incremental-search-backward
-bindkey -v

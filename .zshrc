@@ -21,7 +21,6 @@ PROMPT_EOL_MARK=''  # removes % end of prompt
 
 # Oh My Zsh plugins (minimal set for speed)
 plugins=(
-  git
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -30,14 +29,24 @@ plugins=(
 source "$ZSH/oh-my-zsh.sh"
 
 # Completion & autosuggestions
-autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
+autoload -Uz compinit add-zsh-hook
+
+# Defer compinit to improve shell startup speed
+precmd() {
+  if [[ -z "${zsh_comp_init_done}" ]]; then
+    compinit -i -C
+    zsh_comp_init_done=1
+  fi
+}
+
+# Auto-rehash completions when commands change
 zstyle ':completion:*' rehash true
+
+# Load menu completion for interactive selection
 zmodload zsh/complist
+zstyle ':completion:*' menu select=2        # menu triggered when 2+ options
+zstyle ':completion:*' list-prompt '%S%M matches%s'
+
 # Configure autosuggestions
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
@@ -47,6 +56,21 @@ HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=50000
 setopt EXTENDED_HISTORY INC_APPEND_HISTORY SHARE_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS
+
+# fzf environment variables and opts
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+export FZF_CTRL_T_OPTS="
+--walker-skip .git,node_modules,target
+--preview 'bat -n --color=always {}'
+--bind 'enter:execute(nvim {})+abort'
+--bind 'ctrl-/:change-preview-window(down|hidden|)'
+"
+
+export FZF_ALT_C_OPTS="
+--walker-skip .git,node_modules,target
+--preview 'tree -C {}'"
 
 # fnm 
 if [[ -d "$HOME/.local/share/fnm" ]]; then
@@ -64,3 +88,8 @@ eval "$(starship init zsh)"
 
 # Load personal configurations
 [[ -f ~/.zshrc-personal ]] && source ~/.zshrc-personal
+
+# Load FZF key bindings and completion
+if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+  source /usr/share/fzf/key-bindings.zsh
+fi
