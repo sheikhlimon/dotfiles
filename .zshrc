@@ -1,7 +1,3 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -17,21 +13,12 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$ZSH/custom"
 
-# Path & personal configurations
+# Path & personal configurationsj
 export PATH="$HOME/.local/bin:$PATH"
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+export ZLE_RPROMPT_INDENT=0
 export EDITOR=nvim
 PROMPT_EOL_MARK=''  # Don't show % at end of lines
-
-# Only auto-start tmux if NOT inside VS Code terminal
-if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID) != code* ]]; then
-  if command -v tmux >/dev/null 2>&1 && [[ -z $TMUX ]]; then
-    tmux attach -t main 2>/dev/null || tmux new -s main
-    exit
-  fi
-fi
-
-# Oh My Zsh configuration
-ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Oh My Zsh plugins (minimal set for speed)
 plugins=(
@@ -74,8 +61,8 @@ if command -v zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
+# Starship
+eval "$(starship init zsh)"
+
 # Load personal configurations
 [[ -f ~/.zshrc-personal ]] && source ~/.zshrc-personal
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

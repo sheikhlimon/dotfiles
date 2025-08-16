@@ -25,6 +25,16 @@ alias wget="wget -c" # continue the download
 alias multitail='multitail --no-repeat -c' 
 alias help="bat ~/.zshrc-personal"
 
+# Only auto-start tmux if NOT inside VS Code terminal
+if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID) != code* ]]; then
+  if command -v tmux >/dev/null 2>&1 && [[ -z $TMUX ]]; then
+    tmux attach -t main 2>/dev/null || tmux new -s main
+    # Only exit if tmux really terminated
+    if [[ $? -ne 0 ]]; then
+      exit
+    fi
+  fi
+fi
 
 # Search files in the current folder
 alias f="find . | grep "
@@ -34,9 +44,9 @@ alias p="ps aux | grep "
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 
 # Allow ctrl-S for history navigation (with ctrl-R)
-# if [[ -t 0 && $- == *i* ]]; then
-#     stty -ixon
-# fi
+if [[ -t 0 && $- == *i* ]]; then
+    stty -ixon
+fi
 
 # Count all files (recursively) in the current folder
 alias countfiles="find . -type f | wc -l && echo 'files'; find . -type l | wc -l && echo 'links'; find . -type d | wc -l && echo 'directories'"
