@@ -16,7 +16,7 @@ alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
 alias lt='eza --icons=auto --tree'
 alias c='clear'
 alias mkdir='mkdir -p'
-alias less='bat'
+# alias less='bat'
 alias mv='mv -i'
 alias rm='trash -v'
 alias updatefonts='fc-cache -fv'
@@ -27,9 +27,14 @@ alias help="bat ~/.zshrc-personal"
 # Simple tmux auto-attach - skip in VSCode
 if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 2>/dev/null) != code* ]]; then
   if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
-    tmux attach -t main 2>/dev/null || tmux new -s main
+    if tmux has-session -t main 2>/dev/null; then
+      tmux attach -t main
+    else
+      tmux new -s main
+    fi
   fi
 fi
+
 
 # Count all files (recursively) in the current folder
 alias countfiles="find . -type f | wc -l && echo 'files'; find . -type l | wc -l && echo 'links'; find . -type d | wc -l && echo 'directories'"
