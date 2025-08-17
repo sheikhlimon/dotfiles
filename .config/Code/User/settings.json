@@ -73,7 +73,7 @@
       "editorCursor.background": "#0D1116"
     }
   },
-  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+  "terminal.integrated.fontFamily": "VictorMono Nerd Font",
   "terminal.integrated.fontSize": 16,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.cursorBlinking": true,
