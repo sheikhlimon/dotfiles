@@ -10,16 +10,17 @@ alias ..='cd ..'
 alias q='exit'
 alias grep='grep --color=auto'
 alias killp='killprocess'
-alias l='eza -lh --icons=auto --git'
-alias ll='eza -lah --icons=auto --sort=name --group-directories-first --git'
+alias l='eza -lh --icons=auto'
+alias ll='eza -lhag --icons=auto --sort=name --group-directories-first --git'
 alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
 alias lt='eza --icons=auto --tree'
 alias c='clear'
 alias mkdir='mkdir -p'
-# alias less='bat'
+alias less='bat'
 alias mv='mv -i'
 alias rm='trash -v'
 alias updatefonts='fc-cache -fv'
+alias cleanup='paru -Rns $(paru -Qdtq) 2>/dev/null && paru -Sc --noconfirm && rm -rf ~/.cache/paru/*'
 alias wget="wget -c" # continue the download
 alias multitail='multitail --no-repeat -c' 
 alias help="bat ~/.zshrc-personal"
@@ -35,12 +36,11 @@ if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 2>/dev/null) != code* ]]; then
   fi
 fi
 
-
 # Count all files (recursively) in the current folder
 alias countfiles="find . -type f | wc -l && echo 'files'; find . -type l | wc -l && echo 'links'; find . -type d | wc -l && echo 'directories'"
 
 # ripgrep->fzf->vim [QUERY]
-frg() (
+rfg() (
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
             nvim {1} +{2}

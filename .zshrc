@@ -35,7 +35,7 @@ zmodload zsh/complist
 
 # Automatic menu for ambiguous completions
 setopt AUTOMENU MENU_COMPLETE LIST_AMBIGUOUS
-zstyle ':completion:*' menu select=1
+zstyle ':completion:*' menu select=2
 zstyle ':completion:*' rehash true
 
 # Configure autosuggestions
