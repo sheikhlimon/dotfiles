@@ -17,7 +17,7 @@ return {
       section_separators = { left = "", right = "" },
       statusline = {},
       winbar = {},
-      disabled_filetypes = { "NvimTree" },
+      -- disabled_filetypes = { "NvimTree" },
       ignore_focus = {},
       always_divide_middle = true,
       globalstatus = false,
@@ -58,7 +58,7 @@ return {
       lualine_z = {},
     },
     extensions = {
-      -- "nvim-tree",
+      "nvim-tree",
       -- "toggleterm",
       "quickfix",
       -- "mason",

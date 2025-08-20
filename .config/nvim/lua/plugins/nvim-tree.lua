@@ -61,7 +61,7 @@ return {
     renderer = {
       group_empty = true,
       highlight_git = true,
-      root_folder_label = ":~",
+      root_folder_label = ":t",
       indent_width = 2,
       indent_markers = {
         enable = true,
