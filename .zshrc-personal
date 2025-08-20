@@ -166,11 +166,11 @@ for mode in viins vicmd; do
 done
 
 # Select quoted text objects
-autoload -U select-quoted
+autoload -U select-quoted select-bracketed
 zle -N select-quoted
 
 for m in visual viopp; do
-  for c in a" i" a' i' a\` i\`; do
+  for c in 'a"' 'i"' "a'" "i'" 'a`' 'i`'; do
     bindkey -M $m $c select-quoted
   done
 done
