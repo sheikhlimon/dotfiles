@@ -33,9 +33,7 @@ autoload -Uz compinit
 compinit -i -C
 zmodload zsh/complist
 
-# Automatic menu for ambiguous completions
-setopt AUTOMENU MENU_COMPLETE LIST_AMBIGUOUS
-zstyle ':completion:*' menu select=2
+zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
 
 # Configure autosuggestions
@@ -84,3 +82,5 @@ eval "$(starship init zsh)"
 if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
   source /usr/share/fzf/key-bindings.zsh
 fi
+
+. "$HOME/.local/share/../bin/env"

@@ -1,38 +1,6 @@
 # source first then run install functions
 # source ~/.post-install.sh
 
-install_paru() {
-  if [[ ! -f /etc/arch-release ]]; then
-    echo "Not Arch Linux. Skipping paru install."
-    return
-  fi
-
-  if command -v paru &>/dev/null; then
-    echo "paru is already installed."
-    return
-  fi
-
-  echo "Installing paru (AUR helper)..."
-
-  # Install base-devel and git if missing (needed to build paru)
-  sudo pacman -S --needed --noconfirm base-devel git
-
-  # Clone paru repo to a temp dir
-  tmp_dir=$(mktemp -d)
-  git clone https://aur.archlinux.org/paru.git "$tmp_dir/paru"
-
-  # Build and install paru
-  (
-    cd "$tmp_dir/paru"
-    makepkg -si --noconfirm
-  )
-
-  # Cleanup
-  rm -rf "$tmp_dir"
-
-  echo "paru installed!"
-}
-
 # Function to install missing zsh plugins (call manually: install_zsh_plugins)
 install_zsh_plugins() {
   local plugins_to_install=(
@@ -58,7 +26,7 @@ install_zsh_plugins() {
 install_zshrc_support() {
   if [[ -f /etc/arch-release ]]; then
     echo "Detected Arch Linux"
-    sudo paru -S --needed multitail eza fd bat peco yazi zoxide trash-cli fzf
+    yay -S --needed multitail eza fd bat peco yazi zoxide trash-cli fzf
 
   elif [[ -f /etc/debian_version ]]; then
     echo "Detected Debian-based system"
@@ -86,7 +54,6 @@ install_my_apps() {
   # Define apps to install
   local arch_official=(
     kitty
-    discord
     telegram-desktop
     mpv
     okular
@@ -96,14 +63,13 @@ install_my_apps() {
   )
 
   local arch_aur=(
-    google-chrome
     visual-studio-code-bin
     mongodb-compass-bin
     postman-bin
-    protonvpn-cli
     foliate
     ghostty
     zen-browser-bin
+    vivaldi-snapshot
   )
 
   local debian_official=(
@@ -129,7 +95,7 @@ install_my_apps() {
     local pkg_list=("$@")
     local to_install=()
     for pkg in "${pkg_list[@]}"; do
-      if ! pacman -Qi "$pkg" &>/dev/null && ! paru -Qi "$pkg" &>/dev/null; then
+      if ! pacman -Qi "$pkg" &>/dev/null && ! yay -Qi "$pkg" &>/dev/null; then
         to_install+=("$pkg")
       else
         echo "$pkg already installed."
@@ -142,13 +108,13 @@ install_my_apps() {
     fi
   }
 
-  # Helper to install AUR packages with paru
+  # Helper to install AUR packages with yay
   install_arch_aur_pkgs() {
     local aur_list=("$@")
     for pkg in "${aur_list[@]}"; do
-      if ! paru -Qi "$pkg" &>/dev/null; then
+      if ! yay -Qi "$pkg" &>/dev/null; then
         echo "Installing AUR package: $pkg"
-        paru -S --needed "$pkg"
+        yay -S --needed "$pkg"
       else
         echo "AUR package $pkg already installed."
       fi
@@ -207,9 +173,9 @@ install_my_apps() {
       # User should restart shell or source profile to use fnm PATH
     fi
     eval "$(fnm env)"
-    fnm install latest
-    fnm use latest
-    fnm default latest
+    fnm install node
+    fnm use node
+    fnm default node
 
   elif [[ -f /etc/debian_version ]]; then
     echo "Detected Debian/Ubuntu"

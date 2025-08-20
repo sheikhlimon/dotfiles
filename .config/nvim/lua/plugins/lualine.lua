@@ -17,7 +17,7 @@ return {
       section_separators = { left = "", right = "" },
       statusline = {},
       winbar = {},
-      disabled_filetypes = { "NvimTree", "packer" },
+      disabled_filetypes = { "NvimTree" },
       ignore_focus = {},
       always_divide_middle = true,
       globalstatus = false,
