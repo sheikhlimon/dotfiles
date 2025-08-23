@@ -5,26 +5,24 @@ if vim.g.vscode then
   local map = vim.keymap.set
   local opts = { noremap = true, silent = true }
 
-  vim.opt.ignorecase = true -- case insensitive on search..
-  vim.opt.smartcase = true -- ..unless there's a capital
+  vim.opt.ignorecase = true -- case insensitive on search
+  vim.opt.smartcase = true -- unless there's a capital
 
-  local function better_jk(key)
-    return function()
-      local count = vim.v.count
-      if count == 0 then
-        if key == "j" then
-          return "gj"
-        else
-          return "gk"
-        end
-      else
-        return key
-      end
+  map({ "n", "x" }, "j", function()
+    if vim.v.count == 0 then
+      return "gj" -- wrapped movement
+    else
+      return "j" -- real line movement with count
     end
-  end
+  end, { expr = true, remap = true, silent = true })
 
-  map("n", "j", better_jk "j", { expr = true, silent = true })
-  map("n", "k", better_jk "k", { expr = true, silent = true })
+  map({ "n", "x" }, "k", function()
+    if vim.v.count == 0 then
+      return "gk"
+    else
+      return "k"
+    end
+  end, { expr = true, remap = true, silent = true })
 
   map("n", "<leader>b", "<cmd>call VSCodeNotify('workbench.action.files.newUntitledFile')<CR>", opts)
   map("n", "<leader>x", "<cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<CR>", opts)
@@ -35,6 +33,7 @@ if vim.g.vscode then
   map("n", "gd", "<cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>", opts)
   map("n", "gr", "<cmd>call VSCodeNotify('editor.action.goToReferences')<CR>", opts)
   map("n", "<leader>rn", "<cmd>call VSCodeNotify('editor.action.rename')<CR>", opts)
+  map("n", "dae", ":%d<CR>", { silent = true, desc = "Delete entire buffer" })
 
   map("n", "zc", function()
     vim.fn.VSCodeNotify "editor.fold"
@@ -63,7 +62,7 @@ if vim.g.vscode then
   map("n", "U", "<C-r>", { desc = "redo" })
   map("n", "<Esc>", ":nohl<CR>", { desc = "clear search highlights" })
   -- Visual mode: yank selection to system clipboard
-  map("v", "<C-c>", '"+y', { desc = "Yank to system clipboard" })
+  map("v", "<C-c>", '"+y', { remap = true, silent = true, desc = "Copy to system clipboard" })
   map("n", "<leader>p", '"+p', { desc = "Paste from system clipboard" })
 
   return
