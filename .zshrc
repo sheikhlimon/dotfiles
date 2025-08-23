@@ -25,14 +25,19 @@ source "$ZSH/oh-my-zsh.sh"
 
 # Completion & Autosuggestions
 autoload -Uz compinit && compinit -u
+setopt AUTO_MENU COMPLETE_IN_WORD ALWAYS_TO_END
+
 zmodload zsh/complist
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
 ZSH_AUTOSUGGEST_USE_ASYNC=true
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
 
 # Better matching
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+setopt AUTO_MENU          # Show completion menu on successive tab press
+setopt COMPLETE_IN_WORD    # Complete from both ends of a word
+setopt ALWAYS_TO_END       # Move cursor to end of completed word
 
 # History
 HISTFILE="$HOME/.zsh_history"
