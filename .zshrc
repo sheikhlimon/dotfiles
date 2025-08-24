@@ -8,9 +8,11 @@ export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share:$XDG_DATA_HOM
 # Path
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
+export SUDO_EDITOR="$EDITOR"
+export BAT_THEME=ansi
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
-export ZLE_RPROMPT_INDENT=0      # fix right-prompt spacing
-PROMPT_EOL_MARK=''               # hide % at end of prompt
+export ZLE_RPROMPT_INDENT=0     # fix right-prompt spacing
+export PROMPT_EOL_MARK=''       # hide % at end of prompt
 
 # Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
@@ -34,10 +36,7 @@ ZSH_AUTOSUGGEST_USE_ASYNC=true
 
 # Better matching
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-setopt AUTO_MENU          # Show completion menu on successive tab press
-setopt COMPLETE_IN_WORD    # Complete from both ends of a word
-setopt ALWAYS_TO_END       # Move cursor to end of completed word
+zstyle ':completion:*' menu select=2
 
 # History
 HISTFILE="$HOME/.zsh_history"
@@ -62,8 +61,18 @@ export FZF_ALT_C_OPTS="
 --preview 'tree -C {}'
 "
 
-if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
-  source /usr/share/fzf/key-bindings.zsh
+# Simple continuum-aware auto-attach
+if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 1>/dev/null) != code* ]]; then
+  if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
+    # Just start tmux - continuum will auto-restore if configured
+    if tmux list-sessions &>/dev/null; then
+      # Sessions exist, attach to most recent
+      tmux attach
+    else
+      # No sessions, start new one (continuum will restore if data exists)
+      tmux new -s main
+    fi
+  fi
 fi
 
 # Node (fnm)
@@ -82,3 +91,8 @@ eval "$(starship init zsh)"
 
 # Personal Overrides
 [[ -f "$HOME/.zshrc-personal" ]] && source "$HOME/.zshrc-personal"
+
+# Load FZF key bindings and completion
+if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+  source /usr/share/fzf/key-bindings.zsh
+fi

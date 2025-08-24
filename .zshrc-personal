@@ -1,46 +1,78 @@
-#git dotfiles-new
+# Git Bare Dotfiles
 alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-#alias
+# Editor
 alias vim='nvim'
 alias py='python'
-alias cat='bat --paging=never'
-alias cd='z'
-alias ..='cd ..' 
-alias q='exit'
-alias grep='grep --color=auto'
-alias killp='killprocess'
-alias l='eza -lh --icons=auto'
-alias ll='eza -lhag --icons=auto --sort=name --group-directories-first --git'
-alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
-alias lt='eza --icons=auto --tree'
-alias c='clear'
-alias mkdir='mkdir -p'
-alias less='bat'
-alias mv='mv -i'
-alias rm='trash -v'
-alias updatefonts='fc-cache -fv'
-alias cleanup='paru -Rns $(paru -Qdtq) 2>/dev/null && paru -Sc --noconfirm && rm -rf ~/.cache/paru/*'
-alias wget="wget -c" # continue the download
-alias multitail='multitail --no-repeat -c' 
-alias help="bat ~/.zshrc-personal"
 
-# Simple continuum-aware auto-attach
-if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 2>/dev/null) != code* ]]; then
-  if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
-    # Just start tmux - continuum will auto-restore if configured
-    if tmux list-sessions &>/dev/null; then
-      # Sessions exist, attach to most recent
-      tmux attach
-    else
-      # No sessions, start new one (continuum will restore if data exists)
-      tmux new -s main
-    fi
-  fi
-fi
+# File System
+alias ..='cd ..' 
+alias cd='z'
+alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
+alias lsa='eza -lha --icons=auto --sort=name --group-directories-first'
+alias lsg='eza -lhag --icons=auto --sort=name --group-directories-first'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias lta='lt -a'
+
+# Tools
+alias g='git'
+alias d='docker'
+
+# Git
+alias gcm='git commit -m'
+alias gcam='git commit -a -m'
+alias gcad='git commit -a --amend'
+
+# Search command line history
+alias h="history | grep "
+
+# Alias's to show disk space and space used in a folder
+alias diskspace="du -S | sort -n -r |more"
+alias folders='du -h --max-depth=1'
 
 # Count all files (recursively) in the current folder
 alias countfiles="find . -type f | wc -l && echo 'files'; find . -type l | wc -l && echo 'links'; find . -type d | wc -l && echo 'directories'"
+
+# Misc
+alias c='clear'
+alias q='exit'
+alias grep='grep --color=auto'
+alias cat='bat --paging=never'
+alias less='bat'
+alias mkdir='mkdir -p'
+alias mv='mv -i'
+alias rm='trash -v'
+alias updatefonts='fc-cache -fv'
+alias cleanup='yay -Rns $(yay -Qdtq) 2>/dev/null && yay -Sc --noconfirm && rm -rf ~/.cache/yay/*'
+alias wget="wget -c" # continue the download
+alias killp='killprocess'
+alias multitail='multitail --no-repeat -c' 
+alias help="bat ~/.zshrc-personal"
+
+#zd
+zd() {
+  if [ $# -eq 0 ]; then
+    builtin cd ~ && return
+  elif [ -d "$1" ]; then
+    builtin cd "$1"
+  else
+    z "$@" && printf " \U000F17A9 " && pwd || echo "Error: Directory not found"
+  fi
+}
+
+# open anything in their respective app
+open() {
+  xdg-open "$@" >/dev/null 2>&1 &
+}
+
+# nvim
+n() {
+  if [ "$#" -eq 0 ]; then
+    nvim .
+  else
+    nvim "$@"
+  fi
+}
 
 # ripgrep->fzf->vim [QUERY]
 rfg() (
@@ -61,13 +93,6 @@ rfg() (
       --preview-window '~4,+{2}+4/3,<80(up)' \
       --query "$*"
 )
-
-# Search command line history
-alias h="history | grep "
-
-# Alias's to show disk space and space used in a folder
-alias diskspace="du -S | sort -n -r |more"
-alias folders='du -h --max-depth=1'
 
 #yazi
 function y() {
