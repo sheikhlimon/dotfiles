@@ -26,12 +26,12 @@ install_zsh_plugins() {
 install_zshrc_support() {
   if [[ -f /etc/arch-release ]]; then
     echo "Detected Arch Linux"
-    yay -S --needed multitail eza fd bat peco yazi zoxide trash-cli fzf
+    yay -S --needed multitail eza fd bat peco yazi fzf zoxide trash-cli tree
 
   elif [[ -f /etc/debian_version ]]; then
     echo "Detected Debian-based system"
     sudo apt update
-    sudo apt install -y multitail eza bat peco fzf zoxide trash-cli
+    sudo apt install -y multitail eza fd bat peco fzf zoxide trash-cli tree
 
     # Optional: Install `yazi` if it's not in apt (available via cargo or deb)
     if ! command -v yazi &>/dev/null; then
