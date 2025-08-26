@@ -1,0 +1,56 @@
+[
+  //toggle terminal
+  {
+    "command": "workbench.action.terminal.toggleTerminal",
+    "key": "alt+i"
+  },
+  // Neovim normal mode — switch editor tab
+  {
+    "command": "workbench.action.nextEditorInGroup",
+    "key": "ctrl+j",
+    "when": "neovim.mode == 'normal'"
+  },
+  {
+    "command": "workbench.action.previousEditorInGroup",
+    "key": "ctrl+k",
+    "when": "neovim.mode == 'normal'"
+  },
+  // intellisense
+  {
+    "command": "selectNextSuggestion",
+    "key": "ctrl+j",
+    "when": "suggestWidgetVisible"
+  },
+  {
+    "command": "selectPrevSuggestion",
+    "key": "ctrl+k",
+    "when": "suggestWidgetVisible"
+  },
+  // disable multiple selections
+  {
+    "command": "removeSecondaryCursors",
+    "key": "escape",
+    "when": "editorHasMultipleSelections && textInputFocus"
+  },
+  //display second side bar
+  {
+    "command": "workbench.action.toggleAuxiliaryBar",
+    "key": "alt+p"
+  },
+  //toggle explorer
+  {
+    "command": "workbench.action.toggleSidebarVisibility",
+    "key": "ctrl+n"
+  },
+  {
+    "command": "-workbench.action.terminal.copySelection",
+    "key": "ctrl+c",
+    "when": "editorTextFocus && neovim.mode == 'visual'"
+  },
+  {
+    "args": "<C-c>",
+    "command": "vscode-neovim.send",
+    "key": "ctrl+c",
+    "when": "editorTextFocus && neovim.mode == 'visual'"
+  }
+]

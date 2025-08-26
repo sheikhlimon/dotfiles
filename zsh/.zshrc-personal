@@ -1,0 +1,210 @@
+# Git Bare Dotfiles
+alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+# Editor
+alias vim='nvim'
+alias py='python'
+
+# File System
+alias ..='cd ..' 
+alias cd='z'
+alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
+alias ll='eza -lha --icons=auto --sort=name --group-directories-first'
+alias lsa='eza -lhag --icons=auto --sort=name --group-directories-first'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias lta='lt -a'
+
+# Tools
+alias g='git'
+alias d='docker'
+
+# Git
+alias gcm='git commit -m'
+alias gcam='git commit -a -m'
+alias gcad='git commit -a --amend'
+
+# Search command line history
+alias h="history | grep "
+
+# Alias's to show disk space and space used in a folder
+alias diskspace="du -S | sort -n -r |more"
+alias folders='du -h --max-depth=1'
+
+# Count all files (recursively) in the current folder
+alias countfiles="find . -type f | wc -l && echo 'files'; find . -type l | wc -l && echo 'links'; find . -type d | wc -l && echo 'directories'"
+
+# Misc
+alias c='clear'
+alias q='exit'
+alias grep='grep --color=auto'
+alias cat='bat --paging=never'
+alias less='bat'
+alias mkdir='mkdir -p'
+alias mv='mv -i'
+alias rm='trash -v'
+alias updatefonts='fc-cache -fv'
+alias cleanup='yay -Rns $(yay -Qdtq) 2>/dev/null && yay -Sc --noconfirm && rm -rf ~/.cache/yay/*'
+alias wget="wget -c" # continue the download
+alias killp='killprocess'
+alias multitail='multitail --no-repeat -c' 
+alias help="bat ~/.zshrc-personal"
+
+#zd
+zd() {
+  if [ $# -eq 0 ]; then
+    builtin cd ~ && return
+  elif [ -d "$1" ]; then
+    builtin cd "$1"
+  else
+    z "$@" && printf " \U000F17A9 " && pwd || echo "Error: Directory not found"
+  fi
+}
+
+# open anything in their respective app
+open() {
+  xdg-open "$@" >/dev/null 2>&1 &
+}
+
+# nvim
+n() {
+  if [ "$#" -eq 0 ]; then
+    nvim .
+  else
+    nvim "$@"
+  fi
+}
+
+# ripgrep->fzf->vim [QUERY]
+rfg() (
+  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+            nvim {1} +{2}
+          else
+            nvim +cw -q {+f}
+          fi'
+
+  fzf --disabled --ansi --multi \
+      --bind "start:$RELOAD" --bind "change:$RELOAD" \
+      --bind "enter:become:$OPENER" \
+      --bind "ctrl-o:execute:$OPENER" \
+      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+      --delimiter : \
+      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+      --preview-window '~4,+{2}+4/3,<80(up)' \
+      --query "$*"
+)
+
+#yazi
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+# compile and run cpp 
+function cpp()
+{
+  filename=$1
+  re="^\#include \""
+  while read line
+  do
+    if [[ $line =~ $re ]]; then
+      temp=${line:9}
+      temp1=${temp#\"}
+      temp2=${temp1%\.*\"}
+      g++ -std=c++17 -c $temp2.cpp
+    fi
+  done < $filename.cpp
+  g++ -std=c++17 -c $filename.cpp
+  g++ -o $filename *.o
+  ./$filename
+  rm -f *.o    					#this removes recedue files
+}
+
+# Copy and go to the directory
+cpg() {
+	if [ -d "$2" ]; then
+		cp "$1" "$2" && cd "$2"
+	else
+		cp "$1" "$2"
+	fi
+}
+
+# Move and go to the directory
+mvg() {
+	if [ -d "$2" ]; then
+		mv "$1" "$2" && cd "$2"
+	else
+		mv "$1" "$2"
+	fi
+}
+
+# Create and go to the directory
+mkdirg() {
+	mkdir -p "$1"
+	cd "$1"
+}
+
+# Vi mode + cursor setup
+bindkey -v                       # enable vi mode
+
+# Change cursor shape depending on mode
+function zle-keymap-select {
+  case $KEYMAP in
+    vicmd) echo -ne '\e[1 q' ;;       # block cursor in normal mode
+    viins|main|'') echo -ne '\e[5 q' ;; # beam cursor in insert mode
+  esac
+}
+zle -N zle-keymap-select
+
+# Initialize line in insert mode with beam cursor
+function zle-line-init {
+  zle -K viins
+  echo -ne '\e[5 q'
+}
+zle -N zle-line-init
+
+preexec() { echo -ne '\e[5 q'; }
+
+# jj escape
+typeset -g VI_JJ_TIMEOUT=${VI_JJ_TIMEOUT:-500}  # ms
+typeset -g vi_jj_last_time=0
+
+function vi-jj-escape() {
+  local current_time=$(date +%s%3N)
+  local time_diff=$((current_time - vi_jj_last_time))
+
+  if [[ $LBUFFER == *j && $time_diff -lt $VI_JJ_TIMEOUT ]]; then
+    LBUFFER=${LBUFFER%j}
+    zle vi-cmd-mode
+    vi_jj_last_time=0
+  else
+    LBUFFER+=$KEYS
+    vi_jj_last_time=$current_time
+  fi
+}
+zle -N vi-jj-escape
+bindkey -M viins 'j' vi-jj-escape
+
+# Ctrl+R reverse-i-search in both vi modes
+for mode in viins vicmd; do
+  bindkey -M $mode '^R' history-incremental-search-backward
+done
+
+# Select quoted text objects
+autoload -U select-quoted select-bracketed
+zle -N select-quoted
+
+for m in visual viopp; do
+  for c in 'a"' 'i"' "a'" "i'" 'a`' 'i`'; do
+    bindkey -M $m $c select-quoted
+  done
+done
+
+# Vim-style keys in tab completion menu
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char

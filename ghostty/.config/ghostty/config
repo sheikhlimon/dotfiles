@@ -1,0 +1,14 @@
+# Basic display settings
+#font-family = JetBrainsMono Nerd Font
+font-family = VictorMono Nerd Font
+font-size = 14
+background = #1F1F28
+background-opacity = 1
+window-padding-x = 0
+window-padding-y = 0
+confirm-close-surface=false
+
+# Keybinds
+keybind = performable:ctrl+c=copy_to_clipboard
+keybind = ctrl+v=paste_from_clipboard
+keybind = ctrl+enter=unbind

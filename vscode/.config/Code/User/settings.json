@@ -1,0 +1,131 @@
+{
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  },
+  "breadcrumbs.enabled": false,
+  "database-client.autoSync": true,
+  "editor.bracketPairColorization.enabled": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always",
+    "source.organizeImports": "always",
+    "source.sort.json": "explicit"
+  },
+  "editor.cursorBlinking": "solid",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontFamily": "VictorMono Nerd Font",
+  "editor.fontSize": 19,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.hover.delay": 3000,
+  "editor.lineNumbers": "relative",
+  "editor.linkedEditing": true,
+  "editor.minimap.enabled": false,
+  "editor.occurrencesHighlight": "off",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.renderWhitespace": "none",
+  "editor.smoothScrolling": true,
+  "editor.stickyScroll.enabled": false,
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 2,
+  "editor.useTabStops": true,
+  "editor.wordWrap": "on",
+  "emmet.excludeLanguages": ["markdown", "php"],
+  "emmet.triggerExpansionOnTab": true,
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "svelte"
+  ],
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  // "editor.fontLigatures": "'ss01','ss05','dlig'",
+  "explorer.decorations.badges": false,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "files.autoSave": "off",
+  "files.eol": "\n",
+  "files.saveConflictResolution": "overwriteFileOnDisk",
+  "github.copilot.enable": {
+    "*": false,
+    "markdown": false,
+    "plaintext": false,
+    "scminput": false
+  },
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "isort.args": ["--profile", "black"],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "liveServer.settings.CustomBrowser": "chrome",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "search.exclude": {
+    ".phpunit.result.cache": true,
+    "**/_ide_helper.php": true,
+    "**/composer.lock": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/package-lock.json": true,
+    "**/public/{[^i],?[^n]}*": true,
+    "**/vendor/{[^l],?[^ai]}*": true,
+    "storage": true
+  },
+  "security.workspace.trust.enabled": false,
+  "security.workspace.trust.startupPrompt": "never",
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.enablePersistentSessions": false,
+  "terminal.integrated.fontFamily": "VictorMono Nerd Font",
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.persistentSessionReviveProcess": "never",
+  "terminal.integrated.rightClickBehavior": "copyPaste",
+  "terminal.integrated.showExitAlert": false,
+  "typescript.inlayHints.parameterNames.enabled": "none",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "vscode-neovim.compositeKeys": {
+    "jj": {
+      "command": "vscode-neovim.escape"
+    },
+    "jk": {
+      "args": [
+        [
+          "local code = require('vscode')",
+          "code.action('vscode-neovim.escape')",
+          "code.action('workbench.action.files.save')"
+        ]
+      ],
+      // Use lua to execute any logic
+      "command": "vscode-neovim.lua"
+    }
+  },
+  "window.autoDetectColorScheme": true,
+  // "window.zoomLevel": 0.1,
+  "window.customTitleBarVisibility": "auto",
+  "window.menuBarVisibility": "toggle",
+  "window.titleBarStyle": "native",
+  "workbench.activityBar.location": "top",
+  "workbench.colorCustomizations": {
+    "[Kanagawa]": {
+      "editor.lineHighlightBackground": "#fff0",
+      "editor.lineHighlightBorder": "#fff0",
+      "editorCursor.background": "#0D1116"
+    }
+  },
+  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.layoutControl.enabled": true,
+  "workbench.navigationControl.enabled": false,
+  "workbench.preferredDarkColorTheme": "Kanagawa",
+  "workbench.productIconTheme": "icons-carbon",
+  "workbench.sideBar.location": "left",
+  "workbench.startupEditor": "none",
+  "workbench.tree.indent": 10
+}
