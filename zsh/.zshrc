@@ -18,17 +18,10 @@ export PROMPT_EOL_MARK=''       # hide % at end of prompt
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
-plugins=(
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
-
-source "$ZSH/oh-my-zsh.sh"
-
 zle_highlight+=(paste:none)
 
 # Completion & Autosuggestions
-autoload -Uz compinit && compinit -u
+autoload -Uz compinit && compinit -C
 setopt AUTO_MENU COMPLETE_IN_WORD ALWAYS_TO_END
 
 zmodload zsh/complist
@@ -37,8 +30,11 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 
 # Better matching
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*'
 zstyle ':completion:*' menu select=2
+
+# Aliases and functions
+[[ -f "$HOME/.zshrc-personal" ]] && source "$HOME/.zshrc-personal"
 
 # History
 HISTFILE="$HOME/.zsh_history"
@@ -64,18 +60,18 @@ export FZF_ALT_C_OPTS="
 "
 
 # Simple continuum-aware auto-attach
-if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 1>/dev/null) != code* ]]; then
-  if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
-    # Just start tmux - continuum will auto-restore if configured
-    if tmux list-sessions &>/dev/null; then
-      # Sessions exist, attach to most recent
-      tmux attach
-    else
-      # No sessions, start new one (continuum will restore if data exists)
-      tmux new -s main
-    fi
-  fi
-fi
+# if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 1>/dev/null) != code* ]]; then
+#   if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
+#     # Just start tmux - continuum will auto-restore if configured
+#     if tmux list-sessions &>/dev/null; then
+#       # Sessions exist, attach to most recent
+#       tmux attach
+#     else
+#       # No sessions, start new one (continuum will restore if data exists)
+#       tmux new -s main
+#     fi
+#   fi
+# fi
 
 # Node (fnm)
 if [[ -d "$XDG_DATA_HOME/fnm" ]]; then
@@ -86,15 +82,4 @@ fi
 # zoxide
 if command -v zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
-fi
-
-# Starship Prompt
-eval "$(starship init zsh)"
-
-# Personal Overrides
-[[ -f "$HOME/.zshrc-personal" ]] && source "$HOME/.zshrc-personal"
-
-# Load FZF key bindings and completion
-if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
-  source /usr/share/fzf/key-bindings.zsh
 fi
