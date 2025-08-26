@@ -1,7 +1,7 @@
 # Dotfiles
 
 This repository contains my personal dotfile configurations.
-These days I primarily use **OMARCHY** on [Arch Linux](https://omarchy.org).
+These days I primarily use [OMARCHY](https://omarchy.org) an opinionated Arch + Hyprland Setup.
 
 ## Managing Dotfiles
 
