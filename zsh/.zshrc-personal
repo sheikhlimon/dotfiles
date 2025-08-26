@@ -47,20 +47,6 @@ alias killp='killprocess'
 alias multitail='multitail --no-repeat -c' 
 alias help="bat ~/.zshrc-personal"
 
-# Lazy-load zsh-syntax-highlighting
-autoload -Uz add-zsh-hook
-
-function load_heavy_plugins() {
-  source "$ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
-  source "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-  eval "$(starship init zsh)"
-  [[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
-
-  # remove hook after first run
-  add-zsh-hook -d precmd load_heavy_plugins
-}
-add-zsh-hook precmd load_heavy_plugins
-
 #zd
 zd() {
   if [ $# -eq 0 ]; then

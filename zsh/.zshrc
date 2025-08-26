@@ -18,10 +18,17 @@ export PROMPT_EOL_MARK=''       # hide % at end of prompt
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
+plugins=(
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+
+source "$ZSH/oh-my-zsh.sh"
+
 zle_highlight+=(paste:none)
 
 # Completion & Autosuggestions
-autoload -Uz compinit && compinit -C
+autoload -Uz compinit && compinit -u
 setopt AUTO_MENU COMPLETE_IN_WORD ALWAYS_TO_END
 
 zmodload zsh/complist
@@ -73,6 +80,9 @@ export FZF_ALT_C_OPTS="
 #   fi
 # fi
 
+# Starship Prompt
+eval "$(starship init zsh)"
+
 # Node (fnm)
 if [[ -d "$XDG_DATA_HOME/fnm" ]]; then
   export PATH="$XDG_DATA_HOME/fnm:$PATH"
@@ -83,3 +93,6 @@ fi
 if command -v zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
 fi
+
+# Load FZF key bindings and completion
+[[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
