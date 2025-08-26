@@ -1,12 +1,15 @@
-# dotfiles
+# Dotfiles
 
-This repo contains my dotfile configuration.  
-These days I primarily use OMARCHY via the [Arch Linux distribution](https://omarchy.org).
+This repository contains my personal dotfile configurations.
+These days I primarily use **OMARCHY** on [Arch Linux](https://omarchy.org).
 
-I manage the various configuration files in this repo using [GNU Stow](https://www.gnu.org/software/stow/).  
-This allows me to set up symlinks for all of my dotfiles using a single command:
+## Managing Dotfiles
+
+I manage all configuration files using [GNU Stow](https://www.gnu.org/software/stow/), which allows me to create symlinks easily.
+
+To set up all dotfiles:
 
 ```sh
-stow .
-
+cd ~/dotfiles   # Navigate to your dotfiles repository
+stow <package>  # Symlink packages
 ```
