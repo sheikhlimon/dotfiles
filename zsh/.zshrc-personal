@@ -1,6 +1,3 @@
-# Git Bare Dotfiles
-alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-
 # Editor
 alias vim='nvim'
 alias py='python'
