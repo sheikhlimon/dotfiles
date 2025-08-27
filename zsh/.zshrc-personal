@@ -17,8 +17,8 @@ alias g='git'
 alias d='docker'
 
 # Git
-alias gcm='git commit -m'
-alias gcam='git commit -a -m'
+alias gcm='git commit'
+alias gcam='git commit -a'
 alias gcad='git commit -a --amend'
 
 # Search command line history
