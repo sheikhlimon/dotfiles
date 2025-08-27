@@ -9,7 +9,7 @@ alias l='eza -lh --icons=auto'
 alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
 alias ll='eza -lha --icons=auto --sort=name --group-directories-first'
 alias lsa='eza -lhag --icons=auto --sort=name --group-directories-first'
-alias lt='eza --tree --level=2 --long --icons --git'
+alias lt='eza -l --tree --level=2 --icons=auto --git'
 alias lta='lt -a'
 
 # Tools
