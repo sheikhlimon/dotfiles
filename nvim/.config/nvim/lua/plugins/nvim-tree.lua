@@ -1,50 +1,50 @@
 return {
   "nvim-tree/nvim-tree.lua",
   lazy = true,
-  event = "VimEnter",
+  event = "VeryLazy", -- VimEnter for auto-open function
   dependencies = { "nvim-tree/nvim-web-devicons" },
   keys = {
     { "<C-n>", "<cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree" },
     { "<leader>e", "<cmd>NvimTreeFocus<CR>", desc = "Focus NvimTree" },
   },
-  init = function()
-    vim.api.nvim_create_autocmd("VimEnter", {
-      callback = function(data)
-        local no_name = data.file == "" and vim.fn.argc() == 0
-        local directory = vim.fn.isdirectory(data.file) == 1
-
-        if directory then
-          vim.cmd.cd(data.file)
-        end
-
-        vim.defer_fn(function()
-          require("nvim-tree.api").tree.open()
-
-          if no_name or directory then
-            -- Focus NvimTree window
-            local wins = vim.api.nvim_list_wins()
-            for _, win in ipairs(wins) do
-              local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
-              if bufname:match "NvimTree_" then
-                vim.api.nvim_set_current_win(win)
-                break
-              end
-            end
-          else
-            -- Focus the first non-NvimTree window (the editor)
-            local wins = vim.api.nvim_list_wins()
-            for _, win in ipairs(wins) do
-              local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
-              if not bufname:match "NvimTree_" then
-                vim.api.nvim_set_current_win(win)
-                break
-              end
-            end
-          end
-        end, 10)
-      end,
-    })
-  end,
+  -- init = function()
+  --   vim.api.nvim_create_autocmd("VimEnter", {
+  --     callback = function(data)
+  --       local no_name = data.file == "" and vim.fn.argc() == 0
+  --       local directory = vim.fn.isdirectory(data.file) == 1
+  --
+  --       if directory then
+  --         vim.cmd.cd(data.file)
+  --       end
+  --
+  --       vim.defer_fn(function()
+  --         require("nvim-tree.api").tree.open()
+  --
+  --         if no_name or directory then
+  --           -- Focus NvimTree window
+  --           local wins = vim.api.nvim_list_wins()
+  --           for _, win in ipairs(wins) do
+  --             local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
+  --             if bufname:match "NvimTree_" then
+  --               vim.api.nvim_set_current_win(win)
+  --               break
+  --             end
+  --           end
+  --         else
+  --           -- Focus the first non-NvimTree window (the editor)
+  --           local wins = vim.api.nvim_list_wins()
+  --           for _, win in ipairs(wins) do
+  --             local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
+  --             if not bufname:match "NvimTree_" then
+  --               vim.api.nvim_set_current_win(win)
+  --               break
+  --             end
+  --           end
+  --         end
+  --       end, 10)
+  --     end,
+  --   })
+  -- end,
   opts = {
     disable_netrw = true,
     hijack_netrw = true,
