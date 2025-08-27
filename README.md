@@ -10,6 +10,6 @@ I manage all configuration files using [GNU Stow](https://www.gnu.org/software/s
 To set up all dotfiles:
 
 ```sh
-cd ~/dotfiles   # Navigate to your dotfiles repository
+cd ~/dotfiles   # Navigate to dotfiles repository
 stow <package>  # Symlink packages
 ```
