@@ -7,12 +7,12 @@
   // Neovim normal mode — switch editor tab
   {
     "command": "workbench.action.nextEditorInGroup",
-    "key": "ctrl+j",
+    "key": "alt+l",
     "when": "neovim.mode == 'normal'"
   },
   {
     "command": "workbench.action.previousEditorInGroup",
-    "key": "ctrl+k",
+    "key": "alt+h",
     "when": "neovim.mode == 'normal'"
   },
   // intellisense
