@@ -42,7 +42,6 @@ alias mkdir='mkdir -p'
 alias mv='mv -i'
 alias rm='trash -v'
 alias updatefonts='fc-cache -fv'
-alias cleanup='yay -Rns $(yay -Qdtq) 2>/dev/null && yay -Sc --noconfirm && rm -rf ~/.cache/yay/*'
 alias wget="wget -c" # continue the download
 alias killp='killprocess'
 alias help="bat ~/.zshrc-personal"
