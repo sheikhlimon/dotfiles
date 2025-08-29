@@ -37,6 +37,7 @@ alias q='exit'
 alias grep='grep --color=auto'
 alias cat='bat --paging=never'
 alias less='bat'
+alias multitail='multitail --no-repeat -c' 
 alias mkdir='mkdir -p'
 alias mv='mv -i'
 alias rm='trash -v'
@@ -44,7 +45,6 @@ alias updatefonts='fc-cache -fv'
 alias cleanup='yay -Rns $(yay -Qdtq) 2>/dev/null && yay -Sc --noconfirm && rm -rf ~/.cache/yay/*'
 alias wget="wget -c" # continue the download
 alias killp='killprocess'
-alias multitail='multitail --no-repeat -c' 
 alias help="bat ~/.zshrc-personal"
 
 #zd
