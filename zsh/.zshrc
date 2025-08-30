@@ -46,6 +46,9 @@ if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
 else
     compinit -C
 fi
+# Enable completion of hidden files
+_comp_options+=(globdots)
+
 
 # Modern FZF integration (after ZLE is ready)
 if command -v fzf &>/dev/null; then
