@@ -185,11 +185,6 @@ function vi-jj-escape() {
 zle -N vi-jj-escape
 bindkey -M viins 'j' vi-jj-escape
 
-# Ctrl+R reverse-i-search in both vi modes
-for mode in viins vicmd; do
-  bindkey -M $mode '^R' history-incremental-search-backward
-done
-
 # Select quoted text objects
 autoload -U select-quoted select-bracketed
 zle -N select-quoted
