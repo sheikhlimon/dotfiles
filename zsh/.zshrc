@@ -49,11 +49,6 @@ fi
 # Enable completion of hidden files
 _comp_options+=(globdots)
 
-# FZF integration (after ZLE is ready)
-if command -v fzf &>/dev/null; then
-    eval "$(fzf --zsh)"
-fi
-
 # FZF configuration
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -89,6 +84,10 @@ _load_omz_deferred() {
     
     if command -v zoxide &>/dev/null; then
         eval "$(zoxide init zsh)"
+    fi
+
+    if command -v fzf &>/dev/null; then
+        eval "$(fzf --zsh)"
     fi
     
     # Additional zsh settings
