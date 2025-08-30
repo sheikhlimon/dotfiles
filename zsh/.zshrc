@@ -49,7 +49,6 @@ fi
 # Enable completion of hidden files
 _comp_options+=(globdots)
 
-
 # Modern FZF integration (after ZLE is ready)
 if command -v fzf &>/dev/null; then
     eval "$(fzf --zsh)"
