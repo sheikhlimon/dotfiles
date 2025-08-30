@@ -52,12 +52,14 @@ _comp_options+=(globdots)
 # FZF configuration
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 export FZF_CTRL_T_OPTS="
 --walker-skip .git,node_modules,target
 --preview 'bat -n --color=always {}'
 --bind 'enter:execute(nvim {})+abort'
 --bind 'ctrl-/:change-preview-window(down|hidden|)'
 "
+
 export FZF_ALT_C_OPTS="
 --walker-skip .git,node_modules,target
 --preview 'tree -C {}'
@@ -66,6 +68,7 @@ export FZF_ALT_C_OPTS="
 # Oh My Zsh setup for deferred loading
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+
 plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
@@ -111,5 +114,5 @@ _load_omz_deferred() {
     unfunction _load_omz_deferred
 }
 
-# Hook deferred loading to line editor initialization
+# Hook deferred loading
 zle -N zle-line-init _load_omz_deferred
