@@ -21,19 +21,19 @@ SAVEHIST=50000
 setopt EXTENDED_HISTORY INC_APPEND_HISTORY SHARE_HISTORY \
        HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS
 
-# FZF configuration
-export FZF_DEFAULT_COMMAND='fd --type file'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="
---walker-skip .git,node_modules,target
---preview 'bat -n --color=always {}'
---bind 'enter:execute(nvim {})+abort'
---bind 'ctrl-/:change-preview-window(down|hidden|)'
-"
-export FZF_ALT_C_OPTS="
---walker-skip .git,node_modules,target
---preview 'tree -C {}'
-"
+# TMUX continuum-aware auto-attach
+# if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 1>/dev/null) != code* ]]; then
+#   if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
+#     # Just start tmux - continuum will auto-restore if configured
+#     if tmux list-sessions &>/dev/null; then
+#       # Sessions exist, attach to most recent
+#       tmux attach
+#     else
+#       # No sessions, start new one (continuum will restore if data exists)
+#       tmux new -s main
+#     fi
+#   fi
+# fi
 
 # Initialize prompt and ZLE
 eval "$(starship init zsh)"
@@ -49,24 +49,24 @@ fi
 # Enable completion of hidden files
 _comp_options+=(globdots)
 
-# Modern FZF integration (after ZLE is ready)
+# FZF integration (after ZLE is ready)
 if command -v fzf &>/dev/null; then
     eval "$(fzf --zsh)"
 fi
 
-# Simple continuum-aware auto-attach
-# if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 1>/dev/null) != code* ]]; then
-#   if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
-#     # Just start tmux - continuum will auto-restore if configured
-#     if tmux list-sessions &>/dev/null; then
-#       # Sessions exist, attach to most recent
-#       tmux attach
-#     else
-#       # No sessions, start new one (continuum will restore if data exists)
-#       tmux new -s main
-#     fi
-#   fi
-# fi
+# FZF configuration
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="
+--walker-skip .git,node_modules,target
+--preview 'bat -n --color=always {}'
+--bind 'enter:execute(nvim {})+abort'
+--bind 'ctrl-/:change-preview-window(down|hidden|)'
+"
+export FZF_ALT_C_OPTS="
+--walker-skip .git,node_modules,target
+--preview 'tree -C {}'
+"
 
 # Oh My Zsh setup for deferred loading
 export ZSH="$HOME/.oh-my-zsh"
