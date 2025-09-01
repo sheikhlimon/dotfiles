@@ -86,6 +86,7 @@ return {
           auto_show = false,
         },
         menu = {
+          border = "rounded",
           draw = {
             treesitter = { "lsp" },
             gap = 1,
