@@ -84,16 +84,15 @@ return {
         list = { selection = { auto_insert = true } },
         documentation = {
           auto_show = false,
-          window = { border = "rounded" },
         },
         menu = {
-          border = "rounded",
           draw = {
-            gap = 2,
-            columns = {
-              { "label", "label_description", gap = 1 },
-              { "kind_icon", "kind", gap = 2 },
-            },
+            treesitter = { "lsp" },
+            gap = 1,
+            -- columns = {
+            --   { "label", "label_description", gap = 1 },
+            --   { "kind_icon", "kind", gap = 2 },
+            -- },
           },
         },
         ghost_text = { enabled = false },
