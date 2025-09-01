@@ -15,7 +15,10 @@ return {
       }
 
       -- Load friendly and custom snippets
-      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load {
+        include = { "javascript", "javascriptreact", "typescript", "typescriptreact", "python", "json" },
+      }
+
       require("luasnip.loaders.from_vscode").lazy_load {
         paths = { vim.fn.stdpath "config" .. "/snippets" },
       }
@@ -28,7 +31,7 @@ return {
     version = "*",
     dependencies = {
       "L3MON4D3/LuaSnip",
-      "rafamadriz/friendly-snippets",
+      -- "rafamadriz/friendly-snippets",
     },
     opts = {
       keymap = {
@@ -40,6 +43,7 @@ return {
         ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
         ["<C-k>"] = { "select_prev", "fallback" },
         ["<C-j>"] = { "select_next", "fallback" },
+        ["<C-y>"] = { "accept" },
       },
       appearance = {
         use_nvim_cmp_as_default = false,
@@ -48,6 +52,24 @@ return {
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
         providers = {
+          lsp = {
+            -- Filter out snippet-like completions from LSP
+            transform_items = function(_, items)
+              local filtered_items = {}
+              for _, item in ipairs(items) do
+                -- Filter out single character completions and common unwanted items
+                if
+                  item.label
+                  and string.len(item.label) > 1 -- Filter single characters
+                  and not item.label:match "^[(){}%[%]]$" -- Filter brackets
+                  and item.kind ~= 15
+                then -- Filter snippet kind (15 = snippet)
+                  table.insert(filtered_items, item)
+                end
+              end
+              return filtered_items
+            end,
+          },
           snippets = {
             min_keyword_length = 2,
             score_offset = 95,
@@ -107,9 +129,7 @@ return {
                 max_height = height,
               },
               win_options = {
-                wrap = true,
-                linebreak = true,
-                winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder", -- Match blink colors
+                winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
               },
             },
           },
@@ -127,7 +147,11 @@ return {
               size = {
                 max_width = width,
                 max_height = sig_height,
-                winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder", -- Match blink colors
+              },
+              win_options = {
+                wrap = true,
+                linebreak = true,
+                winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
               },
             },
           },
