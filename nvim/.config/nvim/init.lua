@@ -58,7 +58,6 @@ if vim.g.vscode then
   map("v", "<C-k>", ":m '<-2<CR>gv=gv", opts)
 
   -- Optional: some keymaps just for VSCode
-
   map("n", "U", "<C-r>", { desc = "redo" })
   map("n", "<Esc>", ":nohl<CR>", { desc = "clear search highlights" })
   -- Visual mode: yank selection to system clipboard

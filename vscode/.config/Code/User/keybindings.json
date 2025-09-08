@@ -1,4 +1,13 @@
 [
+  // Navigation
+  {
+    "command": "workbench.action.navigateLeft",
+    "key": "ctrl-h"
+  },
+  {
+    "command": "workbench.action.navigateRight",
+    "key": "ctrl-l"
+  },
   //toggle terminal
   {
     "command": "workbench.action.terminal.toggleTerminal",
