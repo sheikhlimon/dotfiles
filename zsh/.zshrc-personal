@@ -101,8 +101,7 @@ function y() {
 }
 
 # compile and run cpp 
-function cpp()
-{
+function cpp() {
   filename=$1
   re="^\#include \""
   while read line
@@ -117,7 +116,7 @@ function cpp()
   g++ -std=c++17 -c $filename.cpp
   g++ -o $filename *.o
   ./$filename
-  rm -f *.o    					#this removes recedue files
+  rm -f *.o
 }
 
 # Copy and go to the directory
