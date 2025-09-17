@@ -57,3 +57,5 @@
 	format = ssh
 [commit]
 	gpgsign = true
+[gpg "ssh"]
+	allowedSignersFile = /home/limon/.ssh/allowed_signers
