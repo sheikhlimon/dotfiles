@@ -46,6 +46,7 @@ if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
 else
     compinit -C
 fi
+
 # Enable completion of hidden files
 _comp_options+=(globdots)
 
