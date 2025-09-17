@@ -44,6 +44,7 @@
 [user]
   email = sheikhlimon404@gmail.com
   name = sheikhlimon
+	signingkey = /home/limon/.ssh/id_ed25519
 [credential "https://github.com"]
   helper = 
   helper = !/usr/bin/gh auth git-credential
@@ -52,3 +53,7 @@
   helper = !/usr/bin/gh auth git-credential
 [init]
   defaultBranch = main
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
