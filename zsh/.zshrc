@@ -21,23 +21,9 @@ SAVEHIST=50000
 setopt EXTENDED_HISTORY INC_APPEND_HISTORY SHARE_HISTORY \
        HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS
 
-# TMUX continuum-aware auto-attach
-# if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 1>/dev/null) != code* ]]; then
-#   if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
-#     # Just start tmux - continuum will auto-restore if configured
-#     if tmux list-sessions &>/dev/null; then
-#       # Sessions exist, attach to most recent
-#       tmux attach
-#     else
-#       # No sessions, start new one (continuum will restore if data exists)
-#       tmux new -s main
-#     fi
-#   fi
-# fi
-
 # Initialize starship
 if command -v starship &> /dev/null; then
-  eval "$(starship init bash)"
+    eval "$(starship init zsh)"
 fi
 
 # Optimized completions
@@ -84,7 +70,7 @@ _load_omz_deferred() {
     
     # Load external tools
     if command -v mise &> /dev/null; then
-        eval "$(mise activate bash)"
+        eval "$(mise activate zsh)"
     fi
     
     if command -v zoxide &>/dev/null; then
@@ -118,3 +104,17 @@ _load_omz_deferred() {
 
 # Hook deferred loading
 zle -N zle-line-init _load_omz_deferred
+
+# TMUX continuum-aware auto-attach
+# if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 1>/dev/null) != code* ]]; then
+#   if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
+#     # Just start tmux - continuum will auto-restore if configured
+#     if tmux list-sessions &>/dev/null; then
+#       # Sessions exist, attach to most recent
+#       tmux attach
+#     else
+#       # No sessions, start new one (continuum will restore if data exists)
+#       tmux new -s main
+#     fi
+#   fi
+# fi
