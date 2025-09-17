@@ -3,7 +3,6 @@ alias vim='nvim'
 alias py='python'
 
 # File System
-alias ..='cd ..' 
 alias cd='z'
 alias l='eza -lh --icons=auto --group-directories-first'
 alias ll='eza -lhag --icons=auto --sort=name --group-directories-first'
