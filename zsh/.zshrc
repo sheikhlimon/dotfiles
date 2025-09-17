@@ -35,8 +35,10 @@ setopt EXTENDED_HISTORY INC_APPEND_HISTORY SHARE_HISTORY \
 #   fi
 # fi
 
-# Initialize prompt and ZLE
-eval "$(starship init zsh)"
+# Initialize starship
+if command -v starship &> /dev/null; then
+  eval "$(starship init bash)"
+fi
 
 # Optimized completions
 autoload -Uz compinit
@@ -81,9 +83,8 @@ _load_omz_deferred() {
     [[ -r $ZSH/oh-my-zsh.sh ]] && source "$ZSH/oh-my-zsh.sh"
     
     # Load external tools
-    if [[ -d "$XDG_DATA_HOME/fnm" ]]; then
-        export PATH="$XDG_DATA_HOME/fnm:$PATH"
-        eval "$(fnm env)"
+    if command -v mise &> /dev/null; then
+        eval "$(mise activate bash)"
     fi
     
     if command -v zoxide &>/dev/null; then
