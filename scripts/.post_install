@@ -70,7 +70,7 @@ install_my_apps() {
     okular
     neovim
     haruna
-    fnm
+    mise
   )
 
   local arch_aur=(
@@ -178,36 +178,11 @@ install_my_apps() {
     install_arch_pkgs "${arch_official[@]}"
     install_arch_aur_pkgs "${arch_aur[@]}"
 
-    # fnm install
-    if ! command -v fnm &>/dev/null; then
-      echo "Installing fnm..."
-      curl -fsSL https://fnm.vercel.app/install | bash
-      # User should restart shell or source profile to use fnm PATH
-    fi
-    eval "$(fnm env)"
-    fnm install node
-    fnm use node
-    fnm default node
-
   elif [[ -f /etc/debian_version ]]; then
     echo "Detected Debian/Ubuntu"
-
     sudo apt update
-
     install_debian_pkgs "${debian_official[@]}"
-
     install_snap_apps
-
-    # fnm install
-    if ! command -v fnm &>/dev/null; then
-      echo "Installing fnm (Fast Node Manager)..."
-      curl -fsSL https://fnm.vercel.app/install | bash
-      # User should restart shell or source profile to use fnm PATH
-    fi
-    eval "$(fnm env)"
-    fnm install latest
-    fnm use latest
-    fnm default latest
 
   else
     echo "Unsupported distro. Aborting."
