@@ -1,0 +1,31 @@
+{
+  "Function Component": {
+    "prefix": "_component",
+    "body": [
+      "/**",
+      " * 💥 Title : ${TM_FILENAME_BASE}",
+      " * 📃 Description : ${1:Component description}",
+      " * ✍️ Author : Sheikh Limon",
+      " * 🕖 Date : ${CURRENT_DATE}-${CURRENT_MONTH_NAME}-${CURRENT_YEAR}",
+      " */",
+      "",
+      "/** 🔥 React Dependencies 🔥 */",
+      "",
+      "const ${TM_FILENAME_BASE} = () => {",
+      "  return (",
+      "    <>",
+      "      ${2:/* content here */}",
+      "    </>",
+      "  );",
+      "};",
+      "",
+      "export default ${TM_FILENAME_BASE};"
+    ],
+    "description": "Boilerplate for React Functional Component"
+  },
+  "console.log": {
+    "prefix": "clg",
+    "body": ["console.log('$1');"],
+    "description": "Log output to console"
+  }
+}
