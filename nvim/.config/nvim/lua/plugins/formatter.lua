@@ -7,10 +7,10 @@ return {
     conform.setup {
       formatters_by_ft = {
         lua = { "stylua" },
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescriptreact = { "prettier" },
+        javascript = { "prettier", "eslint" },
+        typescript = { "prettier", "eslint" },
+        typescriptreact = { "prettier", "eslint" },
+        javascriptreact = { "prettier", "eslint" },
         svelte = { "prettier" },
         css = { "prettier" },
         html = { "prettier" },
@@ -20,8 +20,7 @@ return {
         graphql = { "prettier" },
         python = { "isort", "black" },
         bash = { "shfmt" },
-        sh = { "shfmt" },
-        go = { "gofmt" },
+        go = { "goimports" },
       },
       format_on_save = {
         timeout_ms = 1000,

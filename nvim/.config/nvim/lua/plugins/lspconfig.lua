@@ -215,6 +215,7 @@ return {
         "shfmt",
         "eslint_d",
         "pylint",
+        "goimports",
       },
       auto_update = true,
       run_on_start = true,
