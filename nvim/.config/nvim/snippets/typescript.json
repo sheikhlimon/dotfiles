@@ -1,29 +1,61 @@
 {
-  "Function Component": {
-    "prefix": "_component",
+  "React Functional Component (TS)": {
+    "prefix": "rfc",
     "body": [
-      "/**",
-      " * 💥 Title : ${TM_FILENAME_BASE}",
-      " * 📃 Description : ${1:Component description}",
-      " * ✍️ Author : Sheikh Limon",
-      " * 🕖 Date : ${CURRENT_DATE}-${CURRENT_MONTH_NAME}-${CURRENT_YEAR}",
-      " */",
+      "import React from 'react';",
       "",
-      "const ${TM_FILENAME_BASE} = () => {",
+      "interface ${TM_FILENAME_BASE}Props {",
+      "  ${1:/* define props here */}",
+      "}",
+      "",
+      "const ${TM_FILENAME_BASE}: React.FC<${TM_FILENAME_BASE}Props> = ({}) => {",
       "  return (",
-      "    <>",
-      "      ${2:/* content here */}",
-      "    </>",
+      "    <div>",
+      "      <h1>${TM_FILENAME_BASE} Component</h1>",
+      "      $0",
+      "    </div>",
       "  );",
       "};",
       "",
       "export default ${TM_FILENAME_BASE};"
     ],
-    "description": "Boilerplate for React Functional Component"
+    "description": "React Functional Component boilerplate (TypeScript)"
+  },
+  "Next.js Functional Component (TS)": {
+    "prefix": "nrfc",
+    "body": [
+      "export default function ${TM_FILENAME_BASE}() {",
+      "  return (",
+      "    <div>",
+      "      <h1>${TM_FILENAME_BASE} Page</h1>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "}"
+    ],
+    "description": "Next.js Functional Component boilerplate (TypeScript, no props)"
+  },
+  "Next.js Functional Component with Props (TS)": {
+    "prefix": "nrfcp",
+    "body": [
+      "interface ${TM_FILENAME_BASE}Props {",
+      "  ${1:/* define props here */}",
+      "}",
+      "",
+      "export default function ${TM_FILENAME_BASE}({}: ${TM_FILENAME_BASE}Props) {",
+      "  return (",
+      "    <div>",
+      "      <h1>${TM_FILENAME_BASE} Page</h1>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "}"
+    ],
+    "description": "Next.js Functional Component with Props (TypeScript)"
   },
   "console.log": {
     "prefix": "clg",
-    "body": ["console.log(\"$1\");"],
+    "body": ["console.log($0);"],
     "description": "Log output to console"
   }
 }

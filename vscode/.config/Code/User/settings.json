@@ -13,7 +13,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always",
     "source.organizeImports": "always",
-    "source.sort.json": "explicit"
+    "source.sort.json": "never"
   },
   "editor.cursorBlinking": "solid",
   "editor.cursorSmoothCaretAnimation": "on",
