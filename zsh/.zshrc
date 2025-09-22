@@ -87,7 +87,7 @@ _load_omz_deferred() {
     export ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
     export ZSH_AUTOSUGGEST_USE_ASYNC=true
     zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*'
-    zstyle ':completion:*' menu select=2
+    zstyle ':completion:*' menu select
     zle_highlight+=(paste:none)
     
     # Restart autosuggestions if available
