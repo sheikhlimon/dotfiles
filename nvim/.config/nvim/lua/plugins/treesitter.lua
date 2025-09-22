@@ -49,6 +49,7 @@ return {
       "vimdoc",
       "c",
       "regex",
+      "go",
     },
     auto_install = true,
     highlight = {

@@ -156,6 +156,25 @@ return {
       prismals = {},
       yamlls = { settings = { yaml = { keyOrdering = false } } },
       clangd = { cmd = { "clangd", "--background-index", "--clang-tidy" } },
+      gopls = {
+        filetypes = { "go", "gomod" },
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+              nilness = true,
+              shadow = true,
+              unusedwrite = true,
+            },
+            staticcheck = true,
+            codelenses = {
+              generate = true,
+              gc_details = true,
+              tidy = true,
+            },
+          },
+        },
+      },
     }
 
     -- Mason setup

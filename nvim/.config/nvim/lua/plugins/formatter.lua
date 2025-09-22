@@ -21,6 +21,7 @@ return {
         python = { "isort", "black" },
         bash = { "shfmt" },
         sh = { "shfmt" },
+        go = { "gofmt" },
       },
       format_on_save = {
         timeout_ms = 1000,
