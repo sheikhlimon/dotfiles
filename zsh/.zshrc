@@ -7,10 +7,10 @@ export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share:$XDG_DATA_HOM
 
 # Essential exports
 export PATH="$HOME/.local/bin:$PATH"
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export EDITOR="nvim"
 export SUDO_EDITOR="$EDITOR"
 export BAT_THEME=ansi
-export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export ZLE_RPROMPT_INDENT=0
 export PROMPT_EOL_MARK=''
 
