@@ -2,28 +2,27 @@ local opts = { noremap = true, silent = true }
 
 -- Insert mode
 vim.keymap.set("i", "jj", "<Esc>")
-vim.keymap.set("i", "jk", "<Esc>:w<CR>", { desc = "Save buffer and exit insert mode" })
-
--- save file without auto-formatting
-vim.keymap.set("i", "kj", "<Esc>:noautocmd w <CR>", opts)
-
--- save file
-vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", opts)
-
--- quit file
-vim.keymap.set("n", "<C-q>", "<cmd> q <CR>", opts)
-
--- better j/k
-vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set(
+  "i",
+  "jk",
+  "<Esc>:noautocmd w<CR>",
+  { desc = "Exit insert mode and save buffer", noremap = true, silent = true }
+)
 
 -- Buffers
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", opts)
+
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", opts)
 vim.keymap.set("n", "<leader>x", ":Bdelete!<CR>", opts) -- close buffer
 vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", opts) -- new buffer
 
 -- Normal mode
+vim.keymap.set("n", "<C-q>", ":q<CR>", { desc = "Quit file", noremap = true, silent = true })
+
+-- better j/k
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result centered and unfolded" })
