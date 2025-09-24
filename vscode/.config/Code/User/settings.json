@@ -19,6 +19,7 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "VictorMono Nerd Font",
+  "editor.fontWeight": "500",
   "editor.fontSize": 19,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
