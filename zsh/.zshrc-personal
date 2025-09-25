@@ -45,6 +45,20 @@ alias wget="wget -c" # continue the download
 alias killp='killprocess'
 alias help="bat ~/.zshrc-personal"
 
+# TMUX continuum-aware auto-attach
+# if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 1>/dev/null) != code* ]]; then
+#   if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
+#     # Just start tmux - continuum will auto-restore if configured
+#     if tmux list-sessions &>/dev/null; then
+#       # Sessions exist, attach to most recent
+#       tmux attach
+#     else
+#       # No sessions, start new one (continuum will restore if data exists)
+#       tmux new -s main
+#     fi
+#   fi
+# fi
+
 #zd
 zd() {
   if [ $# -eq 0 ]; then
