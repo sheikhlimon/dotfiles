@@ -81,6 +81,7 @@ install_my_apps() {
     ghostty
     zen-browser-bin
     vivaldi
+    gnome-shell-pomodoro
   )
 
   local debian_official=(
