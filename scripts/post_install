@@ -2,7 +2,7 @@
 
 # sudo pacman -S zsh
 # chmod +x ~/post_install
-# ~/post_install
+# ~./post_install
 
 # Function to install missing zsh plugins
 install_oh_my_zsh() {
@@ -39,18 +39,6 @@ install_oh_my_zsh() {
       echo "Plugin $name already installed"
     fi
   done
-
-  # Add plugin sources to ~/.zshrc if not already present (important for zsh-syntax-highlighting)
-  if ! grep -q "zsh-autosuggestions" ~/.zshrc; then
-    sed -i 's/plugins=(\(.*\))/plugins=(\1 zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
-    echo "Added plugins to ~/.zshrc"
-  fi
-
-  # zsh-syntax-highlighting must be sourced at end of ~/.zshrc
-  if ! grep -q "source \$ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ~/.zshrc; then
-    echo "source \$ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
-    echo "Added zsh-syntax-highlighting source to ~/.zshrc"
-  fi
 }
 
 install_zshrc_support() {
