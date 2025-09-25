@@ -84,8 +84,8 @@ _load_omz_deferred() {
     # Additional zsh settings
     setopt AUTO_MENU COMPLETE_IN_WORD ALWAYS_TO_END
     zmodload zsh/complist
-    export ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
-    export ZSH_AUTOSUGGEST_USE_ASYNC=true
+    ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+    ZSH_AUTOSUGGEST_USE_ASYNC=true
     zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*'
     zstyle ':completion:*' menu select
     zle_highlight+=(paste:none)
@@ -98,23 +98,10 @@ _load_omz_deferred() {
     # Load personal config last
     [[ -f "$HOME/.zshrc-personal" ]] && source "$HOME/.zshrc-personal"
     
-    # Remove this function to prevent re-loading
+    # Prevent re-loading
     unfunction _load_omz_deferred
 }
 
 # Hook deferred loading
 zle -N zle-line-init _load_omz_deferred
 
-# TMUX continuum-aware auto-attach
-# if [[ ! $VSCODE_PID && $(ps -o comm= -p $PPID 1>/dev/null) != code* ]]; then
-#   if command -v tmux &>/dev/null && [[ -z $TMUX ]]; then
-#     # Just start tmux - continuum will auto-restore if configured
-#     if tmux list-sessions &>/dev/null; then
-#       # Sessions exist, attach to most recent
-#       tmux attach
-#     else
-#       # No sessions, start new one (continuum will restore if data exists)
-#       tmux new -s main
-#     fi
-#   fi
-# fi
