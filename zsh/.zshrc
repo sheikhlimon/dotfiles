@@ -3,7 +3,7 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
-export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share:$XDG_DATA_HOME}"
+export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
 # Essential exports
 export PATH="$HOME/.local/bin:$PATH"
@@ -28,6 +28,7 @@ fi
 
 # Optimized completions
 autoload -Uz compinit
+setopt EXTENDED_GLOB
 if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
     compinit
 else
@@ -37,8 +38,6 @@ fi
 # Additional zsh settings
 setopt AUTO_MENU COMPLETE_IN_WORD ALWAYS_TO_END
 zmodload zsh/complist
-ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
-ZSH_AUTOSUGGEST_USE_ASYNC=true
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*'
 zstyle ':completion:*' menu select
 zle_highlight+=(paste:none)
@@ -52,7 +51,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export FZF_CTRL_T_OPTS="
 --walker-skip .git,node_modules,target
---preview 'bat -n --color=always {}'
+--preview 'command -v bat >/dev/null && bat -n --color=always {} || cat {}'
 --bind 'enter:execute(nvim {})+abort'
 --bind 'ctrl-/:change-preview-window(down|hidden|)'
 "
@@ -100,8 +99,9 @@ load_omz_deferred() {
     
     # Load personal config last
     [[ -f "$HOME/.zshrc-personal" ]] && source "$HOME/.zshrc-personal"
-    
+
     # Prevent re-loading
+    zle -D zle-line-init   # unbind widget cleanly
     unfunction load_omz_deferred
 }
 
