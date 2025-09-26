@@ -19,7 +19,7 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "VictorMono Nerd Font",
-  "editor.fontWeight": "500",
+  "editor.fontWeight": "450",
   "editor.fontSize": 19,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
@@ -123,9 +123,10 @@
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.layoutControl.enabled": true,
   "workbench.navigationControl.enabled": false,
-  "workbench.preferredDarkColorTheme": "Kanagawa",
   "workbench.productIconTheme": "icons-carbon",
   "workbench.sideBar.location": "left",
   "workbench.startupEditor": "none",
-  "workbench.tree.indent": 10
+  "workbench.tree.indent": 10,
+  "workbench.preferredDarkColorTheme": "Gruvbox ish Dark Hard",
+  "workbench.panel.showLabels": false
 }
