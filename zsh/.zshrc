@@ -28,12 +28,20 @@ fi
 
 # Optimized completions
 autoload -Uz compinit
-setopt EXTENDED_GLOB
 if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
     compinit
 else
     compinit -C
 fi
+
+# Additional zsh settings
+setopt AUTO_MENU COMPLETE_IN_WORD ALWAYS_TO_END
+zmodload zsh/complist
+ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+ZSH_AUTOSUGGEST_USE_ASYNC=true
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*'
+zstyle ':completion:*' menu select
+zle_highlight+=(paste:none)
 
 # Enable completion of hidden files
 _comp_options+=(globdots)
@@ -51,7 +59,7 @@ export FZF_CTRL_T_OPTS="
 
 export FZF_ALT_C_OPTS="
 --walker-skip .git,node_modules,target
---preview 'tree -C {}'
+--preview 'command -v tree >/dev/null && tree -C {} || ls -la {}'
 "
 
 # Oh My Zsh setup for deferred loading
@@ -64,15 +72,15 @@ plugins=(
 )
 
 # Deferred loading function - loads heavy stuff after prompt appears
-_load_omz_deferred() {
+load_omz_deferred() {
     # Load Oh My Zsh
     [[ -r $ZSH/oh-my-zsh.sh ]] && source "$ZSH/oh-my-zsh.sh"
+
+    # Configure autosuggestions (after loading OMZ)
+    ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+    ZSH_AUTOSUGGEST_USE_ASYNC=true
     
     # Load external tools
-    if command -v mise &> /dev/null; then
-        eval "$(mise activate zsh)"
-    fi
-    
     if command -v zoxide &>/dev/null; then
         eval "$(zoxide init zsh)"
     fi
@@ -80,15 +88,10 @@ _load_omz_deferred() {
     if command -v fzf &>/dev/null; then
         eval "$(fzf --zsh)"
     fi
-    
-    # Additional zsh settings
-    setopt AUTO_MENU COMPLETE_IN_WORD ALWAYS_TO_END
-    zmodload zsh/complist
-    ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
-    ZSH_AUTOSUGGEST_USE_ASYNC=true
-    zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*'
-    zstyle ':completion:*' menu select
-    zle_highlight+=(paste:none)
+
+    if command -v mise &> /dev/null; then
+        eval "$(mise activate zsh)"
+    fi
     
     # Restart autosuggestions if available
     if typeset -f _zsh_autosuggest_start >/dev/null; then
@@ -99,9 +102,9 @@ _load_omz_deferred() {
     [[ -f "$HOME/.zshrc-personal" ]] && source "$HOME/.zshrc-personal"
     
     # Prevent re-loading
-    unfunction _load_omz_deferred
+    unfunction load_omz_deferred
 }
 
 # Hook deferred loading
-zle -N zle-line-init _load_omz_deferred
+zle -N zle-line-init load_omz_deferred
 
