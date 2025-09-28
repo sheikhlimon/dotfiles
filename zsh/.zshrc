@@ -35,7 +35,6 @@ else
     compinit -C
 fi
 
-# Additional zsh settings
 setopt AUTO_MENU COMPLETE_IN_WORD ALWAYS_TO_END
 zmodload zsh/complist
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*'
@@ -61,7 +60,7 @@ export FZF_ALT_C_OPTS="
 --preview 'command -v tree >/dev/null && tree -C {} || ls -la {}'
 "
 
-# Oh My Zsh setup for deferred loading
+# Oh My Zsh and plugins
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
@@ -70,16 +69,12 @@ plugins=(
   zsh-syntax-highlighting
 )
 
-# Deferred loading function - loads heavy stuff after prompt appears
+# Loads heavy stuff after prompt appears
 load_omz_deferred() {
-    # Load Oh My Zsh
     [[ -r $ZSH/oh-my-zsh.sh ]] && source "$ZSH/oh-my-zsh.sh"
 
-    # Configure autosuggestions (after loading OMZ)
     ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
-    ZSH_AUTOSUGGEST_USE_ASYNC=true
-    
-    # Load external tools
+
     if command -v zoxide &>/dev/null; then
         eval "$(zoxide init zsh)"
     fi
@@ -97,7 +92,6 @@ load_omz_deferred() {
         _zsh_autosuggest_start
     fi
     
-    # Load personal config last
     [[ -f "$HOME/.zshrc-personal" ]] && source "$HOME/.zshrc-personal"
 
     # Prevent re-loading
