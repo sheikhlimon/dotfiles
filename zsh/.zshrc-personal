@@ -40,8 +40,7 @@ alias multitail='multitail --no-repeat -c'
 alias mkdir='mkdir -p'
 alias mv='mv -i'
 alias rm='trash -v'
-alias updatefonts='fc-cache -fv'
-alias wget="wget -c" # continue the download
+alias wget="wget -c"
 alias killp='killprocess'
 alias help="bat ~/.zshrc-personal"
 
@@ -73,15 +72,6 @@ zd() {
 # open anything in their respective app
 open() {
   xdg-open "$@" >/dev/null 2>&1 &
-}
-
-# nvim
-n() {
-  if [ "$#" -eq 0 ]; then
-    nvim .
-  else
-    nvim "$@"
-  fi
 }
 
 # ripgrep->fzf->vim [QUERY]
@@ -154,6 +144,19 @@ mvg() {
 mkdirg() {
 	mkdir -p "$1"
 	cd "$1"
+}
+
+# Write iso file to sd card
+iso2sd() {
+  if [ $# -ne 2 ]; then
+    echo "Usage: iso2sd <input_file> <output_device>"
+    echo "Example: iso2sd ~/Downloads/ubuntu-25.04-desktop-amd64.iso /dev/sdb"
+    echo -e "\nAvailable SD cards:"
+    lsblk -d -o NAME | grep -E '^sd[a-z]' | awk '{print "/dev/"$1}'
+  else
+    sudo dd bs=4M status=progress oflag=sync if="$1" of="$2"
+    sudo eject $2
+  fi
 }
 
 # Transcode any image to JPG image that's great for shrinking wallpapers
