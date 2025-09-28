@@ -3,7 +3,7 @@ alias vim='nvim'
 alias py='python'
 
 # File System
-alias cd='z'
+alias cd='zd'
 alias l='eza -lh --icons=auto --group-directories-first'
 alias ll='eza -lhag --icons=auto --sort=name --group-directories-first'
 alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
@@ -154,6 +154,25 @@ mvg() {
 mkdirg() {
 	mkdir -p "$1"
 	cd "$1"
+}
+
+# Transcode any image to JPG image that's great for shrinking wallpapers
+img2jpg() {
+  magick $1 -quality 95 -strip ${1%.*}.jpg
+}
+
+# Transcode any image to JPG image that's great for sharing online without being too big
+img2jpg-small() {
+  magick $1 -resize 1080x\> -quality 95 -strip ${1%.*}.jpg
+}
+
+# Transcode any image to compressed-but-lossless PNG
+img2png() {
+  magick "$1" -strip -define png:compression-filter=5 \
+    -define png:compression-level=9 \
+    -define png:compression-strategy=1 \
+    -define png:exclude-chunk=all \
+    "${1%.*}.png"
 }
 
 # Vi mode + cursor setup
