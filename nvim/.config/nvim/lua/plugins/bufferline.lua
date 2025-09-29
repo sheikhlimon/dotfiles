@@ -46,7 +46,7 @@ return {
       },
       highlights = {
         fill = { bg = "#1F1F28" },
-        background = { bg = "#1F1F28" },
+        background = { bg = "#1F1F28", fg = "#7C818C" },
         separator = { fg = "#434C5E", bg = "#1F1F28" },
         buffer_selected = {
           bg = "#1F1F28",
