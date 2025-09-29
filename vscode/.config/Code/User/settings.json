@@ -12,7 +12,7 @@
   "editor.bracketPairColorization.enabled": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always",
-    "source.organizeImports": "always",
+    "source.organizeImports": "never",
     "source.sort.json": "never"
   },
   "editor.cursorBlinking": "solid",
@@ -114,10 +114,35 @@
   "window.titleBarStyle": "native",
   "workbench.activityBar.location": "top",
   "workbench.colorCustomizations": {
-    "[Kanagawa]": {
+    "[NeoRose-VimPine]": {
       "editor.lineHighlightBackground": "#fff0",
-      "editor.lineHighlightBorder": "#fff0",
-      "editorCursor.background": "#0D1116"
+      // "editor.lineHighlightBorder": "#fff0",
+      "editorCursor.background": "#0D1116",
+      "editor.findMatchHighlightBackground": "#404000aa",
+      "editor.findMatchHighlightForeground": "#fff0"
+    }
+  },
+  "editor.tokenColorCustomizations": {
+    "[NeoRose-VimPine]": {
+      "textMateRules": [
+        {
+          "scope": [
+            "comment",
+            "string",
+            "keyword",
+            "storage.type",
+            "storage.modifier",
+            "variable",
+            "variable.parameter",
+            "entity.name.function",
+            "entity.name.type",
+            "entity.other.attribute-name"
+          ],
+          "settings": {
+            "fontStyle": "" // This removes italic formatting
+          }
+        }
+      ]
     }
   },
   "workbench.iconTheme": "catppuccin-mocha",
@@ -127,6 +152,5 @@
   "workbench.sideBar.location": "left",
   "workbench.startupEditor": "none",
   "workbench.tree.indent": 10,
-  "workbench.preferredDarkColorTheme": "Gruvbox ish Dark Hard",
-  "workbench.panel.showLabels": false
+  "workbench.preferredDarkColorTheme": "NeoRose-VimPine"
 }
