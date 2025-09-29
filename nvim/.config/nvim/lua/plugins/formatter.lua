@@ -30,9 +30,9 @@ return {
 
     -- Save and format manually
     vim.keymap.set("n", "<C-s>", function()
-      vim.cmd "w" -- save first
-      require("conform").format { async = true } -- then format
-    end, { desc = "Save buffer and format", noremap = true, silent = true })
+      require("conform").format { async = false } -- format first
+      vim.cmd "w" -- then save
+    end, { desc = "Format buffer and save", noremap = true, silent = true })
 
     -- Manual format keymap: <leader>fm
     vim.keymap.set("n", "<leader>fm", function()
