@@ -57,5 +57,10 @@
     "prefix": "clg",
     "body": ["console.log($0);"],
     "description": "Log output to console"
+  },
+  "console.log": {
+    "prefix": "console",
+    "body": ["console.log($0);"],
+    "description": "Log output to console"
   }
 }
