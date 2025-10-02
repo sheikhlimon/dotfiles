@@ -8,7 +8,7 @@ alias l='eza -lh --icons=auto --group-directories-first'
 alias ll='eza -lhag --icons=auto --sort=name --group-directories-first'
 alias ls='eza -a --grid --icons=auto --sort=name --group-directories-first'
 alias lsa='eza -lha --icons=auto --sort=name --group-directories-first'
-alias lt='eza -l --tree --level=2 --group-directories-first --icons=auto --git'
+alias lt='eza -l --tree --level=2 --group-directories-first --icons=auto --git --git-ignore'
 alias lta='lt -a'
 
 # Tools
