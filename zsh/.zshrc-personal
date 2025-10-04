@@ -42,6 +42,7 @@ alias mv='mv -i'
 alias rm='trash -v'
 alias wget="wget -c"
 alias killp='killprocess'
+alias update="yay -Syu --noconfirm --needed --nodiffmenu --nocleanmenu"
 alias help="bat ~/.zshrc-personal"
 
 # TMUX continuum-aware auto-attach
