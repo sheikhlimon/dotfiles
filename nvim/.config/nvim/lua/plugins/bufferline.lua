@@ -1,5 +1,7 @@
 return {
   "akinsho/bufferline.nvim",
+  lazy = true, -- load only when a buffer is opened
+  event = { "BufReadPost", "BufNewFile" },
   dependencies = {
     "moll/vim-bbye",
     "nvim-tree/nvim-web-devicons",

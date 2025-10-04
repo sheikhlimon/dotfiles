@@ -4,6 +4,8 @@ return {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
     build = "make install_jsregexp",
+    lazy = true,
+    event = "InsertEnter", -- load only when entering insert mode
     dependencies = { "rafamadriz/friendly-snippets" },
     config = function()
       local luasnip = require "luasnip"
@@ -25,6 +27,8 @@ return {
   -- Blink.cmp
   {
     "saghen/blink.cmp",
+    lazy = true,
+    event = "InsertEnter",
     version = "*",
     dependencies = {
       "L3MON4D3/LuaSnip",
