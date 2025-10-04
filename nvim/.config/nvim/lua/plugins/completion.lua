@@ -105,7 +105,7 @@ return {
     enabled = true,
     dependencies = { "MunifTanjim/nui.nvim" },
     config = function()
-      local width = math.floor(vim.o.columns * 0.3)
+      local width = math.floor(vim.o.columns * 0.35)
       local height = math.floor(vim.o.lines * 0.3)
       local sig_height = math.floor(vim.o.lines * 0.20)
 
