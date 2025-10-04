@@ -8,6 +8,7 @@ end
 
 return {
   "nvim-lualine/lualine.nvim",
+  event = "VeryLazy",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = {
     options = {
@@ -15,18 +16,9 @@ return {
       theme = "auto",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
-      statusline = {},
-      winbar = {},
-      -- disabled_filetypes = { "NvimTree" },
       ignore_focus = {},
       always_divide_middle = true,
-      globalstatus = false,
-      -- and statusline for the last active window is used.
-      refresh = {
-        statusline = 1000,
-        tabline = 1000,
-        winbar = 1000,
-      },
+      globalstatus = true,
     },
     sections = {
       lualine_a = { "mode" },
@@ -34,16 +26,6 @@ return {
       lualine_c = {
         { "filename", path = 1 },
         { recording_indicator, color = { fg = "#a6e3a1", gui = "bold" } },
-        -- {
-        --   'lsp_progress', -- Shows LSP progress messages
-        --   display_components = {'lsp_client_name', 'progress'},
-        --   colors = { MaterialDark = { progress_done =โซ '#a6e3a1' } },
-        -- },
-        -- {
-        --  'searchcount',
-        --  max_searches = 999, -- Maximum number of search results to display
-        --  timeout = 500,      -- Timeout in milliseconds for search results
-        -- },
       },
       lualine_x = { "filetype" },
       lualine_y = { "progress" },
@@ -57,16 +39,6 @@ return {
       lualine_y = {},
       lualine_z = {},
     },
-    extensions = {
-      "nvim-tree",
-      -- "toggleterm",
-      "quickfix",
-      -- "mason",
-      -- 'fugitive', -- Example for git blame
-      -- {
-      --   'nvim-dap-ui',
-      --   sections = {lualine_c = {'dap-state', 'dap-session'}}
-      -- }
-    },
+    extensions = { "nvim-tree", "quickfix" },
   },
 }
