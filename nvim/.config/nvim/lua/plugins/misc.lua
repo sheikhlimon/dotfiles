@@ -1,20 +1,17 @@
 -- Standalone plugins with less than 10 lines of config go here
 return {
+  -- Tiny inline diagnostics
   {
     "rachartier/tiny-inline-diagnostic.nvim",
-    event = "VeryLazy",
+    event = "LspAttach",
     priority = 1000,
     config = function()
       require("tiny-inline-diagnostic").setup()
-
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function()
-          -- Disable virtual text once LSP attaches
-          vim.diagnostic.config { virtual_text = false }
-        end,
-      })
+      vim.diagnostic.config { virtual_text = false }
     end,
   },
+
+  -- Surround text objects
   {
     "echasnovski/mini.surround",
     opts = {
@@ -29,13 +26,16 @@ return {
       },
     },
   },
+
+  -- Comment highlighting
   {
-    -- Highlight todo, notes, etc in comments
     "folke/todo-comments.nvim",
     event = "VimEnter",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = { signs = false },
   },
+
+  -- Highlight colors in code
   {
     "brenoprata10/nvim-highlight-colors",
     event = "BufReadPre",
@@ -46,37 +46,31 @@ return {
       }
     end,
   },
+
+  -- Autopairs
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    opts = {
-      check_ts = true,
-    },
+    opts = { check_ts = true },
   },
+
+  -- Markdown/code companion previews
   {
     "OXY2DEV/markview.nvim",
     ft = { "markdown", "codecompanion" },
-    opts = {
-      preview = {
-        filetypes = { "md", "markdown", "codecompanion" },
-      },
-    },
+    opts = { preview = { filetypes = { "md", "markdown", "codecompanion" } } },
   },
-  -- Easily comment visual regions/lines
+
+  -- Comment.nvim
   {
     "numToStr/Comment.nvim",
-    opts = {}, -- can include plugin setup options here
+    opts = {},
     config = function(_, opts)
-      -- Setup plugin
       require("Comment").setup(opts)
-
-      -- Keymaps
       local keymap_opts = { noremap = true, silent = true }
-
       -- Normal mode toggles
       vim.keymap.set("n", "<C-_>", require("Comment.api").toggle.linewise.current, keymap_opts)
       vim.keymap.set("n", "<C-/>", require("Comment.api").toggle.linewise.current, keymap_opts)
-
       -- Visual mode toggles
       vim.keymap.set(
         "v",
@@ -92,17 +86,19 @@ return {
       )
     end,
   },
+
+  -- leetcode
   -- {
-  -- "kawre/leetcode.nvim",
-  -- dependencies = {
-  --   "nvim-lua/plenary.nvim",
-  --   "MunifTanjim/nui.nvim",
-  -- },
-  -- opts = {
-  --   lang = "python3",
-  --   storage = {
-  --     home = "~/projects/leetcode",
+  --   "kawre/leetcode.nvim",
+  --   cmd = "LeetCode", -- lazy-load when you run :LeetCode
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
   --   },
-  --   cache = { update_interval = 60 * 60 * 24 },
+  --   opts = {
+  --     lang = "python3",
+  --     storage = { home = "~/projects/leetcode" },
+  --     cache = { update_interval = 60 * 60 * 24 }, -- refresh cache every day
+  --   },
   -- },
 }
