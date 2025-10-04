@@ -1,5 +1,7 @@
 return {
   "lewis6991/gitsigns.nvim",
+  lazy = true,
+  event = { "BufReadPre", "BufNewFile" }, -- load when a buffer is opened
   config = function()
     require("gitsigns").setup {
       signs = {
