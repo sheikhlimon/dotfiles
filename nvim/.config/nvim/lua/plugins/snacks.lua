@@ -1,55 +1,32 @@
 return {
   "folke/snacks.nvim",
   priority = 1000,
-  lazy = false,
+  lazy = true, -- don't load at startup
   ---@type snacks.Config
   opts = {
     bigfile = { size = 1024 * 1024 },
-    scroll = { enabled = true },
-    statuscolumn = { enabled = false },
+    scroll = { enabled = false },
+    statuscolumn = { enabled = false }, -- disabled until needed
     dashboard = { enabled = false },
     quickfile = { enable = true },
     words = { enabled = false },
     lazygit = {
       configure = false,
-      win = {
-        position = "float",
-        width = 0.99,
-        height = 0.99,
-      },
+      win = { position = "float", width = 0.99, height = 0.99 },
     },
-    notifier = {
-      enabled = true,
-      timeout = 3000,
-    },
-    image = {
-      enabled = true,
-    },
+    notifier = { enabled = true, timeout = 3000 },
+    image = { enabled = false }, -- disable heavy image processing at startup
     indent = {
       indent = { enabled = false },
-      animate = {
-        duration = {
-          step = 30,
-          total = 200,
-        },
-      },
+      animate = { duration = { step = 30, total = 200 } },
       chunk = {
         enabled = true,
-        char = {
-          corner_top = "╭",
-          corner_bottom = "╰",
-          arrow = ">",
-        },
+        char = { corner_top = "╭", corner_bottom = "╰", arrow = ">" },
       },
     },
     input = {
       icon = "::",
-      win = {
-        width = 30,
-        relative = "cursor",
-        row = -3,
-        col = 0,
-      },
+      win = { width = 30, relative = "cursor", row = -3, col = 0 },
     },
     picker = {
       prompt = "   ",
@@ -59,10 +36,7 @@ return {
           exclude = { ".node_modules*", ".DS_Store" },
           include = { ".git*", ".go*", ".config", ".local", ".cache" },
         },
-        todo_comments = {
-          exclude = { "*.ics" },
-          include = {},
-        },
+        todo_comments = { exclude = { "*.ics" }, include = {} },
       },
     },
   },
@@ -73,13 +47,6 @@ return {
         Snacks.picker.smart()
       end,
       desc = "Smart Find Files",
-    },
-    {
-      "<leader>sb",
-      function()
-        Snacks.picker.lines()
-      end,
-      desc = "Buffer Lines",
     },
     {
       "<leader>fj",
@@ -98,9 +65,7 @@ return {
     {
       "<leader>fp",
       function()
-        Snacks.picker.projects {
-          cwd = vim.fn.expand "~/project/..",
-        }
+        Snacks.picker.projects { cwd = vim.fn.expand "~/project/.." }
       end,
       desc = "Find Projects",
     },
@@ -147,46 +112,11 @@ return {
       desc = "Registers",
     },
     {
-      "<leader>th",
-      function()
-        Snacks.picker.colorschemes()
-      end,
-      desc = "Theme Picker",
-    },
-    {
       "<leader>fn",
       function()
         Snacks.picker.notifications {
-          win = {
-            preview = {
-              wo = { number = false, relativenumber = false, signcolumn = "no" },
-              bo = { filetype = "text" },
-            },
-          },
-
-          ---@param picker snacks.Picker
-          ---@param item snacks.picker.Item
-          confirm = function(picker, item)
-            picker:close()
-            if item and item.preview then
-              Snacks.win {
-                ft = "text",
-                text = item.preview.text,
-                wo = {
-                  number = false,
-                  relativenumber = false,
-                  signcolumn = "no",
-                },
-                border = "rounded",
-                height = 0.6,
-                width = 0.7,
-                bo = {
-                  syntax = "markdown",
-                },
-                title = "  Notification Preview ",
-                title_pos = "center",
-              }
-            end
+          confirm = function(p, i)
+            Snacks.win { ft = "text", text = i.preview and i.preview.text or "", border = "rounded" }
           end,
         }
       end,
@@ -212,13 +142,6 @@ return {
         Snacks.picker.diagnostics_buffer()
       end,
       desc = "Buffer Diagnostics",
-    },
-    {
-      "<leader>fg",
-      function()
-        Snacks.picker.git_files()
-      end,
-      desc = "Find Git Files",
     },
     {
       "<leader>sw",
@@ -256,7 +179,7 @@ return {
       function()
         Snacks.picker.lsp_type_definitions()
       end,
-      desc = "Goto T[y]pe Definition",
+      desc = "Goto Type Definition",
     },
     {
       "<leader>sS",
@@ -311,25 +234,11 @@ return {
       desc = "Git Log",
     },
     {
-      "<leader>gL",
-      function()
-        Snacks.picker.git_log_line()
-      end,
-      desc = "Git Log Line",
-    },
-    {
       "<leader>gs",
       function()
         Snacks.picker.git_status()
       end,
       desc = "Git Status",
-    },
-    {
-      "<leader>gS",
-      function()
-        Snacks.picker.git_stash()
-      end,
-      desc = "Git Stash",
     },
     {
       "<leader>gd",
@@ -339,33 +248,11 @@ return {
       desc = "Git Diff (Hunks)",
     },
     {
-      "<leader>gf",
-      function()
-        Snacks.picker.git_log_file()
-      end,
-      desc = "Git Log File",
-    },
-    {
-      "<leader>gf",
-      function()
-        Snacks.picker.git_diff()
-      end,
-      desc = "Git Status",
-    },
-    {
       "<leader>gg",
       function()
         Snacks.lazygit.open()
       end,
       desc = "Lazy Git",
-    },
-
-    {
-      "<leader>pp",
-      function()
-        Snacks.picker()
-      end,
-      desc = "Pick a snacks source",
     },
     {
       "<leader>to",
@@ -395,13 +282,6 @@ return {
         Snacks.picker.qflist()
       end,
       desc = "Quickfix List",
-    },
-    {
-      "<leader>.",
-      function()
-        Snacks.scratch()
-      end,
-      desc = "Toggle Scratch Buffer",
     },
   },
 }
