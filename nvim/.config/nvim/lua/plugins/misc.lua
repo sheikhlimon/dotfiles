@@ -46,24 +46,12 @@ return {
       }
     end,
   },
-  -- {
-  --   "norcalli/nvim-colorizer.lua",
-  --   config = function()
-  --     require("colorizer").setup {
-  --       "*",
-  --       css = { rgb_fn = true },
-  --     }
-  --   end,
-  -- },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {
-      check_ts = true, -- enable Treesitter-aware pairing
+      check_ts = true,
     },
-    config = function(_, opts)
-      require("nvim-autopairs").setup(opts)
-    end,
   },
   {
     "OXY2DEV/markview.nvim",
@@ -77,23 +65,44 @@ return {
   -- Easily comment visual regions/lines
   {
     "numToStr/Comment.nvim",
-    opts = {},
-    config = function()
-      local opts = { noremap = true, silent = true }
-      vim.keymap.set("n", "<C-_>", require("Comment.api").toggle.linewise.current, opts)
-      vim.keymap.set("n", "<C-/>", require("Comment.api").toggle.linewise.current, opts)
+    opts = {}, -- can include plugin setup options here
+    config = function(_, opts)
+      -- Setup plugin
+      require("Comment").setup(opts)
+
+      -- Keymaps
+      local keymap_opts = { noremap = true, silent = true }
+
+      -- Normal mode toggles
+      vim.keymap.set("n", "<C-_>", require("Comment.api").toggle.linewise.current, keymap_opts)
+      vim.keymap.set("n", "<C-/>", require("Comment.api").toggle.linewise.current, keymap_opts)
+
+      -- Visual mode toggles
       vim.keymap.set(
         "v",
         "<C-_>",
         "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
-        opts
+        keymap_opts
       )
       vim.keymap.set(
         "v",
         "<C-/>",
         "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
-        opts
+        keymap_opts
       )
     end,
   },
+  -- {
+  -- "kawre/leetcode.nvim",
+  -- dependencies = {
+  --   "nvim-lua/plenary.nvim",
+  --   "MunifTanjim/nui.nvim",
+  -- },
+  -- opts = {
+  --   lang = "python3",
+  --   storage = {
+  --     home = "~/projects/leetcode",
+  --   },
+  --   cache = { update_interval = 60 * 60 * 24 },
+  -- },
 }
