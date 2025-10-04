@@ -6,24 +6,10 @@ return {
   dependencies = {
     {
       "windwp/nvim-ts-autotag",
+      ft = { "html", "typescript", "typescriptreact", "vue", "svelte" },
       config = function()
-        require("nvim-ts-autotag").setup {
-          autotag = {
-            enable = true,
-            enable_rename = true,
-            enable_close = true,
-            enable_close_on_slash = true,
-            filetypes = {
-              "html",
-              "typescript",
-              "typescriptreact",
-              "vue",
-              "svelte",
-            },
-          },
-        }
+        require("nvim-ts-autotag").setup()
       end,
-      event = "InsertEnter",
     },
   },
   opts = {
@@ -54,7 +40,7 @@ return {
     auto_install = true,
     highlight = {
       enable = true,
-      additional_vim_regex_highlighting = { "ruby" },
+      additional_vim_regex_highlighting = { "ruby" }, -- optional, remove if not needed
     },
     indent = {
       enable = true,
