@@ -5,7 +5,7 @@ return {
   ---@type snacks.Config
   opts = {
     bigfile = { size = 1024 * 1024 },
-    scroll = { enabled = false },
+    scroll = { enabled = true },
     statuscolumn = { enabled = false }, -- disabled until needed
     dashboard = { enabled = false },
     quickfile = { enable = true },
