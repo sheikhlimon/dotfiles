@@ -14,6 +14,7 @@ alias lta='lt -a'
 # Tools
 alias g='git'
 alias d='docker'
+alias screenrec='gpu-screen-recorder -w screen -c mp4 -f 30 -s 1280x720 -o ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4''
 
 # Git
 alias gcm='git commit'
@@ -42,7 +43,6 @@ alias mv='mv -i'
 alias rm='trash -v'
 alias wget="wget -c"
 alias killp='killprocess'
-alias update="yay -Syu --noconfirm --needed --nodiffmenu --nocleanmenu"
 alias help="bat ~/.zshrc-personal"
 
 # TMUX continuum-aware auto-attach
@@ -177,6 +177,11 @@ img2png() {
     -define png:compression-strategy=1 \
     -define png:exclude-chunk=all \
     "${1%.*}.png"
+}
+
+# Transcode a video to a good-balance 1080p that's great for sharing online
+transcode-video-1080p() {
+  ffmpeg -i $1 -vf scale=1920:1080 -c:v libx264 -preset fast -crf 23 -c:a copy ${1%.*}-1080p.mp4
 }
 
 # Vi mode + cursor setup
