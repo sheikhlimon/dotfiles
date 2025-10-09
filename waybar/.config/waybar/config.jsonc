@@ -60,7 +60,9 @@
   },
    "memory": {
     "interval": 30,
-    "format": "  {used:0.1f}G"
+    "format": "  {used:0.1f}G/{total:0.1f}G",
+    "tooltip-format": "{avail:0.1f} GiB free",
+    "on-click": "$TERMINAL -e btop"
   },
   "clock": {
     "format": "{:%d %A %I:%M %p}",
