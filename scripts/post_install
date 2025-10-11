@@ -201,69 +201,6 @@ install_my_apps() {
   echo "Installation complete."
 }
 
-setup_git_and_gh() {
-  echo "Setting up Git and GitHub CLI..."
-
-  if [[ -f /etc/arch-release ]]; then
-    echo "Detected Arch Linux"
-    
-    # Install git and gh if missing
-    if ! pacman -Qi git &>/dev/null; then
-      echo "Installing git..."
-      sudo pacman -S --needed git
-    else
-      echo "git already installed."
-    fi
-
-    if ! pacman -Qi github-cli &>/dev/null; then
-      echo "Installing GitHub CLI (gh)..."
-      sudo pacman -S --needed github-cli
-    else
-      echo "GitHub CLI already installed."
-    fi
-
-  elif [[ -f /etc/debian_version ]]; then
-    echo "Detected Debian/Ubuntu"
-    
-    # Install git if missing
-    if ! dpkg -s git &>/dev/null; then
-      echo "Installing git..."
-      sudo apt install -y git
-    else
-      echo "git already installed."
-    fi
-
-    # Install gh if missing
-    if ! command -v gh &>/dev/null; then
-      echo "Installing GitHub CLI (gh)..."
-      type -p curl >/dev/null || sudo apt install curl -y
-      curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-      sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
-      echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-      sudo apt update
-      sudo apt install -y gh
-    else
-      echo "GitHub CLI already installed."
-    fi
-
-  else
-    echo "Unsupported distro. Aborting."
-    return 1
-  fi
-
-  # Setup GitHub CLI authentication
-  echo ""
-  if ! gh auth status &>/dev/null; then
-    echo ""
-    echo "Setting up GitHub CLI authentication..."
-    gh auth login
-  else
-    echo "GitHub CLI already authenticated."
-  fi
-
-  echo "Git and GitHub CLI setup complete."
-}
-
 install_tmux_plugins() {
   echo "Installing TPM (Tmux Plugin Manager)..."
 
@@ -276,21 +213,6 @@ install_tmux_plugins() {
     echo "Remember to press 'prefix + I' in tmux to install plugins."
   else
     echo "TPM already installed at $tpm_dir"
-  fi
-}
-
-clone_dotfiles() {
-  echo "Cloning dotfiles repository..."
-
-  local dotfiles_dir="$HOME/dotfiles"
-
-  if [[ ! -d "$dotfiles_dir" ]]; then
-    echo "Cloning dotfiles from GitHub..."
-    git clone git@github.com:sheikhlimon/dotfiles.git "$dotfiles_dir"
-    echo "Dotfiles cloned successfully to $dotfiles_dir"
-    echo "You may need to run a setup script or symlink configs manually."
-  else
-    echo "Dotfiles directory already exists at $dotfiles_dir"
   fi
 }
 
@@ -401,9 +323,7 @@ post_install() {
   ask_and_run "Install Oh My Zsh + plugins?" install_oh_my_zsh
   ask_and_run "Install CLI support tools?" install_zshrc_support
   ask_and_run "Install desktop apps?" install_my_apps
-  ask_and_run "Setup Git and GitHub CLI?" setup_git_and_gh
   ask_and_run "Install TPM (Tmux Plugin Manager)?" install_tmux_plugins
-  ask_and_run "Clone dotfiles repository?" clone_dotfiles
   ask_and_run "Setup databases (MongoDB + PostgreSQL)?" setup_databases
 
   echo "✅ All done!"
