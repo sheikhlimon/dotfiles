@@ -88,6 +88,8 @@ install_my_apps() {
     zen-browser-bin
     vivaldi
     telegram-desktop-bin
+    ttf-victor-mono-nerd
+    bibata-cursor-theme-bin
   )
 
   local debian_official=(
