@@ -223,9 +223,9 @@ setup_databases() {
     echo "Detected Arch Linux"
 
     # Install MongoDB and PostgreSQL if missing
-    if ! pacman -Qi mongodb &>/dev/null; then
+    if ! pacman -Qi mongodb-bin &>/dev/null; then
       echo "Installing MongoDB..."
-      sudo pacman -S --needed mongodb
+      yay -S --needed mongodb-bin
     else
       echo "MongoDB already installed."
     fi
@@ -237,18 +237,44 @@ setup_databases() {
       echo "PostgreSQL already installed."
     fi
 
-    # Enable and start MongoDB service
-    if ! systemctl is-active --quiet mongod; then
-      sudo systemctl enable --now mongod
-      echo "MongoDB service started and enabled."
+    # Enable and start MongoDB service (detect correct service name)
+    MONGO_SERVICE=""
+    if systemctl list-unit-files | grep -q "^mongod.service"; then
+      MONGO_SERVICE="mongod"
+    elif systemctl list-unit-files | grep -q "^mongodb.service"; then
+      MONGO_SERVICE="mongodb"
+    fi
+
+    if [[ -n "$MONGO_SERVICE" ]]; then
+      if ! systemctl is-active --quiet "$MONGO_SERVICE"; then
+        sudo systemctl enable --now "$MONGO_SERVICE"
+        echo "MongoDB service started and enabled."
+      else
+        echo "MongoDB service already running."
+      fi
     else
-      echo "MongoDB service already running."
+      echo "Warning: MongoDB service not found. You may need to start it manually."
     fi
 
     # Initialize PostgreSQL database if not initialized
-    if [[ ! -d /var/lib/postgres/data ]]; then
+    if [[ -f /var/lib/postgres/data/PG_VERSION ]]; then
+      echo "PostgreSQL database already initialized."
+    elif [[ ! -d /var/lib/postgres/data ]]; then
       echo "Initializing PostgreSQL database..."
       sudo -iu postgres initdb --locale=en_US.UTF-8 -E UTF8 -D /var/lib/postgres/data
+    else
+      # Directory exists but is not properly initialized
+      echo "PostgreSQL data directory exists but appears uninitialized or corrupted."
+      read -p "Remove and reinitialize PostgreSQL data directory? (y/N): " -n 1 -r
+      echo
+      if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Removing corrupted data directory..."
+        sudo rm -rf /var/lib/postgres/data/*
+        echo "Reinitializing PostgreSQL database..."
+        sudo -iu postgres initdb --locale=en_US.UTF-8 -E UTF8 -D /var/lib/postgres/data
+      else
+        echo "Skipping PostgreSQL initialization."
+      fi
     fi
 
     # Enable and start PostgreSQL service
