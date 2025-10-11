@@ -7,7 +7,7 @@ These days I primarily use [OMARCHY](https://omarchy.org) an opinionated Arch + 
 
 I manage all configuration files using [GNU Stow](https://www.gnu.org/software/stow/), which allows me to create symlinks easily.
 
-To set up all dotfiles:
+To set up dotfiles:
 
 ```sh
 cd ~/dotfiles   # Navigate to dotfiles repository
