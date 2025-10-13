@@ -29,9 +29,10 @@
 
   # Interactive diff using fzf
   df = "!f() { \
-    commits=$(git hist --pretty=format:\"%h %s\"); \
+    commits=$(git log --pretty=format:\"%h %s\"); \
     [ -z \"$commits\" ] && echo \"No commits found.\" && return; \
-    echo \"$commits\" | fzf -m | awk '{print $1}' | xargs -r -I {} git diff {}^ {}; \
+    selected=$(echo \"$commits\" | fzf -m --ansi --preview 'git show --color=always --stat $(echo {} | awk \"{print \\$1}\")'); \
+    echo \"$selected\" | awk '{print $1}' | xargs -r -I {} git show --color=always {}; \
   }; f"
 
   # Pretty logs (non-interactive)
@@ -46,22 +47,15 @@
       commits=$(git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative -S\"$*\"); \
     fi; \
     [ -z \"$commits\" ] && echo \"No matching commits.\" && return; \
-    echo \"$commits\" | fzf -m | awk '{print $1}' | xargs -r -I {} git diff {}^ {}; \
+    echo \"$commits\" | fzf -m | awk '{print $1}' | xargs -r -I {} git show --color=always {}; \
   }; f"
 
-  # Edit conflicted files on merge
-  edit-unmerged = "!f() { \
-    files=$(git ls-files --unmerged | cut -f2 | sort -u); \
-    [ -z \"$files\" ] && echo \"No unmerged files.\" && return; \
-    vim $files; \
-  }; f"
 
-  # Add conflicted files on merge
-  add-unmerged = "!f() { \
-    files=$(git ls-files --unmerged | cut -f2 | sort -u); \
-    [ -z \"$files\" ] && echo \"No unmerged files.\" && return; \
-    git add $files; \
-  }; f"
+  # edit conflicted file on merge
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+
+  # add conflicted file on merge
+  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 
 [hub]
   protocol = https
