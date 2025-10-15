@@ -116,10 +116,14 @@
   "workbench.colorCustomizations": {
     "[NeoRose-VimPine]": {
       "editor.lineHighlightBackground": "#fff0",
-      // "editor.lineHighlightBorder": "#fff0",
+      "editor.lineHighlightBorder": "#fff0",
       "editorCursor.background": "#0D1116",
-      "editor.findMatchHighlightBackground": "#404000aa",
-      "editor.findMatchHighlightForeground": "#fff0"
+
+      "editor.findMatchBackground": "#404000cc",
+      "editor.findMatchBorder": "#808000",
+
+      "editor.findMatchHighlightBackground": "#40400088",
+      "editor.findMatchHighlightBorder": "#808000"
     }
   },
   "editor.tokenColorCustomizations": {
@@ -152,5 +156,6 @@
   "workbench.sideBar.location": "left",
   "workbench.startupEditor": "none",
   "workbench.tree.indent": 10,
-  "workbench.preferredDarkColorTheme": "NeoRose-VimPine"
+  "workbench.preferredDarkColorTheme": "NeoRose-VimPine",
+  "redhat.telemetry.enabled": true
 }
