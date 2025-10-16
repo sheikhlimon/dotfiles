@@ -64,14 +64,19 @@ return {
         disable_italic(g)
       end
 
-      -- Optional custom highlights
+      -- Base editor colors
       vim.api.nvim_set_hl(0, "Normal", { bg = "#1F1F28" })
       vim.api.nvim_set_hl(0, "NormalNC", { bg = "#1F1F28" })
-      vim.api.nvim_set_hl(0, "CursorLine", { bg = "none" })
+      vim.api.nvim_set_hl(0, "CursorLine", { bg = "none" }) -- main editor cursor line stays transparent
+      vim.api.nvim_set_hl(0, "WinSeparator", { bg = "#1F1F28" })
+
+      -- Floating windows
+      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1F1F28" })
       vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#1F1F28", fg = "#444444" })
+
+      -- Popup menus
       vim.api.nvim_set_hl(0, "Pmenu", { bg = "#1F1F28" })
-      vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#2a2a2a" })
-      vim.api.nvim_set_hl(0, "WinSeparator", { bg = "#1F1F28", fg = "#444444" })
+      vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#333444" })
     end,
   },
 }
