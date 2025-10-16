@@ -14,7 +14,7 @@ alias lta='lt -a'
 # Tools
 alias g='git'
 alias d='docker'
-alias screenrec='gpu-screen-recorder -w screen -c mp4 -f 30 -s 1280x720 -o ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4''
+alias screenrec='gpu-screen-recorder -w screen -c mp4 -f 30 -s 1280x720 -o ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4'
 
 # Git
 alias gcm='git commit'
