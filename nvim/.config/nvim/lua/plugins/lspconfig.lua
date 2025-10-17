@@ -22,7 +22,7 @@ return {
     -- Diagnostics setup
     vim.diagnostic.config {
       virtual_text = false,
-      update_in_insert = true,
+      update_in_insert = false,
       underline = false,
       severity_sort = true,
       signs = {
@@ -60,6 +60,7 @@ return {
     -- Setup capabilities merging blink.cmp
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+    capabilities.textDocument.diagnostic = nil
     capabilities.textDocument.foldingRange = {
       dynamicRegistration = false,
       lineFoldingOnly = true,
@@ -118,12 +119,31 @@ return {
       html = { filetypes = { "html", "templ" } },
       cssls = {
         settings = {
-          css = { validate = true, lint = { unknownAtRules = "ignore" } },
-          scss = { validate = true, lint = { unknownAtRules = "ignore" } },
-          less = { validate = true, lint = { unknownAtRules = "ignore" } },
+          css = { validate = false, lint = { unknownAtRules = "ignore" } },
+          scss = { validate = false, lint = { unknownAtRules = "ignore" } },
+          less = { validate = false, lint = { unknownAtRules = "ignore" } },
+        },
+        flags = {
+          debounce_text_changes = 300,
         },
       },
       tailwindcss = {
+        filetypes = {
+          "html",
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact",
+          "vue",
+          "svelte",
+          "astro",
+        },
+        single_file_support = false,
+        root_dir = require("lspconfig.util").root_pattern(
+          "tailwind.config.js",
+          "tailwind.config.cjs",
+          "tailwind.config.ts"
+        ),
         settings = {
           tailwindCSS = {
             experimental = {
@@ -151,7 +171,10 @@ return {
         },
       },
       graphql = {},
-      emmet_ls = { filetypes = { "html", "css", "javascriptreact", "typescriptreact" } },
+      emmet_ls = {
+        filetypes = { "html", "javascriptreact", "typescriptreact" },
+        single_file_support = false,
+      },
       lua_ls = {},
       prismals = {},
       yamlls = { settings = { yaml = { keyOrdering = false } } },

@@ -15,6 +15,11 @@ return {
       win = { position = "float", width = 0.99, height = 0.99 },
     },
     notifier = { enabled = true, timeout = 3000 },
+    notify = {
+      enabled = true,
+      view = "mini",
+      timeout = 3000,
+    },
     image = { enabled = false }, -- disable heavy image processing at startup
     indent = {
       indent = { enabled = false },
