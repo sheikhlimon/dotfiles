@@ -1,4 +1,5 @@
 {
+  "update.mode": "none",
   "[python]": {
     "editor.codeActionsOnSave": {
       "source.organizeImports": "explicit"
