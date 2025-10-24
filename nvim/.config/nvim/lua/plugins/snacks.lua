@@ -1,7 +1,7 @@
 return {
   "folke/snacks.nvim",
   priority = 1000,
-  lazy = true, -- don't load at startup
+  lazy = false, -- snacks.nvim to be set-up early
   ---@type snacks.Config
   opts = {
     bigfile = { size = 1024 * 1024 },
