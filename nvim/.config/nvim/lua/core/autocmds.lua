@@ -32,3 +32,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
   desc = "Set filetype to shell for .env files",
 })
+
+-- Auto-open Yazi if no file argument is given
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    -- argc() returns the number of files passed to vim
+    if vim.fn.argc() == 0 then
+      -- Open Yazi in the current working directory
+      vim.cmd "Yazi cwd"
+    end
+  end,
+})

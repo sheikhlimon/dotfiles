@@ -15,8 +15,5 @@ return {
     border = "rounded",
     use_nerdfont = true,
     start_in_insert = false,
-    keymaps = {
-      show_help = "<F1>",
-    },
   },
 }
