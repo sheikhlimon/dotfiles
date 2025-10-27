@@ -55,11 +55,11 @@ return {
   },
 
   -- Markdown/code companion previews
-  {
-    "OXY2DEV/markview.nvim",
-    ft = { "markdown", "codecompanion" },
-    opts = { preview = { filetypes = { "md", "markdown", "codecompanion" } } },
-  },
+  -- {
+  --   "OXY2DEV/markview.nvim",
+  --   ft = { "markdown", "codecompanion" },
+  --   opts = { preview = { filetypes = { "md", "markdown", "codecompanion" } } },
+  -- },
 
   -- Comment.nvim
   {
