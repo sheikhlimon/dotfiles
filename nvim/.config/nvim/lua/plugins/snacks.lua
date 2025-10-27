@@ -54,6 +54,13 @@ return {
       desc = "Smart Find Files",
     },
     {
+      "<leader>,",
+      function()
+        Snacks.picker.buffers()
+      end,
+      desc = "Buffers",
+    },
+    {
       "<leader>fj",
       function()
         Snacks.picker.jumps()
@@ -120,7 +127,7 @@ return {
       "<leader>fn",
       function()
         Snacks.picker.notifications {
-          confirm = function(p, i)
+          confirm = function(i)
             Snacks.win { ft = "text", text = i.preview and i.preview.text or "", border = "rounded" }
           end,
         }
@@ -223,27 +230,13 @@ return {
       desc = "Previous Reference",
       mode = { "n", "t" },
     },
-    -- git
     {
-      "<leader>gb",
+      "<leader>gB",
       function()
-        Snacks.picker.git_branches()
+        Snacks.gitbrowse()
       end,
-      desc = "Git Branches",
-    },
-    {
-      "<leader>gl",
-      function()
-        Snacks.picker.git_log()
-      end,
-      desc = "Git Log",
-    },
-    {
-      "<leader>gs",
-      function()
-        Snacks.picker.git_status()
-      end,
-      desc = "Git Status",
+      desc = "Git Browse",
+      mode = { "n", "v" },
     },
     {
       "<leader>gd",
@@ -253,26 +246,11 @@ return {
       desc = "Git Diff (Hunks)",
     },
     {
-      "<leader>gg",
-      function()
-        Snacks.lazygit.open()
-      end,
-      desc = "Lazy Git",
-    },
-    {
       "<leader>to",
       function()
         Snacks.picker "todo_comments"
       end,
       desc = "Find Todo comments",
-    },
-    {
-      "<leader>gB",
-      function()
-        Snacks.gitbrowse()
-      end,
-      desc = "Git Browse",
-      mode = { "n", "v" },
     },
     {
       "<leader>u",
@@ -287,6 +265,13 @@ return {
         Snacks.picker.qflist()
       end,
       desc = "Quickfix List",
+    },
+    {
+      "<leader>.",
+      function()
+        Snacks.scratch()
+      end,
+      desc = "Toggle Scratch Buffer",
     },
   },
 }
