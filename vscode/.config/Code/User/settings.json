@@ -1,4 +1,5 @@
-{ "workbench.colorTheme": "Kanagawa",
+{
+  "workbench.colorTheme": "Kanagawa",
   "update.mode": "none",
   "[python]": {
     "editor.codeActionsOnSave": {
@@ -158,5 +159,8 @@
   "workbench.startupEditor": "none",
   "workbench.tree.indent": 10,
   "workbench.preferredDarkColorTheme": "NeoRose-VimPine",
-  "redhat.telemetry.enabled": true
+  "redhat.telemetry.enabled": true,
+  "amp.url": "https://ampcode.com/",
+  "amp.tab.enabled": true,
+  "editor.wordBasedSuggestions": "off"
 }
