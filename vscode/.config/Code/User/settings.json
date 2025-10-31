@@ -160,7 +160,5 @@
   "workbench.tree.indent": 10,
   "workbench.preferredDarkColorTheme": "NeoRose-VimPine",
   "redhat.telemetry.enabled": true,
-  "amp.url": "https://ampcode.com/",
-  "amp.tab.enabled": true,
   "editor.wordBasedSuggestions": "off"
 }
