@@ -6,7 +6,7 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
 # Essential exports
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export EDITOR="nvim"
 export SUDO_EDITOR="$EDITOR"
@@ -83,10 +83,11 @@ load_omz_deferred() {
         eval "$(fzf --zsh)"
     fi
 
-    if command -v mise &> /dev/null; then
-        eval "$(mise activate zsh)"
+    if [ -d "$HOME/.local/share/fnm" ]; then
+        export PATH="$HOME/.local/share/fnm:$PATH"
+        eval "$(fnm env --use-on-cd)"
     fi
-    
+
     # Restart autosuggestions if available
     if typeset -f _zsh_autosuggest_start >/dev/null; then
         _zsh_autosuggest_start
