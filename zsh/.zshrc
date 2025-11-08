@@ -14,6 +14,10 @@ export BAT_THEME=ansi
 export ZLE_RPROMPT_INDENT=0
 export PROMPT_EOL_MARK=''
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 # History
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
@@ -92,6 +96,9 @@ load_omz_deferred() {
     if typeset -f _zsh_autosuggest_start >/dev/null; then
         _zsh_autosuggest_start
     fi
+
+    # bun completions
+    [ -s "/home/limon/.bun/_bun" ] && source "/home/limon/.bun/_bun"
     
     [[ -f "$HOME/.zshrc-personal" ]] && source "$HOME/.zshrc-personal"
 
