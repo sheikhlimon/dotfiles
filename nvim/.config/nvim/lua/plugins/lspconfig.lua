@@ -116,45 +116,85 @@ return {
           },
         },
       },
-      html = { filetypes = { "html", "templ" } },
-      cssls = {
-        settings = {
-          css = { validate = false, lint = { unknownAtRules = "ignore" } },
-          scss = { validate = false, lint = { unknownAtRules = "ignore" } },
-          less = { validate = false, lint = { unknownAtRules = "ignore" } },
+      html = {
+        filetypes = {
+          "html",
+          "blade",
+          "javascriptreact",
+          "typescriptreact",
+          "svelte",
         },
-        flags = {
-          debounce_text_changes = 300,
+        root_markers = { "index.html", ".git" },
+        init_options = { provideFormatter = true },
+      },
+      cssls = {
+        filetypes = { "css", "scss", "less" },
+        root_markers = { "package.json", ".git" },
+        settings = {
+          css = { validate = true },
+          scss = { validate = true },
+          less = { validate = true },
         },
       },
       tailwindcss = {
         filetypes = {
-          "html",
           "javascript",
-          "typescript",
           "javascriptreact",
+          "typescript",
           "typescriptreact",
           "vue",
           "svelte",
+          "html",
+          "blade",
           "astro",
+          "css",
+          "scss",
         },
-        single_file_support = false,
-        root_dir = require("lspconfig.util").root_pattern(
+        root_markers = {
           "tailwind.config.js",
           "tailwind.config.cjs",
-          "tailwind.config.ts"
-        ),
+          "tailwind.config.mjs",
+          "tailwind.config.ts",
+          "postcss.config.js",
+          "postcss.config.ts",
+          "package.json",
+          ".git",
+        },
         settings = {
           tailwindCSS = {
+            emmetCompletions = true,
+            validate = true,
+            lint = {
+              cssConflict = "warning",
+              invalidApply = "error",
+              invalidScreen = "error",
+              invalidVariant = "error",
+              invalidConfigPath = "error",
+              invalidTailwindDirective = "error",
+              recommendedVariantOrder = "warning",
+            },
+            -- Tailwind class attributes configuration
+            classAttributes = { "class", "className", "classList", "ngClass", ":class" },
+
+            -- Experimental regex patterns to detect Tailwind classes in various syntaxes
             experimental = {
               classRegex = {
+                -- tw`...` or tw("...")
                 "tw`([^`]*)`",
                 "tw\\(([^)]*)\\)",
-                "class[:]?\\s*=\\s*[{]([^}]*)[}]",
-                'class[:]?\\s*=\\s*"([^"]*)"',
+
+                -- @apply directive inside SCSS / CSS
+                "@apply\\s+([^;]*)",
+
+                -- class and className attributes (HTML, JSX, Vue, Blade with :class)
+                'class="([^"]*)"',
+                'className="([^"]*)"',
+                ':class="([^"]*)"',
+
+                -- Laravel @class directive e.g. @class([ ... ])
+                "@class\\(([^)]*)\\)",
               },
             },
-            classAttributes = { "class", "className", "classList", "ngClass", ":class" },
           },
         },
       },
@@ -170,13 +210,38 @@ return {
           },
         },
       },
-      graphql = {},
-      emmet_ls = {
-        filetypes = { "html", "javascriptreact", "typescriptreact" },
-        single_file_support = false,
+      lua_ls = {
+        filetypes = { "lua" },
+        root_markers = {
+          ".luarc.json",
+          ".luarc.jsonc",
+          ".luacheckrc",
+          ".stylua.toml",
+          "stylua.toml",
+          "selene.toml",
+          "selene.yml",
+          ".git",
+        },
+        settings = {
+          Lua = {
+            diagnostics = {
+              disable = { "missing-fields" },
+              globals = {
+                "vim",
+                "Snacks",
+              },
+            },
+            hint = {
+              enable = true,
+              setType = false,
+              paramType = true,
+              paramName = "Disable",
+              semicolon = "Disable",
+              arrayIndex = "Disable",
+            },
+          },
+        },
       },
-      lua_ls = {},
-      prismals = {},
       yamlls = { settings = { yaml = { keyOrdering = false } } },
       clangd = { cmd = { "clangd", "--background-index", "--clang-tidy" } },
       gopls = {
@@ -194,6 +259,20 @@ return {
               generate = true,
               gc_details = true,
               tidy = true,
+            },
+          },
+        },
+      },
+      rust_analyzer = {
+        root_markers = { "Cargo.lock" },
+        filetypes = { "rust" },
+        settings = {
+          ["rust-analyzer"] = {
+            check = {
+              command = "clippy",
+            },
+            diagnostics = {
+              enable = true,
             },
           },
         },
@@ -239,6 +318,7 @@ return {
         "eslint_d",
         "pylint",
         "goimports",
+        "just-lsp",
       },
       auto_update = true,
       run_on_start = true,
