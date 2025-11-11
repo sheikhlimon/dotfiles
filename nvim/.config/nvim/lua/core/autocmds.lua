@@ -24,15 +24,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   desc = "Enable spell checking for text files",
 })
 
--- Treat all .env* files as shell scripts
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = ".env*",
-  callback = function()
-    vim.bo.filetype = "sh"
-  end,
-  desc = "Set filetype to shell for .env files",
-})
-
 -- Auto-open Yazi if no file argument is given
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
