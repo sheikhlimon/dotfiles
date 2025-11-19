@@ -44,10 +44,6 @@
     echo \"$commits\" | fzf -m | awk '{print $1}' | xargs -r -I {} git show --color=always {}; \
   }; f"
 
-  # Edit/add conflicted files
-  edit-unmerged = "!vim $(git ls-files --unmerged | cut -f2 | sort -u)"
-  add-unmerged = "!git add $(git ls-files --unmerged | cut -f2 | sort -u)"
-
 [diff]
   tool = nvimdiff
 
