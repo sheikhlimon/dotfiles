@@ -1,0 +1,56 @@
+return {
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "svelte",
+    "html",
+    "blade",
+    "astro",
+    "css",
+    "scss",
+  },
+  root_markers = {
+    "tailwind.config.js",
+    "tailwind.config.cjs",
+    "tailwind.config.mjs",
+    "tailwind.config.ts",
+    "postcss.config.js",
+    "postcss.config.ts",
+    "package.json",
+    ".git",
+  },
+  flags = {
+    debounce_text_changes = 200,
+    allow_incremental_sync = true,
+  },
+  settings = {
+    tailwindCSS = {
+      emmetCompletions = true,
+      validate = true,
+      lint = {
+        cssConflict = "warning",
+        invalidApply = "error",
+        invalidScreen = "error",
+        invalidVariant = "error",
+        invalidConfigPath = "error",
+        invalidTailwindDirective = "error",
+        recommendedVariantOrder = "warning",
+      },
+      classAttributes = { "class", "className", "classList", "ngClass", ":class" },
+      experimental = {
+        classRegex = {
+          "tw`([^`]*)`",
+          "tw\\(([^)]*)\\)",
+          "@apply\\s+([^;]*)",
+          'class="([^"]*)"',
+          'className="([^"]*)"',
+          ':class="([^"]*)"',
+          "@class\\(([^)]*)\\)",
+        },
+      },
+    },
+  },
+}

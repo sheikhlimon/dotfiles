@@ -1,0 +1,36 @@
+return {
+  filetypes = { "lua" },
+  root_markers = {
+    ".luarc.json",
+    ".luarc.jsonc",
+    ".luacheckrc",
+    ".stylua.toml",
+    "stylua.toml",
+    "selene.toml",
+    "selene.yml",
+    ".git",
+  },
+  flags = {
+    debounce_text_changes = 200,
+    allow_incremental_sync = true,
+  },
+  settings = {
+    Lua = {
+      diagnostics = {
+        disable = { "missing-fields" },
+        globals = {
+          "vim",
+          "Snacks",
+        },
+      },
+      hint = {
+        enable = true,
+        setType = false,
+        paramType = true,
+        paramName = "Disable",
+        semicolon = "Disable",
+        arrayIndex = "Disable",
+      },
+    },
+  },
+}

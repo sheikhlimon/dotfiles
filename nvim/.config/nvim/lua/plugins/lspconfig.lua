@@ -12,13 +12,23 @@ return {
       },
     },
     { "Bilal2453/luvit-meta", lazy = true },
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
     "saghen/blink.cmp",
   },
-  event = { "BufReadPre", "BufNewFile" },
+  event = "LazyFile", -- Only start LSP when files are actually opened, not on every event
   config = function()
+    -- Performance optimizations for large projects
+    vim.lsp.set_log_level("WARN") -- Reduce log verbosity
+
+    -- Disable some features for large files
+    local function disable_lsp_for_large_file(bufnr)
+      local max_filesize = 100 * 1024 -- 100KB
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+      return false
+    end
+
     -- Diagnostics setup
     vim.diagnostic.config {
       virtual_text = false,
@@ -43,7 +53,6 @@ return {
 
       map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
       map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-      -- map("K", vim.lsp.buf.hover, "Hover Documentation")
       map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
       map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
@@ -57,7 +66,7 @@ return {
       end
     end
 
-    -- Setup capabilities merging blink.cmp
+    -- Setup capabilities merging blink.cmp with performance optimizations
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
     capabilities.textDocument.diagnostic = nil
@@ -65,263 +74,61 @@ return {
       dynamicRegistration = false,
       lineFoldingOnly = true,
     }
-
-    -- Servers and their configs
-    local servers = {
-      vtsls = {
-        filetypes = {
-          "javascript",
-          "javascriptreact",
-          "javascript.jsx",
-          "typescript",
-          "typescriptreact",
-          "typescript.tsx",
-        },
-        settings = {
-          complete_function_calls = true,
-          vtsls = {
-            enableMoveToFileCodeAction = true,
-            autoUseWorkspaceTsdk = true,
-            experimental = {
-              maxInlayHintLength = 30,
-              completion = { enableServerSideFuzzyMatch = true },
-            },
-          },
-          typescript = {
-            format = { enable = false },
-            updateImportsOnFileMove = { enabled = "always" },
-            suggest = { completeFunctionCalls = true },
-            inlayHints = {
-              enumMemberValues = { enabled = true },
-              functionLikeReturnTypes = {
-                enabled = true,
-                suppressWhenAnnotationIsPresent = true,
-              },
-              parameterNames = {
-                enabled = "literals",
-                suppressWhenArgumentMatchesName = true,
-              },
-              variableTypes = { enabled = false },
-            },
-          },
-          javascript = {
-            format = { enable = false },
-            inlayHints = {
-              enumMemberValues = { enabled = true },
-              parameterNames = {
-                enabled = "literals",
-                suppressWhenArgumentMatchesName = true,
-              },
-            },
-          },
-        },
-      },
-      html = {
-        filetypes = {
-          "html",
-          "blade",
-          "javascriptreact",
-          "typescriptreact",
-          "svelte",
-        },
-        root_markers = { "index.html", ".git" },
-        init_options = { provideFormatter = true },
-      },
-      cssls = {
-        filetypes = { "css", "scss", "less" },
-        root_markers = { "package.json", ".git" },
-        settings = {
-          css = { validate = true },
-          scss = { validate = true },
-          less = { validate = true },
-        },
-      },
-      tailwindcss = {
-        filetypes = {
-          "javascript",
-          "javascriptreact",
-          "typescript",
-          "typescriptreact",
-          "vue",
-          "svelte",
-          "html",
-          "blade",
-          "astro",
-          "css",
-          "scss",
-        },
-        root_markers = {
-          "tailwind.config.js",
-          "tailwind.config.cjs",
-          "tailwind.config.mjs",
-          "tailwind.config.ts",
-          "postcss.config.js",
-          "postcss.config.ts",
-          "package.json",
-          ".git",
-        },
-        settings = {
-          tailwindCSS = {
-            emmetCompletions = true,
-            validate = true,
-            lint = {
-              cssConflict = "warning",
-              invalidApply = "error",
-              invalidScreen = "error",
-              invalidVariant = "error",
-              invalidConfigPath = "error",
-              invalidTailwindDirective = "error",
-              recommendedVariantOrder = "warning",
-            },
-            -- Tailwind class attributes configuration
-            classAttributes = { "class", "className", "classList", "ngClass", ":class" },
-
-            -- Experimental regex patterns to detect Tailwind classes in various syntaxes
-            experimental = {
-              classRegex = {
-                -- tw`...` or tw("...")
-                "tw`([^`]*)`",
-                "tw\\(([^)]*)\\)",
-
-                -- @apply directive inside SCSS / CSS
-                "@apply\\s+([^;]*)",
-
-                -- class and className attributes (HTML, JSX, Vue, Blade with :class)
-                'class="([^"]*)"',
-                'className="([^"]*)"',
-                ':class="([^"]*)"',
-
-                -- Laravel @class directive e.g. @class([ ... ])
-                "@class\\(([^)]*)\\)",
-              },
-            },
-          },
-        },
-      },
-      pyright = {
-        settings = {
-          python = {
-            analysis = {
-              autoSearchPaths = true,
-              diagnosticMode = "openFilesOnly",
-              useLibraryCodeForTypes = true,
-              typeCheckingMode = "basic",
-            },
-          },
-        },
-      },
-      lua_ls = {
-        filetypes = { "lua" },
-        root_markers = {
-          ".luarc.json",
-          ".luarc.jsonc",
-          ".luacheckrc",
-          ".stylua.toml",
-          "stylua.toml",
-          "selene.toml",
-          "selene.yml",
-          ".git",
-        },
-        settings = {
-          Lua = {
-            diagnostics = {
-              disable = { "missing-fields" },
-              globals = {
-                "vim",
-                "Snacks",
-              },
-            },
-            hint = {
-              enable = true,
-              setType = false,
-              paramType = true,
-              paramName = "Disable",
-              semicolon = "Disable",
-              arrayIndex = "Disable",
-            },
-          },
-        },
-      },
-      yamlls = { settings = { yaml = { keyOrdering = false } } },
-      clangd = { cmd = { "clangd", "--background-index", "--clang-tidy" } },
-      gopls = {
-        filetypes = { "go", "gomod" },
-        settings = {
-          gopls = {
-            analyses = {
-              unusedparams = true,
-              nilness = true,
-              shadow = true,
-              unusedwrite = true,
-            },
-            staticcheck = true,
-            codelenses = {
-              generate = true,
-              gc_details = true,
-              tidy = true,
-            },
-          },
-        },
-      },
-      rust_analyzer = {
-        root_markers = { "Cargo.lock" },
-        filetypes = { "rust" },
-        settings = {
-          ["rust-analyzer"] = {
-            check = {
-              command = "clippy",
-            },
-            diagnostics = {
-              enable = true,
-            },
-          },
-        },
-      },
+    -- Enable semantic tokens for better performance
+    capabilities.textDocument.semanticTokens = {
+      multilineTokenSupport = true,
+      dynamicRegistration = false,
     }
 
-    -- Mason setup
-    require("mason").setup {
-      ui = {
-        border = "rounded",
-        width = 0.8,
-        height = 0.8,
-        icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
-        },
-      },
+    -- Load server configurations from separate files
+    local servers = require("lsp")
+
+    -- Mason setup is now handled in plugins/mason.lua
+
+    -- Mason-lspconfig setup with smart loading
+    -- Use the same server list defined in mason.lua for consistency
+    local mason_servers = {
+      "vtsls", "html", "cssls", "tailwindcss", "pyright",
+      "lua_ls", "yamlls", "clangd", "gopls", "rust_analyzer"
     }
 
-    -- Mason-lspconfig setup
     require("mason-lspconfig").setup {
-      ensure_installed = vim.tbl_keys(servers),
+      ensure_installed = mason_servers,
       handlers = {
         function(server_name)
           local opts = servers[server_name] or {}
           opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})
           opts.on_attach = on_attach
+
+          -- Apply default performance flags to all servers that don't have them
+          if not opts.flags then
+            opts.flags = {
+              debounce_text_changes = 200,
+              allow_incremental_sync = true,
+            }
+          end
+
+          -- Only start server if the file has appropriate root markers
+          local root_pattern = opts.root_dir or require("lspconfig").util.root_pattern(
+            ".git",
+            "package.json",
+            "tsconfig.json",
+            "Cargo.toml",
+            "pyproject.toml",
+            "setup.py",
+            "go.mod",
+            ".luarc.json"
+          )
+
+          opts.root_dir = function(fname)
+            return root_pattern(fname)
+          end
+
           require("lspconfig")[server_name].setup(opts)
         end,
       },
     }
 
-    -- Mason-tool-installer setup
-    require("mason-tool-installer").setup {
-      ensure_installed = {
-        "prettier",
-        "stylua",
-        "black",
-        "isort",
-        "clang-format",
-        "shfmt",
-        "eslint_d",
-        "pylint",
-        "goimports",
-        "just-lsp",
-      },
-      auto_update = true,
-      run_on_start = true,
-    }
+    -- Note: Document colors handled by nvim-highlight-colors plugin
   end,
 }
