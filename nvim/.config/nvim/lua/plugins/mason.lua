@@ -1,6 +1,7 @@
 return {
   "williamboman/mason.nvim",
   cmd = "Mason",
+  event = "VeryLazy", -- Load Mason after startup, not immediately
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -48,11 +49,8 @@ return {
       "just-lsp",
     }
 
-    -- Setup mason-lspconfig
-    require("mason-lspconfig").setup {
-      ensure_installed = lsp_servers,
-      automatic_installation = false, -- Don't auto-install, let us control it
-    }
+    -- Note: mason-lspconfig setup is handled in lspconfig.lua
+    -- This file only handles Mason UI and tool installations
 
     -- Setup mason-tool-installer with performance optimizations
     require("mason-tool-installer").setup {
