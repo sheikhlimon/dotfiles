@@ -89,4 +89,3 @@ return {
     vim.lsp.enable(server_names)
   end,
 }
-
