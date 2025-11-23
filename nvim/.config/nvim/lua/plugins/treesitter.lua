@@ -1,7 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  main = "nvim-treesitter.configs",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     {
@@ -15,6 +14,7 @@ return {
   opts = {
     ensure_installed = {
       "json",
+      "jsonc",
       "javascript",
       "typescript",
       "tsx",
@@ -34,8 +34,13 @@ return {
       "query",
       "vimdoc",
       "c",
+      "cpp",
       "regex",
       "go",
+      "python",
+      "rust",
+      "toml",
+      "http",
     },
     auto_install = true,
     highlight = { enable = true, additional_vim_regex_highlighting = { "ruby" } },
