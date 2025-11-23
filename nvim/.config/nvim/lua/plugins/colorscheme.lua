@@ -69,7 +69,7 @@ return {
       vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#3D3D4D", fg = "#FFFFFF", bold = true })
       vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#2A2A38" })
       vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#4A4A5A" })
-      
+
       -- Blink.cmp specific highlights - improved contrast
       vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "#1F1F28", fg = "#E8E8E8" })
       vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#4A4A5A", bg = "#1F1F28" })
@@ -79,12 +79,12 @@ return {
       vim.api.nvim_set_hl(0, "BlinkCmpKind", { fg = "#B0B0C0" })
       vim.api.nvim_set_hl(0, "BlinkCmpSource", { fg = "#707080" })
       vim.api.nvim_set_hl(0, "BlinkCmpGhostText", { fg = "#606070", italic = false })
-      
+
       -- Blink.cmp documentation window
       vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "#1F1F28", fg = "#E8E8E8" })
       vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = "#4A4A5A", bg = "#1F1F28" })
       vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = "#2A2A38" })
-      
+
       -- Mason.nvim highlights - clean borders
       vim.api.nvim_set_hl(0, "MasonNormal", { bg = "#1F1F28", fg = "#E8E8E8" })
       vim.api.nvim_set_hl(0, "MasonHeader", { bg = "#3D3D4D", fg = "#FFFFFF", bold = true })
@@ -96,7 +96,7 @@ return {
       vim.api.nvim_set_hl(0, "MasonMutedBlock", { bg = "#2A2A38", fg = "#707080" })
       vim.api.nvim_set_hl(0, "MasonError", { fg = "#E85678" })
       vim.api.nvim_set_hl(0, "MasonHeading", { fg = "#FFFFFF", bold = true })
-      
+
       -- Snacks.nvim integration - clean UI
       vim.api.nvim_set_hl(0, "SnacksNormal", { bg = "#1F1F28", fg = "#E8E8E8" })
       vim.api.nvim_set_hl(0, "SnacksNormalNC", { bg = "#1F1F28", fg = "#C8C8C8" })
@@ -111,7 +111,7 @@ return {
       -- Noice-specific highlights for better readability
       vim.api.nvim_set_hl(0, "NoiceLspProgressTitle", { fg = "#A0A0B0", bold = true })
       vim.api.nvim_set_hl(0, "NoiceLspProgressMessage", { fg = "#808090" })
-      
+
       -- Terminal colors
       vim.api.nvim_set_hl(0, "TermCursor", { bg = "#5A5A6A", reverse = true })
       vim.api.nvim_set_hl(0, "TermCursorNC", { bg = "#5A5A6A" })
