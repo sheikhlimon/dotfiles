@@ -49,16 +49,34 @@ return {
       "just-lsp",
     }
 
-    -- Note: mason-lspconfig setup is handled in lspconfig.lua
-    -- This file only handles Mason UI and tool installations
+    -- Setup mason-lspconfig to automatically install and configure LSP servers
+    local mason_servers = {
+      "vtsls",
+      "html",
+      "cssls",
+      "tailwindcss",
+      "pyright",
+      "lua_ls",
+      "yamlls",
+      "clangd",
+      "gopls",
+      "rust_analyzer",
+    }
 
-    -- Setup mason-tool-installer with performance optimizations
+    require("mason-lspconfig").setup {
+      ensure_installed = mason_servers,
+      automatic_installation = false, -- Disable auto-config to avoid conflicts with manual lspconfig setup
+    }
+
+    -- Note: Let lspconfig handle the server setup manually
+
+    -- Setup mason-tool-installer to auto-install tools on first start
     require("mason-tool-installer").setup {
       ensure_installed = tools,
       auto_update = false, -- Disable auto-update for faster startup
-      run_on_start = false, -- Don't run on start, run on demand
+      run_on_start = true, -- Run on start to install missing tools
+      start_delay = 1000, -- Small delay after Neovim starts (1 second)
       debounce_hours = 24, -- Only check for updates once per day
-      start_delay = 3000, -- Delay after Neovim starts (3 seconds)
     }
   end,
 }
