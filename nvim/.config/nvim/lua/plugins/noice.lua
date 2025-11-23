@@ -87,12 +87,12 @@ return {
           },
           opts = { skip = true },
         },
-        -- Skip recording messages if you use cmdheight=0
+        -- Skip recording messages and mode changes
         {
           filter = {
             event = "msg_showmode",
           },
-          view = "notify",
+          opts = { skip = true },
         },
       },
       views = {
