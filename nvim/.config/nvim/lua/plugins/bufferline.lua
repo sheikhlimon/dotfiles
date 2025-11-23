@@ -1,6 +1,6 @@
 return {
   "akinsho/bufferline.nvim",
-  lazy = true, -- load only when a buffer is opened
+  lazy = true,
   event = { "BufReadPost", "BufNewFile" },
   dependencies = {
     "moll/vim-bbye",
@@ -19,8 +19,8 @@ return {
         close_icon = "",
         path_components = 1,
         modified_icon = "●",
-        left_trunc_marker = "",
-        right_trunc_marker = "",
+        left_trunc_marker = "",
+        right_trunc_marker = "",
         max_name_length = 30,
         tab_size = 20,
         diagnostics = false,
@@ -30,7 +30,7 @@ return {
         show_close_icon = true,
         separator_style = { "│", "│" },
         enforce_regular_tabs = true,
-        always_show_bufferline = false, -- Hide when only one buffer
+        always_show_bufferline = false,
         show_tab_indicators = false,
         indicator = { style = "none" },
         minimum_padding = 1,
@@ -54,6 +54,7 @@ return {
           bg = "#1F1F28",
           bold = true,
           italic = false,
+          fg = "#D4D4D5",
         },
         close_button = { bg = "#1F1F28" },
         close_button_selected = { bg = "#1F1F28" },
@@ -61,6 +62,8 @@ return {
         indicator_selected = { bg = "#1F1F28" },
         offset_separator = { fg = "#434C5E", bg = "#1F1F28" },
         modified = { bg = "#1F1F28" },
+        -- Truncation markers styling
+        trunc_marker = { bg = "#1F1F28", fg = "#7C818C" },
       },
     }
   end,
