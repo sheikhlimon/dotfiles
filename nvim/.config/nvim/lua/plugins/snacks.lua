@@ -7,6 +7,11 @@ return {
     bigfile = { size = 1024 * 1024 },
     scroll = { enabled = true },
     statuscolumn = { enabled = false }, -- disabled until needed
+    win = {
+      backdrop = 100,
+      border = "rounded",
+      winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None,NormalNC:NormalFloat,FloatTitle:FloatTitle,FloatFooter:FloatFooter",
+    },
     dashboard = { enabled = false },
     quickfile = { enable = true },
     words = { enabled = false },
@@ -35,7 +40,9 @@ return {
     },
     picker = {
       prompt = "   ",
-      layout = { preset = "default" },
+      layout = {
+        preset = "default",
+      },
       sources = {
         files = {
           exclude = { ".node_modules*", ".DS_Store" },

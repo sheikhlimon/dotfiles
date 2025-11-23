@@ -11,12 +11,12 @@ return {
       border = "rounded",
       width = 0.8,
       height = 0.8,
+      backdrop = 100,
+      winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None,NormalNC:NormalFloat",
       icons = {
-        icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
-        },
+        package_installed = "✓",
+        package_pending = "➜",
+        package_uninstalled = "✗",
       },
     },
   },
