@@ -79,11 +79,9 @@ return {
             auto_show = function()
               return vim.fn.getcmdtype() == ":"
             end,
-            border = "single",
             draw = {
               columns = { { "label" } },
             },
-            winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection",
           },
         },
       },
@@ -109,7 +107,6 @@ return {
               { "kind" },
             },
           },
-          winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection",
           direction_priority = { "s", "n" },
         },
         documentation = {
