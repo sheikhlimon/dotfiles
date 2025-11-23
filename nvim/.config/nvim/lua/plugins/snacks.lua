@@ -4,7 +4,7 @@ return {
   lazy = false, -- snacks.nvim to be set-up early
   ---@type snacks.Config
   opts = {
-    bigfile = { size = 1024 * 1024 },
+    bigfile = { enabled = true },
     scroll = { enabled = true },
     statuscolumn = { enabled = false }, -- disabled until needed
     win = {
