@@ -22,6 +22,8 @@ vim.opt.foldmethod = "manual"
 vim.opt.foldlevel = 99
 vim.opt.foldcolumn = "0"
 
+vim.opt.fixendofline = true
+
 vim.opt.updatetime = 250 -- Decrease update time
 vim.opt.timeoutlen = 200 -- time to wait for a mapped sequence to complete (in milliseconds)
 
