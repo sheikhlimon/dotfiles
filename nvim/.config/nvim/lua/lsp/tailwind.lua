@@ -1,16 +1,13 @@
 return {
   filetypes = {
-    "javascript",
+    "html",
+    "css",
+    "scss",
     "javascriptreact",
-    "typescript",
     "typescriptreact",
     "vue",
     "svelte",
-    "html",
-    "blade",
     "astro",
-    "css",
-    "scss",
   },
   root_markers = {
     "tailwind.config.js",
@@ -21,10 +18,6 @@ return {
     "postcss.config.ts",
     "package.json",
     ".git",
-  },
-  flags = {
-    debounce_text_changes = 200,
-    allow_incremental_sync = true,
   },
   settings = {
     tailwindCSS = {

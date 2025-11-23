@@ -7,11 +7,7 @@ return {
     "typescriptreact",
     "typescript.tsx",
   },
-  flags = {
-    debounce_text_changes = 150,
-    allow_incremental_sync = true,
-  },
-  settings = {
+    settings = {
     complete_function_calls = true,
     typescript = {
       format = { enable = false },

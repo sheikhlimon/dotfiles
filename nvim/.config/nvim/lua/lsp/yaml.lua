@@ -1,7 +1,4 @@
 return {
-  flags = {
-    debounce_text_changes = 200,
-    allow_incremental_sync = true,
-  },
+  filetypes = { "yaml", "yml" },
   settings = { yaml = { keyOrdering = false } },
 }

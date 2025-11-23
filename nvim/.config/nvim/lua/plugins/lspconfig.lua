@@ -14,20 +14,10 @@ return {
     { "Bilal2453/luvit-meta", lazy = true },
     "saghen/blink.cmp",
   },
-  event = "LazyFile", -- Only start LSP when files are actually opened, not on every event
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
-    -- Performance optimizations for large projects
-    vim.lsp.set_log_level("WARN") -- Reduce log verbosity
-
-    -- Disable some features for large files
-    local function disable_lsp_for_large_file(bufnr)
-      local max_filesize = 100 * 1024 -- 100KB
-      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
-      if ok and stats and stats.size > max_filesize then
-        return true
-      end
-      return false
-    end
+    -- Performance optimizations
+    vim.lsp.set_log_level "WARN"
 
     -- Diagnostics setup
     vim.diagnostic.config {
@@ -45,7 +35,7 @@ return {
       },
     }
 
-    -- on_attach function: keymaps + inlay hints
+    -- on_attach function
     local function on_attach(client, bufnr)
       local function map(keys, func, desc)
         vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
@@ -56,7 +46,6 @@ return {
       map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
       map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
-      -- Enable inlay hints if supported and API available
       if
         client.server_capabilities.inlayHintProvider
         and vim.lsp.inlay_hint
@@ -66,7 +55,7 @@ return {
       end
     end
 
-    -- Setup capabilities merging blink.cmp with performance optimizations
+    -- Setup capabilities
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
     capabilities.textDocument.diagnostic = nil
@@ -74,61 +63,30 @@ return {
       dynamicRegistration = false,
       lineFoldingOnly = true,
     }
-    -- Enable semantic tokens for better performance
     capabilities.textDocument.semanticTokens = {
       multilineTokenSupport = true,
       dynamicRegistration = false,
     }
 
-    -- Load server configurations from separate files
-    local servers = require("lsp")
+    -- Setup servers using new vim.lsp.config API
+    local servers = require "lsp"
+    local server_names = {}
 
-    -- Mason setup is now handled in plugins/mason.lua
+    for server_name, user_config in pairs(servers) do
+      local opts = {
+        capabilities = vim.tbl_deep_extend("force", {}, capabilities, user_config.capabilities or {}),
+        on_attach = on_attach,
+        settings = user_config.settings,
+        init_options = user_config.init_options,
+        filetypes = user_config.filetypes,
+      }
 
-    -- Mason-lspconfig setup with smart loading
-    -- Use the same server list defined in mason.lua for consistency
-    local mason_servers = {
-      "vtsls", "html", "cssls", "tailwindcss", "pyright",
-      "lua_ls", "yamlls", "clangd", "gopls", "rust_analyzer"
-    }
+      vim.lsp.config(server_name, opts)
+      table.insert(server_names, server_name)
+    end
 
-    require("mason-lspconfig").setup {
-      ensure_installed = mason_servers,
-      handlers = {
-        function(server_name)
-          local opts = servers[server_name] or {}
-          opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})
-          opts.on_attach = on_attach
-
-          -- Apply default performance flags to all servers that don't have them
-          if not opts.flags then
-            opts.flags = {
-              debounce_text_changes = 200,
-              allow_incremental_sync = true,
-            }
-          end
-
-          -- Only start server if the file has appropriate root markers
-          local root_pattern = opts.root_dir or require("lspconfig").util.root_pattern(
-            ".git",
-            "package.json",
-            "tsconfig.json",
-            "Cargo.toml",
-            "pyproject.toml",
-            "setup.py",
-            "go.mod",
-            ".luarc.json"
-          )
-
-          opts.root_dir = function(fname)
-            return root_pattern(fname)
-          end
-
-          require("lspconfig")[server_name].setup(opts)
-        end,
-      },
-    }
-
-    -- Note: Document colors handled by nvim-highlight-colors plugin
+    -- Enable all configured servers
+    vim.lsp.enable(server_names)
   end,
 }
+

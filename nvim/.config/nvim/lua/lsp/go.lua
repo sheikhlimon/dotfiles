@@ -1,9 +1,5 @@
 return {
-  filetypes = { "go", "gomod" },
-  flags = {
-    debounce_text_changes = 200,
-    allow_incremental_sync = true,
-  },
+  filetypes = { "go", "gomod", "gosum" },
   settings = {
     gopls = {
       analyses = {
