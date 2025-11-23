@@ -21,20 +21,6 @@ return {
   config = function(_, opts)
     require("mason").setup(opts)
 
-    -- LSP servers that should be automatically installed
-    local lsp_servers = {
-      "vtsls",
-      "html",
-      "cssls",
-      "tailwindcss",
-      "pyright",
-      "lua_ls",
-      "yamlls",
-      "clangd",
-      "gopls",
-      "rust_analyzer",
-    }
-
     -- Additional tools (formatters, linters, etc.)
     local tools = {
       "prettier",
@@ -43,7 +29,6 @@ return {
       "isort",
       "clang-format",
       "shfmt",
-      "eslint_d",
       "pylint",
       "goimports",
       "just-lsp",
@@ -61,11 +46,12 @@ return {
       "clangd",
       "gopls",
       "rust_analyzer",
+      "jsonls",
     }
 
     require("mason-lspconfig").setup {
       ensure_installed = mason_servers,
-      automatic_installation = false, -- Disable auto-config to avoid conflicts with manual lspconfig setup
+      automatic_installation = true, -- Auto-install servers, manual config gives us control
     }
 
     -- Note: Let lspconfig handle the server setup manually
@@ -80,3 +66,4 @@ return {
     }
   end,
 }
+
