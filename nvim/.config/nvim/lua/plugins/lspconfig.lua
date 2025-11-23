@@ -41,8 +41,6 @@ return {
         vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
       end
 
-      map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-      map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
       map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
       map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
