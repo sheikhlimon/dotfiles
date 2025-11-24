@@ -114,7 +114,6 @@ return {
           auto_show_delay_ms = 200,
           window = {
             border = "single",
-            winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
           },
         },
         ghost_text = {
