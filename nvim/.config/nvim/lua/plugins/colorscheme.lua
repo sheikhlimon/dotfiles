@@ -61,7 +61,7 @@ return {
         fg = "#dcd7ba",
         fg_dim = "#727169",
         border = "#4A4A5A",
-        selection = "#2d4f67",
+        selection = "#403a36",
         scrollbar = "#2A2A38",
         title = "#c8c093",
         footer = "#727169",
