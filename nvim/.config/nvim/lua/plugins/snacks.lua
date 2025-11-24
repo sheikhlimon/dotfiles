@@ -8,9 +8,7 @@ return {
     scroll = { enabled = true },
     statuscolumn = { enabled = false }, -- disabled until needed
     win = {
-      backdrop = 100,
       border = "rounded",
-      winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None,NormalNC:NormalFloat,FloatTitle:FloatTitle,FloatFooter:FloatFooter",
     },
     dashboard = { enabled = false },
     quickfile = { enable = true },
@@ -19,11 +17,11 @@ return {
       configure = false,
       win = { position = "float", width = 0.99, height = 0.99 },
     },
-    notifier = { enabled = true, timeout = 3000 },
+    notifier = { enabled = true, timeout = 2000 },
     notify = {
       enabled = true,
       view = "mini",
-      timeout = 3000,
+      timeout = 2000,
     },
     image = { enabled = false }, -- disable heavy image processing at startup
     indent = {
