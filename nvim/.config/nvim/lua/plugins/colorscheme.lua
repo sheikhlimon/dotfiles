@@ -58,13 +58,13 @@ return {
       -- Common color definitions
       local colors = {
         bg = "#1F1F28",
-        fg = "#E8E8E8",
-        fg_dim = "#C8C8C8",
+        fg = "#dcd7ba",
+        fg_dim = "#727169",
         border = "#4A4A5A",
-        selection = "#403a36",
+        selection = "#2d4f67",
         scrollbar = "#2A2A38",
-        title = "#FFFFFF",
-        footer = "#A0A0B0",
+        title = "#c8c093",
+        footer = "#727169",
       }
 
       -- Disable italics immediately
