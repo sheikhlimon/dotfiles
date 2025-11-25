@@ -158,8 +158,8 @@
   "workbench.sideBar.location": "left",
   "workbench.startupEditor": "none",
   "workbench.tree.indent": 10,
-  "workbench.preferredDarkColorTheme": "NeoRose-VimPine",
   "redhat.telemetry.enabled": true,
   "editor.wordBasedSuggestions": "off",
-  "update.showReleaseNotes": false
+  "update.showReleaseNotes": false,
+  "workbench.preferredDarkColorTheme": "NeoRose-VimPine"
 }
