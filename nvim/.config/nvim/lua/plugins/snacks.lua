@@ -7,9 +7,6 @@ return {
     bigfile = { enabled = true },
     scroll = { enabled = true },
     statuscolumn = { enabled = false }, -- disabled until needed
-    win = {
-      border = "rounded",
-    },
     dashboard = { enabled = false },
     quickfile = { enable = true },
     words = { enabled = false },
@@ -115,9 +112,16 @@ return {
       desc = "Recent Files",
     },
     {
-      "<leader>fh",
+      "<leader>fl",
       function()
         Snacks.picker.help()
+      end,
+      desc = "Help Pages",
+    },
+    {
+      "<leader>fh",
+      function()
+        Snacks.picker.highlights()
       end,
       desc = "Help Pages",
     },
@@ -218,22 +222,6 @@ return {
         Snacks.picker.lines()
       end,
       desc = "Buffer Lines",
-    },
-    {
-      "]]",
-      function()
-        Snacks.words.jump(vim.v.count1)
-      end,
-      desc = "Next Reference",
-      mode = { "n", "t" },
-    },
-    {
-      "[[",
-      function()
-        Snacks.words.jump(-vim.v.count1)
-      end,
-      desc = "Previous Reference",
-      mode = { "n", "t" },
     },
     {
       "<leader>gB",
