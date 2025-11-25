@@ -1,37 +1,42 @@
 return {
-  -- Rose Pine theme (currently active)
+  -- Rose Pine
   {
     "rose-pine/neovim",
     name = "rose-pine",
     lazy = false,
     priority = 1000,
     config = function()
-      require("rose-pine").setup({
-        variant = "main", -- auto, main, moon, or dawn
+      require("rose-pine").setup {
+        variant = "moon", -- auto, main, moon, or dawn
         disable_italics = true,
         dim_inactive_windows = false,
         extend_background_behind_borders = false,
+        transparent_background = true,
         highlight_groups = {
-          CursorLine = { bg = "NONE" },
-          NormalFloat = { bg = "base" },
-          FloatBorder = { fg = "muted", bg = "base" },
-          FloatTitle = { fg = "iris", bg = "base", bold = true },
-          FloatFooter = { fg = "subtle", bg = "base" },
-          BlinkCmpDoc = { bg = "base", fg = "text" },
-          BlinkCmpDocBorder = { fg = "muted" },
-          BlinkCmpDocCursorLine = { bg = "surface", fg = "text" },
-          BlinkCmpBorder = { fg = "muted" },
-          BlinkCmpMenu = { bg = "base", fg = "text" },
-          BlinkCmpMenuBorder = { fg = "muted" },
-          TermCursor = { bg = "muted", reverse = true },
-          TermCursorNC = { bg = "muted" },
+          Normal = { bg = "NONE" },
+          NormalNC = { bg = "NONE" },
+          CursorLine = { bg = "NONE", fg = "NONE" },
+          CursorLineNr = { bg = "NONE" },
+          NormalFloat = { bg = "#191724" }, -- main variant base
+          FloatBorder = { fg = "#908caa", bg = "#191724" }, -- main variant colors
+          FloatTitle = { fg = "#c4a7e7", bg = "#191724", bold = true }, -- main variant colors
+          FloatFooter = { fg = "#908caa", bg = "#191724" }, -- main variant colors
+          BlinkCmpDoc = { bg = "#191724", fg = "#e0def4" }, -- main variant colors
+          BlinkCmpDocBorder = { fg = "#908caa" }, -- main variant colors
+          BlinkCmpDocCursorLine = { bg = "#1f1d2e", fg = "#e0def4" }, -- main variant surface
+          BlinkCmpBorder = { fg = "#908caa" }, -- main variant colors
+          BlinkCmpMenu = { bg = "#191724", fg = "#e0def4" }, -- main variant colors
+          BlinkCmpMenuBorder = { fg = "#908caa" }, -- main variant colors
+          SnacksIndentChunk = { fg = "#9ccfd8", bg = "NONE" }, -- main variant colors
+          TermCursor = { bg = "#908caa", reverse = true }, -- main variant colors
+          TermCursorNC = { bg = "#908caa" }, -- main variant colors
         },
-      })
+      }
       vim.cmd.colorscheme "rose-pine"
     end,
   },
 
-  -- Melange theme (alternative - comment out rose-pine config and uncomment this to use)
+  -- Melange
   -- {
   --   "savq/melange-nvim",
   --   lazy = false,
@@ -99,6 +104,8 @@ return {
   --     vim.api.nvim_set_hl(0, "FloatFooter", { fg = colors.footer })
   --     vim.api.nvim_set_hl(0, "Pmenu", { bg = colors.bg, fg = colors.fg })
   --     vim.api.nvim_set_hl(0, "PmenuSel", { bg = colors.selection, fg = colors.fg, bold = true })
+  --     vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
+  --     vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
   --     vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = colors.bg, fg = colors.fg })
   --     vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = colors.border })
   --     vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = colors.bg, fg = colors.fg })
