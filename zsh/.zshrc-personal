@@ -19,6 +19,7 @@ alias screenrec='gpu-screen-recorder -w screen -c mp4 -f 30 -s 1280x720 -o ~/Vid
 # Git
 alias gcm='git commit'
 alias gcam='git commit -a'
+alias gcd='git commit --amend'
 alias gcad='git commit -a --amend'
 
 # Search command line history

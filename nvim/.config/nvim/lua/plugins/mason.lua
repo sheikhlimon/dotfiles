@@ -31,7 +31,6 @@ return {
       "shfmt",
       "pylint",
       "goimports",
-      "just-lsp",
     }
 
     -- Setup mason-lspconfig to automatically install and configure LSP servers
@@ -47,6 +46,7 @@ return {
       "gopls",
       "rust_analyzer",
       "jsonls",
+      "just",
     }
 
     require("mason-lspconfig").setup {
