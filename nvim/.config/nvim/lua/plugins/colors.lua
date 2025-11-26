@@ -17,17 +17,36 @@ return {
           NormalNC = { bg = "NONE" },
           CursorLine = { bg = "NONE", fg = "NONE" },
           CursorLineNr = { bg = "NONE" },
-          NormalFloat = { bg = "#191724" }, -- main variant base
-          FloatBorder = { fg = "#908caa", bg = "#191724" }, -- main variant colors
-          FloatTitle = { fg = "#c4a7e7", bg = "#191724", bold = true }, -- main variant colors
-          FloatFooter = { fg = "#908caa", bg = "#191724" }, -- main variant colors
-          BlinkCmpDoc = { bg = "#191724", fg = "#e0def4" }, -- main variant colors
-          BlinkCmpDocBorder = { fg = "#908caa" }, -- main variant colors
+          NormalFloat = { bg = "NONE" }, -- completely transparent float
+          FloatBorder = { fg = "#908caa", bg = "NONE" }, -- transparent outside, visible inside
+          FloatTitle = { fg = "#c4a7e7", bg = "NONE", bold = true }, -- transparent background like melange
+          FloatFooter = { fg = "#908caa", bg = "NONE" }, -- no background to avoid artifacts
+          BlinkCmpDoc = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          BlinkCmpDocBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
           BlinkCmpDocCursorLine = { bg = "#1f1d2e", fg = "#e0def4" }, -- main variant surface
-          BlinkCmpBorder = { fg = "#908caa" }, -- main variant colors
-          BlinkCmpMenu = { bg = "#191724", fg = "#e0def4" }, -- main variant colors
-          BlinkCmpMenuBorder = { fg = "#908caa" }, -- main variant colors
-          SnacksIndentChunk = { fg = "#9ccfd8", bg = "NONE" }, -- main variant colors
+          BlinkCmpMenu = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          BlinkCmpMenuBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          -- Noice floating windows
+          NoiceFloat = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoiceBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          NoiceCmdlinePopup = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoiceCmdlinePopupBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          NoicePopup = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoicePopupBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          -- Noice documentation floating windows
+          NoiceConfirm = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoiceConfirmBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          NoiceMini = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoiceMiniBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          NoiceSplit = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoiceSplitBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          -- Separator/divider lines
+          WinSeparator = { fg = "#908caa", bg = "NONE" }, -- transparent separator
+          VertSplit = { fg = "#908caa", bg = "NONE" }, -- transparent vertical split
+          -- Documentation separators
+          BlinkCmpDocSeparator = { fg = "NONE", bg = "NONE" }, -- transparent doc separator
+          NoiceDocSeparator = { fg = "NONE", bg = "NONE" }, -- transparent noice doc separator
+            SnacksIndentChunk = { fg = "#9ccfd8", bg = "NONE" }, -- main variant colors
           TermCursor = { bg = "#908caa", reverse = true }, -- main variant colors
           TermCursorNC = { bg = "#908caa" }, -- main variant colors
           -- Git diff highlights for better contrast
@@ -104,39 +123,55 @@ return {
   --       disable_italic(g)
   --     end
   --
-  --     -- Apply custom highlights
-  --     vim.api.nvim_set_hl(0, "Normal", { bg = colors.bg, fg = colors.fg })
-  --     vim.api.nvim_set_hl(0, "NormalNC", { bg = colors.bg, fg = colors.fg_dim })
-  --     vim.api.nvim_set_hl(0, "WinSeparator", { fg = colors.border, bg = "none" })
-  --     vim.api.nvim_set_hl(0, "NormalFloat", { fg = colors.fg, bg = colors.bg })
-  --     vim.api.nvim_set_hl(0, "FloatBorder", { fg = colors.border })
-  --     vim.api.nvim_set_hl(0, "FloatTitle", { fg = colors.title, bold = true })
-  --     vim.api.nvim_set_hl(0, "FloatFooter", { fg = colors.footer })
-  --     vim.api.nvim_set_hl(0, "Pmenu", { bg = colors.bg, fg = colors.fg })
-  --     vim.api.nvim_set_hl(0, "PmenuSel", { bg = colors.selection, fg = colors.fg, bold = true })
-  --     vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
+  --     -- Apply Rose Pine highlight groups to Melange
+  --     vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+  --     vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
+  --     vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE", fg = "NONE" })
   --     vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
-  --     vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = colors.bg, fg = colors.fg })
-  --     vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = colors.border })
-  --     vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = colors.bg, fg = colors.fg })
-  --     vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = colors.border })
-  --     vim.api.nvim_set_hl(0, "MasonBorder", { fg = colors.border })
-  --     vim.api.nvim_set_hl(0, "MasonTitle", { fg = colors.title, bold = true })
-  --     vim.api.nvim_set_hl(0, "SnacksBorder", { fg = colors.border })
-  --     vim.api.nvim_set_hl(0, "SnacksTitle", { fg = colors.title, bold = true })
-  --     vim.api.nvim_set_hl(0, "SnacksFooter", { fg = colors.footer })
+  --     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" }) -- completely transparent float
+  --     vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#908caa", bg = "NONE" }) -- transparent outside, visible inside
+  --     vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#c8c093", bg = "NONE", bold = true }) -- Melange cream color
+  --     vim.api.nvim_set_hl(0, "FloatFooter", { fg = "#908caa", bg = "NONE" }) -- no background to avoid artifacts
+  --     vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE", fg = "#e0def4" }) -- transparent background
+  --     vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = "#908caa", bg = "NONE" }) -- transparent background, visible border
+  --     vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = "#1f1d2e", fg = "#e0def4" }) -- main variant surface
+  --     vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE", fg = "#e0def4" }) -- transparent background
+  --     vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#908caa", bg = "NONE" }) -- transparent background, visible border
   --
-  --     -- Git diff highlights for Melange theme
-  --     vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#3a5a3a", fg = "#98bb6c" }) -- Brighter green for additions
-  --     vim.api.nvim_set_hl(0, "DiffChange", { bg = "#3a3a4a", fg = "#a09164" }) -- Blue for changes
-  --     vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#6a1a1a", fg = "#e46876" }) -- Much darker red for deletions
-  --     vim.api.nvim_set_hl(0, "DiffText", { bg = "#4a3a4a", fg = "#c8c093" }) -- Yellow for modified text
+  --     -- Noice floating windows
+  --     vim.api.nvim_set_hl(0, "NoiceFloat", { bg = "NONE", fg = "#e0def4" }) -- transparent background
+  --     vim.api.nvim_set_hl(0, "NoiceBorder", { fg = "#908caa", bg = "NONE" }) -- transparent background, visible border
+  --     vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { bg = "NONE", fg = "#e0def4" }) -- transparent background
+  --     vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = "#908caa", bg = "NONE" }) -- transparent background, visible border
+  --     vim.api.nvim_set_hl(0, "NoicePopup", { bg = "NONE", fg = "#e0def4" }) -- transparent background
+  --     vim.api.nvim_set_hl(0, "NoicePopupBorder", { fg = "#908caa", bg = "NONE" }) -- transparent background, visible border
+  --     -- Noice documentation floating windows
+  --     vim.api.nvim_set_hl(0, "NoiceConfirm", { bg = "NONE", fg = "#e0def4" }) -- transparent background
+  --     vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = "#908caa", bg = "NONE" }) -- transparent background, visible border
+  --     vim.api.nvim_set_hl(0, "NoiceMini", { bg = "NONE", fg = "#e0def4" }) -- transparent background
+  --     vim.api.nvim_set_hl(0, "NoiceMiniBorder", { fg = "#908caa", bg = "NONE" }) -- transparent background, visible border
+  --     vim.api.nvim_set_hl(0, "NoiceSplit", { bg = "NONE", fg = "#e0def4" }) -- transparent background
+  --     vim.api.nvim_set_hl(0, "NoiceSplitBorder", { fg = "#908caa", bg = "NONE" }) -- transparent background, visible border
+  --     -- Separator/divider lines
+  --     vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#908caa", bg = "NONE" }) -- transparent separator
+  --     vim.api.nvim_set_hl(0, "VertSplit", { fg = "#908caa", bg = "NONE" }) -- transparent vertical split
+  --     -- Documentation separators
+  --     vim.api.nvim_set_hl(0, "BlinkCmpDocSeparator", { fg = "NONE", bg = "NONE" }) -- transparent doc separator
+  --     vim.api.nvim_set_hl(0, "NoiceDocSeparator", { fg = "NONE", bg = "NONE" }) -- transparent noice doc separator
+  --     vim.api.nvim_set_hl(0, "SnacksIndentChunk", { fg = "#f6c177", bg = "NONE" }) -- Melange yellow color
+  --     vim.api.nvim_set_hl(0, "TermCursor", { bg = "#908caa", reverse = true }) -- main variant colors
+  --     vim.api.nvim_set_hl(0, "TermCursorNC", { bg = "#908caa" }) -- main variant colors
+  --     -- Git diff highlights for better contrast
+  --     vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#3a5a3a", fg = "#9ccfd8" }) -- Brighter green background for additions
+  --     vim.api.nvim_set_hl(0, "DiffChange", { bg = "#3a3a4a", fg = "#ebbcba" }) -- Blue background for changes
+  --     vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#6a1a1a", fg = "#eb6f92" }) -- Much darker red background for deletions
+  --     vim.api.nvim_set_hl(0, "DiffText", { bg = "#4a3a4a", fg = "#f6c177" }) -- Yellow background for modified text
+  --     -- Git diff in picker/preview windows
+  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffAdd", { bg = "#3a5a3a", fg = "#9ccfd8" })
+  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffChange", { bg = "#3a3a4a", fg = "#ebbcba" })
+  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffDelete", { bg = "#6a1a1a", fg = "#eb6f92" })
+  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffText", { bg = "#4a3a4a", fg = "#f6c177" })
   --
-  --     -- Git diff in picker/preview windows for Melange
-  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffAdd", { bg = "#3a5a3a", fg = "#98bb6c" })
-  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffChange", { bg = "#3a3a4a", fg = "#a09164" })
-  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffDelete", { bg = "#6a1a1a", fg = "#e46876" })
-  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffText", { bg = "#4a3a4a", fg = "#c8c093" })
   --   end,
   -- },
 }
