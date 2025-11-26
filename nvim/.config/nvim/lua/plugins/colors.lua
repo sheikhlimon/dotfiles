@@ -30,6 +30,16 @@ return {
           SnacksIndentChunk = { fg = "#9ccfd8", bg = "NONE" }, -- main variant colors
           TermCursor = { bg = "#908caa", reverse = true }, -- main variant colors
           TermCursorNC = { bg = "#908caa" }, -- main variant colors
+          -- Git diff highlights for better contrast
+          DiffAdd = { bg = "#3a5a3a", fg = "#9ccfd8" }, -- Brighter green background for additions
+          DiffChange = { bg = "#3a3a4a", fg = "#ebbcba" }, -- Blue background for changes
+          DiffDelete = { bg = "#6a1a1a", fg = "#eb6f92" }, -- Much darker red background for deletions
+          DiffText = { bg = "#4a3a4a", fg = "#f6c177" }, -- Yellow background for modified text
+          -- Git diff in picker/preview windows
+          SnacksPickerGitDiffAdd = { bg = "#3a5a3a", fg = "#9ccfd8" },
+          SnacksPickerGitDiffChange = { bg = "#3a3a4a", fg = "#ebbcba" },
+          SnacksPickerGitDiffDelete = { bg = "#6a1a1a", fg = "#eb6f92" },
+          SnacksPickerGitDiffText = { bg = "#4a3a4a", fg = "#f6c177" },
         },
       }
       vim.cmd.colorscheme "rose-pine"
@@ -115,6 +125,18 @@ return {
   --     vim.api.nvim_set_hl(0, "SnacksBorder", { fg = colors.border })
   --     vim.api.nvim_set_hl(0, "SnacksTitle", { fg = colors.title, bold = true })
   --     vim.api.nvim_set_hl(0, "SnacksFooter", { fg = colors.footer })
+  --
+  --     -- Git diff highlights for Melange theme
+  --     vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#3a5a3a", fg = "#98bb6c" }) -- Brighter green for additions
+  --     vim.api.nvim_set_hl(0, "DiffChange", { bg = "#3a3a4a", fg = "#a09164" }) -- Blue for changes
+  --     vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#6a1a1a", fg = "#e46876" }) -- Much darker red for deletions
+  --     vim.api.nvim_set_hl(0, "DiffText", { bg = "#4a3a4a", fg = "#c8c093" }) -- Yellow for modified text
+  --
+  --     -- Git diff in picker/preview windows for Melange
+  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffAdd", { bg = "#3a5a3a", fg = "#98bb6c" })
+  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffChange", { bg = "#3a3a4a", fg = "#a09164" })
+  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffDelete", { bg = "#6a1a1a", fg = "#e46876" })
+  --     vim.api.nvim_set_hl(0, "SnacksPickerGitDiffText", { bg = "#4a3a4a", fg = "#c8c093" })
   --   end,
   -- },
 }
