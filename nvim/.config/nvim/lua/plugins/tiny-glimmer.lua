@@ -6,29 +6,53 @@ return {
     disable_warnings = true,
     refresh_interval_ms = 8,
     overwrite = {
+      yank = {
+        enabled = true,
+        default_animation = {
+          name = "fade",
+          settings = {
+            from_color = "#f6c177",
+            max_duration = 300,
+            min_duration = 200,
+          },
+        },
+      },
       undo = {
         enabled = true,
-        keymaps = { "u" },
-        animation_type = "highlight",
-        animation_settings = { from_color = "DiffDelete", duration = 200 },
+        default_animation = {
+          name = "fade",
+          settings = {
+            from_color = "#eb6f92",
+            max_duration = 300,
+            min_duration = 200,
+          },
+        },
+        undo_mapping = "u",
       },
       redo = {
         enabled = true,
-        keymaps = { "<C-r>" },
-        animation_type = "highlight",
-        animation_settings = { from_color = "DiffAdd", duration = 200 },
-      },
-      yank = {
-        enabled = true,
-        keymaps = { "y", "Y" },
-        animation_type = "highlight",
-        animation_settings = { from_color = "Visual", duration = 300 },
+        default_animation = {
+          name = "reverse_fade",
+          settings = {
+            from_color = "#9ccfd8",
+            max_duration = 300,
+            min_duration = 200,
+          },
+        },
+        redo_mapping = "<C-r>",
       },
       paste = {
         enabled = true,
-        keymaps = { "p", "P" },
-        animation_type = "highlight",
-        animation_settings = { from_color = "IncSearch", duration = 150 },
+        default_animation = {
+          name = "reverse_fade",
+          settings = {
+            from_color = "#c4a7e7",
+            max_duration = 300,
+            min_duration = 200,
+          },
+        },
+        paste_mapping = "p",
+        paste_in_place_mapping = "P",
       },
     },
   },
