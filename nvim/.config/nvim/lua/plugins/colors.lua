@@ -1,75 +1,81 @@
+-- Theme selection - change this value to switch themes
+-- Options: "melange", "rose-pine"
+local selected_theme = "rose-pine"
+
 return {
   -- Rose Pine
-  -- {
-  --   "rose-pine/neovim",
-  --   name = "rose-pine",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("rose-pine").setup {
-  --       variant = "moon", -- auto, main, moon, or dawn
-  --       disable_italics = true,
-  --       dim_inactive_windows = false,
-  --       extend_background_behind_borders = false,
-  --       transparent_background = true,
-  --       highlight_groups = {
-  --         Normal = { bg = "NONE" },
-  --         NormalNC = { bg = "NONE" },
-  --         CursorLine = { bg = "NONE", fg = "NONE" },
-  --         CursorLineNr = { bg = "NONE" },
-  --         NormalFloat = { bg = "NONE" }, -- completely transparent float
-  --         FloatBorder = { fg = "#908caa", bg = "NONE" }, -- transparent outside, visible inside
-  --         FloatTitle = { fg = "#c4a7e7", bg = "NONE", bold = true }, -- transparent background like melange
-  --         FloatFooter = { fg = "#908caa", bg = "NONE" }, -- no background to avoid artifacts
-  --         BlinkCmpDoc = { bg = "NONE", fg = "#e0def4" }, -- transparent background
-  --         BlinkCmpDocBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
-  --         BlinkCmpDocCursorLine = { bg = "#1f1d2e", fg = "#e0def4" }, -- main variant surface
-  --         BlinkCmpMenu = { bg = "NONE", fg = "#e0def4" }, -- transparent background
-  --         BlinkCmpMenuBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
-  --         -- Noice floating windows
-  --         NoiceFloat = { bg = "NONE", fg = "#e0def4" }, -- transparent background
-  --         NoiceBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
-  --         NoiceCmdlinePopup = { bg = "NONE", fg = "#e0def4" }, -- transparent background
-  --         NoiceCmdlinePopupBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
-  --         NoicePopup = { bg = "NONE", fg = "#e0def4" }, -- transparent background
-  --         NoicePopupBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
-  --         -- Noice documentation floating windows
-  --         NoiceConfirm = { bg = "NONE", fg = "#e0def4" }, -- transparent background
-  --         NoiceConfirmBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
-  --         NoiceMini = { bg = "NONE", fg = "#e0def4" }, -- transparent background
-  --         NoiceMiniBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
-  --         NoiceSplit = { bg = "NONE", fg = "#e0def4" }, -- transparent background
-  --         NoiceSplitBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
-  --         -- Separator/divider lines
-  --         WinSeparator = { fg = "#908caa", bg = "NONE" }, -- transparent separator
-  --         VertSplit = { fg = "#908caa", bg = "NONE" }, -- transparent vertical split
-  --         -- Documentation separators
-  --         BlinkCmpDocSeparator = { fg = "NONE", bg = "NONE" }, -- transparent doc separator
-  --         NoiceDocSeparator = { fg = "NONE", bg = "NONE" }, -- transparent noice doc separator
-  --           SnacksIndentChunk = { fg = "#9ccfd8", bg = "NONE" }, -- main variant colors
-  --         TermCursor = { bg = "#908caa", reverse = true }, -- main variant colors
-  --         TermCursorNC = { bg = "#908caa" }, -- main variant colors
-  --         -- Git diff highlights using official Rose Pine colors
-  --         DiffAdd = { bg = "#284738", fg = "#9ccfd8" }, -- Subtle green background, foam foreground
-  --         DiffChange = { bg = "#393552", fg = "#ebbcba" }, -- Overlay background, rose foreground
-  --         DiffDelete = { bg = "#3a2d3a", fg = "#eb6f92" }, -- Subtle red background, love foreground
-  --         DiffText = { bg = "#403d52", fg = "#f6c177" }, -- Highlight med background, gold foreground
-  --         -- Git diff in picker/preview windows
-  --         SnacksPickerGitDiffAdd = { bg = "#284738", fg = "#9ccfd8" },
-  --         SnacksPickerGitDiffChange = { bg = "#393552", fg = "#ebbcba" },
-  --         SnacksPickerGitDiffDelete = { bg = "#3a2d3a", fg = "#eb6f92" },
-  --         SnacksPickerGitDiffText = { bg = "#403d52", fg = "#f6c177" },
-  --       },
-  --     }
-  --     vim.cmd.colorscheme "rose-pine"
-  --   end,
-  -- },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    lazy = false,
+    priority = 1000,
+    enabled = selected_theme == "rose-pine",
+    config = function()
+      require("rose-pine").setup {
+  variant = "moon", -- auto, main, moon, or dawn
+        disable_italics = true,
+        dim_inactive_windows = false,
+        extend_background_behind_borders = false,
+        transparent_background = true,
+        highlight_groups = {
+          Normal = { bg = "NONE" },
+          NormalNC = { bg = "NONE" },
+          CursorLine = { bg = "NONE", fg = "NONE" },
+          CursorLineNr = { bg = "NONE" },
+          NormalFloat = { bg = "NONE" }, -- completely transparent float
+          FloatBorder = { fg = "#908caa", bg = "NONE" }, -- transparent outside, visible inside
+          FloatTitle = { fg = "#c4a7e7", bg = "NONE", bold = true }, -- transparent background like melange
+          FloatFooter = { fg = "#908caa", bg = "NONE" }, -- no background to avoid artifacts
+          BlinkCmpDoc = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          BlinkCmpDocBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          BlinkCmpDocCursorLine = { bg = "#1f1d2e", fg = "#e0def4" }, -- main variant surface
+          BlinkCmpMenu = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          BlinkCmpMenuBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          -- Noice floating windows
+          NoiceFloat = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoiceBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          NoiceCmdlinePopup = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoiceCmdlinePopupBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          NoicePopup = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoicePopupBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          -- Noice documentation floating windows
+          NoiceConfirm = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoiceConfirmBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          NoiceMini = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoiceMiniBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          NoiceSplit = { bg = "NONE", fg = "#e0def4" }, -- transparent background
+          NoiceSplitBorder = { fg = "#908caa", bg = "NONE" }, -- transparent background, visible border
+          -- Separator/divider lines
+          WinSeparator = { fg = "#908caa", bg = "NONE" }, -- transparent separator
+          VertSplit = { fg = "#908caa", bg = "NONE" }, -- transparent vertical split
+          -- Documentation separators
+          BlinkCmpDocSeparator = { fg = "NONE", bg = "NONE" }, -- transparent doc separator
+          NoiceDocSeparator = { fg = "NONE", bg = "NONE" }, -- transparent noice doc separator
+            SnacksIndentChunk = { fg = "#9ccfd8", bg = "NONE" }, -- main variant colors
+          TermCursor = { bg = "#908caa", reverse = true }, -- main variant colors
+          TermCursorNC = { bg = "#908caa" }, -- main variant colors
+          -- Git diff highlights using official Rose Pine colors
+          DiffAdd = { bg = "#284738", fg = "#9ccfd8" }, -- Subtle green background, foam foreground
+          DiffChange = { bg = "#393552", fg = "#ebbcba" }, -- Overlay background, rose foreground
+          DiffDelete = { bg = "#3a2d3a", fg = "#eb6f92" }, -- Subtle red background, love foreground
+          DiffText = { bg = "#403d52", fg = "#f6c177" }, -- Highlight med background, gold foreground
+          -- Git diff in picker/preview windows
+          SnacksPickerGitDiffAdd = { bg = "#284738", fg = "#9ccfd8" },
+          SnacksPickerGitDiffChange = { bg = "#393552", fg = "#ebbcba" },
+          SnacksPickerGitDiffDelete = { bg = "#3a2d3a", fg = "#eb6f92" },
+          SnacksPickerGitDiffText = { bg = "#403d52", fg = "#f6c177" },
+        },
+      }
+      vim.cmd.colorscheme "rose-pine"
+    end,
+  },
 
   -- Melange
   {
     "savq/melange-nvim",
     lazy = false,
     priority = 1000,
+    enabled = selected_theme == "melange",
     config = function()
       vim.cmd.colorscheme "melange"
 
