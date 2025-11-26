@@ -10,7 +10,7 @@ return {
     require("bufferline").setup {
       options = {
         mode = "buffers",
-        themable = true,
+        themable = false,
         numbers = "none",
         close_command = "Bdelete! %d",
         right_mouse_command = "Bdelete! %d",
@@ -46,9 +46,25 @@ return {
           },
         },
       },
-      -- Use default colors with no italics for selected buffer
       highlights = {
-        buffer_selected = { italic = false },
+        fill = { bg = "#1F1F28" },
+        background = { bg = "#1F1F28", fg = "#7C818C" },
+        separator = { fg = "#434C5E", bg = "#1F1F28" },
+        buffer_selected = {
+          bg = "#1F1F28",
+          bold = true,
+          italic = false,
+          fg = "#D4D4D5",
+        },
+        close_button = { bg = "#1F1F28" },
+        close_button_selected = { bg = "#1F1F28" },
+        tab_selected = { bg = "#1F1F28" },
+        indicator_selected = { bg = "#1F1F28" },
+        offset_separator = { fg = "#434C5E", bg = "#1F1F28" },
+        modified = { bg = "#1F1F28" },
+        modified_selected = { bg = "#1F1F28" },
+        -- Truncation markers styling
+        trunc_marker = { bg = "#1F1F28", fg = "#7C818C" },
       },
     }
   end,
