@@ -1,11 +1,12 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = { "BufReadPre", "BufNewFile" },
+  event = "VeryLazy",
+  main = "nvim-treesitter.configs",
   dependencies = {
     {
       "windwp/nvim-ts-autotag",
-      ft = { "html", "typescript", "typescriptreact", "vue", "svelte" },
+      ft = { "html", "typescript", "typescriptreact", "tsx", "vue", "svelte" },
       config = function()
         require("nvim-ts-autotag").setup()
       end,
