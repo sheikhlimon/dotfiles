@@ -5,21 +5,17 @@ return {
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
+    explorer = { enabled = true },
     scroll = { enabled = true },
     statuscolumn = { enabled = false }, -- disabled until needed
     dashboard = { enabled = false },
     quickfile = { enable = true },
     words = { enabled = false },
     lazygit = {
-      configure = false,
+      configure = true,
       win = { position = "float", width = 0.99, height = 0.99 },
     },
     notifier = { enabled = true, timeout = 2000 },
-    notify = {
-      enabled = true,
-      view = "mini",
-      timeout = 2000,
-    },
     image = { enabled = false }, -- disable heavy image processing at startup
     indent = {
       indent = { enabled = false },
@@ -48,6 +44,13 @@ return {
     },
   },
   keys = {
+    {
+      "<leader>n",
+      function()
+        Snacks.explorer()
+      end,
+      desc = "File Explorer",
+    },
     {
       "<leader><space>",
       function()
@@ -131,6 +134,13 @@ return {
         Snacks.picker.registers()
       end,
       desc = "Registers",
+    },
+    {
+      "<leader>bd",
+      function()
+        Snacks.bufdelete()
+      end,
+      desc = "Delete Buffer",
     },
     {
       "<leader>fn",
@@ -224,6 +234,42 @@ return {
       desc = "Buffer Lines",
     },
     {
+      "<leader>gg",
+      function()
+        Snacks.lazygit()
+      end,
+      desc = "Lazygit",
+    },
+
+    {
+      "<leader>gb",
+      function()
+        Snacks.picker.git_branches()
+      end,
+      desc = "Git Branches",
+    },
+    {
+      "<leader>gl",
+      function()
+        Snacks.picker.git_log()
+      end,
+      desc = "Git Log",
+    },
+    {
+      "<leader>gL",
+      function()
+        Snacks.picker.git_log_line()
+      end,
+      desc = "Git Log Line",
+    },
+    {
+      "<leader>gf",
+      function()
+        Snacks.picker.git_log_file()
+      end,
+      desc = "Git Log File",
+    },
+    {
       "<leader>gB",
       function()
         Snacks.gitbrowse()
@@ -265,6 +311,13 @@ return {
         Snacks.scratch()
       end,
       desc = "Toggle Scratch Buffer",
+    },
+    {
+      "<leader>z",
+      function()
+        Snacks.zen()
+      end,
+      desc = "Toggle Zen Mode",
     },
   },
 }
