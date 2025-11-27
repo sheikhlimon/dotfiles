@@ -10,7 +10,7 @@ return {
     "selene.yml",
     ".git",
   },
-    settings = {
+  settings = {
     Lua = {
       diagnostics = {
         disable = { "missing-fields" },
@@ -30,3 +30,4 @@ return {
     },
   },
 }
+

@@ -7,7 +7,7 @@ return {
     "typescriptreact",
     "typescript.tsx",
   },
-    settings = {
+  settings = {
     complete_function_calls = true,
     typescript = {
       format = { enable = false },
@@ -49,3 +49,4 @@ return {
     },
   },
 }
+

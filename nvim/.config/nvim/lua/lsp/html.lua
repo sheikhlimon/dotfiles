@@ -9,3 +9,4 @@ return {
   root_markers = { "index.html", ".git" },
   init_options = { provideFormatter = false },
 }
+

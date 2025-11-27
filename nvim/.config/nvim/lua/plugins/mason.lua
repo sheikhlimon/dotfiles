@@ -47,6 +47,7 @@ return {
       "rust_analyzer",
       "jsonls",
       "just",
+      "bashls",
     }
 
     require("mason-lspconfig").setup {
