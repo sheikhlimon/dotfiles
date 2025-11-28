@@ -65,7 +65,7 @@ return {
           },
           snippets = {
             min_keyword_length = 2,
-            score_offset = 95, -- High priority for snippets
+            -- score_offset = 10,
           },
         },
       },
