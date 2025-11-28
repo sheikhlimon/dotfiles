@@ -5,50 +5,89 @@ export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
-# Essential exports
+# Exports
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
-export EDITOR="nvim"
-export SUDO_EDITOR="$EDITOR"
-export BAT_THEME=ansi
-export ZLE_RPROMPT_INDENT=0
-export PROMPT_EOL_MARK=''
+export EDITOR="nvim" SUDO_EDITOR="$EDITOR" BAT_THEME=ansi ZLE_RPROMPT_INDENT=0 PROMPT_EOL_MARK=''
 
-# bun
+# Core Options
+setopt NO_GLOBAL_RCS
+setopt NO_BEEP
+setopt NO_LIST_BEEP
+setopt NO_HIST_BEEP
+setopt HIST_VERIFY
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt nomatch
+
+# Tools
+export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
+export RUSTUP_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/rustup"
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$PATH:$BUN_INSTALL/bin"
 
-# History
-HISTFILE="$HOME/.zsh_history"
-HISTSIZE=50000
+# History Configuration
+HISTFILE="$XDG_STATE_HOME/zsh/history"
+HISTSIZE=10000
 SAVEHIST=50000
-setopt EXTENDED_HISTORY INC_APPEND_HISTORY SHARE_HISTORY \
-       HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS
 
-# Initialize starship
-if command -v starship &> /dev/null; then
-    eval "$(starship init zsh)"
-fi
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_ALL_DUPS
 
-# Optimized completions
+[[ -d "$XDG_STATE_HOME/zsh" ]] || mkdir -p "$XDG_STATE_HOME/zsh"
+
+# Starship prompt
+command -v starship &> /dev/null && eval "$(starship init zsh)"
+
+# Completion System
 autoload -Uz compinit
+
+# Completion options
 setopt EXTENDED_GLOB
-if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
-    compinit
+setopt COMPLETE_IN_WORD
+setopt ALWAYS_TO_END
+setopt AUTO_MENU
+setopt LIST_ROWS_FIRST
+setopt HIST_VERIFY
+
+# Optimized completion initialization
+local zcompdump_file="$XDG_CACHE_HOME/zsh/.zcompdump"
+local last_update_file="${XDG_DATA_HOME}/zsh/.last_update"
+
+# Create required directories
+[[ -d "${XDG_DATA_HOME}/zsh" ]] || mkdir -p "${XDG_DATA_HOME}/zsh"
+[[ -d "$XDG_CACHE_HOME/zsh" ]] || mkdir -p "$XDG_CACHE_HOME/zsh"
+
+# Only regenerate completions if zcompdump is missing or outdated
+if [[ -f "$zcompdump_file" && -f "$last_update_file" && "$zcompdump_file" -nt "$last_update_file" ]]; then
+    compinit -d "$zcompdump_file"
 else
-    compinit -C
+    compinit -C -d "$zcompdump_file"
+    touch "$last_update_file" 2>/dev/null
 fi
 
-setopt AUTO_MENU COMPLETE_IN_WORD ALWAYS_TO_END
-zmodload zsh/complist
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*'
-zstyle ':completion:*' menu select
-zle_highlight+=(paste:none)
+# Modern completion configuration
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select interactive use-cache on timeout 1
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/completion-cache"
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:approximate:*' max-errors 2
+zstyle ':completion:*:functions' ignored-patterns '_*'
+zstyle ':completion:*:processes' command 'ps -o pid,user,command -w'
 
-# Enable completion of hidden files
+# Security and completion
+unsetopt AUTO_NAME_DIRS CORRECT CORRECT_ALL
+setopt AUTO_CD
+zle_highlight+=(paste:none suffix:none)
+setopt NO_CLOBBER NO_FLOW_CONTROL LOCAL_OPTIONS LOCAL_TRAPS
+typeset -U path
 _comp_options+=(globdots)
 
-# FZF configuration
+# FZF
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
@@ -64,9 +103,9 @@ export FZF_ALT_C_OPTS="
 --preview 'command -v tree >/dev/null && tree -C {} || ls -la {}'
 "
 
-# Oh My Zsh and plugins
+# Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
-export ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+export ZSH_CUSTOM="${ZSH}/custom"
 
 plugins=(
   zsh-autosuggestions
@@ -75,38 +114,52 @@ plugins=(
 
 # Loads heavy stuff after prompt appears
 load_omz_deferred() {
+    # Load Oh My Zsh
     [[ -r $ZSH/oh-my-zsh.sh ]] && source "$ZSH/oh-my-zsh.sh"
 
+    # Configure autosuggestions
     ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+    ZSH_AUTOSUGGEST_MANUAL_REBIND=true
+    ZSH_AUTOSUGGEST_USE_ASYNC=true
 
-    if command -v zoxide &>/dev/null; then
-        eval "$(zoxide init zsh)"
-    fi
+    # Load tools only if available
+    command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+    command -v fzf &>/dev/null && eval "$(fzf --zsh)"
 
-    if command -v fzf &>/dev/null; then
-        eval "$(fzf --zsh)"
-    fi
-
-    if [ -d "$HOME/.local/share/fnm" ]; then
-        export PATH="$HOME/.local/share/fnm:$PATH"
+    # Node.js management
+    if [ -d "$XDG_DATA_HOME/fnm" ]; then
+        export PATH="$XDG_DATA_HOME/fnm:$PATH"
         eval "$(fnm env --use-on-cd)"
     fi
 
-    # Restart autosuggestions if available
-    if typeset -f _zsh_autosuggest_start >/dev/null; then
-        _zsh_autosuggest_start
+    # Rust toolchain
+    if command -v rustup &>/dev/null; then
+        export PATH="$CARGO_HOME/bin:$PATH"
+        local rust_comp_dir="$XDG_DATA_HOME/zsh/completions"
+        [[ ! -d "$rust_comp_dir" ]] && mkdir -p "$rust_comp_dir"
+
+        # Only regenerate completions if outdated or missing
+        local cargo_comp="$rust_comp_dir/_cargo"
+        if [[ ! -f "$cargo_comp" || "$cargo_comp" -nt "${XDG_DATA_HOME}/zsh/.rust_update" ]]; then
+            rustup completions zsh > "$cargo_comp" 2>/dev/null && touch "${XDG_DATA_HOME}/zsh/.rust_update" 2>/dev/null
+        fi
+        fpath=("$rust_comp_dir" $fpath)
     fi
 
-    # bun completions
-    [ -s "/home/limon/.bun/_bun" ] && source "/home/limon/.bun/_bun"
-    
-    [[ -f "$HOME/.zshrc-personal" ]] && source "$HOME/.zshrc-personal"
+    # Start autosuggestions
+    typeset -f _zsh_autosuggest_start >/dev/null && _zsh_autosuggest_start
 
-    # Prevent re-loading
-    zle -D zle-line-init   # unbind widget cleanly
+    # Load bun completions if available
+    [ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
+
+    # Load personal config with security check
+    if [[ -f "$HOME/.zshrc-personal" && -r "$HOME/.zshrc-personal" ]]; then
+        source "$HOME/.zshrc-personal"
+    fi
+
+    # Clean up - remove the hook after execution
     unfunction load_omz_deferred
 }
 
-# Hook deferred loading
+# Add hook for deferred loading
 zle -N zle-line-init load_omz_deferred
-

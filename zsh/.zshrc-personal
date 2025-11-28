@@ -236,6 +236,11 @@ for m in visual viopp; do
   done
 done
 
+# Tab completion key bindings
+bindkey '^I' menu-select
+bindkey -M menuselect '^I' menu-complete
+bindkey -M menuselect '^M' .accept-line
+
 # Vim-style keys in tab completion menu
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
