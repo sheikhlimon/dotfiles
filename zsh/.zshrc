@@ -6,7 +6,6 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
 # Exports
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export EDITOR="nvim" SUDO_EDITOR="$EDITOR" BAT_THEME=ansi ZLE_RPROMPT_INDENT=0 PROMPT_EOL_MARK=''
 
@@ -25,7 +24,15 @@ setopt nomatch
 export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 export RUSTUP_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/rustup"
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$PATH:$BUN_INSTALL/bin"
+
+# Build PATH in one place to avoid duplication
+path=(
+    "$HOME/bin"
+    "$HOME/.local/bin"
+    "$BUN_INSTALL/bin"
+    "$CARGO_HOME/bin"
+    $path
+)
 
 # History Configuration
 HISTFILE="$XDG_STATE_HOME/zsh/history"
@@ -64,9 +71,11 @@ local last_update_file="${XDG_DATA_HOME}/zsh/.last_update"
 
 # Only regenerate completions if zcompdump is missing or outdated
 if [[ -f "$zcompdump_file" && -f "$last_update_file" && "$zcompdump_file" -nt "$last_update_file" ]]; then
-    compinit -d "$zcompdump_file"
-else
+    # zcompdump is newer, skip security check for faster startup
     compinit -C -d "$zcompdump_file"
+else
+    # zcompdump is missing or outdated, regenerate fully
+    compinit -d "$zcompdump_file"
     touch "$last_update_file" 2>/dev/null
 fi
 
@@ -95,7 +104,7 @@ export FZF_CTRL_T_OPTS="
 --walker-skip .git,node_modules,target
 --preview 'command -v bat >/dev/null && bat -n --color=always {} || cat {}'
 --bind 'enter:execute(nvim {})+abort'
---bind 'ctrl-/:change-preview-window(down|hidden|)'
+--bind 'ctrl-_:change-preview-window(down|hidden|)'
 "
 
 export FZF_ALT_C_OPTS="
@@ -128,13 +137,12 @@ load_omz_deferred() {
 
     # Node.js management
     if [ -d "$XDG_DATA_HOME/fnm" ]; then
-        export PATH="$XDG_DATA_HOME/fnm:$PATH"
+        path=("$XDG_DATA_HOME/fnm" $path)
         eval "$(fnm env --use-on-cd)"
     fi
 
     # Rust toolchain
     if command -v rustup &>/dev/null; then
-        export PATH="$CARGO_HOME/bin:$PATH"
         local rust_comp_dir="$XDG_DATA_HOME/zsh/completions"
         [[ ! -d "$rust_comp_dir" ]] && mkdir -p "$rust_comp_dir"
 
