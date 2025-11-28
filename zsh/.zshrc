@@ -50,10 +50,7 @@ setopt HIST_IGNORE_ALL_DUPS
 # Starship prompt
 command -v starship &> /dev/null && eval "$(starship init zsh)"
 
-# Completion System
-autoload -Uz compinit
-
-# Completion options
+# Basic completion options (before compinit)
 setopt EXTENDED_GLOB
 setopt COMPLETE_IN_WORD
 setopt ALWAYS_TO_END
@@ -61,40 +58,12 @@ setopt AUTO_MENU
 setopt LIST_ROWS_FIRST
 setopt HIST_VERIFY
 
-# Optimized completion initialization
-local zcompdump_file="$XDG_CACHE_HOME/zsh/.zcompdump"
-local last_update_file="${XDG_DATA_HOME}/zsh/.last_update"
-
-# Create required directories
-[[ -d "${XDG_DATA_HOME}/zsh" ]] || mkdir -p "${XDG_DATA_HOME}/zsh"
-[[ -d "$XDG_CACHE_HOME/zsh" ]] || mkdir -p "$XDG_CACHE_HOME/zsh"
-
-# Only regenerate completions if zcompdump is missing or outdated
-if [[ -f "$zcompdump_file" && -f "$last_update_file" && "$zcompdump_file" -nt "$last_update_file" ]]; then
-    # zcompdump is newer, skip security check for faster startup
-    compinit -C -d "$zcompdump_file"
-else
-    # zcompdump is missing or outdated, regenerate fully
-    compinit -d "$zcompdump_file"
-    touch "$last_update_file" 2>/dev/null
-fi
-
-# Modern completion configuration
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'l:|=* r:|=*'
-zstyle ':completion:*' menu select interactive use-cache on timeout 1
-zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/completion-cache"
-zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*:approximate:*' max-errors 2
-zstyle ':completion:*:functions' ignored-patterns '_*'
-zstyle ':completion:*:processes' command 'ps -o pid,user,command -w'
-
-# Security and completion
+# Security and completion options
 unsetopt AUTO_NAME_DIRS CORRECT CORRECT_ALL
 setopt AUTO_CD
 zle_highlight+=(paste:none suffix:none)
 setopt NO_CLOBBER NO_FLOW_CONTROL LOCAL_OPTIONS LOCAL_TRAPS
 typeset -U path
-_comp_options+=(globdots)
 
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type file'
@@ -112,19 +81,41 @@ export FZF_ALT_C_OPTS="
 --preview 'command -v tree >/dev/null && tree -C {} || ls -la {}'
 "
 
-# Oh My Zsh
-export ZSH="$HOME/.oh-my-zsh"
-export ZSH_CUSTOM="${ZSH}/custom"
-
-plugins=(
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
-
 # Loads heavy stuff after prompt appears
 load_omz_deferred() {
+    # Oh My Zsh configuration (must be set BEFORE sourcing oh-my-zsh.sh)
+    export ZSH="$HOME/.oh-my-zsh"
+    export ZSH_CUSTOM="${ZSH}/custom"
+    
+    plugins=(
+      zsh-autosuggestions
+      zsh-syntax-highlighting
+    )
+    
     # Load Oh My Zsh
     [[ -r $ZSH/oh-my-zsh.sh ]] && source "$ZSH/oh-my-zsh.sh"
+
+    # Initialize completion system AFTER Oh My Zsh loads
+    autoload -Uz compinit
+    
+    local zcompdump="$XDG_CACHE_HOME/zsh/.zcompdump"
+    [[ -d "$XDG_CACHE_HOME/zsh" ]] || mkdir -p "$XDG_CACHE_HOME/zsh"
+    
+    # Only regenerate once per day
+    if [[ -f "$zcompdump" && "$(date +'%j')" == "$(date -r "$zcompdump" +'%j' 2>/dev/null)" ]]; then
+        compinit -C -d "$zcompdump"
+    else
+        compinit -d "$zcompdump"
+    fi
+    
+    # Completion styling
+    zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'l:|=* r:|=*'
+    zstyle ':completion:*' menu select interactive use-cache on
+    zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/completion-cache"
+    zstyle ':completion:*' completer _complete _match _approximate
+    zstyle ':completion:*:approximate:*' max-errors 2
+    zstyle ':completion:*:functions' ignored-patterns '_*'
+    _comp_options+=(globdots)
 
     # Configure autosuggestions
     ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
@@ -145,12 +136,11 @@ load_omz_deferred() {
     if command -v rustup &>/dev/null; then
         local rust_comp_dir="$XDG_DATA_HOME/zsh/completions"
         [[ ! -d "$rust_comp_dir" ]] && mkdir -p "$rust_comp_dir"
-
-        # Only regenerate completions if outdated or missing
-        local cargo_comp="$rust_comp_dir/_cargo"
-        if [[ ! -f "$cargo_comp" || "$cargo_comp" -nt "${XDG_DATA_HOME}/zsh/.rust_update" ]]; then
-            rustup completions zsh > "$cargo_comp" 2>/dev/null && touch "${XDG_DATA_HOME}/zsh/.rust_update" 2>/dev/null
-        fi
+        
+        # Only generate if missing
+        [[ ! -f "$rust_comp_dir/_cargo" ]] && rustup completions zsh cargo > "$rust_comp_dir/_cargo" 2>/dev/null
+        [[ ! -f "$rust_comp_dir/_rustup" ]] && rustup completions zsh > "$rust_comp_dir/_rustup" 2>/dev/null
+        
         fpath=("$rust_comp_dir" $fpath)
     fi
 
@@ -166,6 +156,7 @@ load_omz_deferred() {
     fi
 
     # Clean up - remove the hook after execution
+    zle -D zle-line-init
     unfunction load_omz_deferred
 }
 
