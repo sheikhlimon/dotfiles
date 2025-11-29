@@ -4,53 +4,19 @@
 
 set -e
 
-# Color codes for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# Get script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-log() {
-    echo -e "${GREEN}[INFO]${NC} $1"
-}
-
-warn() {
-    echo -e "${YELLOW}[WARN]${NC} $1"
-}
-
-error() {
-    echo -e "${RED}[ERROR]${NC} $1"
-}
-
-# Detect OS
-detect_os() {
-    if [[ -f /etc/arch-release ]]; then
-        echo "arch"
-    elif [[ -f /etc/debian_version ]]; then
-        echo "debian"
-    else
-        echo "unknown"
-    fi
-}
-
-# Check if service exists and is enabled
-is_service_enabled() {
-    systemctl is-enabled "$1" >/dev/null 2>&1
-}
-
-# Check if service is running
-is_service_running() {
-    systemctl is-active "$1" >/dev/null 2>&1
-}
+# Source utilities
+source "$SCRIPT_DIR/utils.sh"
 
 # Setup MongoDB on Arch Linux
 setup_mongodb_arch() {
-    log "Setting up MongoDB on Arch Linux..."
+    log_info "Setting up MongoDB on Arch Linux..."
 
     # Install MongoDB if not installed
-    if ! pacman -Qi mongodb-bin >/dev/null 2>&1 && ! yay -Qi mongodb-bin >/dev/null 2>&1; then
-        log "Installing MongoDB..."
+    if ! is_arch_pkg_installed mongodb-bin; then
+        log_info "Installing MongoDB..."
         yay -S --needed mongodb-bin
     else
         log "MongoDB already installed"
@@ -66,7 +32,7 @@ setup_mongodb_arch() {
 
     if [[ -n "$mongo_service" ]]; then
         if ! is_service_running "$mongo_service"; then
-            log "Enabling and starting MongoDB service ($mongo_service)..."
+            log_info "Enabling and starting MongoDB service ($mongo_service)..."
             sudo systemctl enable --now "$mongo_service"
 
             # Wait for service to start
@@ -88,11 +54,11 @@ setup_mongodb_arch() {
 
 # Setup PostgreSQL on Arch Linux
 setup_postgresql_arch() {
-    log "Setting up PostgreSQL on Arch Linux..."
+    log_info "Setting up PostgreSQL on Arch Linux..."
 
     # Install PostgreSQL if not installed
-    if ! pacman -Qi postgresql >/dev/null 2>&1; then
-        log "Installing PostgreSQL..."
+    if ! is_arch_pkg_installed postgresql; then
+        log_info "Installing PostgreSQL..."
         sudo pacman -S --needed postgresql
     else
         log "PostgreSQL already installed"
@@ -102,16 +68,16 @@ setup_postgresql_arch() {
     if [[ -f /var/lib/postgres/data/PG_VERSION ]]; then
         log "PostgreSQL database already initialized"
     elif [[ ! -d /var/lib/postgres/data ]]; then
-        log "Initializing PostgreSQL database..."
+        log_info "Initializing PostgreSQL database..."
         sudo -iu postgres initdb --locale=en_US.UTF-8 -E UTF8 -D /var/lib/postgres/data
     else
         warn "PostgreSQL data directory exists but appears uninitialized"
         read -p "Remove and reinitialize PostgreSQL data directory? (y/N): " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            log "Removing corrupted data directory..."
+            log_info "Removing corrupted data directory..."
             sudo rm -rf /var/lib/postgres/data/*
-            log "Reinitializing PostgreSQL database..."
+            log_info "Reinitializing PostgreSQL database..."
             sudo -iu postgres initdb --locale=en_US.UTF-8 -E UTF8 -D /var/lib/postgres/data
         else
             log "Skipping PostgreSQL initialization"
@@ -121,7 +87,7 @@ setup_postgresql_arch() {
 
     # Start and enable PostgreSQL service
     if ! is_service_running postgresql; then
-        log "Enabling and starting PostgreSQL service..."
+        log_info "Enabling and starting PostgreSQL service..."
         sudo systemctl enable --now postgresql
 
         # Wait for service to start
@@ -138,18 +104,18 @@ setup_postgresql_arch() {
     fi
 
     # Create user if needed (optional)
-    log "PostgreSQL setup completed. You can create users and databases with:"
-    log "  sudo -iu postgres createuser -s your_username"
-    log "  sudo -iu postgres createdb -O your_username your_database"
+    log_info "PostgreSQL setup completed. You can create users and databases with:"
+    log_info "  sudo -iu postgres createuser -s your_username"
+    log_info "  sudo -iu postgres createdb -O your_username your_database"
 }
 
 # Setup MongoDB on Debian/Ubuntu
 setup_mongodb_debian() {
-    log "Setting up MongoDB on Debian/Ubuntu..."
+    log_info "Setting up MongoDB on Debian/Ubuntu..."
 
     # Check if MongoDB repository is already added
     if ! grep -q "mongodb.org" /etc/apt/sources.list.d/mongodb-org-*.list 2>/dev/null; then
-        log "Adding MongoDB repository..."
+        log_info "Adding MongoDB repository..."
 
         # Import MongoDB public key
         curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
@@ -164,8 +130,8 @@ setup_mongodb_debian() {
     fi
 
     # Install MongoDB if not installed
-    if ! dpkg -s mongodb-org >/dev/null 2>&1; then
-        log "Installing MongoDB..."
+    if ! is_debian_pkg_installed mongodb-org; then
+        log_info "Installing MongoDB..."
         sudo apt install -y mongodb-org
     else
         log "MongoDB already installed"
@@ -173,7 +139,7 @@ setup_mongodb_debian() {
 
     # Start and enable MongoDB service
     if ! is_service_running mongod; then
-        log "Enabling and starting MongoDB service..."
+        log_info "Enabling and starting MongoDB service..."
         sudo systemctl enable --now mongod
 
         # Wait for service to start
@@ -192,11 +158,11 @@ setup_mongodb_debian() {
 
 # Setup PostgreSQL on Debian/Ubuntu
 setup_postgresql_debian() {
-    log "Setting up PostgreSQL on Debian/Ubuntu..."
+    log_info "Setting up PostgreSQL on Debian/Ubuntu..."
 
     # Install PostgreSQL if not installed
-    if ! dpkg -s postgresql >/dev/null 2>&1; then
-        log "Installing PostgreSQL..."
+    if ! is_debian_pkg_installed postgresql; then
+        log_info "Installing PostgreSQL..."
         sudo apt install -y postgresql postgresql-contrib
     else
         log "PostgreSQL already installed"
@@ -204,7 +170,7 @@ setup_postgresql_debian() {
 
     # Start and enable PostgreSQL service
     if ! is_service_running postgresql; then
-        log "Enabling and starting PostgreSQL service..."
+        log_info "Enabling and starting PostgreSQL service..."
         sudo systemctl enable --now postgresql
 
         # Wait for service to start
@@ -220,17 +186,17 @@ setup_postgresql_debian() {
         log "PostgreSQL service already running"
     fi
 
-    log "PostgreSQL setup completed. You can create users and databases with:"
-    log "  sudo -u postgres createuser -s your_username"
-    log "  sudo -u postgres createdb -O your_username your_database"
+    log_info "PostgreSQL setup completed. You can create users and databases with:"
+    log_info "  sudo -u postgres createuser -s your_username"
+    log_info "  sudo -u postgres createdb -O your_username your_database"
 }
 
 # Test database connections
 test_connections() {
-    log "Testing database connections..."
+    log_info "Testing database connections..."
 
     # Test MongoDB
-    if command -v mongosh >/dev/null 2>&1; then
+    if command_exists mongosh; then
         if mongosh --eval "db.adminCommand('ping')" >/dev/null 2>&1; then
             log "✓ MongoDB connection test passed"
         else
@@ -241,7 +207,7 @@ test_connections() {
     fi
 
     # Test PostgreSQL
-    if command -v psql >/dev/null 2>&1; then
+    if command_exists psql; then
         if sudo -u postgres psql -c "SELECT 1;" >/dev/null 2>&1; then
             log "✓ PostgreSQL connection test passed"
         else
@@ -258,13 +224,13 @@ setup_databases() {
 
     case $os in
         arch)
-            log "Setting up databases on Arch Linux..."
+            log_info "Setting up databases on Arch Linux..."
             setup_mongodb_arch
             setup_postgresql_arch
             ;;
 
         debian)
-            log "Setting up databases on Debian/Ubuntu..."
+            log_info "Setting up databases on Debian/Ubuntu..."
             setup_mongodb_debian
             setup_postgresql_debian
             ;;
@@ -278,43 +244,47 @@ setup_databases() {
     # Test connections after setup
     test_connections
 
-    log "Database setup completed!"
+    log_info "Database setup completed!"
 }
 
 # Show database information
 show_database_info() {
-    log ""
-    log "=== Database Information ==="
-    log ""
-    log "MongoDB:"
-    log "  - Configuration file: /etc/mongod.conf"
-    log "  - Data directory: /var/lib/mongodb"
-    log "  - Log file: /var/log/mongodb/mongod.log"
-    log "  - Default port: 27017"
-    log "  - Connect with: mongosh"
-    log ""
-    log "PostgreSQL:"
-    log "  - Configuration file: /etc/postgresql/*/main/postgresql.conf"
-    log "  - Data directory: /var/lib/postgresql/*/main"
-    log "  - Log directory: /var/log/postgresql/"
-    log "  - Default port: 5432"
-    log "  - Connect with: sudo -u postgres psql"
-    log ""
-    log "Service Management:"
-    log "  - Start/Stop: sudo systemctl start/stop [service]"
-    log "  - Enable/Disable: sudo systemctl enable/disable [service]"
-    log "  - Status: sudo systemctl status [service]"
-    log ""
+    echo ""
+    log_info "=== Database Information ==="
+    echo ""
+    log_info "MongoDB:"
+    log_info "  - Configuration file: /etc/mongod.conf"
+    log_info "  - Data directory: /var/lib/mongodb"
+    log_info "  - Log file: /var/log/mongodb/mongod.log"
+    log_info "  - Default port: 27017"
+    log_info "  - Connect with: mongosh"
+    echo ""
+    log_info "PostgreSQL:"
+    log_info "  - Configuration file: /etc/postgresql/*/main/postgresql.conf"
+    log_info "  - Data directory: /var/lib/postgresql/*/main"
+    log_info "  - Log directory: /var/log/postgresql/"
+    log_info "  - Default port: 5432"
+    log_info "  - Connect with: sudo -u postgres psql"
+    echo ""
+    log_info "Service Management:"
+    log_info "  - Start/Stop: sudo systemctl start/stop [service]"
+    log_info "  - Enable/Disable: sudo systemctl enable/disable [service]"
+    log_info "  - Status: sudo systemctl status [service]"
+    echo ""
 }
 
 # Main script execution
 main() {
-    log "Starting database setup..."
+    header "🗄️ Database Setup"
+    echo -e "${BLUE}Installing and configuring MongoDB and PostgreSQL${NC}\n"
+
+    # Check we have basic tools
+    check_dependencies
 
     setup_databases
     show_database_info
 
-    log "All database setup tasks completed!"
+    log_info "All database setup tasks completed!"
 }
 
 # Run the script if executed directly

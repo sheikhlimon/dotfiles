@@ -4,123 +4,11 @@
 
 set -e
 
-# Color codes for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# Get script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-log() {
-    echo -e "${GREEN}[INFO]${NC} $1"
-}
-
-warn() {
-    echo -e "${YELLOW}[WARN]${NC} $1"
-}
-
-error() {
-    echo -e "${RED}[ERROR]${NC} $1"
-}
-
-# Detect OS
-detect_os() {
-    if [[ -f /etc/arch-release ]]; then
-        echo "arch"
-    elif [[ -f /etc/debian_version ]]; then
-        echo "debian"
-    else
-        echo "unknown"
-    fi
-}
-
-# Check if command exists
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
-
-# Check if package is installed (Arch)
-is_arch_pkg_installed() {
-    pacman -Qi "$1" >/dev/null 2>&1 || yay -Qi "$1" >/dev/null 2>&1
-}
-
-# Check if package is installed (Debian)
-is_debian_pkg_installed() {
-    dpkg -s "$1" >/dev/null 2>&1
-}
-
-# Install Arch packages
-install_arch_packages() {
-    local pkgs=("$@")
-    local to_install=()
-
-    for pkg in "${pkgs[@]}"; do
-        if ! is_arch_pkg_installed "$pkg"; then
-            to_install+=("$pkg")
-        else
-            log "$pkg already installed"
-        fi
-    done
-
-    if [[ ${#to_install[@]} -gt 0 ]]; then
-        log "Installing Arch packages: ${to_install[*]}"
-        sudo pacman -S --needed "${to_install[@]}"
-    fi
-}
-
-# Install AUR packages with yay
-install_aur_packages() {
-    local pkgs=("$@")
-
-    for pkg in "${pkgs[@]}"; do
-        if ! is_arch_pkg_installed "$pkg"; then
-            log "Installing AUR package: $pkg"
-            yay -S --needed "$pkg"
-        else
-            log "AUR package $pkg already installed"
-        fi
-    done
-}
-
-# Install Debian packages
-install_debian_packages() {
-    local pkgs=("$@")
-    local to_install=()
-
-    for pkg in "${pkgs[@]}"; do
-        if ! is_debian_pkg_installed "$pkg"; then
-            to_install+=("$pkg")
-        else
-            log "$pkg already installed"
-        fi
-    done
-
-    if [[ ${#to_install[@]} -gt 0 ]]; then
-        log "Installing Debian packages: ${to_install[*]}"
-        sudo apt update
-        sudo apt install -y "${to_install[@]}"
-    fi
-}
-
-# Install Snap packages
-install_snap_packages() {
-    local pkgs=("$@")
-
-    if ! command_exists snap; then
-        log "Installing snapd..."
-        sudo apt install -y snapd
-        sudo systemctl enable --now snapd.socket
-    fi
-
-    for pkg in "${pkgs[@]}"; do
-        if ! snap list | grep -q "^$pkg "; then
-            log "Installing snap app: $pkg"
-            sudo snap install "$pkg" --classic 2>/dev/null || sudo snap install "$pkg" 2>/dev/null
-        else
-            log "Snap app $pkg already installed"
-        fi
-    done
-}
+# Source utilities
+source "$SCRIPT_DIR/utils.sh"
 
 # Install Yazi manually for Debian
 install_yazi_debian() {
@@ -129,7 +17,7 @@ install_yazi_debian() {
         return 0
     fi
 
-    log "Installing yazi from GitHub releases..."
+    log_info "Installing yazi from GitHub releases..."
     local temp_dir=$(mktemp -d)
     cd "$temp_dir"
 
@@ -157,13 +45,14 @@ install_yazi_debian() {
     rm -rf "$temp_dir"
 }
 
+
 # Main installation function
 install_apps() {
     local os=$(detect_os)
 
     case $os in
         arch)
-            log "Detected Arch Linux"
+            log_info "Detected Arch Linux"
 
             # Official packages
             local arch_official=(
@@ -212,13 +101,10 @@ install_apps() {
             # Install packages
             install_arch_packages "${arch_official[@]}"
             install_aur_packages "${arch_aur[@]}"
-
-            # Install zsh plugins
-            install_zsh_plugins_arch
             ;;
 
         debian)
-            log "Detected Debian/Ubuntu"
+            log_info "Detected Debian/Ubuntu"
 
             # Official packages
             local debian_official=(
@@ -259,9 +145,6 @@ install_apps() {
             install_debian_packages "${debian_official[@]}"
             install_snap_packages "${debian_snap[@]}"
             install_yazi_debian
-
-            # Install zsh plugins
-            install_zsh_plugins_debian
             ;;
 
         *)
@@ -270,80 +153,27 @@ install_apps() {
             ;;
     esac
 
-    log "Application installation completed successfully!"
-}
-
-# Install Oh My Zsh and plugins
-install_oh_my_zsh() {
-    if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-        log "Installing Oh My Zsh..."
-        RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    else
-        log "Oh My Zsh already installed"
-    fi
-
-    # Install plugins
-    local plugins_dir="$HOME/.oh-my-zsh/custom/plugins"
-    mkdir -p "$plugins_dir"
-
-    local plugins=(
-        "https://github.com/zsh-users/zsh-autosuggestions"
-        "https://github.com/zsh-users/zsh-syntax-highlighting"
-    )
-
-    for plugin_url in "${plugins[@]}"; do
-        local plugin_name=$(basename "$plugin_url")
-        local plugin_path="$plugins_dir/$plugin_name"
-
-        if [[ ! -d "$plugin_path" ]]; then
-            log "Installing zsh plugin: $plugin_name"
-            git clone "$plugin_url" "$plugin_path"
-        else
-            log "zsh plugin $plugin_name already installed"
-        fi
-    done
-}
-
-# Install zsh plugins for Arch
-install_zsh_plugins_arch() {
-    install_oh_my_zsh
-}
-
-# Install zsh plugins for Debian
-install_zsh_plugins_debian() {
-    install_oh_my_zsh
-}
-
-# Setup Tmux Plugin Manager
-install_tpm() {
-    local tpm_dir="$HOME/.tmux/plugins/tpm"
-
-    if [[ ! -d "$tpm_dir" ]]; then
-        log "Installing Tmux Plugin Manager (TPM)..."
-        git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
-        log "TPM installed. Press prefix + I in tmux to install plugins."
-    else
-        log "TPM already installed"
-    fi
+    log_info "Application installation completed successfully!"
 }
 
 # Main script execution
 main() {
-    log "Starting comprehensive application installation..."
+    header "🚀 Application Installation"
+    echo -e "${BLUE}Installing development apps and utilities${NC}\n"
+
+    # Check we have basic tools
+    check_dependencies
 
     # Install applications
     install_apps
 
+    # Install Oh My Zsh
+    install_oh_my_zsh
+
     # Install TPM
     install_tpm
 
-    log "All installations completed successfully!"
-    log ""
-    log "Next steps:"
-    log "1. Set zsh as your default shell: chsh -s $(which zsh)"
-    log "2. Restart your shell or run: source ~/.zshrc"
-    log "3. In tmux, press prefix + I to install plugins"
-    log "4. Configure your dotfiles as needed"
+    log_info "All installations completed successfully!"
 }
 
 # Run the script
