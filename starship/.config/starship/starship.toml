@@ -179,15 +179,14 @@ symbol = " "
 tag_symbol = "  "
 
 [git_status]
-# format = '([\[[$all_status$ahead_behind]($style)\]](foreground))'
-format = '([\[[$conflicted$untracked$modified$staged$renamed$deleted$stashed$ahead_behind]($style)\]](foreground))'
+format = '([\[[$conflicted$untracked$modified$staged$renamed$deleted$ahead_behind]($style)\]](foreground))'
 conflicted = " "
 untracked  = "? "
 modified   = " "
 staged     = "+"
 renamed    = "➜ "
 deleted    = "✘ "
-stashed    = "$"
+stashed    = ""
 ahead      = "⇡${count}"
 behind     = "⇣${count}"
 diverged   = "⇕⇡${ahead_count}⇣${behind_count}"
