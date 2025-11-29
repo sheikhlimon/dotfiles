@@ -186,11 +186,11 @@ modified   = " "
 staged     = "+"
 renamed    = "➜ "
 deleted    = "✘ "
-stashed    = ""
 ahead      = "⇡${count}"
 behind     = "⇣${count}"
 diverged   = "⇕⇡${ahead_count}⇣${behind_count}"
 up_to_date = "✓"
+stashed    = ""
 
 [git_metrics]
 format = '([\[▴$added\]]($added_style))([\[▿$deleted\]]($deleted_style))'
