@@ -1,15 +1,41 @@
-# Dotfiles
+# Dotfiles — OMARCHY Setup
 
-This repository contains my personal dotfile configurations.
-These days I primarily use [OMARCHY](https://omarchy.org) an opinionated Arch + Hyprland Setup.
+This repository contains my personal dotfiles, designed around [OMARCHY](https://omarchy.org).
 
-## Managing Dotfiles
+## Features
 
-I manage all configuration files using [GNU Stow](https://www.gnu.org/software/stow/), which allows me to create symlinks easily.
+- 🖥️ Hyprland window manager with OMARCHY-aligned tweaks
+- 🍭 Waybar themed to match OMARCHY
+- ⚡ Neovim with a fast, minimal Lua setup
+- 🧩 Zsh + compinit fixes + Starship prompt
+- 📝 Kitty & Ghostty terminal configurations
+- 🗂️ Yazi with custom theme
+- 📦 Lazygit and Lazydocker configs
+- 🔤 Fontconfig (Victor Mono italics → regular fallback)
+- 🛠️ Scripts for database setup and other utilities
 
-To set up dotfiles:
+## Installation
 
-```sh
-cd ~/dotfiles   # Navigate to dotfiles repository
-stow <package>  # Symlink packages
+**Clone the repository:**
+
+```bash
+git clone https://github.com/sheikhlimon/dotfiles ~/.dotfiles
+cd ~/.dotfiles
 ```
+
+**Install specific configs (example):**
+
+```bash
+stow hypr
+stow zsh
+stow nvim
+stow kitty
+```
+
+**Install everything:**
+
+```bash
+stow */
+```
+
+> Make sure to remove or back up existing config files before stowing.
