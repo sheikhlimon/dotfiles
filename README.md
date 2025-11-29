@@ -2,17 +2,21 @@
 
 This repository contains my personal dotfiles, designed around [OMARCHY](https://omarchy.org).
 
+> 💡 **OMARCHY Philosophy**: Take anything and make it your own. These configs are a starting point - feel free to take, modify, and customize to fit your workflow.
+
 ## Features
 
 - 🖥️ Hyprland window manager with OMARCHY-aligned tweaks
 - 🍭 Waybar themed to match OMARCHY
-- ⚡ Neovim with a fast, minimal Lua setup
-- 🧩 Zsh + compinit fixes + Starship prompt
+- ⚡ Fully customized Neovim with blazingly fast setup
+- 🧩 Zsh + Starship prompt with Oh My Zsh plugins
 - 📝 Kitty & Ghostty terminal configurations
 - 🗂️ Yazi with custom theme
 - 📦 Lazygit and Lazydocker configs
-- 🔤 Fontconfig (Victor Mono italics → regular fallback)
-- 🛠️ Scripts for database setup and other utilities
+- 🔤 Fontconfig (Victor Mono Nerd Font)
+- 🛠️ Tmux configuration with plugins and custom keybindings
+- 📋 Git configuration
+- 🚀 Automated scripts for app installation and database setup
 
 ## Installation
 
