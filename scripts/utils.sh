@@ -38,12 +38,10 @@ header() {
     echo -e "${BLUE}$(printf '=%.0s' {1..60})${NC}"
 }
 
-# OS detection
+# OS detection (Arch Linux only)
 detect_os() {
     if [[ -f /etc/arch-release ]]; then
         echo "arch"
-    elif [[ -f /etc/debian_version ]]; then
-        echo "debian"
     else
         echo "unknown"
     fi
@@ -59,10 +57,6 @@ is_arch_pkg_installed() {
     pacman -Qi "$1" >/dev/null 2>&1 || yay -Qi "$1" >/dev/null 2>&1
 }
 
-# Check if package is installed (Debian)
-is_debian_pkg_installed() {
-    dpkg -s "$1" >/dev/null 2>&1
-}
 
 # Check if service exists and is enabled
 is_service_enabled() {
@@ -107,45 +101,6 @@ install_aur_packages() {
     done
 }
 
-# Install Debian packages
-install_debian_packages() {
-    local pkgs=("$@")
-    local to_install=()
-
-    for pkg in "${pkgs[@]}"; do
-        if ! is_debian_pkg_installed "$pkg"; then
-            to_install+=("$pkg")
-        else
-            log "$pkg already installed"
-        fi
-    done
-
-    if [[ ${#to_install[@]} -gt 0 ]]; then
-        log_info "Installing Debian packages: ${to_install[*]}"
-        sudo apt update
-        sudo apt install -y "${to_install[@]}"
-    fi
-}
-
-# Install Snap packages
-install_snap_packages() {
-    local pkgs=("$@")
-
-    if ! command_exists snap; then
-        log_info "Installing snapd..."
-        sudo apt install -y snapd
-        sudo systemctl enable --now snapd.socket
-    fi
-
-    for pkg in "${pkgs[@]}"; do
-        if ! snap list | grep -q "^$pkg "; then
-            log_info "Installing snap app: $pkg"
-            sudo snap install "$pkg" --classic 2>/dev/null || sudo snap install "$pkg" 2>/dev/null
-        else
-            log "Snap app $pkg already installed"
-        fi
-    done
-}
 
 # Check dependencies
 check_dependencies() {

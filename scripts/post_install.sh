@@ -39,16 +39,64 @@ main() {
 
     # Show what's available
     echo -e "${BLUE}ℹ Available setup modules:${NC}"
-    echo "  📦 Apps + Oh My Zsh + plugins (includes TPM)"
+    echo "  📦 Development apps (VS Code, browsers, tools)"
     echo "  🗄️  Databases (MongoDB + PostgreSQL)"
+    echo "  🐚 Shell setup (Oh My Zsh + plugins)"
+    echo "  🔧 Optional desktop entries"
 
     # Run setup modules
-    ask_and_run "Install development apps, Oh My Zsh and plugins?" "install_apps.sh"
+    ask_and_run "Install development apps?" "install_apps.sh"
     ask_and_run "Setup MongoDB and PostgreSQL databases?" "setup_databases.sh"
+
+    # Install Oh My Zsh and plugins
+    ask_and_run "Install Oh My Zsh and plugins?" bash -c "source '$SCRIPT_DIR/utils.sh' && install_oh_my_zsh"
+    ask_and_run "Install Tmux Plugin Manager?" bash -c "source '$SCRIPT_DIR/utils.sh' && install_tpm"
 
     # Setup MongoDB Compass desktop entry if installed
     if command_exists mongodb-compass; then
-        ask_and_run "Setup MongoDB Compass desktop entry?" "setup_mongodb_compass.sh"
+        echo -e "\n${YELLOW}🔧 Setup MongoDB Compass desktop entry? [y/N]:${NC}"
+        read answer
+        if [[ "$answer" =~ ^[Yy]$ ]]; then
+            log_info "Setting up MongoDB Compass desktop entry..."
+
+            local desktop_file="/usr/share/applications/mongodb-compass.desktop"
+            local wrapper_script="/usr/local/bin/mongodb-compass-wrapper.sh"
+
+            # Create wrapper script
+            sudo tee "$wrapper_script" > /dev/null << 'EOF'
+#!/bin/bash
+export XDG_CURRENT_DESKTOP=GNOME
+export XDG_SESSION_DESKTOP=gnome
+export GNOME_KEYRING_CONTROL="/run/user/$(id -u)/keyring"
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+export ELECTRON_IS_DEV=0
+export NODE_ENV=production
+exec /usr/bin/mongodb-compass "$@"
+EOF
+
+            sudo chmod +x "$wrapper_script"
+
+            # Create desktop entry
+            sudo tee "$desktop_file" > /dev/null << EOF
+[Desktop Entry]
+Name=MongoDB Compass
+Comment=The MongoDB GUI
+Exec=$wrapper_script %U
+Icon=mongodb-compass
+Type=Application
+StartupNotify=true
+Categories=Office;Database;
+MimeType=x-scheme-handler/mongodb;x-scheme-handler/mongodb+srv;
+EOF
+
+            if command_exists update-desktop-database; then
+                sudo update-desktop-database /usr/share/applications/
+            fi
+
+            log "MongoDB Compass desktop entry created successfully!"
+        else
+            warn "Skipped: MongoDB Compass desktop entry"
+        fi
     fi
 
     # Show next steps
