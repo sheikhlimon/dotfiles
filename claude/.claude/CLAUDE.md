@@ -4,12 +4,12 @@
 
 <pr-comment-rule>
 When I say to add a comment to a PR with a TODO on it, use 'checkbox' markdown format to add the TODO. For instance:
-<example>
-- [ ] A description of the todo goes here
-</example>
+    <example>
+    -[ ] A description of the todo goes here
+    </example>
 </pr-comment-rule>
 
--When tagging Claude in GitHub issues, use '@claude'
+- When tagging Claude in GitHub issues, use '@claude'
 
 ## GitHub
 
