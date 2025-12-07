@@ -24,6 +24,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   desc = "Enable spell checking for text files",
 })
 
+-- Disable comment continuation on newlines
+vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
+  callback = function()
+    vim.opt_local.formatoptions:remove { "c", "r", "o" }
+  end,
+  desc = "Don't continue comments on newlines",
+})
+
 -- Auto-open Yazi if no file argument is given
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
