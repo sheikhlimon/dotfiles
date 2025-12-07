@@ -1,27 +1,4 @@
 {
-  "Function Component": {
-    "prefix": "component",
-    "body": [
-      "/**",
-      " * 💥 Title : ${TM_FILENAME_BASE}",
-      " * 📃 Description : ${1:Component description}",
-      " * ✍️ Author : Sheikh Limon",
-      " * 🕖 Date : ${CURRENT_DATE}-${CURRENT_MONTH_NAME}-${CURRENT_YEAR}",
-      " */",
-      "",
-      "const ${TM_FILENAME_BASE} = () => {",
-      "  return (",
-      "    <>",
-      "      ${2:/* content here */}",
-      "      $0",
-      "    </>",
-      "  );",
-      "};",
-      "",
-      "export default ${TM_FILENAME_BASE};"
-    ],
-    "description": "Boilerplate for React Functional Component"
-  },
   "React Functional Component": {
     "prefix": "rfc",
     "body": [

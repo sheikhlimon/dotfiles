@@ -1,26 +1,4 @@
 {
-  "React Functional Component (TS)": {
-    "prefix": "rfc",
-    "body": [
-      "import React from 'react';",
-      "",
-      "interface ${TM_FILENAME_BASE}Props {",
-      "  ${1:/* define props here */}",
-      "}",
-      "",
-      "const ${TM_FILENAME_BASE}: React.FC<${TM_FILENAME_BASE}Props> = ({}) => {",
-      "  return (",
-      "    <div>",
-      "      <h1>${TM_FILENAME_BASE} Component</h1>",
-      "      $0",
-      "    </div>",
-      "  );",
-      "};",
-      "",
-      "export default ${TM_FILENAME_BASE};"
-    ],
-    "description": "React Functional Component boilerplate (TypeScript)"
-  },
   "Next.js Functional Component (TS)": {
     "prefix": "nrfc",
     "body": [
