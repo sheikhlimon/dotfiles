@@ -162,3 +162,6 @@ load_omz_deferred() {
 
 # Add hook for deferred loading
 zle -N zle-line-init load_omz_deferred
+
+# opencode
+export PATH=/home/limon/.opencode/bin:$PATH

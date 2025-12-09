@@ -4,12 +4,7 @@ local function lsp_name()
     return ""
   end
 
-  local names = {}
-  for _, client in ipairs(buf_clients) do
-    table.insert(names, client.name)
-  end
-
-  return "  " .. table.concat(names, ", ")
+  return "  " .. #buf_clients .. " LSP"
 end
 
 -- Recording indicator
