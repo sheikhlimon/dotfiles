@@ -165,3 +165,6 @@ zle -N zle-line-init load_omz_deferred
 
 # opencode
 export PATH=/home/limon/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/home/limon/.bun/_bun" ] && source "/home/limon/.bun/_bun"
