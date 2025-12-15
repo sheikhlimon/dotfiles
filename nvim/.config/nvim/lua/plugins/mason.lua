@@ -24,6 +24,7 @@ return {
     -- Additional tools (formatters, linters, etc.)
     local tools = {
       "prettier",
+      "biome",
       "stylua",
       "black",
       "isort",

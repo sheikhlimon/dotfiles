@@ -8,20 +8,27 @@ return {
     conform.setup {
       formatters_by_ft = {
         lua = { "stylua" },
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        typescriptreact = { "prettier" },
-        javascriptreact = { "prettier" },
-        svelte = { "prettier" },
-        css = { "prettier" },
+        javascript = { "prettier", "biome" },
+        typescript = { "prettier", "biome" },
+        typescriptreact = { "prettier", "biome" },
+        javascriptreact = { "prettier", "biome" },
+        svelte = { "prettier", "biome" },
+        css = { "prettier", "biome" },
         html = { "prettier" },
-        json = { "prettier" },
+        json = { "prettier", "biome" },
         yaml = { "prettier" },
-        markdown = { "prettier" },
+        markdown = { "prettier", "biome" },
         graphql = { "prettier" },
         python = { "isort", "black" },
         bash = { "shfmt" },
         go = { "goimports" },
+      },
+      formatters = {
+        biome = {
+          condition = function(self, ctx)
+            return vim.fs.find({ "biome.json" }, { path = ctx.filename, upward = true })[1]
+          end,
+        },
       },
       -- format_on_save = {
       --   timeout_ms = 1000,
