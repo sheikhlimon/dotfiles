@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Kanagawa",
+  "workbench.colorTheme": "flexoki-light",
   "update.mode": "none",
   "[python]": {
     "editor.codeActionsOnSave": {
@@ -87,7 +87,7 @@
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.enablePersistentSessions": false,
   "terminal.integrated.fontFamily": "VictorMono Nerd Font",
-  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontSize": 17,
   "terminal.integrated.persistentSessionReviveProcess": "never",
   "terminal.integrated.rightClickBehavior": "copyPaste",
   "terminal.integrated.showExitAlert": false,
@@ -126,6 +126,10 @@
 
       "editor.findMatchHighlightBackground": "#40400088",
       "editor.findMatchHighlightBorder": "#808000"
+    },
+    "[flexoki-light]": {
+      "editor.lineHighlightBackground": "#fff0",
+      "editor.lineHighlightBorder": "#fff0"
     }
   },
   "editor.tokenColorCustomizations": {
@@ -151,7 +155,7 @@
       ]
     }
   },
-  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.iconTheme": "catppuccin-latte",
   "workbench.layoutControl.enabled": true,
   "workbench.navigationControl.enabled": false,
   "workbench.productIconTheme": "icons-carbon",
@@ -161,5 +165,9 @@
   "redhat.telemetry.enabled": true,
   "editor.wordBasedSuggestions": "off",
   "update.showReleaseNotes": false,
-  "workbench.preferredDarkColorTheme": "NeoRose-VimPine"
+  "workbench.preferredDarkColorTheme": "NeoRose-VimPine",
+  "workbench.preferredLightColorTheme": "flexoki-light",
+  "claudeCode.preferredLocation": "sidebar",
+  "claudeCode.useTerminal": true,
+  "terminal.integrated.enableMultiLinePasteWarning": "never"
 }

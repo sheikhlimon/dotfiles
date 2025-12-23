@@ -1,4 +1,4 @@
-continuation_prompt = "[▸▹ ](dimmed white)"
+continuation_prompt = "[▸▹ ](dimmed dark)"
 format = """
 $os\
 $directory\
@@ -75,7 +75,7 @@ $crystal\
 $custom"""
 
 [cmd_duration]
-format = "[󰪢 $duration ](white)"
+format = "[󰪢 $duration ](dark)"
 
 [fill]
 symbol = " "

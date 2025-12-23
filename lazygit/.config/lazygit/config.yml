@@ -5,9 +5,6 @@ gui:
     "*": magenta
   showNumstatInFilesView: true
   skipRewordInEditorWarning: true
-  theme:
-    selectedLineBgColor:
-      - "#013e4a"
 keybinding:
   files:
     viewResetOptions: <disabled>

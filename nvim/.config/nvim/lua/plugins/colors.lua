@@ -1,5 +1,5 @@
 -- Theme selection - change this value to switch themes
--- Options: "melange", "rose-pine"
+-- Options: "melange", "rose-pine", "flexoki"
 local selected_theme = "rose-pine"
 
 return {
@@ -12,11 +12,11 @@ return {
     enabled = selected_theme == "rose-pine",
     config = function()
       require("rose-pine").setup {
-  variant = "moon", -- auto, main, moon, or dawn
+        variant = "dawn", -- auto, main, moon, or dawn
         disable_italics = true,
         dim_inactive_windows = false,
         extend_background_behind_borders = false,
-        transparent_background = true,
+        transparent_background = false,
         highlight_groups = {
           Normal = { bg = "NONE" },
           NormalNC = { bg = "NONE" },
@@ -51,7 +51,7 @@ return {
           -- Documentation separators
           BlinkCmpDocSeparator = { fg = "NONE", bg = "NONE" }, -- transparent doc separator
           NoiceDocSeparator = { fg = "NONE", bg = "NONE" }, -- transparent noice doc separator
-            SnacksIndentChunk = { fg = "#9ccfd8", bg = "NONE" }, -- main variant colors
+          SnacksIndentChunk = { fg = "#9ccfd8", bg = "NONE" }, -- main variant colors
           TermCursor = { bg = "#908caa", reverse = true }, -- main variant colors
           TermCursorNC = { bg = "#908caa" }, -- main variant colors
           -- Git diff highlights using official Rose Pine colors
@@ -184,6 +184,57 @@ return {
       vim.api.nvim_set_hl(0, "SnacksPickerGitDiffChange", { bg = "#242a2e", fg = "#7eb4d3" })
       vim.api.nvim_set_hl(0, "SnacksPickerGitDiffDelete", { bg = "#2d2528", fg = "#e57474" })
       vim.api.nvim_set_hl(0, "SnacksPickerGitDiffText", { bg = "#2a2925", fg = "#e9b963" })
+    end,
+  },
+
+  -- Flexoki
+  {
+    "kepano/flexoki-neovim",
+    name = "flexoki",
+    lazy = false,
+    priority = 1000,
+    enabled = selected_theme == "flexoki",
+    config = function()
+      vim.opt.background = "light"
+      vim.cmd "colorscheme flexoki-light"
+
+      -- UI transparency - let flexoki handle syntax colors
+      vim.api.nvim_set_hl(0, "Normal", { bg = "#FFFCF0" })
+      vim.api.nvim_set_hl(0, "NormalNC", { bg = "#FFFCF0" })
+      vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#6F6E69", bg = "NONE" })
+      vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#100F0F", bg = "NONE", bold = true })
+      vim.api.nvim_set_hl(0, "FloatFooter", { fg = "#6F6E69", bg = "NONE" })
+      vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE", fg = "#100F0F" })
+      vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = "#6F6E69", bg = "NONE" })
+      vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = "#FFFCF0", fg = "#100F0F" })
+      vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE", fg = "#100F0F" })
+      vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#6F6E69", bg = "NONE" })
+      vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#B7B5AC", bg = "NONE" })
+      vim.api.nvim_set_hl(0, "VertSplit", { fg = "#B7B5AC", bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksIndentChunk", { fg = "#BC4B00", bg = "NONE" })
+      vim.api.nvim_set_hl(0, "TermCursor", { bg = "#6F6E69", reverse = true })
+      vim.api.nvim_set_hl(0, "TermCursorNC", { bg = "#6F6E69" })
+      vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#E6E4D9", fg = "#403D2F" })
+      vim.api.nvim_set_hl(0, "DiffChange", { bg = "#F2F0E5", fg = "#403D2F" })
+      vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#FFEEE3", fg = "#AF3029" })
+      vim.api.nvim_set_hl(0, "DiffText", { bg = "#FFFCF0", fg = "#100F0F" })
+      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffAdd", { bg = "#E6E4D9", fg = "#403D2F" })
+      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffChange", { bg = "#F2F0E5", fg = "#403D2F" })
+      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffDelete", { bg = "#FFEEE3", fg = "#AF3029" })
+      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffText", { bg = "#FFFCF0", fg = "#100F0F" })
+      vim.api.nvim_set_hl(0, "Identifier", { fg = "#100F0F" })
+      vim.api.nvim_set_hl(0, "Function", { fg = "#FF0000", bold = true })
+      -- LSP semantic tokens (higher priority)
+      vim.api.nvim_set_hl(0, "@lsp.type.function", { fg = "#FF0000", bold = true })
+      vim.api.nvim_set_hl(0, "@lsp.typemod.function.readonly", { fg = "#FF0000", bold = true })
+      vim.api.nvim_set_hl(0, "@lsp.mod.readonly", { fg = "#FF0000", bold = true })
+      -- Treesitter captures
+      vim.api.nvim_set_hl(0, "@variable", { fg = "#FF0000", bold = true })
+      vim.api.nvim_set_hl(0, "@function.call", { fg = "#FF0000", bold = true })
+
     end,
   },
 }
