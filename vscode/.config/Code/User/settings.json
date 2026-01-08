@@ -110,7 +110,7 @@
     }
   },
   "window.autoDetectColorScheme": true,
-  // "window.zoomLevel": 0.1,
+  "window.zoomLevel": 0.3,
   "window.customTitleBarVisibility": "auto",
   "window.menuBarVisibility": "toggle",
   "window.titleBarStyle": "native",

@@ -1,6 +1,6 @@
 -- Theme selection - change this value to switch themes
 -- Options: "melange", "rose-pine", "flexoki"
-local selected_theme = "rose-pine"
+local selected_theme = "flexoki"
 
 return {
   -- Rose Pine
@@ -225,15 +225,6 @@ return {
       vim.api.nvim_set_hl(0, "SnacksPickerGitDiffChange", { bg = "#F2F0E5", fg = "#403D2F" })
       vim.api.nvim_set_hl(0, "SnacksPickerGitDiffDelete", { bg = "#FFEEE3", fg = "#AF3029" })
       vim.api.nvim_set_hl(0, "SnacksPickerGitDiffText", { bg = "#FFFCF0", fg = "#100F0F" })
-      vim.api.nvim_set_hl(0, "Identifier", { fg = "#100F0F" })
-      vim.api.nvim_set_hl(0, "Function", { fg = "#FF0000", bold = true })
-      -- LSP semantic tokens (higher priority)
-      vim.api.nvim_set_hl(0, "@lsp.type.function", { fg = "#FF0000", bold = true })
-      vim.api.nvim_set_hl(0, "@lsp.typemod.function.readonly", { fg = "#FF0000", bold = true })
-      vim.api.nvim_set_hl(0, "@lsp.mod.readonly", { fg = "#FF0000", bold = true })
-      -- Treesitter captures
-      vim.api.nvim_set_hl(0, "@variable", { fg = "#FF0000", bold = true })
-      vim.api.nvim_set_hl(0, "@function.call", { fg = "#FF0000", bold = true })
 
     end,
   },
