@@ -1,13 +1,9 @@
 # Basic display settings
-font-family = VictorMono Nerd Font
-# font-variation = wght=450
-# or
-font-thicken = true
+font-family = JetBrainsMono Nerd Font
 font-size = 14
 
 theme = Flexoki Light
 
-background-opacity = 1
 window-padding-x = 0
 window-padding-y = 0
 confirm-close-surface=false
@@ -15,4 +11,3 @@ confirm-close-surface=false
 # Keybinds
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
-keybind = ctrl+enter=unbind
