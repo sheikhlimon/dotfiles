@@ -33,12 +33,12 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
 })
 
 -- Auto-open Yazi if no file argument is given
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    -- argc() returns the number of files passed to vim
-    if vim.fn.argc() == 0 then
-      -- Open Yazi in the current working directory
-      vim.cmd "Yazi cwd"
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   callback = function()
+--     -- argc() returns the number of files passed to vim
+--     if vim.fn.argc() == 0 then
+--       -- Open Yazi in the current working directory
+--       vim.cmd "Yazi cwd"
+--     end
+--   end,
+-- })
