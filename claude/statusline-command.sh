@@ -8,6 +8,11 @@ model=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 current_dir=$(echo "$input" | jq -r '.workspace.current_dir // "$(pwd)"')
 output_style=$(echo "$input" | jq -r '.output_style.name // ""')
 
+# Context window info (v2.1+)
+percent_used=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
+current_tokens=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
+context_size=$(echo "$input" | jq -r '.context_window.context_window_size // 0')
+
 # Get basic info
 user=$(whoami)
 hostname=$(hostname -s)
@@ -31,7 +36,7 @@ if [[ -n "$dir_substitution" ]]; then
     display_dir="$dir_substitution"
 else
     # Show truncated path like starship (max 3 levels)
-    display_dir=$(echo "$current_dir" | sed "s|$HOME| |" | sed -E 's|([^/]+/[^/]+/[^/]+/).*/|\1••/|')
+    display_dir=$(echo "$current_dir" | sed "s|$HOME|~|" | sed -E 's|([^/]+/[^/]+/[^/]+/).*/|\1••/|')
 fi
 
 # Git info
@@ -79,9 +84,18 @@ else
     style_indicator=""
 fi
 
+# Context display (e.g., "12% 25k/200k")
+if [[ "$context_size" -gt 0 ]]; then
+    tokens_k=$((current_tokens / 1000))
+    context_k=$((context_size / 1000))
+    context_info=" ${percent_used}% ${tokens_k}k/${context_k}k"
+else
+    context_info=""
+fi
+
 # Build final status line
 left_part="$display_dir$git_info"
-right_part="$model$style_indicator"
+right_part="$model$style_indicator$context_info"
 
 # Use printf to handle the colors and spacing
 printf "%s%s%s" "$left_part" "$(printf '%*s' $((40 - ${#left_part} - ${#right_part})) '')" "$right_part"
