@@ -88,6 +88,8 @@ fi
 if [[ "$context_size" -gt 0 ]]; then
     tokens_k=$((current_tokens / 1000))
     context_k=$((context_size / 1000))
+    # Calculate percentage ourselves
+    percent_used=$((current_tokens * 100 / context_size))
     context_info=" ${percent_used}% ${tokens_k}k/${context_k}k"
 else
     context_info=""
