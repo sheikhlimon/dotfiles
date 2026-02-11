@@ -3,10 +3,10 @@
   "update.mode": "none",
   "[python]": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": "explicit"
+      "source.organizeImports": "explicit",
     },
     "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   "breadcrumbs.enabled": false,
   "chat.commandCenter.enabled": false,
@@ -15,7 +15,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always",
     "source.organizeImports": "never",
-    "source.sort.json": "never"
+    "source.sort.json": "never",
   },
   "editor.cursorBlinking": "solid",
   "editor.cursorSmoothCaretAnimation": "on",
@@ -31,7 +31,7 @@
   "editor.minimap.enabled": false,
   "editor.occurrencesHighlight": "off",
   "editor.quickSuggestions": {
-    "strings": true
+    "strings": true,
   },
   "editor.renderWhitespace": "none",
   "editor.smoothScrolling": true,
@@ -47,7 +47,7 @@
     "typescript",
     "typescriptreact",
     "vue",
-    "svelte"
+    "svelte",
   ],
   "explorer.compactFolders": false,
   "explorer.confirmDelete": false,
@@ -55,7 +55,7 @@
   // "editor.fontLigatures": "'ss01','ss05','dlig'",
   "explorer.decorations.badges": false,
   "extensions.experimental.affinity": {
-    "asvetliakov.vscode-neovim": 1
+    "asvetliakov.vscode-neovim": 1,
   },
   "files.autoSave": "off",
   "files.eol": "\n",
@@ -64,7 +64,7 @@
     "*": false,
     "markdown": false,
     "plaintext": false,
-    "scminput": false
+    "scminput": false,
   },
   "github.copilot.nextEditSuggestions.enabled": true,
   "isort.args": ["--profile", "black"],
@@ -78,7 +78,7 @@
     "**/package-lock.json": true,
     "**/public/{[^i],?[^n]}*": true,
     "**/vendor/{[^l],?[^ai]}*": true,
-    "storage": true
+    "storage": true,
   },
   "security.workspace.trust.enabled": false,
   "security.workspace.trust.startupPrompt": "never",
@@ -95,19 +95,19 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "vscode-neovim.compositeKeys": {
     "jj": {
-      "command": "vscode-neovim.escape"
+      "command": "vscode-neovim.escape",
     },
     "jk": {
       "args": [
         [
           "local code = require('vscode')",
           "code.action('vscode-neovim.escape')",
-          "code.action('workbench.action.files.save')"
-        ]
+          "code.action('workbench.action.files.save')",
+        ],
       ],
       // Use lua to execute any logic
-      "command": "vscode-neovim.lua"
-    }
+      "command": "vscode-neovim.lua",
+    },
   },
   "window.autoDetectColorScheme": true,
   "window.zoomLevel": 0.3,
@@ -125,12 +125,12 @@
       "editor.findMatchBorder": "#808000",
 
       "editor.findMatchHighlightBackground": "#40400088",
-      "editor.findMatchHighlightBorder": "#808000"
+      "editor.findMatchHighlightBorder": "#808000",
     },
     "[flexoki-light]": {
       "editor.lineHighlightBackground": "#fff0",
-      "editor.lineHighlightBorder": "#fff0"
-    }
+      "editor.lineHighlightBorder": "#fff0",
+    },
   },
   "editor.tokenColorCustomizations": {
     "[NeoRose-VimPine]": {
@@ -146,14 +146,14 @@
             "variable.parameter",
             "entity.name.function",
             "entity.name.type",
-            "entity.other.attribute-name"
+            "entity.other.attribute-name",
           ],
           "settings": {
-            "fontStyle": "" // This removes italic formatting
-          }
-        }
-      ]
-    }
+            "fontStyle": "", // This removes italic formatting
+          },
+        },
+      ],
+    },
   },
   "workbench.iconTheme": "catppuccin-latte",
   "workbench.layoutControl.enabled": true,
@@ -169,5 +169,7 @@
   "workbench.preferredLightColorTheme": "flexoki-light",
   "claudeCode.preferredLocation": "sidebar",
   "claudeCode.useTerminal": true,
-  "terminal.integrated.enableMultiLinePasteWarning": "never"
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "amp.url": "https://ampcode.com/",
+  "amp.notifications.enabled": false,
 }
