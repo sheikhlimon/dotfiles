@@ -31,7 +31,7 @@
   }; f"
 
   # Pretty logs (non-interactive)
-  llog = log --oneline --decorate --graph --all
+  llog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
   # Search & diff commits interactively
   find = "!f() { \
