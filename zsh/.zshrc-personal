@@ -16,6 +16,10 @@ alias g='git'
 alias d='docker'
 alias screenrec='gpu-screen-recorder -w screen -c mp4 -f 30 -s 1280x720 -o ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4'
 
+# Podman Desktop
+alias podman-kill='pkill -f electron && pkill -f "watch.mjs" && pkill -f "pnpm.*watch" && pkill -f "vite.*build"'
+alias podman-ps='ps aux | grep -E "(electron.*podman|watch.mjs|vite.*podman)" | grep -v grep'
+
 # Git
 alias gcm='git commit'
 alias gcam='git commit -a'
@@ -198,11 +202,23 @@ function zle-keymap-select {
 zle -N zle-keymap-select
 
 # Initialize line in insert mode with beam cursor
-function zle-line-init {
+# This wraps any existing zle-line-init widget (like from deferred loading)
+function _zshrc-personal-line-init {
+  # Call any existing widget first (for deferred loading compatibility)
+  if zle -l zle-line-init-original; then
+    zle zle-line-init-original
+  fi
+
+  # Then set cursor shape
   zle -K viins
   echo -ne '\e[5 q'
 }
-zle -N zle-line-init
+
+# Save existing widget if it exists, then create new one
+if zle -l zle-line-init; then
+  zle -A zle-line-init zle-line-init-original
+fi
+zle -N zle-line-init _zshrc-personal-line-init
 
 preexec() { echo -ne '\e[5 q'; }
 

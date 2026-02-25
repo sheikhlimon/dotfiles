@@ -81,33 +81,40 @@ export FZF_ALT_C_OPTS="
 --preview 'command -v tree >/dev/null && tree -C {} || ls -la {}'
 "
 
+# Flag to track if deferred load has run
+typeset -g _OMZ_DEFERRED_LOADED=false
+
 # Loads heavy stuff after prompt appears
 load_omz_deferred() {
+    # Only run once
+    [[ $_OMZ_DEFERRED_LOADED == true ]] && return
+    typeset -g _OMZ_DEFERRED_LOADED=true
+
     # Oh My Zsh configuration (must be set BEFORE sourcing oh-my-zsh.sh)
     export ZSH="$HOME/.oh-my-zsh"
     export ZSH_CUSTOM="${ZSH}/custom"
-    
+
     plugins=(
       zsh-autosuggestions
       zsh-syntax-highlighting
     )
-    
+
     # Load Oh My Zsh
     [[ -r $ZSH/oh-my-zsh.sh ]] && source "$ZSH/oh-my-zsh.sh"
 
     # Initialize completion system AFTER Oh My Zsh loads
     autoload -Uz compinit
-    
+
     local zcompdump="$XDG_CACHE_HOME/zsh/.zcompdump"
     [[ -d "$XDG_CACHE_HOME/zsh" ]] || mkdir -p "$XDG_CACHE_HOME/zsh"
-    
+
     # Only regenerate once per day
     if [[ -f "$zcompdump" && "$(date +'%j')" == "$(date -r "$zcompdump" +'%j' 2>/dev/null)" ]]; then
         compinit -C -d "$zcompdump"
     else
         compinit -d "$zcompdump"
     fi
-    
+
     # Completion styling
     zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'l:|=* r:|=*'
     zstyle ':completion:*' menu select interactive use-cache on
@@ -126,21 +133,23 @@ load_omz_deferred() {
     command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
     command -v fzf &>/dev/null && eval "$(fzf --zsh)"
 
-    # Node.js management
+    # Node.js management (quiet mode to avoid prompt interference)
     if [ -d "$XDG_DATA_HOME/fnm" ]; then
         path=("$XDG_DATA_HOME/fnm" $path)
-        eval "$(fnm env --use-on-cd)"
+        {
+            eval "$(fnm env --use-on-cd)"
+        } >/dev/null 2>&1
     fi
 
     # Rust toolchain
     if command -v rustup &>/dev/null; then
         local rust_comp_dir="$XDG_DATA_HOME/zsh/completions"
         [[ ! -d "$rust_comp_dir" ]] && mkdir -p "$rust_comp_dir"
-        
+
         # Only generate if missing
         [[ ! -f "$rust_comp_dir/_cargo" ]] && rustup completions zsh cargo > "$rust_comp_dir/_cargo" 2>/dev/null
         [[ ! -f "$rust_comp_dir/_rustup" ]] && rustup completions zsh > "$rust_comp_dir/_rustup" 2>/dev/null
-        
+
         fpath=("$rust_comp_dir" $fpath)
     fi
 
@@ -155,12 +164,18 @@ load_omz_deferred() {
         source "$HOME/.zshrc-personal"
     fi
 
-    # Clean up - remove the hook after execution
-    zle -D zle-line-init
+    # Clean up - only remove the function, not the widget
     unfunction load_omz_deferred
 }
 
-# Add hook for deferred loading
+# Add hook for deferred loading (chain with other hooks)
+# Store any existing widget
+if zle -l zle-line-init-user; then
+    # User already has a custom zle-line-init, chain it
+    zle -A zle-line-init-user _zle_line_init_user_backup
+fi
+
+# Create our deferred load widget
 zle -N zle-line-init load_omz_deferred
 
 # opencode
@@ -168,3 +183,5 @@ export PATH=/home/limon/.opencode/bin:$PATH
 
 # bun completions
 [ -s "/home/limon/.bun/_bun" ] && source "/home/limon/.bun/_bun"
+export ELECTRON_OZONE_PLATFORM_HINT=x11
+export ELECTRON_OZONE_PLATFORM_HINT=x11
