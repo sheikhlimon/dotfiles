@@ -29,6 +29,7 @@ export BUN_INSTALL="$HOME/.bun"
 path=(
     "$HOME/bin"
     "$HOME/.local/bin"
+    "$HOME/.local/share/flatpak/exports/bin"
     "$BUN_INSTALL/bin"
     "$CARGO_HOME/bin"
     $path
