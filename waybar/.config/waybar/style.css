@@ -7,7 +7,7 @@
   border: none;
   border-radius: 0;
   min-height: 0;
-  font-family: 'JetBrainsMono Nerd Font';
+  font-family: "JetBrainsMono Nerd Font";
   font-size: 12px;
 }
 
@@ -35,7 +35,6 @@
 #battery,
 #pulseaudio,
 #custom-omarchy,
-#custom-screenrecording-indicator,
 #custom-update {
   min-width: 12px;
   margin: 0 7.5px;
@@ -54,7 +53,7 @@
 }
 
 #custom-expand-icon {
-  margin-right: 15px;
+  margin-right: 18px;
 }
 
 tooltip {
@@ -66,21 +65,29 @@ tooltip {
 }
 
 #clock {
-  margin-left: 5px;
+  margin-left: 8.75px;
 }
 
 .hidden {
   opacity: 0;
 }
 
-#custom-screenrecording-indicator {
+#custom-screenrecording-indicator,
+#custom-idle-indicator,
+#custom-notification-silencing-indicator {
   min-width: 12px;
   margin-left: 5px;
+  margin-right: 0;
   font-size: 10px;
   padding-bottom: 1px;
 }
 
 #custom-screenrecording-indicator.active {
+  color: #a55555;
+}
+
+#custom-idle-indicator.active,
+#custom-notification-silencing-indicator.active {
   color: #a55555;
 }
 
