@@ -1,0 +1,17 @@
+# Global cargo config - optimized for low memory
+[build]
+jobs = 6
+incremental = true
+
+[profile.dev]
+opt-level = 0
+debug = "line-tables-only"
+codegen-units = 64
+
+[profile.dev.build-override]
+opt-level = 0
+codegen-units = 64
+
+[profile.release]
+lto = false
+codegen-units = 16
