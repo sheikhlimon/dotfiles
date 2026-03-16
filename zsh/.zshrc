@@ -125,6 +125,11 @@ load_omz_deferred() {
     zstyle ':completion:*:functions' ignored-patterns '_*'
     _comp_options+=(globdots)
 
+    # Hide . and .. from completions but keep other hidden files
+    zstyle ':completion:*:files' ignored-patterns '.' '..'
+    zstyle ':completion:*:globbed-files' ignored-patterns '.' '..'
+    zstyle ':completion:*:directories' ignored-patterns '.' '..'
+
     # Configure autosuggestions
     ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
     ZSH_AUTOSUGGEST_MANUAL_REBIND=true

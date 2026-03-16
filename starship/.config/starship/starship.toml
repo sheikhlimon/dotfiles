@@ -1,3 +1,5 @@
+scan_timeout = 100
+
 continuation_prompt = "[▸▹ ](dimmed dark)"
 format = """
 $os\
