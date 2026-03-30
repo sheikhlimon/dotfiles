@@ -32,6 +32,7 @@ path=(
     "$HOME/.local/share/flatpak/exports/bin"
     "$BUN_INSTALL/bin"
     "$CARGO_HOME/bin"
+    "$HOME/go/bin"
     $path
 )
 

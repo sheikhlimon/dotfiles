@@ -64,6 +64,12 @@ alias help="bat ~/.zshrc-personal"
 #   fi
 # fi
 
+# Attach to existing tmux session or create new one
+t() {
+  [[ -n $TMUX ]] && echo "Already in tmux" && return
+  tmux list-sessions &>/dev/null && tmux attach || tmux new -s main
+}
+
 #zd
 zd() {
   if [ $# -eq 0 ]; then
