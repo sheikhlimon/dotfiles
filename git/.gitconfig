@@ -33,6 +33,10 @@
   # Pretty logs (non-interactive)
   llog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
+  # Sync with upstream
+  up = fetch upstream main && merge upstream/main
+  upr = fetch upstream main && rebase upstream/main
+
   # Search & diff commits interactively
   find = "!f() { \
     if [ $# -eq 0 ]; then \
