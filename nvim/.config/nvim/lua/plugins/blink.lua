@@ -23,7 +23,7 @@ return {
   -- Blink.cmp
   {
     "saghen/blink.cmp",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     version = "*",
     dependencies = { "L3MON4D3/LuaSnip" },
     opts = {

@@ -13,9 +13,6 @@ vim.opt.softtabstop = 2
 
 vim.opt.inccommand = "split"
 
-vim.opt.foldlevel = 99
-vim.opt.foldcolumn = "0"
-
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 200
 

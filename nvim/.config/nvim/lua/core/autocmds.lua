@@ -3,13 +3,15 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
     if lang and pcall(vim.treesitter.language.inspect, lang) then
-      vim.wo.foldmethod = "expr"
-      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-      vim.wo.foldenable = true
+      vim.wo[0][0].foldmethod = "expr"
+      vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
     end
   end,
   desc = "Enable treesitter folding for supported filetypes",
 })
+
+-- Set default foldlevel high so everything starts unfolded
+vim.opt.foldlevel = 99
 
 -- Lua indentation settings
 vim.api.nvim_create_autocmd("FileType", {

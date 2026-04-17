@@ -1,11 +1,11 @@
 return {
   "laytan/cloak.nvim",
-  event = { "BufReadPre .env*", "BufNewFile .env*" },
+  ft = { "sh" },
   config = function()
     local cloak = require "cloak"
 
     cloak.setup {
-      enabled = true, -- Cloak starts enabled
+      enabled = true,
       cloak_character = "*",
       highlight_group = "Comment",
       patterns = {
@@ -21,7 +21,6 @@ return {
       cloak.toggle()
     end, {})
 
-    -- Optional keybinding for toggle
     vim.keymap.set("n", "<leader>tc", function()
       cloak.toggle()
     end, { desc = "Toggle Cloak" })

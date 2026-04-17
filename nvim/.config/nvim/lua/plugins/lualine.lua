@@ -107,13 +107,10 @@ return {
     },
 
     extensions = {
-      "nvim-tree",
       "quickfix",
       "trouble",
       "fugitive",
-      "oil",
       "lazy",
-      "neo-tree",
       "man",
     },
   },

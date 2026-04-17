@@ -6,10 +6,6 @@ return {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
   },
-  dependencies = {
-    "williamboman/mason-lspconfig.nvim",
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-  },
   opts = {
     ui = {
       border = "rounded",
@@ -51,7 +47,6 @@ return {
       "gopls",
       "rust_analyzer",
       "jsonls",
-      "just",
       "bashls",
     }
 
