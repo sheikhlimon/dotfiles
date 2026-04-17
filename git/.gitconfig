@@ -48,6 +48,9 @@
     echo \"$commits\" | fzf -m | awk '{print $1}' | xargs -r -I {} git show --color=always {}; \
   }; f"
 
+[merge]
+  tool = nvimdiff
+
 [diff]
   tool = nvimdiff
 
@@ -73,6 +76,9 @@
   name = sheikhlimon
   signingkey = /home/limon/.ssh/id_ed25519
 
+[format]
+  signoff = true
+
 [gpg]
   format = ssh
 
@@ -85,5 +91,11 @@
 [init]
   defaultBranch = main
 
-[hub]
-  protocol = https
+[sendemail]
+	smtpserver = smtp.gmail.com
+	smtpuser = sheikhlimon404@gmail.com
+	smtpserverport = 587
+	smtpencryption = tls
+
+[include]
+  path = ~/.gitconfig.local
