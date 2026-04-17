@@ -9,7 +9,7 @@ return {
     scroll = { enabled = true },
     statuscolumn = { enabled = false }, -- disabled until needed
     dashboard = { enabled = false },
-    quickfile = { enable = true },
+    quickfile = { enabled = true },
     words = { enabled = false },
     lazygit = {
       configure = true,

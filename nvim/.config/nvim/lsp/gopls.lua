@@ -1,5 +1,4 @@
 return {
-  filetypes = { "go", "gomod", "gosum" },
   settings = {
     gopls = {
       analyses = {
@@ -17,4 +16,3 @@ return {
     },
   },
 }
-

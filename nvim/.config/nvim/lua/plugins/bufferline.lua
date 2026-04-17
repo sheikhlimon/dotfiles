@@ -3,7 +3,6 @@ return {
   lazy = true,
   event = { "BufReadPost", "BufNewFile" },
   dependencies = {
-    "moll/vim-bbye",
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
@@ -12,8 +11,8 @@ return {
         mode = "buffers",
         themable = false,
         numbers = "none",
-        close_command = "Bdelete! %d",
-        right_mouse_command = "Bdelete! %d",
+        close_command = function(n) Snacks.bufdelete(n) end,
+        right_mouse_command = function(n) Snacks.bufdelete(n) end,
         left_mouse_command = "buffer %d",
         buffer_close_icon = "󰅖",
         close_icon = "",
@@ -36,15 +35,6 @@ return {
         minimum_padding = 1,
         maximum_padding = 5,
         sort_by = "insert_at_end",
-        -- Offset for nvim-tree
-        offsets = {
-          {
-            filetype = "NvimTree",
-            text = "File Explorer",
-            text_align = "center",
-            separator = true,
-          },
-        },
       },
       highlights = {
         fill = { bg = "NONE" },

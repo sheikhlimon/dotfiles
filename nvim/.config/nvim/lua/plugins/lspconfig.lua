@@ -1,5 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
+  lazy = true,
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     {
       "folke/lazydev.nvim",
@@ -14,12 +16,9 @@ return {
     { "Bilal2453/luvit-meta", lazy = true },
     "saghen/blink.cmp",
   },
-  event = { "BufReadPre", "BufNewFile" },
   config = function()
-    -- Performance optimizations
-    vim.lsp.set_log_level "WARN"
+    vim.lsp.log.set_level(vim.log.levels.WARN)
 
-    -- Diagnostics setup
     vim.diagnostic.config {
       virtual_text = false,
       update_in_insert = false,
@@ -35,25 +34,7 @@ return {
       },
     }
 
-    -- on_attach function
-    local function on_attach(client, bufnr)
-      local function map(keys, func, desc)
-        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
-      end
-
-      map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-      map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-      if
-        client.server_capabilities.inlayHintProvider
-        and vim.lsp.inlay_hint
-        and type(vim.lsp.inlay_hint.enable) == "function"
-      then
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-      end
-    end
-
-    -- Setup capabilities
+    -- Set capabilities for all servers via wildcard config
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
     capabilities.textDocument.diagnostic = nil
@@ -65,25 +46,28 @@ return {
       multilineTokenSupport = true,
       dynamicRegistration = false,
     }
+    vim.lsp.config("*", { capabilities = capabilities })
 
-    -- Setup servers using new vim.lsp.config API
-    local servers = require "lsp"
-    local server_names = {}
+    -- Keymaps and inlay hints via LspAttach
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+        local bufnr = args.buf
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    for server_name, user_config in pairs(servers) do
-      local opts = {
-        capabilities = vim.tbl_deep_extend("force", {}, capabilities, user_config.capabilities or {}),
-        on_attach = on_attach,
-        settings = user_config.settings,
-        init_options = user_config.init_options,
-        filetypes = user_config.filetypes,
-      }
+        local function map(keys, func, desc)
+          vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
+        end
+        map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
-      vim.lsp.config(server_name, opts)
-      table.insert(server_names, server_name)
-    end
-
-    -- Enable all configured servers
-    vim.lsp.enable(server_names)
+        if
+          client.server_capabilities.inlayHintProvider
+          and vim.lsp.inlay_hint
+          and type(vim.lsp.inlay_hint.enable) == "function"
+        then
+          vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        end
+      end,
+    })
   end,
 }

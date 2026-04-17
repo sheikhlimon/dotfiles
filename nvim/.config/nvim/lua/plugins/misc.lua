@@ -47,45 +47,12 @@ return {
     end,
   },
 
-  -- Autopairs
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = { check_ts = true },
-  },
-
   -- Markdown/code companion previews
   -- {
   --   "OXY2DEV/markview.nvim",
   --   ft = { "markdown", "codecompanion" },
   --   opts = { preview = { filetypes = { "md", "markdown", "codecompanion" } } },
   -- },
-
-  -- Comment.nvim
-  {
-    "numToStr/Comment.nvim",
-    opts = {},
-    config = function(_, opts)
-      require("Comment").setup(opts)
-      local keymap_opts = { noremap = true, silent = true }
-      -- Normal mode toggles
-      vim.keymap.set("n", "<C-_>", require("Comment.api").toggle.linewise.current, keymap_opts)
-      vim.keymap.set("n", "<C-/>", require("Comment.api").toggle.linewise.current, keymap_opts)
-      -- Visual mode toggles
-      vim.keymap.set(
-        "v",
-        "<C-_>",
-        "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
-        keymap_opts
-      )
-      vim.keymap.set(
-        "v",
-        "<C-/>",
-        "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
-        keymap_opts
-      )
-    end,
-  },
 
   -- leetcode
   -- {

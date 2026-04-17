@@ -22,6 +22,8 @@ return {
         python = { "isort", "black" },
         bash = { "shfmt" },
         go = { "goimports" },
+        c = { "clang-format" },
+        cpp = { "clang-format" },
       },
       formatters = {
         biome = {

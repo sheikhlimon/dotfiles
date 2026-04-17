@@ -1,5 +1,6 @@
 return {
   "laytan/cloak.nvim",
+  event = { "BufReadPre .env*", "BufNewFile .env*" },
   config = function()
     local cloak = require "cloak"
 

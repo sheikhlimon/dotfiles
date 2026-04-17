@@ -2,7 +2,6 @@ return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   event = "VeryLazy",
-  main = "nvim-treesitter.configs",
   dependencies = {
     {
       "windwp/nvim-ts-autotag",
@@ -65,7 +64,7 @@ return {
       "php",
     },
     auto_install = true,
-    highlight = { enable = true, additional_vim_regex_highlighting = { "ruby" } },
+    highlight = { enable = true },
     indent = { enable = true, disable = { "ruby" } },
   },
 }

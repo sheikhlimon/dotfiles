@@ -1,7 +1,11 @@
 return {
   "williamboman/mason.nvim",
   cmd = "Mason",
-  event = "VeryLazy", -- Load Mason after startup, not immediately
+  event = "VeryLazy",
+  dependencies = {
+    "williamboman/mason-lspconfig.nvim",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+  },
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",

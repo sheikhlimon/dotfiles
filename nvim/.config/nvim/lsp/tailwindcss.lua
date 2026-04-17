@@ -1,24 +1,4 @@
 return {
-  filetypes = {
-    "html",
-    "css",
-    "scss",
-    "javascriptreact",
-    "typescriptreact",
-    "vue",
-    "svelte",
-    "astro",
-  },
-  root_markers = {
-    "tailwind.config.js",
-    "tailwind.config.cjs",
-    "tailwind.config.mjs",
-    "tailwind.config.ts",
-    "postcss.config.js",
-    "postcss.config.ts",
-    "package.json",
-    ".git",
-  },
   settings = {
     tailwindCSS = {
       emmetCompletions = true,
@@ -40,11 +20,10 @@ return {
           "@apply\\s+([^;]*)",
           'class="([^"]*)"',
           'className="([^"]*)"',
-          ':class="([^"]*)"',
+          ':class="([^"]*"',
           "@class\\(([^)]*)\\)",
         },
       },
     },
   },
 }
-

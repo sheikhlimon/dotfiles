@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 
 -- VSCode detection
 if vim.g.vscode then
@@ -71,3 +72,23 @@ require "core.options"
 require "core.mappings"
 require "core.lazy"
 require "core.autocmds"
+
+-- Enable LSP servers (configs auto-discovered from lsp/ directory)
+vim.lsp.enable {
+  "vtsls",
+  "html",
+  "cssls",
+  "tailwindcss",
+  "pyright",
+  "lua_ls",
+  "yamlls",
+  "clangd",
+  "gopls",
+  "jsonls",
+  "bashls",
+}
+
+-- Rust LSP: start manually with :RustStart (it's too heavy to auto-start)
+vim.api.nvim_create_user_command("RustStart", function()
+  vim.lsp.enable("rust_analyzer")
+end, { desc = "Start rust-analyzer for current project" })

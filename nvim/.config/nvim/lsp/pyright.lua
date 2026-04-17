@@ -1,5 +1,4 @@
 return {
-  filetypes = { "python" },
   settings = {
     python = {
       analysis = {
@@ -11,4 +10,3 @@ return {
     },
   },
 }
-
