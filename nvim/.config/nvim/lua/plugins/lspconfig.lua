@@ -66,6 +66,19 @@ return {
           and type(vim.lsp.inlay_hint.enable) == "function"
         then
           vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+          -- Disable inlay hints in insert mode to reduce keystroke lag
+          vim.api.nvim_create_autocmd("InsertEnter", {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+            end,
+          })
+          vim.api.nvim_create_autocmd("InsertLeave", {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+            end,
+          })
         end
       end,
     })

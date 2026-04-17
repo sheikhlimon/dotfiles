@@ -60,7 +60,7 @@ return {
       end
     end
 
-    -- Enable treesitter highlighting
+    -- Enable treesitter highlighting only for languages we have parsers for
     vim.api.nvim_create_autocmd("FileType", {
       callback = function()
         pcall(vim.treesitter.start)

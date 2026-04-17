@@ -36,7 +36,7 @@ return {
       autoUseWorkspaceTsdk = true,
       experimental = {
         maxInlayHintLength = 30,
-        completion = { enableServerSideFuzzyMatch = true },
+        completion = { enableServerSideFuzzyMatch = true, entriesLimit = 20 },
       },
     },
   },

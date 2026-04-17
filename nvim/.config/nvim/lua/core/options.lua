@@ -18,6 +18,8 @@ vim.opt.timeoutlen = 200
 
 vim.opt.swapfile = false
 
+vim.opt.synmaxcol = 500
+
 vim.opt.fillchars = { eob = " " }
 vim.opt.path:append { "**" }
 vim.opt.wildignore:append { "*/node_modules/*" }
