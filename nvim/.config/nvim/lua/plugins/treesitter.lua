@@ -20,7 +20,6 @@ local parsers = {
   "javascript",
   "jsdoc",
   "json",
-  "jsonc",
   "lua",
   "luadoc",
   "make",
@@ -60,10 +59,13 @@ return {
       end
     end
 
-    -- Enable treesitter highlighting only for languages we have parsers for
+    -- Enable treesitter highlighting (skip markdown due to conceal_lines bug in Neovim 0.12.1)
+    local skip = { markdown = true }
     vim.api.nvim_create_autocmd("FileType", {
       callback = function()
-        pcall(vim.treesitter.start)
+        if not skip[vim.bo.filetype] then
+          pcall(vim.treesitter.start)
+        end
       end,
       desc = "Enable treesitter highlighting",
     })
@@ -71,7 +73,9 @@ return {
     -- Enable treesitter-based indentation
     vim.api.nvim_create_autocmd("FileType", {
       callback = function()
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        if not skip[vim.bo.filetype] then
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
       end,
       desc = "Enable treesitter indentation",
     })

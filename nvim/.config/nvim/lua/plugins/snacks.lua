@@ -6,6 +6,7 @@ return {
   opts = {
     bigfile = { enabled = true },
     explorer = { enabled = true },
+    profiler = { enabled = true },
     scroll = { enabled = true },
     statuscolumn = { enabled = false }, -- disabled until needed
     dashboard = { enabled = false },
