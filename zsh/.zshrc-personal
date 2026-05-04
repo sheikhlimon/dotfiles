@@ -195,6 +195,36 @@ transcode-video-1080p() {
   ffmpeg -i $1 -vf scale=1920:1080 -c:v libx264 -preset fast -crf 23 -c:a copy ${1%.*}-1080p.mp4
 }
 
+# Speed up a video (default 2x). Usage: speedup-video input.mp4 [speed]
+# Example: speedup-video clip.mp4      -> 2x speed
+# Example: speedup-video clip.mp4 1.5  -> 1.5x speed
+speedup-video() {
+  local speed="${2:-2}"
+  local input="$1"
+  local vfilter="setpts=PTS/${speed}"
+  # atempo only supports 0.5–2.0, chain multiple for higher speeds
+  local atempo
+  if (( $(echo "$speed <= 2.0" | bc -l) )); then
+    atempo="atempo=${speed}"
+  else
+    local remaining="$speed"
+    atempo=""
+    while (( $(echo "$remaining > 2.0" | bc -l) )); do
+      atempo="${atempo}atempo=2.0,"
+      remaining=$(echo "$remaining / 2.0" | bc -l)
+    done
+    atempo="${atempo}atempo=${remaining}"
+  fi
+  # Check if video has audio
+  if ffmpeg -i "$input" 2>&1 | grep -q "Audio:"; then
+    ffmpeg -i "$input" -filter_complex "[0:v]${vfilter}[v];[0:a]${atempo}[a]" \
+      -map "[v]" -map "[a]" -c:v libx264 -preset fast -crf 23 "${input%.*}-${speed}x.mp4"
+  else
+    ffmpeg -i "$input" -filter_complex "[0:v]${vfilter}[v]" \
+      -map "[v]" -c:v libx264 -preset fast -crf 23 "${input%.*}-${speed}x.mp4"
+  fi
+}
+
 # Vi mode + cursor setup
 bindkey -v                       # enable vi mode
 
