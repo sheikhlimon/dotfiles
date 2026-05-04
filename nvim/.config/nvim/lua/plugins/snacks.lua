@@ -320,5 +320,19 @@ return {
       end,
       desc = "Toggle Zen Mode",
     },
+    {
+      "<leader>pp",
+      function()
+        Snacks.profiler.toggle()
+      end,
+      desc = "Toggle Profiler",
+    },
+    {
+      "<leader>ph",
+      function()
+        Snacks.profiler.highlight()
+      end,
+      desc = "Toggle Profiler Highlights",
+    },
   },
 }
