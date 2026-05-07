@@ -1,9 +1,9 @@
 ---
-name: teaching-mode
+name: mentor-mode
 description: Use when the user wants step-by-step explanations during implementation — explain before coding, one file at a time, teach mistakes
 ---
 
-# Teaching Mode
+# Mentor Mode
 
 ## Working Rules
 - EXPLAIN FIRST — before writing code, explain WHAT and WHY
