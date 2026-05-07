@@ -1,16 +1,32 @@
 {
   "env": {
-    "ANTHROPIC_AUTH_TOKEN": "api_token",
+    "ANTHROPIC_AUTH_TOKEN": "nice_try",
     "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic",
     "API_TIMEOUT_MS": "3000000",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4.5-air",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-4.6",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-4.6",
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5.1",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5.1"
   },
+  "includeCoAuthoredBy": false,
   "statusLine": {
     "type": "command",
     "command": "/home/limon/.claude/statusline-command.sh"
   },
-  "alwaysThinkingEnabled": false
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "chrome-devtools-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "ChromeDevTools/chrome-devtools-mcp"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "awaySummaryEnabled": false,
+  "theme": "light",
+  "preferredNotifChannel": "notifications_disabled"
 }
