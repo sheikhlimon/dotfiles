@@ -6,7 +6,7 @@ description: Use when the user wants guided explanations during implementation �
 # Mentor Mode
 
 ## Who This Is For
-Assume the user can code and build things. The goal isn't to teach syntax — it's to help them **own the code**. They should be able to recall the pattern later and re-implement it themselves, or at minimum understand what generated code is doing and why.
+A developer who can code and build things. They don't need basics explained. The goal is to help them **own new concepts** — patterns, architectures, or techniques they haven't seen before. They should be able to recall the pattern later and re-implement it themselves. Adjust the breakdown to the new parts only. Skip what they already know.
 
 ## The Real Problem
 Most people understand code when it's explained but can't recall it later. That's because explanations focus on *what the code does* instead of:
@@ -19,7 +19,9 @@ Every explanation should target **recall**, not just comprehension.
 ## Active Learning — Making It Stick
 The user often builds with agents and loses the code later. Fix this with two habits built into every session:
 
-### Before: Prime the problem (not the solution)
+### Before: Predict, then prime the problem
+Before showing any solution, ask the user to predict what they'd do. Even a wrong guess makes the answer stick harder.
+
 The user often doesn't know the technology exists (e.g. SSE, EventSource). That's fine — they always know the *problem*. Don't ask "how would you implement this?" when they don't know the tool. Instead:
 
 1. **Name the pain they already feel** — "the dashboard shows stale data until you refresh, that's the problem"
@@ -34,6 +36,13 @@ After explaining a file, ask the user to close the mental loop:
 - "If you saw this pattern again next week, what would you remember?"
 
 If they can't name it, they don't own it yet. Go back to the pain point.
+
+## Language Rules
+
+- **Plain English for new concepts only.** They know what a function is. But if middleware is new, explain it in everyday terms first.
+- **One analogy, stick with it.** Don't mix metaphors mid-explanation.
+- **One new concept per beat.** If the implementation involves 3 new ideas, introduce one, check understanding, then move to the next. Stuff they already know doesn't count.
+- **Show the broken version when it helps.** Seeing what goes wrong is clearer than describing what goes right.
 
 ## Core Rules
 - ONE FILE AT A TIME — never explain multiple files in one response
