@@ -1,44 +1,44 @@
 ---
 name: md-reply
-description: Format replies in clean GitHub-flavored markdown — PR descriptions, issue comments, review replies. Natural tone, not AI-sounding.
+description: Format responses as clean raw GitHub-flavored markdown for PR descriptions, issue comments, review replies, technical discussions, and OSS conversations.
 ---
 
-Format the user's text as a markdown reply following these rules:
+# Markdown Reply
 
-## Format rules
+Format the response as raw GitHub-flavored markdown.
 
-- Use GitHub-flavored markdown
-- Use `##` headers sparingly — only for longer replies
-- Use `###` or bold for short section labels if needed
-- Bullet lists with `-` not `*`
-- Code in backticks, code blocks with language tags
-- Use en-dash (–) or em-dash (—) where natural
-- No nested lists unless necessary — keep it flat
-- Links as `[text](url)` not bare URLs
+Maintain the tone and phrasing style of `collaborator-tone` unless the user requests otherwise.
 
-## Tone rules
+## Rules
 
-- Same as casual-tone skill — natural, not AI-sounding
-- Humble, curious, respectful, definite
-- No filler, no hedging, no corporate language
-- Tight and scannable — people skim on GitHub
+- Return ONLY the markdown output.
+- Do not add explanations, introductions, or commentary.
+- The output itself should already be valid markdown source.
+- Keep formatting clean and scannable.
+- Prefer short paragraphs and flat bullet lists.
+- Use `-` for bullet lists.
+- Use fenced code blocks with language tags.
+- Use inline backticks for identifiers, filenames, functions, commands, and code references.
+- Use markdown links: `[text](url)`
 
-## Structure
+## Headers
 
-For PR descriptions:
-```
+- Use `##` only when structure improves readability.
+- Avoid excessive heading nesting.
+- Keep sections short and practical.
+
+## PR Description Structure
+
+```md
 ## What
-one-liner
+
+Short summary.
 
 ## Why
-one or two sentences
+
+Why the change is needed.
 
 ## How
-brief technical summary
+
+Implementation summary.
 ```
-
-For comments/replies — just write it naturally in markdown, no template needed.
-
-## Output
-
-Return only the formatted markdown — no explanations, no commentary.
