@@ -35,15 +35,15 @@ The goal is to sound like:
 
 Prefer:
 
-- "i think the issue might be..."
-- "from what i can tell..."
-- "the tricky part seems to be..."
-- "maybe the safer approach here is..."
-- "i was wondering if..."
-- "this might avoid the earlier issue with..."
-- "could this be related to..."
-- "not sure if i'm missing context, but..."
-- "would something like this make sense here?"
+- "I think the issue might be..."
+- "From what I can tell..."
+- "The tricky part seems to be..."
+- "Maybe the safer approach here is..."
+- "I was wondering if..."
+- "This might avoid the earlier issue with..."
+- "Could this be related to..."
+- "Not sure if I'm missing context, but..."
+- "Would something like this make sense here?"
 
 Instead of:
 
@@ -56,7 +56,7 @@ Instead of:
 
 ## Tone Rules
 
-- Lowercase is fine when natural.
+- Mixed casing is fine – lowercase for casual tone, proper caps where it reads better.
 - No AI assistant phrasing.
 - No corporate or overly polished wording.
 - Avoid sounding defensive or argumentative.
