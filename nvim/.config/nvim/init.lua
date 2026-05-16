@@ -87,8 +87,3 @@ vim.lsp.enable {
   "jsonls",
   "bashls",
 }
-
--- Rust LSP: start manually with :RustStart (it's too heavy to auto-start)
-vim.api.nvim_create_user_command("RustStart", function()
-  vim.lsp.enable("rust_analyzer")
-end, { desc = "Start rust-analyzer for current project" })

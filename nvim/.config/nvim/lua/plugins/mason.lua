@@ -45,7 +45,6 @@ return {
       "yamlls",
       "clangd",
       "gopls",
-      "rust_analyzer",
       "jsonls",
       "bashls",
     }
