@@ -58,19 +58,19 @@ install_arch() {
         imagemagick
         bc
         gpu-screen-recorder
+        httpie
+        jetbrains-mono-fonts
     )
 
     # AUR packages
     local arch_aur=(
         visual-studio-code-bin
         mongodb-compass-bin
-        postman-bin
         foliate
         ghostty
         zen-browser-bin
-        vivaldi
         telegram-desktop-bin
-        ttf-victor-mono-nerd
+        ttf-jetbrains-mono-nerd
         bibata-cursor-theme-bin
     )
 
@@ -87,7 +87,6 @@ install_fedora() {
     local fedora_pkgs=(
         kitty
         mpv
-        okular
         neovim
         git
         curl
@@ -107,6 +106,9 @@ install_fedora() {
         ffmpeg
         ImageMagick
         bc
+        httpie
+        jetbrains-mono-fonts
+        jetbrains-mono-nf-fonts
     )
 
     # Third-party / COPR packages (best-effort)
