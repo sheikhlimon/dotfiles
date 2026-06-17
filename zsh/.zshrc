@@ -141,8 +141,14 @@ load_omz_deferred() {
     command -v fzf &>/dev/null && eval "$(fzf --zsh)"
 
     # Node.js management (quiet mode to avoid prompt interference)
+    # Check both XDG and default fnm install locations
     if [ -d "$XDG_DATA_HOME/fnm" ]; then
         path=("$XDG_DATA_HOME/fnm" $path)
+        {
+            eval "$(fnm env --use-on-cd)"
+        } >/dev/null 2>&1
+    elif [ -d "$HOME/.fnm" ]; then
+        path=("$HOME/.fnm" $path)
         {
             eval "$(fnm env --use-on-cd)"
         } >/dev/null 2>&1
@@ -162,9 +168,6 @@ load_omz_deferred() {
 
     # Start autosuggestions
     typeset -f _zsh_autosuggest_start >/dev/null && _zsh_autosuggest_start
-
-    # Load bun completions if available
-    [ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
 
     # Load personal config with security check
     if [[ -f "$HOME/.zshrc-personal" && -r "$HOME/.zshrc-personal" ]]; then
@@ -186,9 +189,7 @@ fi
 zle -N zle-line-init load_omz_deferred
 
 # opencode
-export PATH=/home/limon/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
 
-# bun completions
-[ -s "/home/limon/.bun/_bun" ] && source "/home/limon/.bun/_bun"
-export ELECTRON_OZONE_PLATFORM_HINT=x11
+# Electron Wayland/X11 hint (single export)
 export ELECTRON_OZONE_PLATFORM_HINT=x11

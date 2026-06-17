@@ -1,6 +1,6 @@
 #!/bin/bash
 # Database setup script for MongoDB and PostgreSQL
-# Arch Linux only
+# Supports Arch Linux and Fedora
 
 set -euo pipefail
 
@@ -10,67 +10,104 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Source utilities
 source "$SCRIPT_DIR/utils.sh"
 
-# Setup MongoDB on Arch Linux
+# Detect OS
+OS_TYPE=$(detect_os)
+
+# Setup MongoDB
 setup_mongodb() {
-    log_info "Setting up MongoDB on Arch Linux..."
+    log_info "Setting up MongoDB on $OS_TYPE..."
 
-    # Install MongoDB if not installed
-    if ! is_arch_pkg_installed mongodb-bin; then
-        log_info "Installing MongoDB..."
-        yay -S --needed mongodb-bin
-    else
-        log "MongoDB already installed"
-    fi
+    case "$OS_TYPE" in
+        arch)
+            local pkg="mongodb-bin"
+            local svc="mongodb"
+            if ! is_arch_pkg_installed "$pkg"; then
+                log_info "Installing MongoDB..."
+                yay -S --needed "$pkg"
+            else
+                log "MongoDB already installed"
+            fi
+            ;;
+        fedora)
+            local pkg="mongodb-server"
+            local svc="mongod"
+            if ! is_fedora_pkg_installed "$pkg"; then
+                log_info "Installing MongoDB..."
+                sudo dnf install -y "$pkg"
+            else
+                log "MongoDB already installed"
+            fi
+            ;;
+        *)
+            error "Unsupported OS: $OS_TYPE"
+            return 1
+            ;;
+    esac
 
-    # Detect MongoDB service name
-    local mongo_service="mongodb"  # Default for Arch Linux mongodb-bin
-
-    # Verify service exists (check file directly, no sudo needed)
-    if [[ ! -f "/usr/lib/systemd/system/mongodb.service" ]]; then
-        error "MongoDB service file not found. mongodb-bin package may not be properly installed."
+    # Verify service exists
+    if [[ ! -f "/usr/lib/systemd/system/${svc}.service" ]] && [[ ! -f "/etc/systemd/system/${svc}.service" ]]; then
+        error "MongoDB service file not found. Package may not be properly installed."
         return 1
     fi
 
-    if [[ -n "$mongo_service" ]]; then
-        if ! is_service_running "$mongo_service"; then
-            log_info "Enabling and starting MongoDB service ($mongo_service)..."
-            sudo systemctl enable --now "$mongo_service"
+    if ! is_service_running "$svc"; then
+        log_info "Enabling and starting MongoDB service ($svc)..."
+        sudo systemctl enable --now "$svc"
 
-            # Wait for service to start
-            sleep 3
+        sleep 3
 
-            if is_service_running "$mongo_service"; then
-                log "MongoDB service started successfully"
-            else
-                error "Failed to start MongoDB service"
-                return 1
-            fi
+        if is_service_running "$svc"; then
+            log "MongoDB service started successfully"
         else
-            log "MongoDB service already running"
+            error "Failed to start MongoDB service"
+            return 1
         fi
     else
-        error "MongoDB service not found. Installation may have failed."
-        return 1
+        log "MongoDB service already running"
     fi
 }
 
 # Setup PostgreSQL on Arch Linux
 setup_postgresql() {
-    log_info "Setting up PostgreSQL on Arch Linux..."
+    log_info "Setting up PostgreSQL on $OS_TYPE..."
 
-    # Install PostgreSQL if not installed
-    if ! is_arch_pkg_installed postgresql; then
-        log_info "Installing PostgreSQL..."
-        sudo pacman -S --needed postgresql
-    else
-        log "PostgreSQL already installed"
-    fi
+    local pg_pkg pg_svc pg_data_dir pg_user
+
+    case "$OS_TYPE" in
+        arch)
+            pg_pkg="postgresql"
+            pg_svc="postgresql"
+            pg_data_dir="/var/lib/postgres/data"
+            pg_user="postgres"
+            if ! is_arch_pkg_installed "$pg_pkg"; then
+                log_info "Installing PostgreSQL..."
+                sudo pacman -S --needed "$pg_pkg"
+            else
+                log "PostgreSQL already installed"
+            fi
+            ;;
+        fedora)
+            pg_pkg="postgresql-server"
+            pg_svc="postgresql"
+            pg_data_dir="/var/lib/pgsql/data"
+            pg_user="postgres"
+            if ! is_fedora_pkg_installed "$pg_pkg"; then
+                log_info "Installing PostgreSQL..."
+                sudo dnf install -y "$pg_pkg"
+            else
+                log "PostgreSQL already installed"
+            fi
+            ;;
+        *)
+            error "Unsupported OS: $OS_TYPE"
+            return 1
+            ;;
+    esac
 
     # Initialize database if not already initialized
-    # Check for PostgreSQL version file to detect initialized database
-    if [[ ! -f /var/lib/postgres/data/PG_VERSION ]]; then
+    if [[ ! -f "$pg_data_dir/PG_VERSION" ]]; then
         log_info "Initializing PostgreSQL database..."
-        if sudo -u postgres initdb -D /var/lib/postgres/data; then
+        if sudo -u "$pg_user" initdb -D "$pg_data_dir" 2>/dev/null; then
             log "PostgreSQL database initialized successfully"
         else
             warn "PostgreSQL database initialization failed - checking if service can still start"
@@ -79,8 +116,8 @@ setup_postgresql() {
         log "PostgreSQL database already initialized"
 
         # Check if the data version matches current PostgreSQL version
-        local current_version=$(psql --version | awk '{print $3}' | cut -d. -f1,2)
-        local data_version=$(cat /var/lib/postgres/data/PG_VERSION 2>/dev/null || echo "unknown")
+        local current_version=$(psql --version 2>/dev/null | awk '{print $3}' | cut -d. -f1,2 || echo "unknown")
+        local data_version=$(cat "$pg_data_dir/PG_VERSION" 2>/dev/null || echo "unknown")
 
         if [[ "$current_version" != "$data_version" && "$data_version" != "unknown" ]]; then
             warn "⚠ PostgreSQL version mismatch detected!"
@@ -93,13 +130,13 @@ setup_postgresql() {
             read -r reset_answer
             if [[ "$reset_answer" =~ ^[Yy]$ ]]; then
                 log_info "Backing up existing data to /tmp/postgres_backup_$(date +%s)..."
-                sudo cp -r /var/lib/postgres/data "/tmp/postgres_backup_$(date +%s)" 2>/dev/null || true
+                sudo cp -r "$pg_data_dir" "/tmp/postgres_backup_$(date +%s)" 2>/dev/null || true
 
                 log_info "Removing old PostgreSQL data..."
-                sudo rm -rf /var/lib/postgres/data
+                sudo rm -rf "$pg_data_dir"
 
                 log_info "Initializing new PostgreSQL database..."
-                if sudo -u postgres initdb -D /var/lib/postgres/data; then
+                if sudo -u "$pg_user" initdb -D "$pg_data_dir" 2>/dev/null; then
                     log "✓ PostgreSQL database reset and reinitialized successfully"
                 else
                     error "Failed to initialize PostgreSQL database"
@@ -107,41 +144,29 @@ setup_postgresql() {
                 fi
             else
                 warn "Skipping PostgreSQL data reset - service may not start"
-                log_info "You can manually upgrade using: pg_upgradecluster"
-                log_info "Or reset later with: sudo rm -rf /var/lib/postgres/data && sudo -u postgres initdb -D /var/lib/postgres/data"
             fi
         fi
     fi
 
-    # Start and enable PostgreSQL service (standard system service)
-    if ! is_service_running postgresql; then
-        log_info "Enabling and starting PostgreSQL system service..."
+    # Start and enable PostgreSQL service
+    if ! is_service_running "$pg_svc"; then
+        log_info "Enabling and starting PostgreSQL service..."
 
-        # Try to start the service
-        if sudo systemctl start postgresql; then
-            sudo systemctl enable postgresql
+        if sudo systemctl start "$pg_svc"; then
+            sudo systemctl enable "$pg_svc"
             sleep 2
-            if is_service_running postgresql; then
-                log "PostgreSQL system service started successfully"
+            if is_service_running "$pg_svc"; then
+                log "PostgreSQL service started successfully"
             else
                 error "PostgreSQL service started but not responding"
                 return 1
             fi
         else
-            # Check if it's a version mismatch issue
-            log_info "Checking PostgreSQL service failure..."
-            if journalctl -u postgresql.service --no-pager -n 5 2>/dev/null | grep -q "old version of database format"; then
-                warn "⚠ PostgreSQL database format upgrade needed!"
-                log_info "Run: sudo -u postgres pg_upgradecluster $(ls /usr/bin/postgres*-bin | head -1 | sed 's/.*postgres\([0-9]*\).*/\1/') old"
-                log_info "Or follow: https://wiki.archlinux.org/index.php/PostgreSQL#Upgrading_PostgreSQL"
-                log_info "For now, you can use MongoDB which is working properly"
-            else
-                error "Failed to start PostgreSQL service - run 'sudo journalctl -xeu postgresql.service' for details"
-            fi
+            error "Failed to start PostgreSQL service - run 'sudo journalctl -xeu $pg_svc.service' for details"
             return 1
         fi
     else
-        log "PostgreSQL system service already running"
+        log "PostgreSQL service already running"
     fi
 }
 
@@ -175,19 +200,40 @@ test_connections() {
 
 # Show database information
 show_database_info() {
+    local pg_data_dir pg_conf_dir pg_svc_name
+
+    case "$OS_TYPE" in
+        arch)
+            pg_data_dir="/var/lib/postgres/data"
+            pg_conf_dir="/var/lib/postgres/data"
+            pg_svc_name="postgresql"
+            ;;
+        fedora)
+            pg_data_dir="/var/lib/pgsql/data"
+            pg_conf_dir="/var/lib/pgsql/data"
+            pg_svc_name="postgresql"
+            ;;
+        *)
+            pg_data_dir="/var/lib/postgres/data"
+            pg_conf_dir="/var/lib/postgres/data"
+            pg_svc_name="postgresql"
+            ;;
+    esac
+
     echo ""
     log_info "=== Database Information ==="
     echo ""
     log_info "MongoDB:"
-    log_info "  - Configuration file: /etc/mongod.conf"
+    log_info "  - Service: mongod"
     log_info "  - Data directory: /var/lib/mongodb"
     log_info "  - Log file: /var/log/mongodb/mongod.log"
     log_info "  - Default port: 27017"
     log_info "  - Shell command: mongosh"
     echo ""
-    log_info "PostgreSQL (system service):"
-    log_info "  - Configuration file: /var/lib/postgres/data/postgresql.conf"
-    log_info "  - Data directory: /var/lib/postgres/data"
+    log_info "PostgreSQL:"
+    log_info "  - Service: $pg_svc_name"
+    log_info "  - Data directory: $pg_data_dir"
+    log_info "  - Configuration: $pg_conf_dir/postgresql.conf"
     log_info "  - Unix socket: /run/postgresql/.s.PGSQL.5432"
     log_info "  - Default port: 5432"
     log_info "  - Shell command: psql"
@@ -202,12 +248,17 @@ show_database_info() {
 # Main setup function
 main() {
     header "🗄️  Database Setup"
-    echo -e "${BLUE}Setting up MongoDB and PostgreSQL${NC}\n"
+    echo -e "${BLUE}Setting up MongoDB and PostgreSQL on $OS_TYPE${NC}\n"
 
     # Check we have basic tools
     check_dependencies
 
-    log_info "Setting up databases on Arch Linux..."
+    # Detect OS if not set
+    if [[ -z "${OS_TYPE:-}" ]]; then
+        OS_TYPE=$(detect_os)
+    fi
+
+    log_info "Setting up databases on $OS_TYPE..."
     setup_mongodb
     setup_postgresql
 
