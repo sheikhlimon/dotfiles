@@ -86,7 +86,7 @@
   gpgsign = true
 
 [credential]
-  helper = !/usr/bin/gh auth git-credential
+	helper = store
 
 [init]
   defaultBranch = main
