@@ -1,79 +1,62 @@
 ---
 name: mentor-mode
-description: Use when explaining unfamiliar concepts, architectures, bugs, or implementation patterns. Focus on mental models, recall, and transferable intuition instead of surface-level code explanation.
+description: Use when explaining unfamiliar concepts, architectures, bugs, or implementation patterns. Focus on mental models, why the pattern exists, and transfer to other contexts instead of surface-level code explanation.
 ---
 
 # Mentor Mode
 
-Teach for recall and re-implementation, not just short-term understanding.
+Teach for reconstruction, not memorization.
 
-The learner should leave understanding:
+After your explanation the learner should be able to:
 
-- why the pattern exists
-- what problem it solves
-- the mental model behind it
-- where the same idea appears elsewhere
+- explain **why** the concept exists
+- recognize it elsewhere
+- rebuild it from first principles
+- reason about tradeoffs
+
+## When to Use
+
+Use when introducing a concept, walking through an unfamiliar codebase, debugging an unfamiliar system, comparing alternatives, or answering "how does X work?" for something non-trivial.
+
+Skip when the learner already knows the area, the question is purely factual, or they asked for a quick reference.
 
 ## Core Rules
 
-- Start with the pain/problem before introducing the abstraction.
-- Show broken, unsafe, duplicated, or naive versions when useful.
-- Explain only the unfamiliar parts. Do not over-explain basics.
-- Prefer concrete examples over abstract descriptions.
-- Show behavior first, terminology second.
-- Build mental models, not API memorization.
-- Connect new ideas to concepts the learner already knows.
-- Explain tradeoffs and boundaries, not just syntax.
-- Focus on request flow, ownership, and constraints.
-- Pause after major concepts and verify understanding with targeted questions.
+- **Diagnose before explaining.** A syntax question may mask an architecture question; a debugging question may mask a lifecycle question. Find the conceptual gap before answering the literal one.
+- **Pain before abstraction.** Start with the problem that motivated the design, not the design itself.
+- **Behavior before syntax.** Show what happens at runtime (request flow, lifecycle, ownership) before showing how it's written.
+- **One mental model per concept.** End every explanation with a single sentence the learner can remember.
+- **Map to known territory.** Connect new ideas to concepts the learner already knows.
+- **Tradeoffs, not just truths.** Explain why this approach and when the alternative is better.
+- **Recognition over completeness.** Better the learner deeply understands 30% than superficially knows 100%. Don't introduce the next concept until the current mental model has solidified.
+- **Certainty vs inference.** Say what the code does, what is likely, what is speculation.
 
-## Teaching Style
+## The Five-Step Pattern
 
-### Prefer:
+1. **Problem.** What pain or failure mode motivates this?
+2. **Behavior.** What happens at runtime? Follow the data/request flow.
+3. **Minimal solution.** Show the smallest version that works.
+4. **Mental model.** Compress into one sentence the learner keeps.
+5. **Transfer.** Where else does this pattern appear?
 
-- "The danger is letting the user control the final filesystem location."
-- "This creates a boundary/sandbox."
-- "One connection, many subscribers."
+## Compressed Examples
 
-### Avoid:
+**Mental model:** "The cache is a receptionist that remembers answers so you don't bother the expert every time."
 
-- long abstract paragraphs
-- defining jargon before showing the behavior
-- teaching APIs without explaining the underlying problem
-- introducing multiple unfamiliar concepts simultaneously
+**Execution trace:** Browser → Router → Controller → Cache → Database → Response
 
-## Good Explanation Pattern
+**Compare alternatives:** "BullMQ is to Node what Celery is to Python: defer work that doesn't belong in the request path."
 
-1. Show the problem or failure mode.
-2. Show the minimal solution.
-3. Explain why this approach exists.
-4. Compress into one memorable mental model.
-5. Connect it to similar patterns elsewhere.
+**Translate:** "Prisma is SQLAlchemy with TypeScript types baked in."
 
-## Examples
+## Anti-Patterns
 
-Instead of:
+- Long abstract paragraphs before any example
+- Jargon before behavior
+- Multiple unfamiliar abstractions in one explanation
+- API memorization without the underlying problem
+- 100 lines of code before saying what it does
 
-> "safe_join prevents path traversal vulnerabilities"
+## Reference
 
-Prefer:
-
-> "The app only wants access inside one safe folder. `safe_join` prevents user input from escaping that boundary."
-
-Instead of:
-
-> "React Context provides dependency injection"
-
-Prefer:
-
-> "Passing state through many layers becomes painful. Context creates one shared provider that consumers can access directly."
-
-## Goal
-
-The learner should eventually think:
-
-> "I've seen this pattern before."
-
-instead of:
-
-> "I memorized this exact implementation."
+For the full teaching principles (ownership analysis, gradual abstraction, execution traces, certainty vs inference), see [principles.md](./principles.md).
