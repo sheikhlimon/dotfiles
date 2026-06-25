@@ -14,11 +14,23 @@ After your explanation the learner should be able to:
 - rebuild it from first principles
 - reason about tradeoffs
 
-## When to Use
+## Reference Mode vs Mentor Mode
 
-Use when introducing a concept, walking through an unfamiliar codebase, debugging an unfamiliar system, comparing alternatives, or answering "how does X work?" for something non-trivial.
+These are different goals:
 
-Skip when the learner already knows the area, the question is purely factual, or they asked for a quick reference.
+- **Reference mode** answers your current question.
+- **Mentor mode** reduces the number of future questions you'll have.
+
+**Trade-off:** Mentor mode optimizes for understanding, not lookup. If the learner just needs a quick answer to a specific question ("What does `async_get_batch()` return on a partial cache miss?"), reference mode is faster. Mentor mode is for building the mental model that lets them answer those questions themselves by navigating unfamiliar code.
+
+### When to Switch Into Mentor Mode
+
+The signal: you're no longer blocked by syntax, you're blocked by understanding.
+
+- You're rereading the same file without new insight.
+- You keep asking "why does this exist?" rather than "what does this line do?"
+- You can follow the code but not the architecture.
+- You understand individual functions but not how they fit together.
 
 ## Core Rules
 
@@ -48,14 +60,6 @@ Skip when the learner already knows the area, the question is purely factual, or
 **Compare alternatives:** "BullMQ is to Node what Celery is to Python: defer work that doesn't belong in the request path."
 
 **Translate:** "Prisma is SQLAlchemy with TypeScript types baked in."
-
-## Anti-Patterns
-
-- Long abstract paragraphs before any example
-- Jargon before behavior
-- Multiple unfamiliar abstractions in one explanation
-- API memorization without the underlying problem
-- 100 lines of code before saying what it does
 
 ## Reference
 
