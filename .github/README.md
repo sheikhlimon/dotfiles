@@ -2,8 +2,6 @@
 
 Personal configuration files for Omarchy (Arch Linux) and Fedora, managed with [yadm](https://yadm.io/).
 
----
-
 ## Quick Start (New Machine)
 
 ### 1. Install yadm
@@ -24,8 +22,6 @@ Decrypt private SSH keys, Claude skills, and API credentials:
 yadm decrypt
 ```
 
----
-
 ## Tool Stack
 
 - **Manager:** [yadm](https://yadm.io/) with GPG archive encryption and automated lifecycle hooks
@@ -40,8 +36,6 @@ yadm decrypt
 - **Git:** [Delta](https://github.com/dandavison/delta) (Flexoki Light theme) and [Lazygit](https://github.com/jesseduffield/lazygit)
 - **Multiplexer:** [Tmux](https://github.com/tmux/tmux)
 - **Containers:** [Lazydocker](https://github.com/jesseduffield/lazydocker) + Podman / Docker
-
----
 
 ## Directory Structure
 
@@ -65,8 +59,6 @@ yadm decrypt
 ├── .tmux.conf         # Tmux multiplexer configuration
 └── .zshrc             # Zsh entrypoint loader
 ```
-
----
 
 ## Daily Workflow
 
