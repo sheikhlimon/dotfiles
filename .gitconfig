@@ -113,7 +113,8 @@
 
   # Split side-by-side diff in terminal via Delta
   ds = -c delta.side-by-side=true diff
-  dss = -c delta.side-by-side=true show
+  dss = -c delta.side-by-side=true diff --staged
+  dshow = -c delta.side-by-side=true show
 
   # Compact visual commit tree graph
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
