@@ -185,51 +185,50 @@ speedup-video() {
   fi
 }
 
-# Vi mode and cursor setup
+# Vi mode configuration
 bindkey -v
+export KEYTIMEOUT=15
 
-# Mode indicator (block in normal mode, beam in insert)
+# Cursor shape: block in normal mode, beam in insert mode
 function zle-keymap-select {
   case $KEYMAP in
-    vicmd) echo -ne '\e[1 q' ;;
-    viins|main|'') echo -ne '\e[5 q' ;;
+    vicmd) echo -ne '\e[2 q' ;;
+    viins|main|'') echo -ne '\e[6 q' ;;
   esac
 }
 zle -N zle-keymap-select
 
 function zle-line-init {
   zle -K viins
-  echo -ne '\e[5 q'
+  echo -ne '\e[6 q'
 }
 zle -N zle-line-init
 
-preexec() { echo -ne '\e[5 q'; }
+preexec() { echo -ne '\e[6 q'; }
 
-# Bind Ctrl+R to fzf history widget in vi mode
-if typeset -f fzf-history-widget >/dev/null; then
-  bindkey -M viins '^R' fzf-history-widget
-  bindkey -M vicmd '^R' fzf-history-widget
-fi
+# Native instantaneous escape with 'jj' or 'jk'
+bindkey -M viins 'jj' vi-cmd-mode
+bindkey -M viins 'jk' vi-cmd-mode
 
-# Quick 'jj' to escape to normal mode
-typeset -g VI_JJ_TIMEOUT=${VI_JJ_TIMEOUT:-500}
-typeset -g vi_jj_last_time=0
+# Standard editing keys in insert mode
+bindkey -M viins '^?' backward-delete-char
+bindkey -M viins '^H' backward-delete-char
+bindkey -M viins '^W' backward-kill-word
+bindkey -M viins '^U' backward-kill-line
+bindkey -M viins '^A' beginning-of-line
+bindkey -M viins '^E' end-of-line
 
-function vi-jj-escape() {
-  local current_time=$(date +%s%3N)
-  local time_diff=$((current_time - vi_jj_last_time))
+# Normal mode navigation & undo
+bindkey -M vicmd 'k' up-line-or-history
+bindkey -M vicmd 'j' down-line-or-history
+bindkey -M vicmd 'H' beginning-of-line
+bindkey -M vicmd 'L' end-of-line
+bindkey -M vicmd 'u' undo
+bindkey -M vicmd '^R' redo
 
-  if [[ $LBUFFER == *j && $time_diff -lt $VI_JJ_TIMEOUT ]]; then
-    LBUFFER=${LBUFFER%j}
-    zle vi-cmd-mode
-    vi_jj_last_time=0
-  else
-    LBUFFER+=$KEYS
-    vi_jj_last_time=$current_time
-  fi
-}
-zle -N vi-jj-escape
-bindkey -M viins 'j' vi-jj-escape
+# FZF history search in both insert and normal mode
+bindkey -M viins '^R' fzf-history-widget
+bindkey -M vicmd '/' fzf-history-widget
 
 # Select quoted text objects
 autoload -U select-quoted select-bracketed
@@ -249,3 +248,4 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
+
