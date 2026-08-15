@@ -37,31 +37,56 @@ case "$OS_TYPE" in
     arch)
         log "Installing essential Arch/Omarchy packages..."
         arch_pkgs=(
-            zsh fzf starship bat eza ripgrep fd
+            zsh fzf starship bat eza ripgrep fd zoxide
             neovim kitty git tmux yazi ffmpeg imagemagick
             trash-cli tree duf git-delta jetbrains-mono-fonts
+            mpv okular multitail httpie bc gpu-screen-recorder
         )
-        sudo pacman -S --needed --noconfirm "${arch_pkgs[@]}"
+        sudo pacman -Syu --needed --noconfirm "${arch_pkgs[@]}"
 
-        # AUR packages
+        # AUR & GUI applications
         if command -v yay &>/dev/null; then
-            log "Installing AUR packages..."
-            yay -S --needed --noconfirm ttf-jetbrains-mono-nerd ghostty || true
+            log "Installing AUR and GUI applications..."
+            aur_pkgs=(
+                ghostty
+                ttf-jetbrains-mono-nerd
+                visual-studio-code-bin
+                mongodb-compass-bin
+                foliate
+                zen-browser-bin
+                telegram-desktop-bin
+                bibata-cursor-theme-bin
+            )
+            yay -S --needed --noconfirm "${aur_pkgs[@]}" || true
         fi
         ;;
 
     fedora)
         log "Installing essential Fedora packages..."
         fedora_pkgs=(
-            zsh fzf starship bat eza ripgrep fd-find
+            zsh fzf starship bat eza ripgrep fd-find zoxide
             neovim kitty git tmux yazi ffmpeg ImageMagick
             trash-cli tree duf git-delta jetbrains-mono-fonts jetbrains-mono-nf-fonts
+            mpv multitail httpie bc
         )
         sudo dnf install -y "${fedora_pkgs[@]}"
 
+        # Compatibility symlink for fd on Fedora
         if command -v fd-find &>/dev/null && ! command -v fd &>/dev/null; then
             sudo ln -sf "$(which fd-find)" /usr/local/bin/fd
         fi
+
+        # Enable RPM Fusion for media & codecs
+        if ! rpm -q rpmfusion-free-release &>/dev/null; then
+            log "Installing RPM Fusion repositories..."
+            fedora_ver=$(rpm -E %fedora)
+            sudo dnf install -y \
+                "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${fedora_ver}.noarch.rpm" \
+                "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${fedora_ver}.noarch.rpm" || true
+        fi
+
+        # Optional Fedora GUI apps (best-effort)
+        sudo dnf install -y telegram-desktop gpu-screen-recorder || true
         ;;
 
     *)
@@ -70,8 +95,8 @@ case "$OS_TYPE" in
 esac
 
 # Decrypt encrypted files if archive exists
-if yadm list -e >/dev/null 2>&1; then
-    log "Encrypted files detected in YADM repo."
+if [ -f "$HOME/.local/share/yadm/archive" ]; then
+    log "Encrypted vault detected in YADM repo."
     read -rp "Do you want to decrypt private files now? [Y/n] " answer
     if [[ ! "$answer" =~ ^[Nn]$ ]]; then
         yadm decrypt
