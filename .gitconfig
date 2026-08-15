@@ -1,9 +1,72 @@
 [core]
-  excludesfile = ~/.gitignore
   editor = nvim
-  ignorecase = false
   pager = delta
+  excludesfile = ~/.gitignore
+  ignorecase = false
 
+[init]
+  defaultBranch = main
+
+[user]
+  name = sheikhlimon
+  email = sheikhlimon404@gmail.com
+  signingkey = /home/limon/.ssh/id_ed25519
+
+[gpg]
+  format = ssh
+
+[commit]
+  gpgsign = true
+
+[format]
+  signoff = true
+
+[credential]
+  helper = store
+
+# Workflow Automation
+[push]
+  default = simple
+  autoSetupRemote = true
+
+[pull]
+  rebase = true
+
+[rebase]
+  autoStash = true
+  autoSquash = true
+
+[fetch]
+  prune = true
+  pruneTags = true
+
+[rerere]
+  enabled = true
+  autoUpdate = true
+
+# Merge & Conflict Resolution
+[merge]
+  tool = nvimdiff
+  conflictstyle = zdiff3
+
+[mergetool]
+  prompt = false
+  keepBackup = false
+
+[mergetool "nvimdiff"]
+  layout = "LOCAL,BASE,REMOTE / MERGED"
+  trustExitCode = true
+
+# Diff settings
+[diff]
+  tool = nvimdiff
+  algorithm = histogram
+  colorMoved = default
+
+[difftool "nvimdiff"]
+  cmd = nvim -d "$LOCAL" "$REMOTE"
+
+# Delta Pager (Flexoki Light theme)
 [interactive]
   diffFilter = delta --color-only
 
@@ -25,28 +88,7 @@
   hunk-header-style = "syntax bold"
   hunk-header-decoration-style = "#CECDC3 box"
 
-[push]
-  default = simple
-  autoSetupRemote = true
-
-[pull]
-  rebase = true
-
-[rebase]
-  autoStash = true
-  autoSquash = true
-
-[rerere]
-  enabled = true
-  autoUpdate = true
-
-[fetch]
-  prune = true
-  pruneTags = true
-
-[color]
-  ui = auto
-
+# Useful Shortcuts
 [alias]
   st = status
   co = checkout
@@ -58,34 +100,37 @@
   # Push and pull current branch
   ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
   pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
+
+  # Safe force-push
   pf = "!git push --force-with-lease origin $(git rev-parse --abbrev-ref HEAD)"
 
-  # Interactive add using fzf
+  # Fuzzy select and stage files interactively using FZF
   a = "!f() { \
     changes=$(git status --short); \
     [ -z \"$changes\" ] && echo \"No changes to add.\" && return; \
     echo \"$changes\" | fzf -m | awk '{print $2}' | xargs -r git add; \
   }; f"
 
-  # Side-by-side diff and show with Delta
+  # Split side-by-side diff in terminal via Delta
   ds = -c delta.side-by-side=true diff
   dss = -c delta.side-by-side=true show
 
-  # Visual log graph
+  # Compact visual commit tree graph
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  llog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
-  # Undo helpers
-  unstage = restore --staged
+  # Undo the last commit while keeping all changes staged
   uncommit = reset --soft HEAD~1
 
-  # Maintainer: Checkout any GitHub pull request locally (git pr 123)
+  # Unstage files without losing modifications
+  unstage = restore --staged
+
+  # Checkout any GitHub pull request locally by number (git pr 42)
   pr = "!f() { \
     remote=$(git remote | grep -E '^upstream$' || echo 'origin'); \
     git fetch $remote pull/$1/head:pr-$1 && git checkout pr-$1; \
   }; f"
 
-  # Contributor: Smart sync fork with upstream default branch (main/master)
+  # Sync your fork with upstream default branch
   sync = "!f() { \
     target_remote=$(git remote | grep -E '^upstream$' || echo 'origin'); \
     default_branch=$(git remote show $target_remote 2>/dev/null | grep 'HEAD branch' | awk '{print $NF}'); \
@@ -95,64 +140,31 @@
     git rebase $target_remote/$default_branch; \
   }; f"
 
-  # Delete local branches that have been merged upstream
-  cleanup = "!git branch --merged | grep -v -E '^\\*|main|master|dev|develop' | xargs -r git branch -d"
-
-[merge]
-  tool = nvimdiff
-  conflictstyle = zdiff3
-
-[mergetool]
-  prompt = false
-  keepBackup = false
-
-[mergetool "nvimdiff"]
-  layout = "LOCAL,BASE,REMOTE / MERGED"
-  trustExitCode = true
-
-[diff]
-  tool = nvimdiff
-  algorithm = histogram
-  colorMoved = default
-
-[difftool "nvimdiff"]
-  cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
-
-[filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  required = true
-  process = git-lfs filter-process
-
-[log]
-  decorate = true
-  date = relative
-
-[user]
-  email = sheikhlimon404@gmail.com
-  name = sheikhlimon
-  signingkey = /home/limon/.ssh/id_ed25519
-
-[format]
-  signoff = true
-
-[gpg]
-  format = ssh
-
-[commit]
-  gpgsign = true
-
-[credential]
-  helper = store
-
-[init]
-  defaultBranch = main
+  # Delete local branches merged into main/master (including GitHub squash merges)
+  cleanup = "!f() { \
+    default_branch=$(git branch --list main master dev develop | head -n 1 | tr -d ' *'); \
+    default_branch=${default_branch:-main}; \
+    current_branch=$(git rev-parse --abbrev-ref HEAD); \
+    if [ \"$current_branch\" != \"$default_branch\" ]; then \
+      echo \"Switching to $default_branch...\"; \
+      git checkout $default_branch; \
+    fi; \
+    to_delete=(); \
+    for b in $(git for-each-ref --format='%(refname:short)' refs/heads/); do \
+      if [[ \"$b\" != \"$default_branch\" && \"$b\" != \"main\" && \"$b\" != \"master\" && \"$b\" != \"dev\" && \"$b\" != \"develop\" ]]; then \
+        if [ -z \"$(git cherry $default_branch $b 2>/dev/null | grep -E '^\\+')\" ]; then \
+          to_delete+=(\"$b\"); \
+        fi; \
+      fi; \
+    done; \
+    if [ ${#to_delete[@]} -gt 0 ]; then \
+      echo \"Deleting merged local branches:\"; \
+      printf '  - %s\n' \"${to_delete[@]}\"; \
+      git branch -D \"${to_delete[@]}\"; \
+    else \
+      echo \"Everything clean! No merged local branches to delete.\"; \
+    fi; \
+  }; f"
 
 [include]
   path = ~/.gitconfig.local
-
-[index]
-  version = 2
-
-[blame]
-  ignoreRevsFile = .git-blame-ignore-revs
