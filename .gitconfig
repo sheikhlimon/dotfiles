@@ -27,11 +27,39 @@
 
 [push]
   default = simple
+  autoSetupRemote = true
+
+[pull]
+  rebase = true
+
+[rebase]
+  autoStash = true
+  autoSquash = true
+
+[rerere]
+  enabled = true
+  autoUpdate = true
+
+[fetch]
+  prune = true
+  pruneTags = true
 
 [color]
   ui = auto
 
 [alias]
+  st = status
+  co = checkout
+  cob = checkout -b
+  br = branch
+  ci = commit
+  amend = commit --amend --no-edit
+
+  # Push and pull current branch
+  ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
+  pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
+  pf = "!git push --force-with-lease origin $(git rev-parse --abbrev-ref HEAD)"
+
   # Interactive add using fzf
   a = "!f() { \
     changes=$(git status --short); \
@@ -39,40 +67,36 @@
     echo \"$changes\" | fzf -m | awk '{print $2}' | xargs -r git add; \
   }; f"
 
-  # Push/pull current branch
-  ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
-  pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
-  st = status
-
-  # Interactive diff using fzf
-  df = "!f() { \
-    commits=$(git log --pretty=format:\"%h %s\"); \
-    [ -z \"$commits\" ] && echo \"No commits found.\" && return; \
-    selected=$(echo \"$commits\" | fzf -m --ansi --preview 'git show --color=always --stat $(echo {} | awk \"{print \\$1}\")'); \
-    echo \"$selected\" | awk '{print $1}' | xargs -r -I {} git show --color=always {}; \
-  }; f"
-
-  # Split / side-by-side diff & show
+  # Side-by-side diff and show with Delta
   ds = -c delta.side-by-side=true diff
   dss = -c delta.side-by-side=true show
 
-  # Pretty logs (non-interactive)
+  # Visual log graph
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   llog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
-  # Sync with upstream
-  up = fetch upstream main && merge upstream/main
-  upr = fetch upstream main && rebase upstream/main
+  # Undo helpers
+  unstage = restore --staged
+  uncommit = reset --soft HEAD~1
 
-  # Search & diff commits interactively
-  find = "!f() { \
-    if [ $# -eq 0 ]; then \
-      commits=$(git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative); \
-    else \
-      commits=$(git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative -S\"$*\"); \
-    fi; \
-    [ -z \"$commits\" ] && echo \"No matching commits.\" && return; \
-    echo \"$commits\" | fzf -m | awk '{print $1}' | xargs -r -I {} git show --color=always {}; \
+  # Maintainer: Checkout any GitHub pull request locally (git pr 123)
+  pr = "!f() { \
+    remote=$(git remote | grep -E '^upstream$' || echo 'origin'); \
+    git fetch $remote pull/$1/head:pr-$1 && git checkout pr-$1; \
   }; f"
+
+  # Contributor: Smart sync fork with upstream default branch (main/master)
+  sync = "!f() { \
+    target_remote=$(git remote | grep -E '^upstream$' || echo 'origin'); \
+    default_branch=$(git remote show $target_remote 2>/dev/null | grep 'HEAD branch' | awk '{print $NF}'); \
+    default_branch=${default_branch:-main}; \
+    echo \"Syncing with $target_remote/$default_branch...\"; \
+    git fetch $target_remote $default_branch && \
+    git rebase $target_remote/$default_branch; \
+  }; f"
+
+  # Delete local branches that have been merged upstream
+  cleanup = "!git branch --merged | grep -v -E '^\\*|main|master|dev|develop' | xargs -r git branch -d"
 
 [merge]
   tool = nvimdiff
@@ -119,21 +143,16 @@
   gpgsign = true
 
 [credential]
-	helper = store
+  helper = store
 
 [init]
   defaultBranch = main
 
-[sendemail]
-	smtpserver = smtp.gmail.com
-	smtpuser = sheikhlimon404@gmail.com
-	smtpserverport = 587
-	smtpencryption = tls
-
 [include]
   path = ~/.gitconfig.local
+
 [index]
-	version = 2
+  version = 2
 
 [blame]
   ignoreRevsFile = .git-blame-ignore-revs
