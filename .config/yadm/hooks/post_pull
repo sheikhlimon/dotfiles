@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Automatically refresh caches and state after pulling changes
+set -e
+
+# Invalidate Antidote bundle cache so new plugins are compiled on next shell startup
+rm -f "$HOME/.cache/zsh/plugins.zsh"
+echo "==> Zsh plugin bundle cache refreshed!"

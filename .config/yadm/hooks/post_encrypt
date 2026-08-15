@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Auto-stage encrypted archive whenever yadm encrypt is run
+set -e
+
+yadm add "$HOME/.local/share/yadm/archive" "$HOME/.config/yadm/encrypt" 2>/dev/null || true
+echo "==> Encrypted archive automatically staged in YADM!"
