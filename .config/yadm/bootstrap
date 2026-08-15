@@ -94,6 +94,26 @@ case "$OS_TYPE" in
         ;;
 esac
 
+# Setup Zsh plugins for direct sourcing
+log "Setting up Zsh plugins for direct sourcing..."
+plugin_dir="$HOME/.local/share/zsh/plugins"
+mkdir -p "$plugin_dir"
+
+repos=(
+    "https://github.com/zsh-users/zsh-completions.git"
+    "https://github.com/Aloxaf/fzf-tab.git"
+    "https://github.com/zsh-users/zsh-autosuggestions.git"
+    "https://github.com/zdharma-continuum/fast-syntax-highlighting.git"
+)
+
+for repo in "${repos[@]}"; do
+    name="$(basename "$repo" .git)"
+    if [[ ! -d "$plugin_dir/$name" ]]; then
+        log "Cloning $name..."
+        git clone --depth=1 "$repo" "$plugin_dir/$name" 2>/dev/null || true
+    fi
+done
+
 # Decrypt encrypted files if archive exists
 if [ -f "$HOME/.local/share/yadm/archive" ]; then
     log "Encrypted vault detected in YADM repo."

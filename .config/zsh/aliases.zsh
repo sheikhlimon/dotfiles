@@ -42,6 +42,7 @@ alias mv='mv -i'
 alias rm='trash -v'
 alias wget="wget -c"
 alias killp='killprocess'
+alias zupdate='for d in ~/.local/share/zsh/plugins/*; do echo "==> Updating $(basename $d)..."; git -C "$d" pull --ff-only; done'
 alias help="bat ~/.config/zsh/aliases.zsh"
 
 # Podman helpers
