@@ -24,6 +24,8 @@ setopt EXTENDED_GLOB
 setopt COMPLETE_IN_WORD
 setopt ALWAYS_TO_END
 setopt AUTO_MENU
+unsetopt MENU_COMPLETE
+export LISTMAX=10000
 
 # Disable autocorrect prompts
 unsetopt AUTO_NAME_DIRS CORRECT CORRECT_ALL

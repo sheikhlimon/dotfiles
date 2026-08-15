@@ -13,14 +13,25 @@ alias lsa='eza -lha --icons=auto --sort=name --group-directories-first'
 alias lt='eza -l --tree --level=2 --group-directories-first --icons=auto --git --git-ignore'
 alias lta='lt -a'
 
-# Git and container shortcuts
+# Git, YADM and container shortcuts
 alias g='git'
 alias d='docker'
+alias lg='lazygit'
+alias ylg='yadm enter lazygit'
 alias screenrec='gpu-screen-recorder -w screen -c mp4 -f 30 -s 1280x720 -o ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4'
 alias gcm='git commit'
 alias gcam='git commit -a'
 alias gcd='git commit --amend'
 alias gcad='git commit -a --amend'
+
+# YADM helper: allow `yadm lazygit` and `yadm lg` directly
+yadm() {
+  if [[ "$1" == "lazygit" || "$1" == "lg" ]]; then
+    command yadm enter lazygit
+  else
+    command yadm "$@"
+  fi
+}
 
 # Search history
 alias h="history | grep "
@@ -227,10 +238,6 @@ bindkey -M vicmd 'L' end-of-line
 bindkey -M vicmd 'u' undo
 bindkey -M vicmd '^R' redo
 
-# FZF history search in both insert and normal mode
-bindkey -M viins '^R' fzf-history-widget
-bindkey -M vicmd '/' fzf-history-widget
-
 # Select quoted text objects
 autoload -U select-quoted select-bracketed
 zle -N select-quoted
@@ -241,12 +248,4 @@ for m in visual viopp; do
   done
 done
 
-# Completion menu navigation
-bindkey '^I' menu-select
-bindkey -M menuselect '^I' menu-complete
-bindkey -M menuselect '^M' .accept-line
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
 

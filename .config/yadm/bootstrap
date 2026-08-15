@@ -37,7 +37,7 @@ case "$OS_TYPE" in
     arch)
         log "Installing essential Arch/Omarchy packages..."
         arch_pkgs=(
-            zsh fzf starship bat eza ripgrep fd zoxide
+            zsh fzf atuin starship bat eza ripgrep fd zoxide
             neovim kitty git tmux yazi ffmpeg imagemagick
             trash-cli tree duf git-delta jetbrains-mono-fonts
             mpv okular multitail httpie bc gpu-screen-recorder
@@ -64,7 +64,7 @@ case "$OS_TYPE" in
     fedora)
         log "Installing essential Fedora packages..."
         fedora_pkgs=(
-            zsh fzf starship bat eza ripgrep fd-find zoxide
+            zsh fzf atuin starship bat eza ripgrep fd-find zoxide
             neovim kitty git tmux yazi ffmpeg ImageMagick
             trash-cli tree duf git-delta jetbrains-mono-fonts jetbrains-mono-nf-fonts
             mpv multitail httpie bc

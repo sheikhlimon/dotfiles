@@ -5,9 +5,9 @@ ZSH_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 typeset -a zsh_modules=(
   env
   options
+  tools
   completions
   plugins
-  tools
   aliases
 )
 
