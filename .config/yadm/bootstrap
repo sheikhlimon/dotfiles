@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+# Universal YADM bootstrap script (Arch Linux, Omarchy & Fedora)
+set -euo pipefail
+
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+log() { echo -e "${GREEN}==>${NC} $1"; }
+warn() { echo -e "${YELLOW}⚠${NC} $1"; }
+error() { echo -e "${RED}✗${NC} $1" >&2; }
+
+detect_os() {
+    if [[ -f /etc/os-release ]]; then
+        # shellcheck disable=SC1091
+        source /etc/os-release
+        if [[ "${ID:-}" == "omarchy" || "${ID_LIKE:-}" == *"arch"* || -f /etc/arch-release ]]; then
+            echo "arch"
+        elif [[ "${ID:-}" == "fedora" || -f /etc/fedora-release ]]; then
+            echo "fedora"
+        elif [[ "${ID:-}" == "debian" || "${ID_LIKE:-}" == *"debian"* || -f /etc/debian_version ]]; then
+            echo "debian"
+        else
+            echo "${ID:-unknown}"
+        fi
+    else
+        echo "unknown"
+    fi
+}
+
+OS_TYPE=$(detect_os)
+log "Detected OS: ${BLUE}${OS_TYPE}${NC}"
+
+case "$OS_TYPE" in
+    arch)
+        log "Installing essential Arch/Omarchy packages..."
+        arch_pkgs=(
+            zsh fzf starship bat eza ripgrep fd
+            neovim kitty git tmux yazi ffmpeg imagemagick
+            trash-cli tree duf git-delta jetbrains-mono-fonts
+        )
+        sudo pacman -S --needed --noconfirm "${arch_pkgs[@]}"
+
+        # AUR packages
+        if command -v yay &>/dev/null; then
+            log "Installing AUR packages..."
+            yay -S --needed --noconfirm ttf-jetbrains-mono-nerd ghostty || true
+        fi
+        ;;
+
+    fedora)
+        log "Installing essential Fedora packages..."
+        fedora_pkgs=(
+            zsh fzf starship bat eza ripgrep fd-find
+            neovim kitty git tmux yazi ffmpeg ImageMagick
+            trash-cli tree duf git-delta jetbrains-mono-fonts jetbrains-mono-nf-fonts
+        )
+        sudo dnf install -y "${fedora_pkgs[@]}"
+
+        if command -v fd-find &>/dev/null && ! command -v fd &>/dev/null; then
+            sudo ln -sf "$(which fd-find)" /usr/local/bin/fd
+        fi
+        ;;
+
+    *)
+        warn "Unsupported OS for automatic package installation: $OS_TYPE"
+        ;;
+esac
+
+# Decrypt encrypted files if archive exists
+if yadm list -e >/dev/null 2>&1; then
+    log "Encrypted files detected in YADM repo."
+    read -rp "Do you want to decrypt private files now? [Y/n] " answer
+    if [[ ! "$answer" =~ ^[Nn]$ ]]; then
+        yadm decrypt
+    fi
+fi
+
+# Set default shell to zsh
+if [[ "$SHELL" != *"zsh"* ]] && command -v zsh &>/dev/null; then
+    log "Changing default shell to Zsh..."
+    chsh -s "$(which zsh)" || true
+fi
+
+log "YADM bootstrap complete! 🎉"

@@ -1,0 +1,31 @@
+{
+  "Basic Template": {
+    "prefix": "pysolve",
+    "body": [
+      "def solve():",
+      "\t$0",
+      "",
+      "",
+      "if __name__ == '__main__':",
+      "\tsolve()"
+    ],
+    "description": "Basic competitive programming template"
+  },
+  "Fast IO": {
+    "prefix": "pyfastio",
+    "body": [
+      "import sys",
+      "",
+      "input = sys.stdin.readline",
+      "",
+      "",
+      "def solve():",
+      "\t$0",
+      "",
+      "",
+      "if __name__ == '__main__':",
+      "\tsolve()"
+    ],
+    "description": "Template with fast input/output"
+  }
+}

@@ -1,0 +1,139 @@
+[core]
+  excludesfile = ~/.gitignore
+  editor = nvim
+  ignorecase = false
+  pager = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  light = true
+  navigate = true
+  line-numbers = true
+  side-by-side = false
+  syntax-theme = GitHub
+  minus-style = syntax "#FFEAE8"
+  minus-emph-style = bold syntax "#F7C7C2"
+  plus-style = syntax "#EBF2DC"
+  plus-emph-style = bold syntax "#D5E4B6"
+  line-numbers-minus-style = "#AF3029"
+  line-numbers-plus-style = "#66800B"
+  line-numbers-zero-style = "#B7B5AC"
+  file-style = "bold #100F0F"
+  file-decoration-style = "#B7B5AC ul"
+  hunk-header-style = "syntax bold"
+  hunk-header-decoration-style = "#CECDC3 box"
+
+[push]
+  default = simple
+
+[color]
+  ui = auto
+
+[alias]
+  # Interactive add using fzf
+  a = "!f() { \
+    changes=$(git status --short); \
+    [ -z \"$changes\" ] && echo \"No changes to add.\" && return; \
+    echo \"$changes\" | fzf -m | awk '{print $2}' | xargs -r git add; \
+  }; f"
+
+  # Push/pull current branch
+  ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
+  pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
+  st = status
+
+  # Interactive diff using fzf
+  df = "!f() { \
+    commits=$(git log --pretty=format:\"%h %s\"); \
+    [ -z \"$commits\" ] && echo \"No commits found.\" && return; \
+    selected=$(echo \"$commits\" | fzf -m --ansi --preview 'git show --color=always --stat $(echo {} | awk \"{print \\$1}\")'); \
+    echo \"$selected\" | awk '{print $1}' | xargs -r -I {} git show --color=always {}; \
+  }; f"
+
+  # Split / side-by-side diff & show
+  ds = -c delta.side-by-side=true diff
+  dss = -c delta.side-by-side=true show
+
+  # Pretty logs (non-interactive)
+  llog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+  # Sync with upstream
+  up = fetch upstream main && merge upstream/main
+  upr = fetch upstream main && rebase upstream/main
+
+  # Search & diff commits interactively
+  find = "!f() { \
+    if [ $# -eq 0 ]; then \
+      commits=$(git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative); \
+    else \
+      commits=$(git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative -S\"$*\"); \
+    fi; \
+    [ -z \"$commits\" ] && echo \"No matching commits.\" && return; \
+    echo \"$commits\" | fzf -m | awk '{print $1}' | xargs -r -I {} git show --color=always {}; \
+  }; f"
+
+[merge]
+  tool = nvimdiff
+  conflictstyle = zdiff3
+
+[mergetool]
+  prompt = false
+  keepBackup = false
+
+[mergetool "nvimdiff"]
+  layout = "LOCAL,BASE,REMOTE / MERGED"
+  trustExitCode = true
+
+[diff]
+  tool = nvimdiff
+  algorithm = histogram
+  colorMoved = default
+
+[difftool "nvimdiff"]
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+  process = git-lfs filter-process
+
+[log]
+  decorate = true
+  date = relative
+
+[user]
+  email = sheikhlimon404@gmail.com
+  name = sheikhlimon
+  signingkey = /home/limon/.ssh/id_ed25519
+
+[format]
+  signoff = true
+
+[gpg]
+  format = ssh
+
+[commit]
+  gpgsign = true
+
+[credential]
+	helper = store
+
+[init]
+  defaultBranch = main
+
+[sendemail]
+	smtpserver = smtp.gmail.com
+	smtpuser = sheikhlimon404@gmail.com
+	smtpserverport = 587
+	smtpencryption = tls
+
+[include]
+  path = ~/.gitconfig.local
+[index]
+	version = 2
+
+[blame]
+  ignoreRevsFile = .git-blame-ignore-revs

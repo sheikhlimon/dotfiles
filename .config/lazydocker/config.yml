@@ -1,0 +1,13 @@
+gui:
+  theme:
+    activeBorderColor:
+      - "#205EA6"
+      - bold
+    inactiveBorderColor:
+      - "#CECDC3"
+    selectedLineBgColor:
+      - "#E6E4D9" # Soft Flexoki cream highlight for readable text in light mode
+    selectedRangeBgColor:
+      - "#F2F0E5"
+    optionsTextColor:
+      - "#6F6E69"

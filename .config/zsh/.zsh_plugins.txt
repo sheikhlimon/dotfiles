@@ -1,0 +1,11 @@
+# 1. Add extra completion definitions to fpath
+zsh-users/zsh-completions kind:fpath
+
+# 2. Interactive popup completion
+Aloxaf/fzf-tab
+
+# 3. Fish-like ghost text autosuggestions
+zsh-users/zsh-autosuggestions
+
+# 4. Real-time syntax highlighting (always loaded last)
+zdharma-continuum/fast-syntax-highlighting

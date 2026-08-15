@@ -1,0 +1,30 @@
+# Files and directories to encrypt with `yadm encrypt`
+# (Excludes heavy plugin caches, logs, session history, and temporary binaries)
+
+# --- Claude (Skills, Settings & Credentials) ---
+.claude/settings.json
+.claude/settings.local.json
+.claude/statusline-command.sh
+.claude/skills/
+.claude/skills/**/*
+.claude/themes/
+.claude/themes/**/*
+
+# --- Antigravity CLI & Gemini (Skills, Settings & Auth) ---
+.gemini/settings.json
+.gemini/oauth_creds.json
+.gemini/google_accounts.json
+.gemini/config/config.json
+.gemini/config/skills/
+.gemini/config/skills/**/*
+.gemini/antigravity-cli/settings.json
+.gemini/antigravity-cli/skills/
+.gemini/antigravity-cli/skills/**/*
+
+# --- OpenCode (Private Accounts) ---
+.config/opencode/antigravity-accounts.json
+
+# --- SSH Keys & Local Git Config ---
+.ssh/id_ed25519
+.ssh/id_ed25519.pub
+.gitconfig.local

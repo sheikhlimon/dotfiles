@@ -1,0 +1,24 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": false,
+  "permission": {
+    "edit": "ask",
+    "bash": {
+      "*": "ask",
+      "git *": "ask",
+			"gh *":"allow",
+			"du *":"allow",
+      "bun *": "allow",
+      "npm *": "allow",
+      "ls *": "allow",
+      "cat *": "allow",
+      "find *": "allow",
+      "grep *": "allow",
+      "rg *": "allow",
+      "which *": "allow",
+      "echo *": "allow",
+      "mkdir *": "allow",
+      "rm *": "ask"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "Next.js Functional Component (TS)": {
+    "prefix": "nrfc",
+    "body": [
+      "export default function ${TM_FILENAME_BASE}() {",
+      "  return (",
+      "    <div>",
+      "      <h1>${TM_FILENAME_BASE} Page</h1>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "}"
+    ],
+    "description": "Next.js Functional Component boilerplate (TypeScript, no props)"
+  },
+  "Next.js Functional Component with Props (TS)": {
+    "prefix": "nrfcp",
+    "body": [
+      "interface ${TM_FILENAME_BASE}Props {",
+      "  ${1:/* define props here */}",
+      "}",
+      "",
+      "export default function ${TM_FILENAME_BASE}({}: ${TM_FILENAME_BASE}Props) {",
+      "  return (",
+      "    <div>",
+      "      <h1>${TM_FILENAME_BASE} Page</h1>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "}"
+    ],
+    "description": "Next.js Functional Component with Props (TypeScript)"
+  },
+  "console.log": {
+    "prefix": "console",
+    "body": ["console.log($0);"],
+    "description": "Log output to console"
+  }
+}
