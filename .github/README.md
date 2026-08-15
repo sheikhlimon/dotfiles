@@ -5,10 +5,12 @@ Personal configuration files for Omarchy (Arch Linux) and Fedora, managed with [
 ## Quick Start (New Machine)
 
 ### 1. Install yadm
+
 - **Arch / Omarchy:** `sudo pacman -S yadm`
 - **Fedora:** `sudo dnf install yadm`
 
 ### 2. Clone and Bootstrap
+
 Clone the repository and run the automated installer:
 
 ```bash
@@ -16,6 +18,7 @@ yadm clone --bootstrap git@github.com:sheikhlimon/dotfiles.git
 ```
 
 ### 3. Decrypt Secrets
+
 Decrypt private SSH keys, Claude skills, and API credentials:
 
 ```bash
@@ -25,10 +28,12 @@ yadm decrypt
 ## Tool Stack
 
 - **Manager:** [yadm](https://yadm.io/) with GPG archive encryption and automated lifecycle hooks
-- **Shell:** Modular Zsh (`env`, `options`, `completions`, `plugins`, `tools`, `aliases`)
-- **Plugin Manager:** [Antidote](https://getantidote.github.io/) with static bundle compilation
+- **Shell:** Modular Zsh (`env`, `options`, `tools`, `completions`, `plugins`, `aliases`)
+- **Plugin Loader:** Zero-overhead native loader (`~/.local/share/zsh/plugins`) with auto-clone fallback
+- **History Engine:** [Atuin](https://atuin.sh/) (interactive TUI, relative time, directory filtering, SQLite sync)
 - **Prompt:** [Starship](https://starship.rs/)
-- **Fuzzy Finder:** [FZF](https://github.com/junegunn/fzf) + [fzf-tab](https://github.com/Aloxaf/fzf-tab) (context-aware previews via `bat` and `eza`)
+- **Directory Jumper:** [Zoxide](https://github.com/ajeetdsouza/zoxide) (`cd` / `z`)
+- **Fuzzy Finder:** [FZF](https://github.com/junegunn/fzf) + [fzf-tab](https://github.com/Aloxaf/fzf-tab) (16-color ANSI theme, `bat`/`eza` previews)
 - **Editor:** [Neovim](https://neovim.io/) and [VS Code](https://code.visualstudio.com/)
 - **Terminals:** [Ghostty](https://ghostty.org/) and [Kitty](https://sw.kovidgoyal.net/kitty/)
 - **Window Manager:** [Hyprland](https://hyprland.org/)
@@ -62,13 +67,13 @@ yadm decrypt
 
 ## Daily Workflow
 
-| Command | Description |
-| :--- | :--- |
-| `yadm status` | Check status of tracked dotfiles |
-| `yadm diff` | View unstaged changes |
-| `yadm add <file>` | Stage modified or new configuration |
-| `yadm commit -m "message"` | Commit staged changes |
-| `yadm push` | Push changes to remote repository |
-| `yadm pull` | Pull updates from remote repository |
-| `yadm encrypt` | Re-encrypt private files (auto-staged via hook) |
-| `yadm decrypt` | Decrypt private credentials on current machine |
+| Command                    | Description                                     |
+| :------------------------- | :---------------------------------------------- |
+| `yadm status`              | Check status of tracked dotfiles                |
+| `yadm diff`                | View unstaged changes                           |
+| `yadm add <file>`          | Stage modified or new configuration             |
+| `yadm commit -m "message"` | Commit staged changes                           |
+| `yadm push`                | Push changes to remote repository               |
+| `yadm pull`                | Pull updates from remote repository             |
+| `yadm encrypt`             | Re-encrypt private files (auto-staged via hook) |
+| `yadm decrypt`             | Decrypt private credentials on current machine  |
