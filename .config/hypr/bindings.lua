@@ -22,8 +22,8 @@ o.bind("SUPER + D", "Docker", { launch = "kitty -e lazydocker" })
 o.bind("SUPER + C", "VS Code", { launch = "code" })
 o.bind("SUPER + H", "Pomodoro Timer", { launch = "gnome-pomodoro" })
 
--- Always use Kitty for interactive shell and Herdr
-o.bind("SUPER + RETURN", "Terminal", { launch = "kitty" })
+-- Always use Kitty for interactive shell (with CWD detection) and Herdr
+o.bind("SUPER + RETURN", "Terminal", { launch = "sh -c 'exec kitty --directory \"$(omarchy-cmd-terminal-cwd)\"'" })
 o.bind("SUPER + CTRL + RETURN", "Herdr", { launch = "kitty -- herdr" })
 
 -- Web Apps
