@@ -13,8 +13,6 @@ gui:
       - "#CECDC3"
     selectedLineBgColor:
       - "#E6E4D9" # Light cream background for readable text in light mode
-    selectedRangeBgColor:
-      - "#F2F0E5"
     optionsTextColor:
       - "#6F6E69"
 keybinding:
