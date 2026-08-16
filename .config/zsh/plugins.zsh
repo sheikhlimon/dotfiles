@@ -21,15 +21,26 @@ fi
 [[ -f "$ZSH_PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$ZSH_PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # 4. Vi mode
-function zvm_config() {
-  ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE
-  ZVM_KEYTIMEOUT=0.15
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
+ZVM_KEYTIMEOUT=0.15
+ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+function zvm_after_select_vi_mode() {
+  case $ZVM_MODE in
+    $ZVM_MODE_NORMAL)
+      echo -ne '\e[2 q'
+      ;;
+    $ZVM_MODE_INSERT)
+      echo -ne '\e[6 q'
+      ;;
+    $ZVM_MODE_VISUAL|$ZVM_MODE_VISUAL_LINE)
+      echo -ne '\e[2 q'
+      ;;
+  esac
 }
 function zvm_after_init() {
-  bindkey -M viins 'jj' vi-cmd-mode
-  bindkey -M viins 'jk' vi-cmd-mode
-  bindkey -M vicmd 'H' beginning-of-line
-  bindkey -M vicmd 'L' end-of-line
+  zvm_bindkey viins 'jj' zvm_exit_insert_mode
+  zvm_bindkey vicmd 'H' beginning-of-line
+  zvm_bindkey vicmd 'L' end-of-line
 }
 [[ -f "$ZSH_PLUGIN_DIR/zsh-vi-mode/zsh-vi-mode.plugin.zsh" ]] && source "$ZSH_PLUGIN_DIR/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
