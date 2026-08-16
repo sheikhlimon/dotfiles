@@ -37,8 +37,8 @@ yadm() {
 alias h="history | grep "
 
 # Disk usage
-alias diskspace="du -S | sort -n -r |more"
-alias folders='du -h --max-depth=1'
+alias diskspace='duf'
+alias folders='du -h --max-depth=1 | sort -h -r'
 alias countfiles="find . -type f | wc -l && echo 'files'; find . -type l | wc -l && echo 'links'; find . -type d | wc -l && echo 'directories'"
 
 # Utilities
@@ -50,7 +50,7 @@ alias less='bat'
 alias multitail='multitail --no-repeat -c'
 alias mkdir='mkdir -p'
 alias mv='mv -i'
-alias rm='trash -v'
+alias rm='trashy put'
 alias wget="wget -c"
 alias killp='killprocess'
 alias zupdate='for d in ~/.local/share/zsh/plugins/*; do echo "==> Updating $(basename $d)..."; git -C "$d" pull --ff-only; done'
