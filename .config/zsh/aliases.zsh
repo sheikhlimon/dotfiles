@@ -197,4 +197,11 @@ speedup-video() {
   fi
 }
 
+# Interactive direct subfolder picker with live contents preview & auto-cd
+fdd() {
+  local dir
+  dir=$(fd --max-depth 1 --type directory | fzf --bind 'tab:down,btab:up' --preview 'eza -1 --icons=auto --group-directories-first {}')
+  [ -n "$dir" ] && builtin cd "$dir"
+}
+
 
