@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# YADM bootstrap fallback script for other systems
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=common.sh
+source "$SCRIPT_DIR/common.sh"
+
+warn "Unsupported OS/distro for automatic package installation."
+warn "Skipping system package installation."
+
+# Run shared setup tasks (Zsh plugins, decryption, chsh)
+run_common_setup

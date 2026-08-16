@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# YADM bootstrap script for Fedora
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=common.sh
+source "$SCRIPT_DIR/common.sh"
+
+log "Executing Fedora bootstrap..."
+
+fedora_pkgs=(
+    zsh fzf atuin starship bat eza ripgrep fd-find zoxide
+    neovim kitty git tmux yazi ffmpeg ImageMagick
+    trash-cli tree duf git-delta jetbrains-mono-fonts jetbrains-mono-nf-fonts
+    mpv multitail httpie bc
+)
+
+log "Installing essential Fedora packages..."
+sudo dnf install -y "${fedora_pkgs[@]}"
+
+# Compatibility symlink for fd on Fedora
+if command -v fd-find &>/dev/null && ! command -v fd &>/dev/null; then
+    sudo ln -sf "$(which fd-find)" /usr/local/bin/fd
+fi
+
+# Enable RPM Fusion for media & codecs
+if ! rpm -q rpmfusion-free-release &>/dev/null; then
+    log "Installing RPM Fusion repositories..."
+    fedora_ver=$(rpm -E %fedora)
+    sudo dnf install -y \
+        "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${fedora_ver}.noarch.rpm" \
+        "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${fedora_ver}.noarch.rpm" || true
+fi
+
+# Optional Fedora GUI apps (best-effort)
+sudo dnf install -y telegram-desktop gpu-screen-recorder || true
+
+# Run shared setup tasks (Zsh plugins, decryption, chsh)
+run_common_setup

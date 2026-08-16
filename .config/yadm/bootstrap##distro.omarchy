@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# YADM bootstrap script for Omarchy / Arch Linux
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=common.sh
+source "$SCRIPT_DIR/common.sh"
+
+log "Executing Omarchy/Arch bootstrap..."
+
+arch_pkgs=(
+    zsh fzf atuin starship bat eza ripgrep fd zoxide
+    neovim kitty git tmux yazi ffmpeg imagemagick
+    trash-cli tree duf git-delta jetbrains-mono-fonts
+    mpv okular multitail httpie bc gpu-screen-recorder
+)
+
+log "Installing essential Arch/Omarchy packages..."
+sudo pacman -Syu --needed --noconfirm "${arch_pkgs[@]}"
+
+# AUR & GUI applications for Omarchy/Arch
+if command -v yay &>/dev/null; then
+    log "Installing AUR and GUI applications..."
+    aur_pkgs=(
+        ghostty
+        ttf-jetbrains-mono-nerd
+        visual-studio-code-bin
+        mongodb-compass-bin
+        foliate
+        zen-browser-bin
+        telegram-desktop-bin
+        bibata-cursor-theme-bin
+    )
+    yay -S --needed --noconfirm "${aur_pkgs[@]}" || true
+fi
+
+# Run shared setup tasks (Zsh plugins, decryption, chsh)
+run_common_setup
