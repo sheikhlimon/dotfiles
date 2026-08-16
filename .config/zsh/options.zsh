@@ -29,3 +29,5 @@ export LISTMAX=10000
 
 # Disable autocorrect prompts
 unsetopt AUTO_NAME_DIRS CORRECT CORRECT_ALL
+
+zle_highlight+=(paste:none)

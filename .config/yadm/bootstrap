@@ -103,6 +103,7 @@ repos=(
     "https://github.com/zsh-users/zsh-completions.git"
     "https://github.com/Aloxaf/fzf-tab.git"
     "https://github.com/zsh-users/zsh-autosuggestions.git"
+    "https://github.com/jeffreytse/zsh-vi-mode.git"
     "https://github.com/zdharma-continuum/fast-syntax-highlighting.git"
 )
 
