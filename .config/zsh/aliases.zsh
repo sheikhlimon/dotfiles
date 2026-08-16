@@ -86,7 +86,7 @@ open() {
 
 # ripgrep -> fzf -> nvim [QUERY]
 rgf() (
-  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  RELOAD='reload:rg --column --color=always --smart-case --hidden --glob "!{.git,node_modules,target}" {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
             nvim {1} +{2}
           else
@@ -97,9 +97,9 @@ rgf() (
       --bind "start:$RELOAD" --bind "change:$RELOAD" \
       --bind "enter:become:$OPENER" \
       --bind "ctrl-o:execute:$OPENER" \
-      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+      --bind 'tab:down,btab:up,alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
       --delimiter : \
-      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+      --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' \
       --preview-window '~4,+{2}+4/3,<80(up)' \
       --query "$*"
 )
@@ -200,7 +200,7 @@ speedup-video() {
 # Interactive direct subfolder picker with live contents preview & auto-cd
 fdd() {
   local dir
-  dir=$(fd --max-depth 1 --type directory | fzf --bind 'tab:down,btab:up' --preview 'eza -1 --icons=auto --group-directories-first {}')
+  dir=$(fd --max-depth 1 --type directory | fzf --preview 'eza -1 --icons=auto --group-directories-first {}')
   [ -n "$dir" ] && builtin cd "$dir"
 }
 

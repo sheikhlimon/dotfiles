@@ -12,7 +12,7 @@ export BAT_THEME="ansi"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export ZLE_RPROMPT_INDENT=0
 export ELECTRON_OZONE_PLATFORM_HINT=x11
-export FZF_DEFAULT_OPTS="--color=16 --height 60% --layout=reverse --border=none"
+export FZF_DEFAULT_OPTS="--color=16 --height 60% --layout=reverse --border=none --bind 'tab:down,btab:up'"
 
 # Language environments
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
