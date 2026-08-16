@@ -1,6 +1,74 @@
--- Theme selection - change this value to switch themes
--- Options: "melange", "rose-pine", "flexoki"
-local selected_theme = "flexoki"
+-- Omarchy Theme Integration
+-- Automatically detects active theme from ~/.local/state/omarchy/current/theme.name
+local function get_omarchy_theme()
+  local path = vim.fn.expand("~/.local/state/omarchy/current/theme.name")
+  local f = io.open(path, "r")
+  if f then
+    local name = f:read("*all"):gsub("%s+$", "")
+    f:close()
+    return name
+  end
+  return nil
+end
+
+local omarchy_name = get_omarchy_theme()
+
+-- Default fallback theme if Omarchy theme is not active
+local fallback_theme = "flexoki"
+
+local function resolve_theme()
+  if omarchy_name then
+    local lower = omarchy_name:lower()
+    if lower:find("flexoki") then return "flexoki" end
+    if lower:find("rose") or lower:find("rosé") then return "rose-pine" end
+    if lower:find("melange") then return "melange" end
+    if lower:find("tokyo") then return "tokyonight" end
+    if lower:find("catppuccin") then return "catppuccin" end
+    if lower:find("kanagawa") then return "kanagawa" end
+    if lower:find("gruvbox") then return "gruvbox" end
+    if lower:find("nord") then return "nord" end
+    if lower:find("everforest") then return "everforest" end
+  end
+  return fallback_theme
+end
+
+local selected_theme = resolve_theme()
+
+-- Live watcher: automatically switch Neovim colorscheme when Omarchy theme changes
+local theme_file = vim.fn.expand("~/.local/state/omarchy/current/theme.name")
+if vim.fn.filereadable(theme_file) == 1 and vim.uv and vim.uv.new_fs_event then
+  local w = vim.uv.new_fs_event()
+  if w then
+    w:start(theme_file, {}, function(err)
+      if not err then
+        vim.schedule(function()
+          local new_name = get_omarchy_theme()
+          if not new_name then return end
+          local lower = new_name:lower()
+          if lower:find("flexoki") then
+            if lower:find("light") then
+              vim.opt.background = "light"
+              vim.cmd "colorscheme flexoki-light"
+            else
+              vim.opt.background = "dark"
+              vim.cmd "colorscheme flexoki-dark"
+            end
+          elseif lower:find("rose") or lower:find("rosé") then
+            local is_light = lower:find("latte") or lower:find("dawn") or lower:find("light")
+            if is_light then
+              vim.opt.background = "light"
+            else
+              vim.opt.background = "dark"
+            end
+            vim.cmd "colorscheme rose-pine"
+          elseif lower:find("melange") then
+            vim.cmd "colorscheme melange"
+          end
+        end)
+      end
+    end)
+  end
+end
 
 return {
   -- Rose Pine
@@ -11,8 +79,10 @@ return {
     priority = 1000,
     enabled = selected_theme == "rose-pine",
     config = function()
+      local is_light = omarchy_name and (omarchy_name:lower():find("latte") or omarchy_name:lower():find("dawn") or omarchy_name:lower():find("light"))
+      local variant = is_light and "dawn" or "main"
       require("rose-pine").setup {
-        variant = "dawn", -- auto, main, moon, or dawn
+        variant = variant, -- auto, main, moon, or dawn
         disable_italics = true,
         dim_inactive_windows = false,
         extend_background_behind_borders = false,
@@ -195,22 +265,28 @@ return {
     priority = 1000,
     enabled = selected_theme == "flexoki",
     config = function()
-      vim.opt.background = "light"
-      vim.cmd "colorscheme flexoki-light"
+      local is_light = omarchy_name and omarchy_name:lower():find("light")
+      if is_light then
+        vim.opt.background = "light"
+        vim.cmd "colorscheme flexoki-light"
+      else
+        vim.opt.background = "dark"
+        vim.cmd "colorscheme flexoki-dark"
+      end
 
       -- UI transparency - let flexoki handle syntax colors
-      vim.api.nvim_set_hl(0, "Normal", { bg = "#FFFCF0" })
-      vim.api.nvim_set_hl(0, "NormalNC", { bg = "#FFFCF0" })
+      vim.api.nvim_set_hl(0, "Normal", { bg = is_light and "#FFFCF0" or "NONE" })
+      vim.api.nvim_set_hl(0, "NormalNC", { bg = is_light and "#FFFCF0" or "NONE" })
       vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#6F6E69", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#100F0F", bg = "NONE", bold = true })
+      vim.api.nvim_set_hl(0, "FloatTitle", { fg = is_light and "#100F0F" or "#CECDC3", bg = "NONE", bold = true })
       vim.api.nvim_set_hl(0, "FloatFooter", { fg = "#6F6E69", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE", fg = "#100F0F" })
+      vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE", fg = is_light and "#100F0F" or "#CECDC3" })
       vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = "#6F6E69", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = "#FFFCF0", fg = "#100F0F" })
-      vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE", fg = "#100F0F" })
+      vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = is_light and "#FFFCF0" or "#282726", fg = is_light and "#100F0F" or "#CECDC3" })
+      vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE", fg = is_light and "#100F0F" or "#CECDC3" })
       vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#6F6E69", bg = "NONE" })
       vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#B7B5AC", bg = "NONE" })
       vim.api.nvim_set_hl(0, "VertSplit", { fg = "#B7B5AC", bg = "NONE" })
@@ -225,7 +301,6 @@ return {
       vim.api.nvim_set_hl(0, "SnacksPickerGitDiffChange", { bg = "#F2F0E5", fg = "#403D2F" })
       vim.api.nvim_set_hl(0, "SnacksPickerGitDiffDelete", { bg = "#FFEEE3", fg = "#AF3029" })
       vim.api.nvim_set_hl(0, "SnacksPickerGitDiffText", { bg = "#FFFCF0", fg = "#100F0F" })
-
     end,
   },
 }

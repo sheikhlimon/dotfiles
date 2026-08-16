@@ -1,3 +1,7 @@
+if vim.loader then
+  vim.loader.enable()
+end
+
 vim.g.mapleader = " "
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 
@@ -73,18 +77,3 @@ require "core.mappings"
 require "core.lazy"
 require "core.autocmds"
 require "core.remote_clipboard"
-
--- Enable LSP servers (configs auto-discovered from lsp/ directory)
-vim.lsp.enable {
-  "vtsls",
-  "html",
-  "cssls",
-  "tailwindcss",
-  "pyright",
-  "lua_ls",
-  "yamlls",
-  "clangd",
-  "gopls",
-  "jsonls",
-  "bashls",
-}

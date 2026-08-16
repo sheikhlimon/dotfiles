@@ -61,7 +61,7 @@ return {
       ensure_installed = tools,
       auto_update = false, -- Disable auto-update for faster startup
       run_on_start = true, -- Run on start to install missing tools
-      start_delay = 1000, -- Small delay after Neovim starts (1 second)
+      start_delay = 3000, -- 3 second delay after Neovim starts
       debounce_hours = 24, -- Only check for updates once per day
     }
   end,
