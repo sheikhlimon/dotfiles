@@ -1,17 +1,38 @@
-# Global cargo config - optimized for low memory
+# Global Cargo configuration - Optimized for low-RAM machines (8GB RAM + Swap)
+
 [build]
-jobs = 6
-incremental = true
+# Limit parallel compilation jobs to 3.
+# On an 8-core CPU with 8GB RAM, 6 parallel jobs causes severe memory thrashing and disk swap usage.
+# 3 parallel rustc processes keep peak RAM safely within physical memory limits (~4-6GB max).
+jobs = 3
+
+[target.x86_64-unknown-linux-gnu]
+# Use 'mold' linker - uses ~80% less memory than GNU ld and links up to 10x faster.
+rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 
 [profile.dev]
-opt-level = 0
+# Unpacked debuginfo stores debug symbols in separate .dwo files, preventing the linker
+# from loading gigabytes of DWARF data into RAM during linking.
+split-debuginfo = "unpacked"
+# Line tables only generates sufficient debug information for backtraces without huge symbol overhead.
 debug = "line-tables-only"
-codegen-units = 64
+opt-level = 0
+# 16 codegen units prevents LLVM from spawning too many parallel codegen threads per rustc process.
+codegen-units = 16
 
 [profile.dev.build-override]
+# Proc-macros (syn, quote, serde_derive) and build.rs scripts do not require debug symbols.
+debug = false
 opt-level = 0
-codegen-units = 64
+codegen-units = 16
+
+[profile.dev.package."*"]
+# Build third-party dependencies with light optimizations (opt-level = 1)
+# so macro expansion and dependency execution run faster with minimal compile overhead.
+opt-level = 1
 
 [profile.release]
+# Disable Link-Time Optimization (LTO) by default, as LTO requires multi-gigabyte RAM during release linking.
 lto = false
 codegen-units = 16
+split-debuginfo = "packed"
