@@ -37,6 +37,15 @@ o.window("vivaldi-stable", { workspace = "1" })
 o.window("code", { workspace = "3" })
 o.window("^(org\\.telegram\\.desktop)$", { workspace = "5" })
 
+-- Make browser windows completely solid (opaque)
+o.window({ tag = "chromium-based-browser" }, { tag = "-default-opacity", opacity = "1.0 1.0", opaque = true })
+o.window({ tag = "firefox-based-browser" }, { tag = "-default-opacity", opacity = "1.0 1.0", opaque = true })
+o.window("((google-)?[cC]hrom(e|ium)|[bB]rave-browser|[mM]icrosoft-edge|[vV]ivaldi.*|helium|[fF]irefox|zen|librewolf|floorp|waterfox)", {
+  tag = "-default-opacity",
+  opacity = "1.0 1.0",
+  opaque = true,
+})
+
 -- Tensaku screenshot editor rules
 o.window("dev.tensaku.Tensaku", {
   tag = "-floating-window",
