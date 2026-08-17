@@ -131,14 +131,30 @@
     git fetch $remote pull/$1/head:pr-$1 && git checkout pr-$1; \
   }; f"
 
-  # Sync your fork with upstream default branch
+  # Sync your fork (local and origin) with upstream default branch
   sync = "!f() { \
     target_remote=$(git remote | grep -E '^upstream$' || echo 'origin'); \
-    default_branch=$(git remote show $target_remote 2>/dev/null | grep 'HEAD branch' | awk '{print $NF}'); \
+    default_branch=$(git symbolic-ref --short refs/remotes/$target_remote/HEAD 2>/dev/null | sed \"s@^$target_remote/@@\"); \
     default_branch=${default_branch:-main}; \
-    echo \"Syncing with $target_remote/$default_branch...\"; \
-    git fetch $target_remote $default_branch && \
-    git rebase $target_remote/$default_branch; \
+    current_branch=$(git rev-parse --abbrev-ref HEAD); \
+    echo \"Fetching from $target_remote/$default_branch...\"; \
+    if [ \"$target_remote\" != \"origin\" ]; then \
+      if [ \"$current_branch\" = \"$default_branch\" ]; then \
+        git fetch $target_remote $default_branch && \
+        git rebase $target_remote/$default_branch && \
+        echo \"Pushing synced $default_branch to origin...\" && \
+        git push origin $default_branch; \
+      else \
+        git fetch $target_remote $default_branch:$default_branch && \
+        echo \"Pushing synced $default_branch to origin...\" && \
+        git push origin $default_branch && \
+        echo \"Rebasing current branch '$current_branch' onto $default_branch...\" && \
+        git rebase $default_branch; \
+      fi; \
+    else \
+      echo \"Pulling latest changes on $current_branch...\"; \
+      git pull --rebase origin $current_branch; \
+    fi; \
   }; f"
 
   # Delete local branches merged into main/master (including GitHub squash merges)
