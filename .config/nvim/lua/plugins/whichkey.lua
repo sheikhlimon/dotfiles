@@ -4,6 +4,13 @@ return {
   opts = {
     preset = "helix",
     delay = 0,
+    spec = {
+      { "<leader>f", group = "Find / Files" },
+      { "<leader>g", group = "Git" },
+      { "<leader>h", group = "Git Hunk" },
+      { "<leader>s", group = "Search / Symbols" },
+      { "<leader>t", group = "Toggle" },
+    },
     win = {
       height = {
         max = math.huge,

@@ -13,6 +13,7 @@ arch_pkgs=(
     neovim kitty git tmux yazi ffmpeg imagemagick
     trash-cli tree duf git-delta jetbrains-mono-fonts
     mpv okular multitail httpie bc gpu-screen-recorder
+    meld tea
 )
 
 log "Installing essential Arch/Omarchy packages..."

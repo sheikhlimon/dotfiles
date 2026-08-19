@@ -1,54 +1,43 @@
 return {
   "lewis6991/gitsigns.nvim",
-  lazy = true,
-  event = { "BufReadPre", "BufNewFile" }, -- load when a buffer is opened
-  config = function()
-    require("gitsigns").setup {
-      signs = {
-        add = { text = "┃" },
-        change = { text = "~" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "" },
-      },
-      signs_staged = {
-        add = { text = "┃" },
-        change = { text = "~" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "" },
-      },
-      -- numhl = true,
-      on_attach = function(bufnr)
-        local gitsigns = require "gitsigns"
-
-        local function map(mode, l, r, opts)
-          opts = opts or {}
-          opts.buffer = bufnr
-          vim.keymap.set(mode, l, r, opts)
-        end
-
-        -- Actions
-        map("n", "<leader>hs", gitsigns.stage_hunk)
-        map("n", "<leader>hr", gitsigns.reset_hunk)
-
-        map("v", "<leader>hs", function()
-          gitsigns.stage_hunk { vim.fn.line ".", vim.fn.line "v" }
-        end)
-
-        map("v", "<leader>hr", function()
-          gitsigns.reset_hunk { vim.fn.line ".", vim.fn.line "v" }
-        end)
-
-        map("n", "<leader>hS", gitsigns.stage_buffer)
-        map("n", "<leader>hR", gitsigns.reset_buffer)
-
-        map("n", "<leader>hb", function()
-          gitsigns.blame_line { full = true }
-        end)
-      end,
-    }
-  end,
+  event = { "BufReadPre", "BufNewFile" },
+  keys = {
+    { "<leader>hp", function() require("gitsigns").preview_hunk() end, desc = "Preview Hunk Diff" },
+    { "<leader>hb", function() require("gitsigns").blame_line({ full = true }) end, desc = "Blame Line Popup" },
+    { "<leader>hs", function() require("gitsigns").stage_hunk() end, desc = "Stage Hunk" },
+    { "<leader>hr", function() require("gitsigns").reset_hunk() end, desc = "Reset Hunk" },
+    { "<leader>tb", function() require("gitsigns").toggle_current_line_blame() end, desc = "Toggle Line Blame" },
+    { "]c", function() require("gitsigns").next_hunk() end, desc = "Next Git Hunk" },
+    { "[c", function() require("gitsigns").prev_hunk() end, desc = "Previous Git Hunk" },
+  },
+  opts = {
+    signs = {
+      add = { text = "┃" },
+      change = { text = "~" },
+      delete = { text = "_" },
+      topdelete = { text = "‾" },
+      changedelete = { text = "~" },
+      untracked = { text = "" },
+    },
+    signs_staged = {
+      add = { text = "┃" },
+      change = { text = "~" },
+      delete = { text = "_" },
+      topdelete = { text = "‾" },
+      changedelete = { text = "~" },
+      untracked = { text = "" },
+    },
+    current_line_blame = false,
+    current_line_blame_opts = {
+      delay = 350,
+      virt_text_pos = "eol",
+    },
+    preview_config = {
+      border = "rounded",
+      style = "minimal",
+      relative = "cursor",
+      row = 0,
+      col = 1,
+    },
+  },
 }

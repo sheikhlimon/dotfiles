@@ -12,7 +12,7 @@ fedora_pkgs=(
     zsh fzf atuin starship bat eza ripgrep fd-find zoxide
     neovim kitty git tmux yazi ffmpeg ImageMagick
     trash-cli tree duf git-delta jetbrains-mono-fonts jetbrains-mono-nf-fonts
-    mpv multitail httpie bc
+    mpv multitail httpie bc meld
 )
 
 log "Installing essential Fedora packages..."

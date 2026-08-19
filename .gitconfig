@@ -46,25 +46,25 @@
 
 # Merge & Conflict Resolution
 [merge]
-  tool = nvimdiff
+  tool = meld
   conflictstyle = zdiff3
 
 [mergetool]
   prompt = false
   keepBackup = false
 
-[mergetool "nvimdiff"]
-  layout = "LOCAL,BASE,REMOTE / MERGED"
+[mergetool "meld"]
+  cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
   trustExitCode = true
 
 # Diff settings
 [diff]
-  tool = nvimdiff
+  tool = meld
   algorithm = histogram
   colorMoved = default
 
-[difftool "nvimdiff"]
-  cmd = nvim -d "$LOCAL" "$REMOTE"
+[difftool "meld"]
+  cmd = meld "$LOCAL" "$REMOTE"
 
 # Delta Pager (Flexoki Light theme)
 [interactive]
@@ -112,9 +112,9 @@
   }; f"
 
   # Split side-by-side diff in terminal via Delta
-  ds = -c delta.side-by-side=true diff
-  dss = -c delta.side-by-side=true diff --staged
-  dshow = -c delta.side-by-side=true show
+  ds = "!git -c delta.side-by-side=true diff"
+  dss = "!git -c delta.side-by-side=true diff --staged"
+  dshow = "!git -c delta.side-by-side=true show"
 
   # Compact visual commit tree graph
   llog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
