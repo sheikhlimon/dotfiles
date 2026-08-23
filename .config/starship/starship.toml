@@ -172,6 +172,7 @@ symbol = " "
 [gcloud]
 format = '\[[$symbol$account(@$domain)(\($region\))]($style)\]'
 symbol = "  "
+disabled = true
 
 [git_branch]
 format = '\[[$symbol$branch]($style)\]'
@@ -180,19 +181,21 @@ symbol = " "
 [git_commit]
 tag_symbol = "  "
 
+
 [git_status]
-format = '([\[[$conflicted$untracked$modified$staged$renamed$deleted$ahead_behind]($style)\]](foreground))'
+format     = '([/[[$all_status]($style)\]]'
+ahead      = "⇡${count} "
+diverged   = "⇕⇡${ahead_count}⇣${behind_count} "
+behind     = "⇣${count} "
 conflicted = " "
+up_to_date = " "
 untracked  = "? "
 modified   = " "
-staged     = "+ "
-renamed    = "➜ "
-deleted    = "✘ "
-ahead      = "⇡${count}"
-behind     = "⇣${count}"
-diverged   = "⇕⇡${ahead_count}⇣${behind_count}"
-up_to_date = "✓"
 stashed    = ""
+staged     = ""
+renamed    = ""
+deleted    = ""
+
 
 [git_metrics]
 format = '([\[▴$added\]]($added_style))([\[▿$deleted\]]($deleted_style))'
