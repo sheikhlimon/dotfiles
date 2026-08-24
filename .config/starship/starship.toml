@@ -183,7 +183,7 @@ tag_symbol = "  "
 
 
 [git_status]
-format     = '([/[[$all_status]($style)\]]'
+format     = '(\[[$all_status]($style)\])'
 ahead      = "⇡${count} "
 diverged   = "⇕⇡${ahead_count}⇣${behind_count} "
 behind     = "⇣${count} "

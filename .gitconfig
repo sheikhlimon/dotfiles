@@ -8,8 +8,8 @@
   defaultBranch = main
 
 [user]
-  name = sheikhlimon
-  email = sheikhlimon404@gmail.com
+  name = Sheikh Limon
+  email = sheikhlimondev@gmail.com
   signingkey = /home/limon/.ssh/id_ed25519
 
 [gpg]
