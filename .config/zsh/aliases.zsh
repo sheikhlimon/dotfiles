@@ -171,6 +171,17 @@ transcode-video-480p() {
   ffmpeg -i "$1" -vf "scale=-2:480" -c:v libx264 -preset fast -crf 23 -c:a copy "${1%.*}-480p.mp4"
 }
 
+# Video remux / stream copy (fix broken seek/index without re-encoding)
+fixvideo() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: fixvideo <video_file>"
+    return 1
+  fi
+  local ext="${1##*.}"
+  local out="${1%.*}_fixed.${ext}"
+  ffmpeg -i "$1" -c copy "$out"
+}
+
 # Speed up video
 speedup-video() {
   local speed="${2:-2}"
@@ -204,4 +215,14 @@ fdd() {
   [ -n "$dir" ] && builtin cd "$dir"
 }
 
-
+# Fedora OpenShift & Oraculum shortcuts
+alias oc-prod='oc config use-context oraculum/api-ocp-fedoraproject-org:6443/sheikhlimon'
+alias oc-stg='oc config use-context oraculum/api-ocp-stg-fedoraproject-org:6443/sheikhlimon'
+alias oc-login-stg='oc login https://api.ocp.stg.fedoraproject.org:6443'
+alias oc-login-prod='oc login https://api.ocp.fedoraproject.org:6443'
+alias oc-pods='oc get pods -n oraculum'
+alias oc-builds='oc get builds -n oraculum'
+alias oc-deployments='oc get deployments -n oraculum'
+alias oc-logs='oc logs -f deployment/oraculum-worker -n oraculum --tail=50'
+alias oc-logs-api='oc logs -f deployment/oraculum-api-endpoint -n oraculum --tail=50'
+alias oc-logs-beat='oc logs -f deployment/oraculum-beat -n oraculum --tail=50'
