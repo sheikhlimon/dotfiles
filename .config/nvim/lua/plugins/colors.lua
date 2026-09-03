@@ -151,8 +151,8 @@ return {
 
       -- Helper to disable italics for specific groups
       local function disable_italic(group)
-        local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
-        if not ok or not hl or vim.tbl_isempty(hl) then
+        local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+        if not hl or vim.tbl_isempty(hl) then
           return
         end
         local function rgb_to_hex(v)
@@ -265,7 +265,7 @@ return {
     priority = 1000,
     enabled = selected_theme == "flexoki",
     config = function()
-      local is_light = omarchy_name and omarchy_name:lower():find("light")
+      local is_light = omarchy_name and omarchy_name:lower():find("light") ~= nil
       if is_light then
         vim.opt.background = "light"
         vim.cmd "colorscheme flexoki-light"
@@ -274,33 +274,87 @@ return {
         vim.cmd "colorscheme flexoki-dark"
       end
 
-      -- UI transparency - let flexoki handle syntax colors
-      vim.api.nvim_set_hl(0, "Normal", { bg = is_light and "#FFFCF0" or "NONE" })
-      vim.api.nvim_set_hl(0, "NormalNC", { bg = is_light and "#FFFCF0" or "NONE" })
+      local border_color = is_light and "#B7B5AC" or "#6F6E69"
+      local title_color = is_light and "#100F0F" or "#CECDC3"
+
+      -- Full transparency for editor background
+      vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
+
+      -- General Floating Windows
       vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
-      vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#6F6E69", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "FloatTitle", { fg = is_light and "#100F0F" or "#CECDC3", bg = "NONE", bold = true })
-      vim.api.nvim_set_hl(0, "FloatFooter", { fg = "#6F6E69", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE", fg = is_light and "#100F0F" or "#CECDC3" })
-      vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = "#6F6E69", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = is_light and "#FFFCF0" or "#282726", fg = is_light and "#100F0F" or "#CECDC3" })
-      vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE", fg = is_light and "#100F0F" or "#CECDC3" })
-      vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#6F6E69", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#B7B5AC", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "VertSplit", { fg = "#B7B5AC", bg = "NONE" })
+      vim.api.nvim_set_hl(0, "FloatBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "FloatTitle", { fg = title_color, bg = "NONE", bold = true })
+      vim.api.nvim_set_hl(0, "FloatFooter", { fg = border_color, bg = "NONE" })
+
+      -- Lazy.nvim UI
+      vim.api.nvim_set_hl(0, "LazyNormal", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "LazyBorder", { fg = border_color, bg = "NONE" })
+
+      -- Mason.nvim UI
+      vim.api.nvim_set_hl(0, "MasonNormal", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "MasonBorder", { fg = border_color, bg = "NONE" })
+
+      -- Snacks (Picker, Explorer, Modals, Backdrop)
+      vim.api.nvim_set_hl(0, "SnacksNormal", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksNormalNC", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksBackdrop", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksPicker", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksPickerInput", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksPickerList", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksPickerListBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksPickerPreview", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "SnacksPickerPreviewBorder", { fg = border_color, bg = "NONE" })
+
+      -- Snacks Notifier (Notifications)
+      for _, level in ipairs({ "Info", "Warn", "Error", "Debug", "Trace" }) do
+        vim.api.nvim_set_hl(0, "SnacksNotifier" .. level, { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "SnacksNotifierBorder" .. level, { fg = border_color, bg = "NONE" })
+        vim.api.nvim_set_hl(0, "SnacksNotifierTitle" .. level, { fg = title_color, bg = "NONE", bold = true })
+        vim.api.nvim_set_hl(0, "SnacksNotifierFooter" .. level, { fg = border_color, bg = "NONE" })
+      end
+
+      -- Noice
+      vim.api.nvim_set_hl(0, "NoiceFloat", { bg = "NONE", fg = title_color })
+      vim.api.nvim_set_hl(0, "NoiceBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "NoiceMini", { bg = "NONE", fg = title_color })
+      vim.api.nvim_set_hl(0, "NoiceMiniBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { bg = "NONE", fg = title_color })
+      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "NoicePopup", { bg = "NONE", fg = title_color })
+      vim.api.nvim_set_hl(0, "NoicePopupBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "NoiceConfirm", { bg = "NONE", fg = title_color })
+      vim.api.nvim_set_hl(0, "NoiceConfirmBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "NoiceDocSeparator", { fg = "NONE", bg = "NONE" })
+
+      -- Blink Completion
+      vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE", fg = title_color })
+      vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = is_light and "#E6E4D9" or "#282726", fg = title_color })
+      vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE", fg = title_color })
+      vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "BlinkCmpDocSeparator", { fg = "NONE", bg = "NONE" })
+
+      -- Separators
+      vim.api.nvim_set_hl(0, "WinSeparator", { fg = border_color, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "VertSplit", { fg = border_color, bg = "NONE" })
       vim.api.nvim_set_hl(0, "SnacksIndentChunk", { fg = "#BC4B00", bg = "NONE" })
-      vim.api.nvim_set_hl(0, "TermCursor", { bg = "#6F6E69", reverse = true })
-      vim.api.nvim_set_hl(0, "TermCursorNC", { bg = "#6F6E69" })
-      vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#E6E4D9", fg = "#403D2F" })
-      vim.api.nvim_set_hl(0, "DiffChange", { bg = "#F2F0E5", fg = "#403D2F" })
-      vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#FFEEE3", fg = "#AF3029" })
-      vim.api.nvim_set_hl(0, "DiffText", { bg = "#FFFCF0", fg = "#100F0F" })
-      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffAdd", { bg = "#E6E4D9", fg = "#403D2F" })
-      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffChange", { bg = "#F2F0E5", fg = "#403D2F" })
-      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffDelete", { bg = "#FFEEE3", fg = "#AF3029" })
-      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffText", { bg = "#FFFCF0", fg = "#100F0F" })
+      vim.api.nvim_set_hl(0, "TermCursor", { bg = border_color, reverse = true })
+      vim.api.nvim_set_hl(0, "TermCursorNC", { bg = border_color })
+
+      -- Diff Highlights
+      vim.api.nvim_set_hl(0, "DiffAdd", { bg = is_light and "#E6E4D9" or "#284738", fg = is_light and "#403D2F" or "#879A39" })
+      vim.api.nvim_set_hl(0, "DiffChange", { bg = is_light and "#F2F0E5" or "#343B58", fg = is_light and "#403D2F" or "#7AA89F" })
+      vim.api.nvim_set_hl(0, "DiffDelete", { bg = is_light and "#FFEEE3" or "#3A2D3A", fg = is_light and "#AF3029" or "#D14D41" })
+      vim.api.nvim_set_hl(0, "DiffText", { bg = "NONE", fg = title_color })
+      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffAdd", { bg = is_light and "#E6E4D9" or "#284738", fg = is_light and "#403D2F" or "#879A39" })
+      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffChange", { bg = is_light and "#F2F0E5" or "#343B58", fg = is_light and "#403D2F" or "#7AA89F" })
+      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffDelete", { bg = is_light and "#FFEEE3" or "#3A2D3A", fg = is_light and "#AF3029" or "#D14D41" })
+      vim.api.nvim_set_hl(0, "SnacksPickerGitDiffText", { bg = "NONE", fg = title_color })
     end,
   },
 }

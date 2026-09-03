@@ -34,6 +34,7 @@ return {
       prompt = "   ",
       layout = {
         preset = "default",
+        backdrop = false,
       },
       sources = {
         files = {
