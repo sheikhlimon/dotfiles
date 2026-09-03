@@ -76,9 +76,7 @@ return {
         },
         completion = {
           menu = {
-            auto_show = function()
-              return vim.fn.getcmdtype() == ":"
-            end,
+            auto_show = false, -- Natural command line: only shows menu when you press <Tab>
             draw = {
               columns = { { "label" } },
             },
