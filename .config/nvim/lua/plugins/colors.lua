@@ -283,6 +283,11 @@ return {
       vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
 
+      -- Visual selection (Obsidian Flexoki teal tint)
+      local visual_bg = is_light and "#D8E8E6" or "#1B3B39"
+      vim.api.nvim_set_hl(0, "Visual", { bg = visual_bg })
+      vim.api.nvim_set_hl(0, "VisualNOS", { bg = visual_bg })
+
       -- General Floating Windows
       vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "FloatBorder", { fg = border_color, bg = "NONE" })
