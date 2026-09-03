@@ -1,8 +1,7 @@
 -- Treesitter folding (only for filetypes with a parser)
 vim.api.nvim_create_autocmd("FileType", {
-  callback = function()
-    local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
-    if lang and pcall(vim.treesitter.language.inspect, lang) then
+  callback = function(ev)
+    if vim.treesitter.get_parser(ev.buf, nil, { error = false }) then
       vim.wo[0][0].foldmethod = "expr"
       vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
     end

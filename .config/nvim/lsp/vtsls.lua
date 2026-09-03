@@ -23,6 +23,11 @@ return {
     },
     javascript = {
       format = { enable = false },
+      updateImportsOnFileMove = { enabled = "always" },
+      suggest = {
+        completeFunctionCalls = true,
+        autoImports = true,
+      },
       inlayHints = {
         enumMemberValues = { enabled = true },
         parameterNames = {
@@ -36,7 +41,6 @@ return {
       autoUseWorkspaceTsdk = true,
       experimental = {
         maxInlayHintLength = 30,
-        completion = { enableServerSideFuzzyMatch = true, entriesLimit = 20 },
       },
     },
   },

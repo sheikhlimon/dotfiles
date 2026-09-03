@@ -1,4 +1,9 @@
 return {
+  capabilities = {
+    window = {
+      workDoneProgress = false,
+    },
+  },
   settings = {
     python = {
       analysis = {

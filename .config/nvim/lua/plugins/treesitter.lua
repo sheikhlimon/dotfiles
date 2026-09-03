@@ -45,26 +45,14 @@ return {
   lazy = false,
   build = ":TSUpdate",
   config = function()
-    -- Auto-install missing parsers in the background (non-blocking)
-    local ok, ts = pcall(require, "nvim-treesitter")
-    if ok then
-      local installed = ts.get_installed()
-      local missing = vim.iter(parsers)
-        :filter(function(p)
-          return not vim.tbl_contains(installed, p)
-        end)
-        :totable()
-      if #missing > 0 then
-        ts.install(missing)
-      end
-    end
+    -- Native main-branch parser installer (automatically no-ops if already installed)
+    require("nvim-treesitter").install(parsers)
 
-    -- Enable treesitter highlighting (skip markdown due to conceal_lines bug in Neovim 0.12.1)
-    local skip = { markdown = true }
+    -- Enable treesitter highlighting for buffers with an installed parser
     vim.api.nvim_create_autocmd("FileType", {
-      callback = function()
-        if not skip[vim.bo.filetype] then
-          pcall(vim.treesitter.start)
+      callback = function(ev)
+        if vim.treesitter.get_parser(ev.buf, nil, { error = false }) then
+          vim.treesitter.start(ev.buf)
         end
       end,
       desc = "Enable treesitter highlighting",
@@ -73,9 +61,7 @@ return {
     -- Enable treesitter-based indentation
     vim.api.nvim_create_autocmd("FileType", {
       callback = function()
-        if not skip[vim.bo.filetype] then
-          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        end
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end,
       desc = "Enable treesitter indentation",
     })
@@ -87,6 +73,13 @@ return {
       config = function()
         require("nvim-ts-autotag").setup()
       end,
+    },
+    {
+      "windwp/nvim-autopairs",
+      event = "InsertEnter",
+      opts = {
+        check_ts = true,
+      },
     },
   },
 }
