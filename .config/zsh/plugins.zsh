@@ -41,6 +41,12 @@ function zvm_after_init() {
   zvm_bindkey viins 'jj' zvm_exit_insert_mode
   zvm_bindkey vicmd 'H' beginning-of-line
   zvm_bindkey vicmd 'L' end-of-line
+
+  # Restore Atuin history search on Ctrl+R (without hijacking vi movement keys)
+  if (( $+widgets[atuin-search] )); then
+    zvm_bindkey viins '^r' atuin-search
+    zvm_bindkey vicmd '^r' atuin-search
+  fi
 }
 [[ -f "$ZSH_PLUGIN_DIR/zsh-vi-mode/zsh-vi-mode.plugin.zsh" ]] && source "$ZSH_PLUGIN_DIR/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 

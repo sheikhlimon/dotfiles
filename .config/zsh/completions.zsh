@@ -8,11 +8,13 @@ autoload -Uz compinit
 zcompdump="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"
 [[ -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh" ]] || mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 
-# Cache compinit once per day
-if [[ -f "$zcompdump" && "$(date +'%j')" == "$(date -r "$zcompdump" +'%j' 2>/dev/null)" ]]; then
-  compinit -C -d "$zcompdump"
-else
+# Cache compinit: only rebuild if missing or older than 24 hours (pure zsh, 0 forks)
+if [[ ! -f "$zcompdump" || -n "$zcompdump"(#qN.mh+24) ]]; then
   compinit -d "$zcompdump"
+  touch "$zcompdump"
+  [[ -f "$zcompdump" ]] && zcompile "$zcompdump" 2>/dev/null
+else
+  compinit -C -d "$zcompdump"
 fi
 
 # Completion matching and caching
