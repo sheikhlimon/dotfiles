@@ -89,11 +89,11 @@ return {
       desc = "Find Projects",
     },
     {
-      "<leader>/",
+      "<D-S-f>",
       function()
         Snacks.picker.grep()
       end,
-      desc = "Live Grep",
+      desc = "Live Grep (Cmd+Shift+F)",
     },
     {
       "<leader>fc",
@@ -183,6 +183,14 @@ return {
       end,
       desc = "Visual selection or word",
       mode = { "n", "x" },
+    },
+    {
+      "gf",
+      function()
+        -- Get the filename under cursor and put it in snacks picker
+        Snacks.picker.files({ default_text = vim.fn.expand("<cfile>") })
+      end,
+      desc = "Goto File (Fuzzy search file under cursor)",
     },
     -- LSP
     {
