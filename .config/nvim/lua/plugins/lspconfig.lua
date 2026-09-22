@@ -61,6 +61,7 @@ return {
       "gopls",
       "jsonls",
       "bashls",
+      "jdtls",
     }
 
     -- Keymaps and inlay hints via LspAttach

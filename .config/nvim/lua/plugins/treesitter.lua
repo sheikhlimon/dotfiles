@@ -18,6 +18,7 @@ local parsers = {
   "gowork",
   "html",
   "javascript",
+  "java",
   "jsdoc",
   "json",
   "lua",

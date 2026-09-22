@@ -47,6 +47,7 @@ return {
       "gopls",
       "jsonls",
       "bashls",
+      "jdtls",
     }
 
     require("mason-lspconfig").setup {
