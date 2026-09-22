@@ -32,6 +32,8 @@ return {
       "shfmt",
       "pylint",
       "goimports",
+      "java-debug-adapter",
+      "java-test",
     }
 
     -- Setup mason-lspconfig to automatically install and configure LSP servers

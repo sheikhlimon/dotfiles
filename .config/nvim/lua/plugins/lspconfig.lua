@@ -46,6 +46,10 @@ return {
       multilineTokenSupport = true,
       dynamicRegistration = false,
     }
+    -- Optimize CPU usage: https://github.com/neovim/neovim/issues/23291
+    capabilities.workspace = capabilities.workspace or {}
+    capabilities.workspace.didChangeWatchedFiles = { dynamicRegistration = false }
+    
     vim.lsp.config("*", { capabilities = capabilities })
 
     -- Enable LSP servers lazily on BufReadPre/BufNewFile
@@ -61,7 +65,6 @@ return {
       "gopls",
       "jsonls",
       "bashls",
-      "jdtls",
     }
 
     -- Keymaps and inlay hints via LspAttach
