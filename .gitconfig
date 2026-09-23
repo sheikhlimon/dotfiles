@@ -135,6 +135,11 @@
   sync = "!f() { \
     target_remote=$(git remote | grep -E '^upstream$' || echo 'origin'); \
     default_branch=$(git symbolic-ref --short refs/remotes/$target_remote/HEAD 2>/dev/null | sed \"s@^$target_remote/@@\"); \
+    if [ -z \"$default_branch\" ]; then \
+      echo \"Discovering default branch for $target_remote...\"; \
+      git remote set-head $target_remote -a >/dev/null 2>&1; \
+      default_branch=$(git symbolic-ref --short refs/remotes/$target_remote/HEAD 2>/dev/null | sed \"s@^$target_remote/@@\"); \
+    fi; \
     default_branch=${default_branch:-main}; \
     current_branch=$(git rev-parse --abbrev-ref HEAD); \
     echo \"Fetching from $target_remote/$default_branch...\"; \
@@ -159,7 +164,13 @@
 
   # Delete local branches merged into main/master (including GitHub squash merges)
   cleanup = "!f() { \
-    default_branch=$(git branch --list main master dev develop | head -n 1 | tr -d ' *'); \
+    target_remote=$(git remote | grep -E '^upstream$' || echo 'origin'); \
+    default_branch=$(git symbolic-ref --short refs/remotes/$target_remote/HEAD 2>/dev/null | sed \"s@^$target_remote/@@\"); \
+    if [ -z \"$default_branch\" ]; then \
+      echo \"Discovering default branch for $target_remote...\"; \
+      git remote set-head $target_remote -a >/dev/null 2>&1; \
+      default_branch=$(git symbolic-ref --short refs/remotes/$target_remote/HEAD 2>/dev/null | sed \"s@^$target_remote/@@\"); \
+    fi; \
     default_branch=${default_branch:-main}; \
     current_branch=$(git rev-parse --abbrev-ref HEAD); \
     if [ \"$current_branch\" != \"$default_branch\" ]; then \

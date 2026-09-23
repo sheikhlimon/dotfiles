@@ -31,3 +31,6 @@ path=(
   $path
 )
 typeset -U path
+
+# Docker/Podman Socket
+export DOCKER_HOST="unix://${XDG_RUNTIME_DIR:-/run/user/$UID}/podman/podman.sock"
