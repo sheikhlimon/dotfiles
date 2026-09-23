@@ -226,3 +226,42 @@ alias oc-deployments='oc get deployments -n oraculum'
 alias oc-logs='oc logs -f deployment/oraculum-worker -n oraculum --tail=50'
 alias oc-logs-api='oc logs -f deployment/oraculum-api-endpoint -n oraculum --tail=50'
 alias oc-logs-beat='oc logs -f deployment/oraculum-beat -n oraculum --tail=50'
+
+# Compress and speed up screen recordings for GitHub PRs
+gh_video() {
+  if [ -z "$1" ]; then
+    echo "Usage: gh_video <input.mp4> [speed_multiplier (default: 2)] [custom name...]"
+    return 1
+  fi
+  
+  local input="$1"
+  local speed="${2:-2}" # Default to 2x speed if not provided
+  
+  # Capture all remaining words as the custom name so you don't need quotes!
+  local custom_name="${@:3}"
+  local ext="${input##*.}"
+  
+  local out
+  if [ -n "$custom_name" ]; then
+    # Convert spaces in the custom name to underscores automatically
+    custom_name="${custom_name// /_}"
+    out="${custom_name}.${ext}"
+  else
+    out="pr_ready_${input}"
+  fi
+  
+  # Calculate the PTS (Presentation Time Stamp) modifier for ffmpeg
+  local pts=$(awk "BEGIN {print 1/$speed}")
+  
+  echo "Compressing and speeding up ${speed}x for GitHub..."
+  
+  ffmpeg -i "$input" \
+    -an \
+    -vcodec libx264 \
+    -crf 28 \
+    -preset fast \
+    -vf "setpts=${pts}*PTS,scale='min(1280,iw)':-2" \
+    "$out"
+    
+  echo "✅ Saved GitHub-ready video to: $out"
+}
