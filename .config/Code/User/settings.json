@@ -90,6 +90,7 @@
   "terminal.integrated.persistentSessionReviveProcess": "never",
   "terminal.integrated.rightClickBehavior": "copyPaste",
   "terminal.integrated.showExitAlert": false,
+  "vscode-neovim.neovimInitVimPaths.linux": "/home/limon/.config/Code/User/neovim.lua",
   "vscode-neovim.compositeKeys": {
     "jj": {
       "command": "vscode-neovim.escape",
