@@ -17,7 +17,7 @@ o.bind("SUPER + ALT + SPACE", "Main menu", "omarchy-menu toggle root")
 
 -- Custom Application shortcuts
 o.bind("SUPER + E", "File manager", { launch = "nautilus --new-window" })
-o.bind("SUPER + B", "Browser", { launch = "vivaldi-stable --new-window --ozone-platform=wayland" })
+o.bind("SUPER + B", "Browser", { focus = "zen", launch = "zen-browser" })
 o.bind("SUPER + D", "Docker", { launch = "kitty -e lazydocker" })
 o.bind("SUPER + C", "VS Code", { launch = "code" })
 o.bind("SUPER + H", "Pomodoro Timer", { launch = "gnome-pomodoro" })

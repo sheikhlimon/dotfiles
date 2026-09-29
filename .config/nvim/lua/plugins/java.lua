@@ -25,12 +25,28 @@ return {
           vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_path .. "/extension/server/*.jar", 1), "\n"))
         end
 
+        local cmd = {
+          "jdtls",
+          "--jvm-arg=-javaagent:" .. lombok_path,
+          "-data", workspace_dir,
+        }
+
+        local java_bin = nil
+        if vim.env.JAVA_HOME and vim.fn.filereadable(vim.env.JAVA_HOME .. "/bin/java") == 1 then
+          java_bin = vim.env.JAVA_HOME .. "/bin/java"
+        elseif vim.fn.executable("mise") == 1 then
+          local mise_java = vim.fn.trim(vim.fn.system("mise which java"))
+          if vim.v.shell_error == 0 and mise_java ~= "" then
+            java_bin = mise_java
+          end
+        end
+
+        if java_bin then
+          table.insert(cmd, 2, "--java-executable=" .. java_bin)
+        end
+
         local config = {
-          cmd = {
-            "jdtls",
-            "--jvm-arg=-javaagent:" .. lombok_path,
-            "-data", workspace_dir,
-          },
+          cmd = cmd,
           root_dir = require("jdtls.setup").find_root({".git", "mvnw", "gradlew", "pom.xml", "build.gradle"}),
           init_options = {
             bundles = bundles,

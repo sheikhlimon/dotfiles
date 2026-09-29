@@ -26,6 +26,7 @@ require("hypr.autostart")
 require("default.hypr.toggles")
 
 -- Personal environment variables
+hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Classic")
 hl.env("HYPRCURSOR_SIZE", "20")
 hl.env("XCURSOR_THEME", "Bibata-Modern-Classic")
@@ -33,7 +34,9 @@ hl.env("XCURSOR_SIZE", "20")
 hl.env("OMARCHY_SCREENSHOT_EDITOR", "/usr/bin/tensaku-edit")
 
 -- Personal window rules
-o.window("vivaldi-stable", { workspace = "1" })
+o.window("zen", {
+  workspace = "1",
+})
 o.window("code", { workspace = "3" })
 o.window("^(org\\.telegram\\.desktop)$", { workspace = "5" })
 

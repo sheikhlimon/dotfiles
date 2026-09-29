@@ -179,7 +179,7 @@
     fi; \
     to_delete=(); \
     for b in $(git for-each-ref --format='%(refname:short)' refs/heads/); do \
-      if [[ \"$b\" != \"$default_branch\" && \"$b\" != \"main\" && \"$b\" != \"master\" && \"$b\" != \"dev\" && \"$b\" != \"develop\" ]]; then \
+      if [[ \"$b\" != \"$default_branch\" && \"$b\" != \"main\" && \"$b\" != \"master\" && \"$b\" != \"dev\" && \"$b\" != \"develop\" && \"$b\" != \"stg\" && \"$b\" != \"prod\" && \"$b\" != \"staging\" && \"$b\" != \"production\" ]]; then \
         if [ -z \"$(git cherry $default_branch $b 2>/dev/null | grep -E '^\\+')\" ]; then \
           to_delete+=(\"$b\"); \
         fi; \
