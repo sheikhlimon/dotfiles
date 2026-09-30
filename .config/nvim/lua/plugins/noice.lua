@@ -74,14 +74,17 @@ return {
         lsp_doc_border = true, -- Uses vim.o.winborder
       },
       routes = {
-        -- Skip spammy LSP progress messages for diagnostics and validation (especially from jdtls)
+        -- Skip spammy LSP progress messages that JDTLS triggers while typing
         {
           filter = {
             event = "lsp",
             kind = "progress",
             any = {
               { find = "iagnostic" },
-              { find = "alida" }, -- matches Validate and validate
+              { find = "alida" },     -- Matches Validate
+              { find = "econcil" },   -- Matches Reconciling
+              { find = "uilding workspace" }, -- Matches Building workspace
+              { find = "ackground task" },    -- Matches background task
             },
           },
           opts = { skip = true },

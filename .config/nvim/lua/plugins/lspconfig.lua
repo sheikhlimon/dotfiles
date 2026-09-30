@@ -79,6 +79,13 @@ return {
         local function map(keys, func, desc)
           vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
         end
+
+        -- Disable Semantic Tokens to fix input lag (especially for Java/JDTLS)
+        -- This forces Neovim to rely on fast Treesitter highlighting instead
+        if client then
+          client.server_capabilities.semanticTokensProvider = nil
+        end
+
         map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
         map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 

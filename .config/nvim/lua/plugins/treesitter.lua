@@ -52,6 +52,13 @@ return {
     -- Enable treesitter highlighting for buffers with an installed parser
     vim.api.nvim_create_autocmd("FileType", {
       callback = function(ev)
+        -- Cap treesitter on large files to prevent input lag
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(ev.buf))
+        if ok and stats and stats.size > max_filesize then
+          return -- skip treesitter for large files
+        end
+
         if vim.treesitter.get_parser(ev.buf, nil, { error = false }) then
           vim.treesitter.start(ev.buf)
         end
