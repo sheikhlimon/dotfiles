@@ -52,10 +52,9 @@ return {
 
     require("mason-lspconfig").setup {
       ensure_installed = mason_servers,
-      automatic_installation = true, -- Auto-install servers, manual config gives us control
+      automatic_installation = true,
+      automatic_enable = false, -- Native 0.11 lspconfig handles enablement
     }
-
-    -- Note: Let lspconfig handle the server setup manually
 
     -- Setup mason-tool-installer to auto-install tools on first start
     require("mason-tool-installer").setup {

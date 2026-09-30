@@ -52,8 +52,7 @@ return {
     
     vim.lsp.config("*", { capabilities = capabilities })
 
-    -- Enable LSP servers lazily on BufReadPre/BufNewFile
-    vim.lsp.enable {
+    local servers = {
       "vtsls",
       "html",
       "cssls",
@@ -67,6 +66,9 @@ return {
       "bashls",
       "jdtls",
     }
+
+    -- Enable LSP servers lazily on BufReadPre/BufNewFile
+    vim.lsp.enable(servers)
 
     -- Keymaps and inlay hints via LspAttach
     vim.api.nvim_create_autocmd("LspAttach", {

@@ -10,6 +10,9 @@ return {
         enabled = false, -- Snacks.nvim handles notifications
       },
       lsp = {
+        progress = {
+          enabled = true,
+        },
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["cmp.entry.get_documentation"] = true,
@@ -49,11 +52,7 @@ return {
             },
           },
         },
-        progress = {
-          enabled = true,
-          throttle = 1000 / 30,
-          view = "mini",
-        },
+
       },
       messages = {
         enabled = true,
@@ -75,6 +74,18 @@ return {
         lsp_doc_border = true, -- Uses vim.o.winborder
       },
       routes = {
+        -- Skip spammy LSP progress messages for diagnostics and validation (especially from jdtls)
+        {
+          filter = {
+            event = "lsp",
+            kind = "progress",
+            any = {
+              { find = "iagnostic" },
+              { find = "alida" }, -- matches Validate and validate
+            },
+          },
+          opts = { skip = true },
+        },
         -- Skip common noisy messages
         {
           filter = {
