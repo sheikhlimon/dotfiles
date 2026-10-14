@@ -1,8 +1,6 @@
 git:
   overrideGpg: true
 gui:
-  authorColors:
-    "*": magenta
   showNumstatInFilesView: true
   skipRewordInEditorWarning: true
   theme:
@@ -15,6 +13,8 @@ gui:
       - "#E6E4D9" # Light cream background for readable text in light mode
     optionsTextColor:
       - "#6F6E69"
+    authorColors:
+      "*": magenta
 keybinding:
   files:
     viewResetOptions: <disabled>
