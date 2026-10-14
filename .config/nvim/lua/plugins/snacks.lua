@@ -89,11 +89,11 @@ return {
       desc = "Find Projects",
     },
     {
-      "<D-S-f>",
+      "<leader>/",
       function()
         Snacks.picker.grep()
       end,
-      desc = "Live Grep (Cmd+Shift+F)",
+      desc = "Live Grep",
     },
     {
       "<leader>fc",
@@ -201,6 +201,13 @@ return {
       desc = "Goto Definition",
     },
     {
+      "gD",
+      function()
+        Snacks.picker.lsp_declarations()
+      end,
+      desc = "Goto Declaration",
+    },
+    {
       "gr",
       function()
         Snacks.picker.lsp_references()
@@ -209,7 +216,7 @@ return {
       desc = "References",
     },
     {
-      "gI",
+      "gi",
       function()
         Snacks.picker.lsp_implementations()
       end,
@@ -223,18 +230,32 @@ return {
       desc = "Goto Type Definition",
     },
     {
-      "<leader>sS",
+      "<leader>ds",
       function()
         Snacks.picker.lsp_symbols()
       end,
-      desc = "LSP Symbols",
+      desc = "LSP Document Symbols",
     },
     {
-      "<leader>ss",
+      "<leader>ws",
       function()
         Snacks.picker.lsp_workspace_symbols()
       end,
       desc = "LSP Workspace Symbols",
+    },
+    {
+      "<leader>ci",
+      function()
+        Snacks.picker.lsp_incoming_calls()
+      end,
+      desc = "LSP Incoming Calls",
+    },
+    {
+      "<leader>co",
+      function()
+        Snacks.picker.lsp_outgoing_calls()
+      end,
+      desc = "LSP Outgoing Calls",
     },
     {
       "<leader>sb",

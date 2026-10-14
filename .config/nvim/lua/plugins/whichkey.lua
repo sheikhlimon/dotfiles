@@ -5,11 +5,14 @@ return {
     preset = "helix",
     delay = 0,
     spec = {
+      { "<leader>c", group = "Code / Calls" },
+      { "<leader>d", group = "Document" },
       { "<leader>f", group = "Find / Files" },
       { "<leader>g", group = "Git" },
       { "<leader>h", group = "Git Hunk" },
       { "<leader>s", group = "Search / Symbols" },
       { "<leader>t", group = "Toggle" },
+      { "<leader>w", group = "Workspace" },
     },
     win = {
       height = {

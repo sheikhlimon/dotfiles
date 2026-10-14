@@ -1,3 +1,6 @@
+# Mise version manager
+command -v mise &>/dev/null && eval "$(mise activate zsh)"
+
 # Starship prompt
 command -v starship &>/dev/null && eval "$(starship init zsh)"
 
