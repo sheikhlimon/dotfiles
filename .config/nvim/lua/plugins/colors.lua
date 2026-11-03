@@ -70,11 +70,13 @@ if vim.fn.filereadable(theme_file) == 1 and vim.uv and vim.uv.new_fs_event then
   end
 end
 
--- Ensure StatusLine stays transparent across all colorschemes
+-- Ensure StatusLine and MsgArea stay transparent across all colorschemes
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
     vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
     vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "MsgArea", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NoiceCmdline", { bg = "NONE" })
   end,
 })
 
@@ -223,6 +225,7 @@ return {
       vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "MsgArea", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" }) -- completely transparent float
       vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#4a4a4a", bg = "NONE" }) -- transparent outside, visible inside (ui gray)
       vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#e0e0e0", bg = "NONE", bold = true }) -- Melange foreground
@@ -296,6 +299,7 @@ return {
       vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "MsgArea", { bg = "NONE" })
 
       -- Visual selection (Obsidian Flexoki teal tint)
       local visual_bg = is_light and "#D8E8E6" or "#1B3B39"
@@ -338,6 +342,7 @@ return {
       end
 
       -- Noice
+      vim.api.nvim_set_hl(0, "NoiceCmdline", { bg = "NONE", fg = title_color })
       vim.api.nvim_set_hl(0, "NoiceFloat", { bg = "NONE", fg = title_color })
       vim.api.nvim_set_hl(0, "NoiceBorder", { fg = border_color, bg = "NONE" })
       vim.api.nvim_set_hl(0, "NoiceMini", { bg = "NONE", fg = title_color })
