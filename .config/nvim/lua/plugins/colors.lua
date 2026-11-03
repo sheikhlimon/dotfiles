@@ -70,6 +70,14 @@ if vim.fn.filereadable(theme_file) == 1 and vim.uv and vim.uv.new_fs_event then
   end
 end
 
+-- Ensure StatusLine stays transparent across all colorschemes
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+  end,
+})
+
 return {
   -- Rose Pine
   {
@@ -92,6 +100,8 @@ return {
           NormalNC = { bg = "NONE" },
           CursorLine = { bg = "NONE", fg = "NONE" },
           CursorLineNr = { bg = "NONE" },
+          StatusLine = { bg = "NONE" },
+          StatusLineNC = { bg = "NONE" },
           NormalFloat = { bg = "NONE" }, -- completely transparent float
           FloatBorder = { fg = "#908caa", bg = "NONE" }, -- transparent outside, visible inside
           FloatTitle = { fg = "#c4a7e7", bg = "NONE", bold = true }, -- transparent background like melange
@@ -211,6 +221,8 @@ return {
       vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE", fg = "NONE" })
       vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" }) -- completely transparent float
       vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#4a4a4a", bg = "NONE" }) -- transparent outside, visible inside (ui gray)
       vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#e0e0e0", bg = "NONE", bold = true }) -- Melange foreground
@@ -282,6 +294,8 @@ return {
       vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
       vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+      vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
 
       -- Visual selection (Obsidian Flexoki teal tint)
       local visual_bg = is_light and "#D8E8E6" or "#1B3B39"

@@ -23,7 +23,17 @@ return {
   opts = {
     options = {
       icons_enabled = true,
-      theme = "auto",
+      theme = function()
+        local theme = require("lualine.utils.loader").load_theme("auto")
+        for _, mode in pairs(theme) do
+          for _, section in ipairs({ "b", "c", "x", "y" }) do
+            if mode[section] then
+              mode[section].bg = "None"
+            end
+          end
+        end
+        return theme
+      end,
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
       always_divide_middle = true,
