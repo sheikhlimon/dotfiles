@@ -81,7 +81,7 @@
   line-numbers-zero-style = "#B7B5AC"
   file-style = "bold #100F0F"
   file-decoration-style = "#B7B5AC ul"
-  file-modified-label = ""
+  file-modified-label = "modified:"
   hunk-header-style = "syntax bold"
   hunk-header-decoration-style = "#CECDC3 box"
 
