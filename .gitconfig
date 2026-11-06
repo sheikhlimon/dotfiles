@@ -46,25 +46,21 @@
 
 # Merge & Conflict Resolution
 [merge]
-  tool = meld
+  tool = nvimdiff
   conflictstyle = zdiff3
 
 [mergetool]
   prompt = false
   keepBackup = false
 
-[mergetool "meld"]
-  cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
-  trustExitCode = true
-
 # Diff settings
 [diff]
-  tool = meld
+  tool = nvimdiff
   algorithm = histogram
   colorMoved = default
 
-[difftool "meld"]
-  cmd = meld "$LOCAL" "$REMOTE"
+[difftool]
+  prompt = false
 
 # Delta Pager (Flexoki Light theme)
 [interactive]
@@ -85,6 +81,7 @@
   line-numbers-zero-style = "#B7B5AC"
   file-style = "bold #100F0F"
   file-decoration-style = "#B7B5AC ul"
+  file-modified-label = ""
   hunk-header-style = "syntax bold"
   hunk-header-decoration-style = "#CECDC3 box"
 
