@@ -36,7 +36,6 @@
 -- Variable refresh rate (0 = off, 1 = always, 2 = fullscreen only).
 -- hl.config({ misc = { vrr = 0 } })
 
--- Kept from your earlier monitors.lua, which is saved as monitors.lua.bak.1793523975.
 -- Retina-class 14" display settings for ThinkPad X1 Carbon 7th Gen
 hl.monitor({ output = "eDP-1", mode = "2560x1440@60", position = "0x0", scale = 2 })
 
