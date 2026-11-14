@@ -1,16 +1,14 @@
-# Claude skills and settings
+# Claude settings and themes
 .claude/settings.json
 .claude/settings.local.json
 .claude/statusline-command.sh
-.claude/skills
 .claude/themes
 
-# Antigravity CLI and Gemini credentials
+# Antigravity CLI and Gemini credentials / settings
 .gemini/settings.json
 .gemini/oauth_creds.json
 .gemini/google_accounts.json
-.gemini/config
-.gemini/config/skills/
+.gemini/config/projects
 .gemini/antigravity-cli/settings.json
 
 # OpenCode private accounts
