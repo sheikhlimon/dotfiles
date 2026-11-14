@@ -193,3 +193,7 @@
 
 [include]
   path = ~/.gitconfig.local
+[credential "https://forge.fedoraproject.org"]
+	useHttpPath = true
+	helper = 
+	helper = !GITEA_CLI_CONFIG_DIR=/home/limon/.config/gitea-cli /usr/bin/gt auth git-credential --host https://forge.fedoraproject.org
